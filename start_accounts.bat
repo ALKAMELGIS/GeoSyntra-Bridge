@@ -2,7 +2,7 @@
 REM GeoSyntra Bridge - with accounts: landing page, sign-up / sign-in, credits, plans and the owner console.
 REM Runs on http://127.0.0.1:8610 with its own data folder (data_accounts), next to the local version (start_windows.bat).
 set GSB_AUTH_MODE=accounts
-if exist "%~dp0owner_email.txt" set /p GSB_OWNER_EMAILS=<"%~dp0owner_email.txt"
+REM The first account created becomes the owner (or set GSB_OWNER_EMAILS before starting).
 set GSB_DATA_DIR=%~dp0data_accounts
 REM First run creates a local virtual environment; requirements are re-installed whenever requirements.txt changes.
 cd /d "%~dp0"

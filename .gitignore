@@ -8,7 +8,6 @@ mapping_rules/profiles/
 *.gdb/
 
 # local, never committed
-owner_email.txt
 data_accounts/
 data_commercial/
 .env

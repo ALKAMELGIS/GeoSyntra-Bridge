@@ -67,7 +67,13 @@ class Accounts:
         return u
 
     def role_for(self, email: str) -> str:
-        return "owner" if email.strip().lower() in owner_emails() else "user"
+        """Owners are the e-mails in GSB_OWNER_EMAILS. Without that setting, the first account created on a new
+        installation becomes the owner — nothing to configure; later accounts are users."""
+        if email.strip().lower() in owner_emails():
+            return "owner"
+        if not owner_emails() and not self.store.one("SELECT id FROM users WHERE role = 'owner' LIMIT 1"):
+            return "owner"
+        return "user"
 
 
 def _ip(request: Request) -> str:
