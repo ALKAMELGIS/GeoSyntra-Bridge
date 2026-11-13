@@ -11,6 +11,8 @@ Settings (environment):
   GSB_AUTO_UPDATE   1 (default) / 0 to switch it off
   GSB_UPDATE_REPO   owner/repo (default ALKAMELGIS/GeoSyntra-Bridge)
   GSB_UPDATE_BRANCH branch (default main)
+  GSB_GITHUB_TOKEN  a read-only GitHub token, needed only when the repository is private
+                    (or put it in github_token.txt next to the launchers)
 """
 from __future__ import annotations
 
@@ -34,15 +36,32 @@ INTERVAL = 30 * 60
 # never written by an update: local data, environments, local-only tools, launchers holding local settings
 SKIP_DIRS = (".git/", ".venv/", "venv/", "data/", "data_accounts/", "data_commercial/", "output/", "web/node_modules/",
              "tools/libredwg/", "tools/oda/app/", "_previous_version/")
-SKIP_FILES = {"start_accounts.bat", "start_windows_commercial.bat", "owner_email.txt", ".env", ".gsb_update.json"}
+SKIP_FILES = {"start_accounts.bat", "start_windows_commercial.bat", "owner_email.txt", ".env", ".gsb_update.json", "github_token.txt"}
 
 _lock = threading.Lock()
 status: Dict[str, Any] = {"enabled": os.environ.get("GSB_AUTO_UPDATE", "1") != "0", "repo": REPO, "branch": BRANCH,
                           "checked_at": None, "latest": None, "installed": None, "last_update": None, "error": None}
 
 
+def _token() -> str:
+    t = os.environ.get("GSB_GITHUB_TOKEN", "")
+    if not t:
+        try:
+            with open(os.path.join(ROOT, "github_token.txt"), encoding="utf-8") as f:
+                t = f.read()
+        except OSError:
+            pass
+    return t.strip()
+
+
 def _get(url: str, timeout: int = 30) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": "git/2.40 GeoSyntra-Bridge-updater"})
+    h = {"User-Agent": "git/2.40 GeoSyntra-Bridge-updater"}
+    tok = _token()
+    if tok:
+        import base64
+        h["Authorization"] = ("Basic " + base64.b64encode(f"x-access-token:{tok}".encode()).decode()
+                              if url.startswith("https://github.com/") else f"Bearer {tok}")
+    req = urllib.request.Request(url, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as r:  # noqa: S310 - fixed https GitHub URLs
         return r.read()
 
@@ -72,7 +91,9 @@ def _skip(rel: str) -> bool:
 
 def apply(sha: str) -> Dict[str, Any]:
     """Download the commit and write every changed file over this installation (atomically, file by file)."""
-    data = _get(f"https://codeload.github.com/{REPO}/zip/{sha}", timeout=300)
+    url = (f"https://api.github.com/repos/{REPO}/zipball/{sha}" if _token()   # private: through the API with the token
+           else f"https://codeload.github.com/{REPO}/zip/{sha}")
+    data = _get(url, timeout=300)
     z = zipfile.ZipFile(io.BytesIO(data))
     names = [n for n in z.namelist() if not n.endswith("/")]
     top = names[0].split("/", 1)[0] + "/" if names else ""
@@ -126,7 +147,10 @@ def check_and_update(force: bool = False) -> Dict[str, Any]:
                 print(f"GeoSyntra Bridge: updated from GitHub ({len(r['changed'])} files, {sha[:7]})", flush=True)
             return {"updated": bool(r["changed"]), "sha": sha, "files": r["changed"][:50], "count": len(r["changed"])}
         except Exception as e:  # noqa: BLE001 - offline, rate-limited… try again next round
-            status.update(checked_at=time.time(), error=str(e)[:300])
+            msg = str(e)[:300]
+            if "404" in msg and not _token():
+                msg += " — the GitHub repository is private: make it public or add a read-only token in github_token.txt"
+            status.update(checked_at=time.time(), error=msg)
             return {"updated": False, "error": status["error"]}
 
 

@@ -16,3 +16,4 @@ data_commercial/
 
 .gsb_update.json
 *.gsbtmp
+github_token.txt
