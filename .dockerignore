@@ -1,0 +1,9 @@
+.venv
+data
+data_commercial
+web/node_modules
+**/__pycache__
+tests
+test_results
+_previous_version
+*.gdb

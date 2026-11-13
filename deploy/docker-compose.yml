@@ -1,0 +1,19 @@
+# One server for every user of the organisation: browser access, accounts, credits, owner console.
+# Copy deploy/commercial-settings.example to deploy/.env and fill it in (never commit real secrets).
+services:
+  bridge:
+    build: ..
+    image: geosyntra-bridge
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      GSB_AUTH_MODE: ${GSB_AUTH_MODE:-accounts}
+      GSB_WORKERS: ${GSB_WORKERS:-4}            # conversions running at the same time (≈ CPU cores − 1)
+      GSB_MAX_UPLOAD_MB: ${GSB_MAX_UPLOAD_MB:-500}
+      GSB_JOB_TTL_HOURS: ${GSB_JOB_TTL_HOURS:-72}
+    volumes:
+      - bridge-data:/data                       # jobs, accounts, project memory
+    ports:
+      - "127.0.0.1:8600:8600"                   # put an HTTPS reverse proxy (nginx / Caddy) in front
+volumes:
+  bridge-data:

@@ -1,0 +1,388 @@
+{
+  "_about": "Engineering thesaurus used by the semantic matcher. Each concept lists the words/phrases (English and Arabic) that mean the same asset or material in CAD keys, layer names, block names and schema class names. Add terms freely — no code change needed.",
+  "concepts": {
+    "curb": [
+      "curb",
+      "kerb",
+      "curbstone",
+      "kerbstone",
+      "heel kerb",
+      "edge kerb",
+      "بردورة",
+      "بردورات",
+      "حجر رصيف"
+    ],
+    "edge": [
+      "edge",
+      "edger",
+      "edging",
+      "edges",
+      "border",
+      "حافة",
+      "حواف"
+    ],
+    "paver": [
+      "paver",
+      "paving",
+      "pavement",
+      "interlock",
+      "interlocking",
+      "block paving",
+      "paving block",
+      "tile",
+      "tiles",
+      "بلاط",
+      "انترلوك",
+      "رصف"
+    ],
+    "pedestrian": [
+      "pedestrian",
+      "walkway",
+      "footpath",
+      "sidewalk",
+      "promenade",
+      "plaza",
+      "ممشى",
+      "رصيف مشاة"
+    ],
+    "bench": [
+      "bench",
+      "seat",
+      "seating",
+      "pebble seat",
+      "مقعد",
+      "مقاعد",
+      "جلسة"
+    ],
+    "planter": [
+      "planter",
+      "planters",
+      "planter box",
+      "planterbox",
+      "raised planter",
+      "flower pot",
+      "pot",
+      "حوض زراعة",
+      "أحواض"
+    ],
+    "boulder": [
+      "boulder",
+      "boulders",
+      "rock",
+      "rocks",
+      "صخور",
+      "صخرة"
+    ],
+    "gravel": [
+      "gravel",
+      "aggregate",
+      "crushed gravel",
+      "pebble",
+      "pebbles",
+      "chipping",
+      "حصى",
+      "حصمة"
+    ],
+    "stone": [
+      "stone",
+      "stones",
+      "riprap",
+      "cobble",
+      "cobblestone",
+      "حجر",
+      "أحجار"
+    ],
+    "concrete": [
+      "concrete",
+      "precast",
+      "pcc",
+      "in situ",
+      "cast in situ",
+      "خرسانة",
+      "بريكاست"
+    ],
+    "sand": [
+      "sand",
+      "sandy",
+      "رمل",
+      "رملية"
+    ],
+    "soil": [
+      "soil",
+      "planting medium",
+      "sweet soil",
+      "topsoil",
+      "growing medium",
+      "تربة",
+      "تربة زراعية"
+    ],
+    "mulch": [
+      "mulch",
+      "woodchip",
+      "woodchips",
+      "bark",
+      "نشارة"
+    ],
+    "fence": [
+      "fence",
+      "fencing",
+      "chain link",
+      "chainlink",
+      "سياج",
+      "سور شبكي"
+    ],
+    "wall": [
+      "wall",
+      "boundary wall",
+      "جدار",
+      "سور"
+    ],
+    "retaining": [
+      "retaining",
+      "retaining wall",
+      "جدار استنادي"
+    ],
+    "handrail": [
+      "handrail",
+      "railing",
+      "balustrade",
+      "درابزين"
+    ],
+    "bollard": [
+      "bollard",
+      "bollards",
+      "عمود حماية"
+    ],
+    "light": [
+      "light",
+      "lighting",
+      "lamp",
+      "luminaire",
+      "lantern",
+      "إنارة",
+      "عمود إنارة"
+    ],
+    "bin": [
+      "bin",
+      "litter",
+      "litterbin",
+      "waste bin",
+      "trash",
+      "سلة",
+      "سلة مهملات"
+    ],
+    "shade": [
+      "shade",
+      "canopy",
+      "pergola",
+      "umbrella",
+      "مظلة",
+      "مظلات"
+    ],
+    "sign": [
+      "sign",
+      "signage",
+      "signboard",
+      "لوحة",
+      "لافتة"
+    ],
+    "play": [
+      "play",
+      "playground",
+      "play equipment",
+      "العاب",
+      "ألعاب"
+    ],
+    "fountain": [
+      "fountain",
+      "water feature",
+      "نافورة"
+    ],
+    "toilet": [
+      "toilet",
+      "restroom",
+      "wc",
+      "دورة مياه"
+    ],
+    "track": [
+      "track",
+      "jogging",
+      "running track",
+      "cycle track",
+      "مسار",
+      "مضمار"
+    ],
+    "cctv": [
+      "cctv",
+      "camera",
+      "كاميرا"
+    ],
+    "drinking": [
+      "drinking",
+      "cooler",
+      "water cooler",
+      "برادة"
+    ],
+    "picnic": [
+      "picnic",
+      "picnic table",
+      "table",
+      "طاولة"
+    ],
+    "gate": [
+      "gate",
+      "بوابة"
+    ],
+    "statue": [
+      "statue",
+      "sculpture",
+      "art",
+      "public art",
+      "مجسم"
+    ],
+    "building": [
+      "building",
+      "structure",
+      "مبنى"
+    ],
+    "lawn": [
+      "lawn",
+      "grass",
+      "turf",
+      "نجيل",
+      "عشب"
+    ],
+    "groundcover": [
+      "groundcover",
+      "ground cover",
+      "غطاء أرضي",
+      "gc"
+    ],
+    "shrub": [
+      "shrub",
+      "shrubs",
+      "bush",
+      "شجيرة",
+      "شجيرات",
+      "sc"
+    ],
+    "palm": [
+      "palm",
+      "palms",
+      "date palm",
+      "نخيل",
+      "نخلة",
+      "palme",
+      "pa"
+    ],
+    "tree": [
+      "tree",
+      "trees",
+      "شجرة",
+      "أشجار",
+      "tr"
+    ],
+    "hedge": [
+      "hedge",
+      "hedges",
+      "سياج نباتي"
+    ],
+    "flower": [
+      "flower",
+      "flowers",
+      "seasonal",
+      "زهور"
+    ],
+    "pipe": [
+      "pipe",
+      "pipeline",
+      "أنبوب",
+      "مواسير"
+    ],
+    "manhole": [
+      "manhole",
+      "mh",
+      "chamber",
+      "غرفة تفتيش"
+    ],
+    "valve": [
+      "valve",
+      "صمام",
+      "محبس"
+    ],
+    "pole": [
+      "pole",
+      "mast",
+      "عمود"
+    ],
+    "cable": [
+      "cable",
+      "كابل"
+    ],
+    "lake": [
+      "lake",
+      "pond",
+      "بحيرة"
+    ],
+    "aluminium": [
+      "aluminium",
+      "aluminum",
+      "ألمنيوم"
+    ],
+    "steel": [
+      "steel",
+      "stainless",
+      "ss",
+      "حديد",
+      "ستيل"
+    ],
+    "wood": [
+      "wood",
+      "wooden",
+      "timber",
+      "خشب"
+    ],
+    "granite": [
+      "granite",
+      "جرانيت"
+    ],
+    "marble": [
+      "marble",
+      "رخام"
+    ],
+    "plant": [
+      "plant",
+      "plants",
+      "planting",
+      "succulent",
+      "نبات",
+      "نباتات"
+    ]
+  },
+  "stopwords": [
+    "hs",
+    "type",
+    "hatch",
+    "layer",
+    "new",
+    "existing",
+    "proposed",
+    "the",
+    "of",
+    "and",
+    "with",
+    "mm",
+    "dia",
+    "grey",
+    "gray",
+    "beige",
+    "dark",
+    "light grey",
+    "natural",
+    "mix",
+    "round",
+    "triangular",
+    "area",
+    "unit"
+  ]
+}

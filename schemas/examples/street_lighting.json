@@ -1,0 +1,710 @@
+{
+  "format": 2,
+  "schema_id": "street_lighting",
+  "display_name": "Street Lighting & LV Electrical",
+  "version": "1.0-draft",
+  "status": "draft",
+  "discipline": "Electrical",
+  "description": "Street-lighting poles, feeder pillars, LV cables and ducts.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "name": "WGS 84 / UTM zone 40N",
+    "verified": false
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "StreetLighting"
+    }
+  ],
+  "domains": [
+    {
+      "name": "AssetStatus",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PRO": "Proposed",
+        "UC": "Under Construction",
+        "EXI": "Existing",
+        "ABD": "Abandoned",
+        "REM": "Removed",
+        "UNK": "Unknown"
+      }
+    },
+    {
+      "name": "AssetCondition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "Unknown": "Unknown"
+      }
+    },
+    {
+      "name": "FlowDirection",
+      "domain_type": "coded",
+      "field_type": "SMALLINTEGER",
+      "description": "",
+      "coded_values": {
+        "1": "With digitized",
+        "2": "Against digitized",
+        "0": "Undetermined"
+      }
+    },
+    {
+      "name": "LuminaireType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "LED": "LED",
+        "HPS": "High Pressure Sodium",
+        "MH": "Metal Halide",
+        "IND": "Induction"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "LightPole",
+      "alias": "Light Pole",
+      "geometry_type": "point",
+      "feature_dataset": "StreetLighting",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "SUBTYPE",
+          "field_type": "SMALLINTEGER",
+          "alias": "Pole Type"
+        },
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 30,
+          "required": true
+        },
+        {
+          "name": "POLE_HEIGHT",
+          "field_type": "DOUBLE",
+          "alias": "Height (m)"
+        },
+        {
+          "name": "LUMINAIRE",
+          "field_type": "TEXT",
+          "length": 30,
+          "domain": "LuminaireType"
+        },
+        {
+          "name": "WATTAGE",
+          "field_type": "INTEGER",
+          "alias": "Wattage (W)"
+        },
+        {
+          "name": "CIRCUIT_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "FP_ID",
+          "field_type": "TEXT",
+          "alias": "Feeder Pillar",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "light",
+          "lamp",
+          "\\bsl\\b",
+          "pole",
+          "\\blp\\b"
+        ],
+        "block_name_patterns": [
+          "light",
+          "lamp",
+          "pole",
+          "\\blp"
+        ],
+        "text_keywords": [
+          "pole",
+          "lp",
+          "light"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "subtype_field": "SUBTYPE",
+      "subtypes": [
+        {
+          "code": 1,
+          "name": "Single Arm",
+          "cad_patterns": [
+            "single",
+            "\\b1[\\s_-]*arm"
+          ]
+        },
+        {
+          "code": 2,
+          "name": "Double Arm",
+          "cad_patterns": [
+            "double",
+            "\\b2[\\s_-]*arm"
+          ]
+        },
+        {
+          "code": 3,
+          "name": "High Mast",
+          "cad_patterns": [
+            "mast",
+            "\\bhm\\b"
+          ]
+        },
+        {
+          "code": 4,
+          "name": "Bollard Light",
+          "cad_patterns": [
+            "bollard"
+          ]
+        }
+      ],
+      "default_subtype": 1,
+      "id_field": "POLE_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "POLE_ID": [
+          "ID",
+          "TAG",
+          "NO",
+          "POLE_NO"
+        ],
+        "POLE_HEIGHT": [
+          "H",
+          "HT",
+          "HEIGHT"
+        ],
+        "WATTAGE": [
+          "W",
+          "WATT"
+        ]
+      }
+    },
+    {
+      "name": "FeederPillar",
+      "alias": "Feeder Pillar",
+      "geometry_type": "point",
+      "feature_dataset": "StreetLighting",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "FP_ID",
+          "field_type": "TEXT",
+          "length": 30,
+          "required": true
+        },
+        {
+          "name": "RATING_A",
+          "field_type": "INTEGER",
+          "alias": "Rating (A)"
+        },
+        {
+          "name": "SUBSTATION",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "feeder",
+          "pillar",
+          "\\bfp\\b",
+          "\\bdb\\b"
+        ],
+        "block_name_patterns": [
+          "feeder",
+          "pillar",
+          "\\bfp"
+        ],
+        "text_keywords": [
+          "fp",
+          "feeder pillar"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "FP_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "FP_ID": [
+          "ID",
+          "TAG",
+          "NO"
+        ]
+      }
+    },
+    {
+      "name": "LVCable",
+      "alias": "LV Cable",
+      "geometry_type": "line",
+      "feature_dataset": "StreetLighting",
+      "category": "edge",
+      "fields": [
+        {
+          "name": "CABLE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "CABLE_SIZE",
+          "field_type": "TEXT",
+          "alias": "Cable Size",
+          "length": 30
+        },
+        {
+          "name": "CORES",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "CIRCUIT_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "FROM_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "TO_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "cable",
+          "\\blv\\b",
+          "\\bcbl\\b",
+          "elec"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "cable",
+          "lv",
+          "xlpe",
+          "sqmm"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "id_field": "CABLE_ID",
+      "network_role": "edge"
+    },
+    {
+      "name": "Duct",
+      "alias": "Duct",
+      "geometry_type": "line",
+      "feature_dataset": "StreetLighting",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "DUCT_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DUCT_DIA",
+          "field_type": "INTEGER",
+          "alias": "Duct Diameter (mm)"
+        },
+        {
+          "name": "WAYS",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "duct",
+          "sleeve",
+          "conduit"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "duct",
+          "sleeve"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "id_field": "DUCT_ID"
+    },
+    {
+      "name": "HandHole",
+      "alias": "Hand Hole / Pull Box",
+      "geometry_type": "point",
+      "feature_dataset": "StreetLighting",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "HH_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "COVER_TYPE",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "hand[\\s_-]*hole",
+          "\\bhh\\b",
+          "pull[\\s_-]*box",
+          "jb"
+        ],
+        "block_name_patterns": [
+          "\\bhh",
+          "hand",
+          "pull"
+        ],
+        "text_keywords": [
+          "hh",
+          "handhole"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "HH_ID",
+      "network_role": "junction"
+    }
+  ],
+  "label_rules": [
+    {
+      "field": "POLE_ID",
+      "pattern": "\\b(?P<v>(?:LP|SL|P)[-_]?\\d{1,6}[A-Z]?)\\b",
+      "value_type": "upper",
+      "targets": [
+        "LightPole"
+      ]
+    },
+    {
+      "field": "FP_ID",
+      "pattern": "\\b(?P<v>FP[-_]?\\d{1,5})\\b",
+      "value_type": "upper",
+      "targets": [
+        "FeederPillar",
+        "LightPole"
+      ]
+    },
+    {
+      "field": "POLE_HEIGHT",
+      "pattern": "\\b(?:H|HT)\\s*[=:]?\\s*(?P<v>\\d{1,2}(?:\\.\\d+)?)\\s*M\\b",
+      "value_type": "float",
+      "targets": [
+        "LightPole"
+      ]
+    },
+    {
+      "field": "WATTAGE",
+      "pattern": "\\b(?P<v>\\d{2,4})\\s*W\\b",
+      "value_type": "int",
+      "targets": [
+        "LightPole"
+      ]
+    },
+    {
+      "field": "LUMINAIRE",
+      "pattern": "\\b(?P<v>LED|HPS|MH)\\b",
+      "value_type": "upper",
+      "targets": [
+        "LightPole"
+      ]
+    },
+    {
+      "field": "CABLE_SIZE",
+      "pattern": "\\b(?P<v>\\d\\s*[Cx×]\\s*\\d{1,3}(?:\\.\\d)?\\s*(?:SQ\\.?\\s*MM|MM2|MM²))",
+      "value_type": "upper",
+      "targets": [
+        "LVCable"
+      ]
+    },
+    {
+      "field": "CIRCUIT_NO",
+      "pattern": "\\b(?:CCT|CIRCUIT|C)\\s*[-_#]?\\s*(?P<v>\\d{1,3}[A-Z]?)\\b",
+      "value_type": "upper",
+      "targets": [
+        "LVCable",
+        "LightPole"
+      ]
+    },
+    {
+      "field": "LENGTH",
+      "pattern": "\\bL\\s*[=:]\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "targets": [
+        "LVCable"
+      ]
+    }
+  ],
+  "label_search_radius": 5.0,
+  "network": {
+    "enabled": true,
+    "flow": "none",
+    "edges": [
+      "LVCable"
+    ],
+    "junctions": [
+      "LightPole",
+      "FeederPillar",
+      "HandHole"
+    ],
+    "snap_tolerance": 0.25,
+    "upstream_node_field": "FROM_NODE",
+    "downstream_node_field": "TO_NODE"
+  },
+  "relationships": [
+    {
+      "name": "FeederPillar_LightPole",
+      "origin": "FeederPillar",
+      "destination": "LightPole",
+      "origin_primary_key": "FP_ID",
+      "origin_foreign_key": "FP_ID",
+      "cardinality": "one_to_many",
+      "forward_label": "Poles",
+      "backward_label": "Feeder pillar"
+    }
+  ],
+  "validation": {
+    "min_line_length": 0.05,
+    "min_polygon_area": 0.1,
+    "duplicate_tolerance": 0.001,
+    "unique_fields": {
+      "LightPole": [
+        "POLE_ID"
+      ],
+      "FeederPillar": [
+        "FP_ID"
+      ]
+    }
+  },
+  "repair": {
+    "remove_duplicate_vertices": true,
+    "close_near_closed_rings": true,
+    "ring_closure_tolerance": 0.05,
+    "make_valid_polygons": true,
+    "snap_line_endpoints": true
+  }
+}

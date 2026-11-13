@@ -1,0 +1,37 @@
+{
+  "rules": {
+    "STL_StreetLight": {
+      "LIGHTCABLE": [
+        {
+          "spatial_start_end": {
+            "checks": {
+              "START": [
+                "STL_StreetLight.STREETLIGHT",
+                "STL_StreetLight.CONTROLCABINET",
+                "STL_StreetLight.JUNCTIONBOX",
+                "STL_StreetLight.EARTHING"
+              ],
+              "END": [
+                "STL_StreetLight.STREETLIGHT",
+                "STL_StreetLight.CONTROLCABINET",
+                "STL_StreetLight.JUNCTIONBOX",
+                "STL_StreetLight.EARTHING"
+              ]
+            },
+            "condition": "all",
+            "error": "Lightcables must either start/end on STREETLIGHT/CONTROLCABINET/JUNCTIONBOX/EARTHING"
+          }
+        }
+      ],
+	  "STREETLIGHT": [
+        {
+          "spatial_intersect": {
+            "checks": ["STL_StreetLight.LIGHTCABLE"],
+            "condition": "any",
+            "error": "Streetlight must be connected to at least one LIGHTCABLE"
+          }
+        }
+      ]
+    }
+  }
+}

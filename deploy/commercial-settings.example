@@ -1,0 +1,27 @@
+# Commercial deployment of GeoSyntra Bridge — set these as environment variables (never commit real secrets)
+GSB_AUTH_MODE=accounts
+GSB_PUBLIC_URL=https://bridge.example.ae
+GSB_OWNER_EMAILS=you@example.ae
+GSB_DATA_DIR=/var/lib/geosyntra-bridge
+
+# Google: console.cloud.google.com -> APIs & Services -> Credentials -> OAuth client (Web)
+#   Authorized redirect URI: https://bridge.example.ae/api/auth/oauth/google/callback
+GSB_GOOGLE_CLIENT_ID=
+GSB_GOOGLE_CLIENT_SECRET=
+
+# GitHub: Settings -> Developer settings -> OAuth Apps -> New
+#   Authorization callback URL: https://bridge.example.ae/api/auth/oauth/github/callback
+GSB_GITHUB_CLIENT_ID=
+GSB_GITHUB_CLIENT_SECRET=
+
+# Stripe: dashboard.stripe.com -> Developers -> API keys / Webhooks
+#   Webhook endpoint: https://bridge.example.ae/api/billing/webhook
+GSB_STRIPE_SECRET_KEY=sk_test_
+GSB_STRIPE_WEBHOOK_SECRET=whsec_
+
+# E-mail
+GSB_SMTP_HOST=
+GSB_SMTP_PORT=587
+GSB_SMTP_USER=
+GSB_SMTP_PASSWORD=
+GSB_SMTP_FROM=GeoSyntra Bridge <no-reply@example.ae>

@@ -1,0 +1,2545 @@
+{
+ "_source": "DMT_As_Built_Data_Submission_Standards_V7.pdf",
+ "asset": "ITC",
+ "features": {
+  "TRHISTORICAL": {
+   "geometry": "point",
+   "page": 207,
+   "fields": [
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – intersections"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "Installation date of the IP signals"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "Maintenance date of the IP signals"
+    },
+    {
+     "name": "DATA_STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Data stages for permissible codes in the"
+    },
+    {
+     "name": "DESIGN_FORMAT",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Type of format data submission for permissible"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "The source of data for permissible codes in the"
+    },
+    {
+     "name": "DATA_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Data submission for permissible codes in the"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Status of the assets of Ips for permissible codes in"
+    },
+    {
+     "name": "PROJECTSTATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Project stage for permissible codes in the"
+    },
+    {
+     "name": "FILEPATH_LOCATION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "File name and path of report."
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Comments if any."
+    },
+    {
+     "name": "CONTRACT_NO",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Contract number. Refer to document’s submission"
+    },
+    {
+     "name": "REPORT_REF",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Report number. Refer to document’s submission"
+    },
+    {
+     "name": "DATE_REPORT",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "Report date. Refer to document’s submission"
+    }
+   ]
+  },
+  "TRINTERSECTIONPOINT": {
+   "geometry": "point",
+   "page": 208,
+   "fields": [
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Name of signalize intersection – Refer to address"
+    },
+    {
+     "name": "LOCATION_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Location."
+    },
+    {
+     "name": "LOCATION_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Refer to official addressing Name of Area."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    }
+   ]
+  },
+  "TRCONTROLLER": {
+   "geometry": "point",
+   "page": 209,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "EVP",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "EVP System."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "TRCABINET": {
+   "geometry": "point",
+   "page": 211,
+   "fields": [
+    {
+     "name": "OBJECT_ID",
+     "type": null,
+     "length": null,
+     "mandatory": true,
+     "description": "Object ID"
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_id in which the asset is located."
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "string",
+     "length": 40,
+     "mandatory": true,
+     "description": "Type of Cabinet."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    },
+    {
+     "name": "EVP",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "EVP System."
+    },
+    {
+     "name": "TRCABINET_DIMENSION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Traffic control cabinet dimension"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Status of the asset."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was installed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Type of Source from which the data is created."
+    }
+   ]
+  },
+  "ACS": {
+   "geometry": "point",
+   "page": 214,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "CFEC": {
+   "geometry": "point",
+   "page": 216,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "HUB": {
+   "geometry": "point",
+   "page": 218,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "UPS": {
+   "geometry": "point",
+   "page": 220,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "PMC": {
+   "geometry": "point",
+   "page": 222,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "ITS_ENCLOSURE": {
+   "geometry": "point",
+   "page": 225,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique Identifier for the asset."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the intersection signalize."
+    },
+    {
+     "name": "CABINET_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of Controller."
+    },
+    {
+     "name": "CONTROLLER_MODEL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of model of Controller."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status of asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "CONTROLLER_SUPPORT",
+     "type": "short",
+     "length": null,
+     "mandatory": false,
+     "description": "Code value of controller support."
+    }
+   ]
+  },
+  "TRPOLE": {
+   "geometry": "point",
+   "page": 227,
+   "fields": [
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_ID in which the asset is located."
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Controller ID to which the asset is"
+    },
+    {
+     "name": "POLE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of pole."
+    },
+    {
+     "name": "POLE_SUBTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of sub-type of pole."
+    },
+    {
+     "name": "MATERIAL",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of material of pole."
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "HEIGHT",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "The Height of the Pole in meters up to"
+    },
+    {
+     "name": "DIRECTION",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Code value of Direction angle in degrees."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status of the asset."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    }
+   ]
+  },
+  "VMS": {
+   "geometry": "point",
+   "page": 229,
+   "fields": [
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "LOCATION",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "VMS_TYPE",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Variable Message Sign Type Values"
+    },
+    {
+     "name": "VMS_SIZE",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Variable Message Sign Size"
+    },
+    {
+     "name": "CONTROLL_CABINET_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset."
+    },
+    {
+     "name": "CONTROL_CENTER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Control Center ID"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    }
+   ]
+  },
+  "OHVD": {
+   "geometry": "point",
+   "page": 230,
+   "fields": [
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "LOCATION",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "ENCLOSURE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Enclosure ID"
+    },
+    {
+     "name": "CONTROL_CENTER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    }
+   ]
+  },
+  "WIM": {
+   "geometry": "point",
+   "page": 231,
+   "fields": [
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "LOCATION",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "CONTROL_CENTER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    }
+   ]
+  },
+  "TRSIGNAL": {
+   "geometry": "point",
+   "page": 232,
+   "fields": [
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP_id in which the asset is located."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SIGNAL_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of Type of Signal."
+    },
+    {
+     "name": "SIGNAL_SUPPORT",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of signal support."
+    },
+    {
+     "name": "SIGNAL_HEAD_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of signal head type."
+    },
+    {
+     "name": "GROUP",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of Group/Phase."
+    },
+    {
+     "name": "LED_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of LED type / color."
+    },
+    {
+     "name": "LED_SIZE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of LED size."
+    },
+    {
+     "name": "LED_INSTALL",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the LED was installed"
+    },
+    {
+     "name": "LED_EXPIRY",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The expected expiry date the LED based on the"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    }
+   ]
+  },
+  "TRCAM": {
+   "geometry": "point",
+   "page": 235,
+   "fields": [
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "CONTROLL_CABINET_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset."
+    },
+    {
+     "name": "CAM_TYPE",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Camera Type Values:"
+    },
+    {
+     "name": "CAMENCLOSURE_TYPE",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Cam Enclosure Type"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "GROUP",
+     "type": "short",
+     "length": 2,
+     "mandatory": false,
+     "description": "Code value of Group."
+    },
+    {
+     "name": "DIRECTION",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Code value of Direction angle in degrees."
+    }
+   ]
+  },
+  "TRTVR": {
+   "geometry": "point",
+   "page": 237,
+   "fields": [
+    {
+     "name": "TVR_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP _id in which the asset is located."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "GROUP",
+     "type": "short",
+     "length": 2,
+     "mandatory": false,
+     "description": "Code value of Group"
+    }
+   ]
+  },
+  "TRPULLBOX": {
+   "geometry": "point",
+   "page": 238,
+   "fields": [
+    {
+     "name": "PULLBOX_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP _id in which the asset is located."
+    },
+    {
+     "name": "PULLBOX_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of pull box."
+    },
+    {
+     "name": "DICOVER_DIMENSION",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "DI cover dimension"
+    },
+    {
+     "name": "COVER_DUTY",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Cover duty"
+    },
+    {
+     "name": "COVER_LEVEL",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Cover level: (Orthometric height) of the"
+    },
+    {
+     "name": "INVERT_LEVEL",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Invert level"
+    },
+    {
+     "name": "DI_COVER_MANUFACTURE",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was Commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "PHOTOGRAPH",
+     "type": "string",
+     "length": 200,
+     "mandatory": true,
+     "description": "Path showing the location and name of"
+    }
+   ]
+  },
+  "EARTH_PIT": {
+   "geometry": "point",
+   "page": 239,
+   "fields": [
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Junctions which the asset is installed."
+    },
+    {
+     "name": "PULLBOX_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of pull box."
+    },
+    {
+     "name": "COVER_LEVEL",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Cover level: (Orthometric height) of the Pull box"
+    },
+    {
+     "name": "INVERT_LEVEL",
+     "type": "double",
+     "length": 4,
+     "mandatory": true,
+     "description": "Invert level (Orthometric height) of the Pull box"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    },
+    {
+     "name": "PHOTOGRAPH",
+     "type": "string",
+     "length": 200,
+     "mandatory": true,
+     "description": "Path showing the location and name of"
+    }
+   ]
+  },
+  "TRDUCT": {
+   "geometry": "line",
+   "page": 241,
+   "fields": [
+    {
+     "name": "DUCT_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "IP_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "IP _id in which the asset is located."
+    },
+    {
+     "name": "DUCT_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value for Type of duct."
+    },
+    {
+     "name": "DUCT_DEPTH",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "The depth of duct"
+    },
+    {
+     "name": "MATERIAL",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of material."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of status."
+    }
+   ]
+  },
+  "TRLOOPS": {
+   "geometry": "polygon",
+   "page": 243,
+   "fields": [
+    {
+     "name": "LOOP_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Controller ID to which the loop is connected to."
+    },
+    {
+     "name": "JOINE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset."
+    },
+    {
+     "name": "DISTANCE_STL",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Distance from stop line20,30,40m…."
+    },
+    {
+     "name": "GROUP",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of Group."
+    },
+    {
+     "name": "LOOP_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Code value of Type of Loop."
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    }
+   ]
+  },
+  "TRLOOPCJ": {
+   "geometry": "point",
+   "page": 245,
+   "fields": [
+    {
+     "name": "TRLOOPCJ_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for Loop Cable joint"
+    },
+    {
+     "name": "PULLBOX_ID",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Pull box ID at which Loop cable joint is located."
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Controller to which the asset is connected to at"
+    },
+    {
+     "name": "LOOP_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Loop Cable to which the asset is connected to at"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the loop Cable joint was installed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the loop Cable joint was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the loop Cable joint was maintained"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    }
+   ]
+  },
+  "TRCABLEJOIN": {
+   "geometry": "point",
+   "page": 245,
+   "fields": [
+    {
+     "name": "JOIN_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Join ID"
+    },
+    {
+     "name": "NETWORK_NAME",
+     "type": "string",
+     "length": 200,
+     "mandatory": true,
+     "description": "List of network connectivity between major"
+    },
+    {
+     "name": "PULLBOX_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Pullbox ID"
+    }
+   ]
+  },
+  "TRBUILDING": {
+   "geometry": "polygon",
+   "page": 246,
+   "fields": [
+    {
+     "name": "BUILDING_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique"
+    },
+    {
+     "name": "BUILDING_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of Type of Building."
+    },
+    {
+     "name": "CONSTRUCTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the building was constructed"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the building was maintained"
+    }
+   ]
+  },
+  "TRWIRELESS": {
+   "geometry": "point",
+   "page": 247,
+   "fields": [
+    {
+     "name": "WIRELESS_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier"
+    },
+    {
+     "name": "POLE_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "POLE_ID to which the asset is mounted on."
+    },
+    {
+     "name": "WIRELESS_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of Type of Wireless asset."
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of source."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the WIRELESS Device was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the WIRELESS Device was"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the WIRELESS Device was maintained"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Type of Source from which the data is created."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "The source from which the data is"
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    }
+   ]
+  },
+  "TRCABLE": {
+   "geometry": "line",
+   "page": 248,
+   "fields": [
+    {
+     "name": "CONDUIT_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Conduit number in which the cable is laid."
+    },
+    {
+     "name": "DUCT_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of duct."
+    },
+    {
+     "name": "CABLE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of cable."
+    },
+    {
+     "name": "CABLE_RUN_NO",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Unique Cable Run Number"
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Controller to which the asset is connected to at"
+    },
+    {
+     "name": "NETWORK_NAME",
+     "type": "string",
+     "length": 200,
+     "mandatory": true,
+     "description": "List of network connectivity between major"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was constructed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    }
+   ]
+  },
+  "TRHUBCABLE": {
+   "geometry": "line",
+   "page": 250,
+   "fields": [
+    {
+     "name": "CONDUIT_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Conduit number in which the cable is laid."
+    },
+    {
+     "name": "DUCT_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of duct."
+    },
+    {
+     "name": "CABLE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of type of cable."
+    },
+    {
+     "name": "CABLE_RUN_NO",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Unique Cable Run Number"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "NETWORK_NAME",
+     "type": "string",
+     "length": 200,
+     "mandatory": false,
+     "description": "Name identifying the network connectivity"
+    },
+    {
+     "name": "FROM_HUB",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "ID of Hub to which the asset is connected to at"
+    },
+    {
+     "name": "TO_HUB",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "ID of Hub to which the asset is connected to at"
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was installed"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was commissioned"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the asset was maintained"
+    }
+   ]
+  },
+  "TR_SPLICE_ENC": {
+   "geometry": "point",
+   "page": 252,
+   "fields": [
+    {
+     "name": "SPLICEENC_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for splice enclosure for joining"
+    },
+    {
+     "name": "PULLBOX_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "PullBox _id at which the splice enclosure is located"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": "Name of the Manufacturer"
+    },
+    {
+     "name": "DATE_OF_MANUFACTURE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "The date the asset was manufactured"
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of source of origin."
+    },
+    {
+     "name": "INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the Splice Enclosure Device was"
+    },
+    {
+     "name": "DATE_COMMISSIONED",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the Splice Enclosure Device was"
+    },
+    {
+     "name": "MAINTENANCE_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": false,
+     "description": "The date the Splice Enclosure Device was"
+    },
+    {
+     "name": "SOURCE_TYPE",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value."
+    },
+    {
+     "name": "SOURCE_OF_ORIGIN",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value."
+    },
+    {
+     "name": "STATUS",
+     "type": "short",
+     "length": 2,
+     "mandatory": true,
+     "description": "Code value of status."
+    }
+   ]
+  },
+  "TRPOWERCABINET": {
+   "geometry": "point",
+   "page": 254,
+   "fields": [
+    {
+     "name": "IP_NAME",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the signalize intersection."
+    },
+    {
+     "name": "CONTROLLER_TYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Unique identifier for the asset."
+    },
+    {
+     "name": "CABINET_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Cabinet ID"
+    },
+    {
+     "name": "CONTROLLER_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Controller ID"
+    },
+    {
+     "name": "JUNCTION_ID",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Junction ID"
+    }
+   ]
+  },
+  "TRPOWERCABLE": {
+   "geometry": "line",
+   "page": 254,
+   "fields": [
+    {
+     "name": "CONDUIT_ID",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – cable ID (IP Name"
+    },
+    {
+     "name": "FROM_CABINET",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Cabinet ID (IP"
+    },
+    {
+     "name": "TO_JUNCTION",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Unique identifier for the asset – Junction ID (IP"
+    },
+    {
+     "name": "NETWORK_NAME",
+     "type": "string",
+     "length": 200,
+     "mandatory": false,
+     "description": "Name identifying the network connectivity"
+    }
+   ]
+  }
+ }
+}

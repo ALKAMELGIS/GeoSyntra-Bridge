@@ -1,0 +1,5195 @@
+{
+  "format": 2,
+  "schema_id": "adm_sl_softlandscaping",
+  "display_name": "ADM Soft Landscaping (Z40)",
+  "version": "10 (20012026)",
+  "status": "approved",
+  "discipline": "Soft Landscaping",
+  "description": "Imported from the approved template ADM_SL_Templates_Z40_V10_20012026.gdb: 1 feature dataset, 11 feature classes, 27 domains, 19 topology rules.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "verified": true
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "SL_SoftLandscaping"
+    }
+  ],
+  "domains": [
+    {
+      "name": "AssetCategory",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "AssetCategory",
+      "coded_values": {
+        "Civil": "Civil",
+        "Electrical": "Electrical",
+        "Irrigation": "Irrigation",
+        "Mechanical": "Mechanical",
+        "Undefined": "Undefined",
+        "N/A": "N/A",
+        "ElectrMech": "Electromechanical",
+        "HardLandsc": "Hard Landscape",
+        "Instrument": "Instrumentation",
+        "SoftLandsc": "Soft Landscape",
+        "Public": "Public"
+      }
+    },
+    {
+      "name": "Boolean",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Boolean",
+      "coded_values": {
+        "Yes": "Yes",
+        "No": "No",
+        "Undefined": "Undefined"
+      }
+    },
+    {
+      "name": "Condition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Condition",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "N/A": "N/A",
+        "Excellent": "Excellent",
+        "Undefined": "Undefined",
+        "Damaged": "Damaged",
+        "No lantern": "No lantern",
+        "No Damage": "No Damage",
+        "Misaligned": "Misaligned",
+        "Missing": "Missing",
+        "Obscured": "Obscured",
+        "Rusted": "Rusted",
+        "BPL_RUSTED": "Base plate Rusted",
+        "CTDOOR_UNF": "Cutout door unfixed",
+        "FPOLE_CRAK": "Foundation pole cracked",
+        "NO_ACCESS": "Not Accessible",
+        "NOT_OPERAT": "Not Operational",
+        "POLEDAMAGE": "Pole Damaged",
+        "BODYRUSTED": "Body Rusted",
+        "DOORDAMAGE": "Door Damaged",
+        "FOUNDCRACK": "Foundation Cracked",
+        "PADLOCKUNV": "Padlock unavailable",
+        "NEEDREPAIR": "Need Repair",
+        "DMGDNOTWRK": "Damaged Not work",
+        "DISCOLOR": "DISCOLOR",
+        "FADED": "FADED",
+        "GRINDED": "GRINDED",
+        "LOS_REFLCT": "LOSS OF REFLECTIVITY",
+        "MINOR_DAMG": "MINOR_DAMAGE",
+        "SCRAPED": "SCRAPED",
+        "WEATHERED": "WEATHERED",
+        "BOLT_MS_LS": "BOLTS MISSING OR LOOSE",
+        "BLB_NOTWRK": "BULBNOTWOTKING",
+        "OTHER": "OTHER",
+        "CRACKED": "CRACKED",
+        "HORIZ_PROJ": "HORIZONTAL_PROJECTION",
+        "LOS_DISLGD": "LOOSE/DISLODGED",
+        "SHATTERED": "SHATTERED",
+        "VERTL_PROJ": "VERTICAL_PROJECTION",
+        "SEVER_DAMG": "Severe Damage",
+        "MINOR_DEFT": "Minor defects of a non-urgent nature",
+        "DM_P_H_S_F": "DAMAGED,_PEELING,_HOLED_SCRAPED_FADED",
+        "HOLED": "HOLED",
+        "INCLN-LOSD": "INCLINED_TO_LINE_OF_SIGHT_CAUSING_CONFLICT_DISPLAY",
+        "PEELING": "PEELING",
+        "SIGN_ILGBL": "SIGN_ILLEGIBLE_AT_NIGHT,100M_USING_LOW_BEAM",
+        "DETERIORAT": "DETERIORATED",
+        "MISALIN-MN": "MISALIGNED-MINOR",
+        "MISALIN-MD": "MISALIGNED-MODERATE",
+        "MISALIN-UH": "MISALIGNED-URGENT_OR_SAFETY_HAZARD",
+        "PAINT_FADE": "PAINT FADED",
+        "PAINT_SCRP": "PAINT SCRAPED"
+      }
+    },
+    {
+      "name": "DataSource",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Data Source",
+      "coded_values": {
+        "AS BUILT": "AS BUILT",
+        "GPS": "GPS",
+        "SITESURVEY": "SITE SURVEY",
+        "CONSSURVEY": "CONSULTANT SURVEY",
+        "TPSBASEMAP": "TPS BASE MAP",
+        "SURVEY2012": "2012 SURVEY",
+        "DOT DATA": "DOT DATA",
+        "SURVEY2017": "2017 SURVEY",
+        "SURVEY2019": "2019 SURVEY",
+        "Osool": "Osool"
+      }
+    },
+    {
+      "name": "GroundCoverType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "GroundCoverType",
+      "coded_values": {
+        "Shrubs": "Shrubs",
+        "Swamp": "Swamp",
+        "Mangroves": "Mangroves",
+        "Other": "Other",
+        "Mulch Area": "Mulch Area",
+        "DecidTrees": "Deciduous Trees",
+        "MixedTrees": "Mixed Trees",
+        "NativGCovr": "Native Ground Cover",
+        "Woodchips": "Woodchips"
+      }
+    },
+    {
+      "name": "HealthStatus",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "HealthStatus",
+      "coded_values": {
+        "Healthy": "Healthy",
+        "Sick": "Sick"
+      }
+    },
+    {
+      "name": "HedgeType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "HedgeType",
+      "coded_values": {
+        "Bush": "Bush",
+        "Mixed": "Mixed",
+        "Other": "Other"
+      }
+    },
+    {
+      "name": "InforMigration",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "InforMigration",
+      "coded_values": {
+        "DELETE": "DELETE",
+        "EXPIRE_COMPLETED": "EXPIRE_COMPLETED",
+        "INFOR_UPDATE_COMPLETED": "INFOR_UPDATE_COMPLETED",
+        "INSERT_COMPLETED": "INSERT_COMPLETED",
+        "INSERT": "INSERT",
+        "UPDATE TO INFOR": "UPDATE TO INFOR"
+      }
+    },
+    {
+      "name": "IrWaterPoint",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "IrWaterPoint",
+      "coded_values": {
+        "TSE Water": "TSE Water",
+        "PotableWtr": "Potable Water",
+        "MixWater": "Mix Water"
+      }
+    },
+    {
+      "name": "IrrigationSystemName",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "IrrigationSystemName",
+      "coded_values": {
+        "Dripper": "Dripper",
+        "Bubbler": "Bubbler",
+        "Well": "Well",
+        "Sprayer": "Sprayer",
+        "Sprinkler": "Sprinkler",
+        "Manual": "Manual",
+        "Other": "Other"
+      }
+    },
+    {
+      "name": "MainAssetName",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "MainAssetName",
+      "coded_values": {
+        "Beach": "Beach",
+        "Facilities": "Facilities",
+        "Farm": "Farm",
+        "Forest": "Forest",
+        "Garden": "Garden",
+        "Hospital": "Hospital",
+        "Median": "Median",
+        "Palace": "Palace",
+        "Road": "Road",
+        "Undefined": "Undefined",
+        "N/A": "N/A",
+        "CarrigeWay": "Carriageway",
+        "CityEntrnc": "City Entrance",
+        "InterChang": "Interchange",
+        "StreetScpe": "Streetscape",
+        "WaterResrc": "Water Resource"
+      }
+    },
+    {
+      "name": "NativeTreeType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "NativeTreeType",
+      "coded_values": {
+        "Ghaf": "Ghaf",
+        "Samar": "Samar",
+        "Sidr": "Sidr"
+      }
+    },
+    {
+      "name": "Ownership",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Ownership",
+      "coded_values": {
+        "Public": "Public",
+        "Private": "Private",
+        "N/A": "N/A"
+      }
+    },
+    {
+      "name": "PalmFruitingSeason",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PalmFruitingSeason",
+      "coded_values": {
+        "Early": "Early Fruiting",
+        "Intermediate": "Intermediate",
+        "Late": "Late Fruiting"
+      }
+    },
+    {
+      "name": "PalmGender",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PalmGender",
+      "coded_values": {
+        "Female": "Female",
+        "Male": "Male"
+      }
+    },
+    {
+      "name": "PalmTreeType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PalmTreeType",
+      "coded_values": {
+        "Coconut": "Coconut Palm",
+        "Date": "Date Palm",
+        "Dwarf": "Dwarf Palm",
+        "Ornamental": "Ornamental",
+        "Other": "Other"
+      }
+    },
+    {
+      "name": "PalmTree_ScientificName",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PalmTree_ScientificName",
+      "coded_values": {
+        "Bauhinia purpurea": "Bauhinia purpurea",
+        "Bauhinia variegata": "Bauhinia variegata",
+        "Bismarckia nobilis": "Bismarckia nobilis",
+        "Brahea armata": "Brahea armata",
+        "Carpentaria acuminata": "Carpentaria acuminata",
+        "Caryota mitis": "Caryota mitis",
+        "Chamaedorea seifrizii": "Chamaedorea seifrizii",
+        "Chamaerops humilis": "Chamaerops humilis",
+        "Chrysalidocarpus lutescens": "Chrysalidocarpus lutescens",
+        "Cocos nucifera (Coconut Palm)": "Cocos nucifera (Coconut Palm)",
+        "Copernicia alba": "Copernicia alba",
+        "Copernicia prunifera": "Copernicia prunifera",
+        "Cycas revoluta": "Cycas revoluta",
+        "Hyophorbe lagenicaulis": "Hyophorbe lagenicaulis",
+        "Latania lontaroides": "Latania lontaroides",
+        "Latania verschaffeltii": "Latania verschaffeltii",
+        "Livistona chinensis": "Livistona chinensis",
+        "Livistona decipiens": "Livistona decipiens",
+        "Neodypsis decaryi ": "Neodypsis decaryi ",
+        "Phoenix canariensis": "Phoenix canariensis",
+        "Phoenix dactylifera": "Phoenix dactylifera",
+        "Phoenix reclinata": "Phoenix reclinata",
+        "Phoenix roebelenii": "Phoenix roebelenii",
+        "Pritchardia pacifica": "Pritchardia pacifica",
+        "Pseudophoenix sargentii": "Pseudophoenix sargentii",
+        "Roystonea regia": "Roystonea regia",
+        "Veitchia merrillii": "Veitchia merrillii",
+        "Wodyetia bifurcata": "Wodyetia bifurcata"
+      }
+    },
+    {
+      "name": "Park_Status",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Park_Status",
+      "coded_values": {
+        "Open-fee": "Open-fee",
+        "Open": "Open",
+        "N/A": "N/A",
+        "OpenRestrc": "Open-restricted"
+      }
+    },
+    {
+      "name": "Park_Type",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Park_Type",
+      "coded_values": {
+        "Emirate": "Emirate",
+        "Municipality": "Municipality",
+        "District": "District",
+        "Neighbourhood": "Neighbourhood",
+        "Local": "Local"
+      }
+    },
+    {
+      "name": "Park_Unittype",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Park_Unittype",
+      "coded_values": {
+        "Preserve": "Preserve",
+        "N/A": "N/A",
+        "ComuntPark": "Community Park",
+        "NeighbPark": "Neighborhood Park",
+        "MetroPark": "Metropolitan Park"
+      }
+    },
+    {
+      "name": "PlantType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PlantType",
+      "coded_values": {
+        "NativPlant": "Native Plant",
+        "Ornamental": "Ornamental",
+        "Succulents": "Succulents"
+      }
+    },
+    {
+      "name": "Region",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Region",
+      "coded_values": {
+        "ADM": "Abu Dhabi Municipality",
+        "AAM": "Al Ain Municipality",
+        "DRM": "Dhafra Region Municipality"
+      }
+    },
+    {
+      "name": "ShrubType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "ShrubType",
+      "coded_values": {
+        "Other": "Other",
+        "DecortBush": "Decorative Bush"
+      }
+    },
+    {
+      "name": "Status",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Status",
+      "coded_values": {
+        "Inactive": "Inactive",
+        "Active": "Active",
+        "Proposed": "Proposed",
+        "N/A": "N/A",
+        "Warranty": "Warranty",
+        "Unknown": "Unknown",
+        "In Use": "In Use",
+        "Existing": "Existing",
+        "Removed": "Removed",
+        "Closed": "Closed",
+        "Open": "Open",
+        "Planned": "Planned",
+        "Undefined": "Undefined",
+        "Abandoned": "Abandoned",
+        "NORMAL": "NORMAL",
+        "Expired": "Expired",
+        "In Service": "In Service",
+        "UC": "Under Construction",
+        "Approved D": "Approved Design",
+        "FinalHover": "Final Handover"
+      }
+    },
+    {
+      "name": "SubAssetName",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "SubAssetName",
+      "coded_values": {
+        "Guard Room": "Guard Room",
+        "Pedestrian": "Pedestrian",
+        "Underpass": "Underpass",
+        "Playground": "Playground",
+        "Reservoir": "Reservoir",
+        "Water": "Water",
+        "Well": "Well",
+        "Undefined": "Undefined",
+        "N/A": "N/A",
+        "BoostStatn": "Booster Station",
+        "CivilStrct": "Civil Structure",
+        "DPFountain": "Diesel Power Station Fountain",
+        "GenratRoom": "Generator Room",
+        "HardLandsc": "Hard Landscape",
+        "IR Network": "Irrigation Network",
+        "LakeInPark": "Lake In Park",
+        "PivotIRSys": "Pivot Irrigation System",
+        "PumpStaton": "Pump Station",
+        "PurifPlant": "Purification Plant",
+        "SoftLandsc": "Soft Landscape",
+        "SW Network": "Stormwater Network",
+        "SurfcDrain": "Surface Drainage",
+        "SwimngPool": "Swimming Pool",
+        "Fountain": "Fountain",
+        "Public": "Public"
+      }
+    },
+    {
+      "name": "TagType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "TagType",
+      "coded_values": {
+        "Hard Tag ": "Hard Tag (Physical)",
+        "Soft Tag": "Soft Tag (Virtual)"
+      }
+    },
+    {
+      "name": "TreeType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "TreeType",
+      "coded_values": {
+        "Palm": "Palm",
+        "Deciduous": "Deciduous",
+        "Other": "Other",
+        "ForestTree": "Forest Tree",
+        "Ghaf": "Ghaf",
+        "Samar": "Samar",
+        "Seder": "Seder"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "GROUNDCOVER",
+      "geometry_type": "polygon",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "ASSET_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 110,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 110,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 110,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "GROUNDCOVERTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "GroundCoverType"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "GROUNDCOVER",
+          "\\bgc\\b",
+          "ground[\\s_-]*cover"
+        ],
+        "text_keywords": [
+          "groundcover"
+        ],
+        "block_name_patterns": [
+          "GROUNDCOVER",
+          "\\bgc\\b",
+          "ground[\\s_-]*cover"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class GROUNDCOVER",
+      "has_z": true
+    },
+    {
+      "name": "NATIVETREE",
+      "geometry_type": "point",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "HEALTH_STATUS",
+          "field_type": "TEXT",
+          "length": 30,
+          "domain": "HealthStatus"
+        },
+        {
+          "name": "TAGPLATE_WARRANTYSTARTDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "TAGPLATE_WARRANTYENDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "PLANTING_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "DATE_TAGGED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "TREE_IMAGE",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "TAGPLATE_IMAGE",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "TAGTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "TagType"
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "TREE_HEIGHT",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "CANOPY_DIAMETER",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "TRUNK_DIAMETER_1M_HEIGHT",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "NativeTreeType"
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "NATIVETREE",
+          "ghaf",
+          "native",
+          "sidr"
+        ],
+        "text_keywords": [
+          "native tree",
+          "nativetree"
+        ],
+        "block_name_patterns": [
+          "NATIVETREE",
+          "ghaf",
+          "native",
+          "sidr"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class NATIVETREE",
+      "has_z": true
+    },
+    {
+      "name": "TREE",
+      "geometry_type": "point",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "VARIETY",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "OVER_ALL_HEIGHT",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "CANOPY_DIAMETER",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "PALM_GENDER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "PALM_DATEVARIETY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "PALM_CLEARTRUNKHEIGHT",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "TREETYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "TreeType"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "FRUIT_TREE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "FRUIT_TYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "TREE",
+          "\\btr[_-]",
+          "\\btree",
+          "[-_]SS[-_]TR[-_]"
+        ],
+        "text_keywords": [
+          "tree"
+        ],
+        "block_name_patterns": [
+          "TREE",
+          "\\btr[_-]",
+          "\\btree"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class TREE",
+      "has_z": true
+    },
+    {
+      "name": "LAWN",
+      "geometry_type": "polygon",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "ASSET_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "LAWN",
+          "grass",
+          "lawn",
+          "turf",
+          "[-_]SS[-_](LW|LAWN)[-_]"
+        ],
+        "text_keywords": [
+          "lawn"
+        ],
+        "block_name_patterns": [
+          "LAWN",
+          "grass",
+          "lawn",
+          "turf"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class LAWN",
+      "has_z": true
+    },
+    {
+      "name": "PALMETREE",
+      "geometry_type": "point",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "PLANTING_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "TREE_IMAGE",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "TREE_HEIGHT",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "PALM_GENDER",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PalmGender"
+        },
+        {
+          "name": "PALM_DATEVARIETY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "PALM_FRUITINGSEASON",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "PalmFruitingSeason"
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "PalmTree_ScientificName"
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "PalmTreeType"
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "PALMETREE",
+          "date[\\s_-]*palm",
+          "nakheel",
+          "palm",
+          "[-_]SS[-_]PA[-_]"
+        ],
+        "text_keywords": [
+          "palm",
+          "palmetree"
+        ],
+        "block_name_patterns": [
+          "PALMETREE",
+          "date[\\s_-]*palm",
+          "nakheel",
+          "palm"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class PALMETREE",
+      "has_z": true
+    },
+    {
+      "name": "FORESTAREA",
+      "geometry_type": "polygon",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "ASSET_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "FORESTNAME_EN",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "FORESTNAME_AR",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "TREECOUNT",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "TREEDISTANCE",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "DATE_PALM",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "GHAF",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SAMAR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SIDR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "ARAK",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "DAMAS",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "TARFA",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "ARTA",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "HEGLIG",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SALAM",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "RADINA",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "FALAHI",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "TALHA",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "GHAF_AL_BAHR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "AL_FARFAR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WELL",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "RESERVIOR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "BUILDINGS",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "GENERATOR",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SOLARPUMP",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "MECHANICAL_ENGINE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "ELECTRIC_BOOSTER_PUMP",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "DIESEL_BOOSTER_PUMP",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SUBMERSIBLE_PUMP",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SOLAR_POWER_SYSTEM",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SOLAR_STREET_LIGHT",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "LIGHTING_ALL_TYPES",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "DISTRIBUTION_PANEL",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "CONTROL_CABINET",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "MEP_MANHOLE_CHAMBER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REVERSE_OSMOSIS",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "FLOW_METER",
+          "field_type": "INTEGER",
+          "nullable": false
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "FORESTAREA",
+          "forest",
+          "woodland"
+        ],
+        "text_keywords": [
+          "forestarea"
+        ],
+        "block_name_patterns": [
+          "FORESTAREA",
+          "forest",
+          "woodland"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class FORESTAREA",
+      "has_z": true
+    },
+    {
+      "name": "SEASONALFLOWER",
+      "geometry_type": "polygon",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "SEASON",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "ASSET_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "FLOWERPLANTCOUNT",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "SEASONALFLOWER",
+          "flower",
+          "season",
+          "[-_]SS[-_](SF|FL)[-_]"
+        ],
+        "text_keywords": [
+          "seasonalflower"
+        ],
+        "block_name_patterns": [
+          "SEASONALFLOWER",
+          "flower",
+          "season"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class SEASONALFLOWER",
+      "has_z": true
+    },
+    {
+      "name": "SHRUB",
+      "geometry_type": "point",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SHRUBAREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "SHRUBTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "ShrubType"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "SHRUB",
+          "shrub",
+          "[-_]SS[-_]SC[-_]"
+        ],
+        "text_keywords": [
+          "shrub"
+        ],
+        "block_name_patterns": [
+          "SHRUB",
+          "shrub"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class SHRUB",
+      "has_z": true
+    },
+    {
+      "name": "PLANTS",
+      "geometry_type": "point",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 30,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "PLANTTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "PlantType"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "PLANTS",
+          "plant(?!er)",
+          "[-_]SS[-_](GC|PL)[-_]"
+        ],
+        "text_keywords": [
+          "groundcover",
+          "plant",
+          "plants"
+        ],
+        "block_name_patterns": [
+          "PLANTS",
+          "plant(?!er)"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class PLANTS",
+      "has_z": true
+    },
+    {
+      "name": "PARK",
+      "geometry_type": "polygon",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION_RATING",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "PARK_TYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Park_Type"
+        },
+        {
+          "name": "YEAR_OPEN",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "PARKACCESS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Park_Status"
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERGAE",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "OPENING_HOURS",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "RELIGIOUS_FACILITIES",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "JOGGING_TRACKS",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "SPORTS_FACILITIES",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "TOILETS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "PLAY_AREA",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "PARK_NAME_ENGLISH",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "PARK_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "BBQ_SPOT",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Park_Unittype"
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "PARK_NAME_ARABIC",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "DEDICATED_PARKING",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "FITNESS_EQUIPMENT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "FOOTBALL_FIELD",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "BASKETBALL_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "VOLLEYBALL_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "TENNIS_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PADDLE_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "BADMINTON_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "MUGA_COURT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "SKATE_BOWL",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "CYCLING_TRACK",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PUMP_TRACK",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "CAMPING_SPOTS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "ZIP_LINE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "CLIMBING_WALL",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "DOG_FRIENDLY_AREAS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PICNIC_AREAS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "DRINKING_STATIONS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "SPRAY_SHOWERS_SPRINKLERS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "AMPHITHEATRE_SEATING_PLAZA",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "EATERIES_FOOD_BEVERAGE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PUBLIC_RESTROOMS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PUBLIC_SHOWERS_CHANGING_ROOMS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "PHONE_CHARGING_STATIONS",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "SMART_PARK",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "WATER_FEATURE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "CCTV_CAMERA",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "LOCATION_GOOGLE_LINKS",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "SECURITY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "SECURITY_CONTACT_NUMBER",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "POD_ACCESSIBLE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Boolean"
+        },
+        {
+          "name": "WI_FI_HOTSPOTS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Boolean"
+        },
+        {
+          "name": "TABLE_TENNIS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Boolean"
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "PARK",
+          "\\bpark\\b",
+          "park[_-]?bnd",
+          "park[_-]?boundary"
+        ],
+        "text_keywords": [
+          "park"
+        ],
+        "block_name_patterns": [
+          "PARK",
+          "\\bpark\\b",
+          "park[_-]?bnd",
+          "park[_-]?boundary"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class PARK",
+      "has_z": true
+    },
+    {
+      "name": "HEDGE",
+      "geometry_type": "line",
+      "feature_dataset": "SL_SoftLandscaping",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCATEGORY",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "AssetCategory"
+        },
+        {
+          "name": "MAINASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "MainAssetName"
+        },
+        {
+          "name": "SUBASSETNAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "SubAssetName"
+        },
+        {
+          "name": "MAINT_OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_REQUIREMENT_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_SUMMER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_WINTER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "WATER_CONSUMPTION_AVERAGE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 150
+        },
+        {
+          "name": "SCIENTIFIC_NAME",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "COMMON_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LOCAL_NAME",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "HEDGE_LENGTH",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "IR_WATER_POINT",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrWaterPoint"
+        },
+        {
+          "name": "HEDGEHEIGHT",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WIDTHATTOP",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "HEDGETYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "HedgeType"
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "IRRIGATIONSYSTEMTYPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "IrrigationSystemName"
+        },
+        {
+          "name": "IRRIGATIONWATERSOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "HEDGE_WIDTH",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "HEDGE_AREA",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "HEDGE",
+          "hedge",
+          "[-_]SS[-_]HE?D[-_]"
+        ],
+        "text_keywords": [
+          "hedge"
+        ],
+        "block_name_patterns": [
+          "HEDGE",
+          "hedge"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "attribute_aliases": {
+        "UNITID": [
+          "ID",
+          "TAG",
+          "ASSET_ID",
+          "ASSETID",
+          "UNIT_ID"
+        ],
+        "UNITDESC": [
+          "DESC",
+          "DESCRIPTION"
+        ],
+        "ZCOORD": [
+          "Z",
+          "LEVEL",
+          "ELEV"
+        ]
+      },
+      "id_field": "UNITID",
+      "description": "ADM template class HEDGE",
+      "has_z": true
+    }
+  ],
+  "label_rules": [
+    {
+      "field": "TREE_HEIGHT",
+      "pattern": "\\b(?:H|HT|HEIGHT)\\s*[=:]?\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "description": "tree height label, e.g. H=3.5m"
+    },
+    {
+      "field": "UNITID",
+      "pattern": "\\b(?P<v>(?:PT|TR|NT|SH|PL)[-_]?\\d{2,6})\\b",
+      "value_type": "upper",
+      "description": "asset tag e.g. PT-0012"
+    }
+  ],
+  "network": {
+    "enabled": false
+  },
+  "topology_rules": [
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "SHRUB",
+      "destination": "SHRUB"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TREE",
+      "destination": "TREE"
+    },
+    {
+      "rule": "esriTRTAreaNoGaps",
+      "origin": "FORESTAREA",
+      "destination": "FORESTAREA"
+    },
+    {
+      "rule": "esriTRTAreaNoGaps",
+      "origin": "GROUNDCOVER",
+      "destination": "GROUNDCOVER"
+    },
+    {
+      "rule": "esriTRTAreaNoGaps",
+      "origin": "LAWN",
+      "destination": "LAWN"
+    },
+    {
+      "rule": "esriTRTAreaNoGaps",
+      "origin": "SEASONALFLOWER",
+      "destination": "SEASONALFLOWER"
+    },
+    {
+      "rule": "esriTRTAreaNoGaps",
+      "origin": "PARK",
+      "destination": "PARK"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "FORESTAREA",
+      "destination": "FORESTAREA"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "GROUNDCOVER",
+      "destination": "GROUNDCOVER"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "LAWN",
+      "destination": "LAWN"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "SEASONALFLOWER",
+      "destination": "SEASONALFLOWER"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "PARK",
+      "destination": "PARK"
+    },
+    {
+      "rule": "esriTRTLineNoOverlap",
+      "origin": "HEDGE",
+      "destination": "HEDGE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "HEDGE",
+      "destination": "HEDGE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "HEDGE",
+      "destination": "HEDGE"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "HEDGE",
+      "destination": "HEDGE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "PLANTS",
+      "destination": "PLANTS"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "NATIVETREE",
+      "destination": "NATIVETREE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "PALMETREE",
+      "destination": "PALMETREE"
+    }
+  ],
+  "label_search_radius": 4.0,
+  "validation": {
+    "min_line_length": 0.01,
+    "min_polygon_area": 0.05,
+    "duplicate_tolerance": 0.001,
+    "unique_fields": {
+      "PALMETREE": [
+        "UNITID"
+      ],
+      "LAWN": [
+        "UNITID"
+      ],
+      "PLANTS": [
+        "UNITID"
+      ],
+      "HEDGE": [
+        "UNITID"
+      ],
+      "NATIVETREE": [
+        "UNITID"
+      ],
+      "GROUNDCOVER": [
+        "UNITID"
+      ],
+      "TREE": [
+        "UNITID"
+      ],
+      "FORESTAREA": [
+        "UNITID"
+      ],
+      "SEASONALFLOWER": [
+        "UNITID"
+      ],
+      "SHRUB": [
+        "UNITID"
+      ],
+      "PARK": [
+        "UNITID"
+      ]
+    }
+  },
+  "repair": {
+    "remove_duplicate_vertices": true,
+    "close_near_closed_rings": true,
+    "ring_closure_tolerance": 0.05,
+    "make_valid_polygons": true
+  },
+  "source": "template_gdb",
+  "source_template": "ADM_SL_Templates_Z40_V10_20012026.gdb",
+  "layer_rules": [
+    {
+      "field": "SCIENTIFIC_NAME",
+      "pattern": "[-_]SS[-_][A-Z]{2}[-_](?P<v>[^-]+?)\\s*(?:-|$)",
+      "targets": [
+        "PALMETREE",
+        "SHRUB",
+        "PLANTS",
+        "TREE",
+        "NATIVETREE",
+        "HEDGE",
+        "GROUNDCOVER",
+        "LAWN",
+        "SEASONALFLOWER"
+      ],
+      "value_type": "text",
+      "description": "botanical name encoded in CAD layer name, e.g. ...-SS-PA-Washingtonia Robusta-Mexican Fan Palm"
+    },
+    {
+      "field": "COMMON_NAME",
+      "pattern": "[-_]SS[-_][A-Z]{2}[-_][^-]+-(?P<v>.+)$",
+      "targets": [
+        "PALMETREE",
+        "SHRUB",
+        "PLANTS",
+        "TREE",
+        "NATIVETREE",
+        "HEDGE",
+        "GROUNDCOVER",
+        "LAWN",
+        "SEASONALFLOWER"
+      ],
+      "value_type": "text",
+      "description": "common name after the botanical name in the CAD layer name"
+    }
+  ]
+}

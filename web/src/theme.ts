@@ -1,0 +1,67 @@
+import { createTheme } from "@mui/material/styles";
+
+export const C = {
+  navy: "#16171A",      // graphite ink (brand) — primary actions, active states
+  navy2: "#3A414C",
+  ink: "#16171A",
+  muted: "#5F5D58",
+  line: "#E4E2DD",
+  bg: "#EEEDE9",
+  cyan: "#0B6B7D",      // drafting cyan, darkened for contrast on white — progress, current step
+  cyanSoft: "#E3F3F6",
+  graphite: "#1B1E23",
+  graphite2: "#23272E",
+  steel: "#D3D7DE",
+  green: "#16794C",
+  greenSoft: "#E6F4EC",
+  amber: "#9A5B0F",
+  amberSoft: "#FDF3E1",
+  red: "#C0392B",
+  redSoft: "#FBE9E7",
+  blue: "#2E5C9A",
+  blueSoft: "#E8EFF8",
+};
+
+export const theme = createTheme({
+  palette: {
+    primary: { main: C.navy, contrastText: "#fff" },
+    secondary: { main: C.green, contrastText: "#fff" },
+    success: { main: C.green },
+    warning: { main: C.amber },
+    error: { main: C.red },
+    info: { main: C.blue },
+    text: { primary: C.ink, secondary: C.muted },
+    background: { default: C.bg, paper: "#fff" },
+    divider: C.line,
+  },
+  shape: { borderRadius: 7 },
+  typography: {
+    fontFamily: '"Geist", "Segoe UI", "Noto Sans Arabic", system-ui, -apple-system, Arial, sans-serif',
+    fontSize: 13,
+    h4: { fontSize: 26, fontWeight: 600, letterSpacing: "-0.01em", lineHeight: 1.15 },
+    h5: { fontSize: 19, fontWeight: 600, lineHeight: 1.2 },
+    h6: { fontSize: 15, fontWeight: 650, letterSpacing: 0 },
+    subtitle1: { fontSize: 13.5, fontWeight: 600 },
+    subtitle2: { fontSize: 13.5, fontWeight: 650, color: C.ink, letterSpacing: 0 },
+    body2: { fontSize: 12.5 },
+    caption: { fontSize: 11.5, color: C.muted },
+    button: { textTransform: "none", fontWeight: 600 },
+  },
+  components: {
+    MuiPaper: { defaultProps: { elevation: 0 }, styleOverrides: { root: { border: `1px solid ${C.line}`, borderRadius: 10 } } },
+    MuiAppBar: { defaultProps: { elevation: 0 }, styleOverrides: { root: { border: 0, borderRadius: 0, boxShadow: "none" } } },
+    MuiButton: { defaultProps: { disableElevation: true, size: "small" },
+                 styleOverrides: { root: { borderRadius: 6, paddingLeft: 14, paddingRight: 14 }, sizeLarge: { padding: "10px 22px", fontSize: 14.5 },
+                                   outlined: { borderColor: "#C9CED6" } } },
+    MuiTextField: { defaultProps: { size: "small" } },
+    MuiOutlinedInput: { styleOverrides: { inputSizeSmall: { paddingTop: 6.5, paddingBottom: 6.5, fontSize: 12.5 } } },
+    MuiAutocomplete: { styleOverrides: { inputRoot: { paddingTop: "2px !important", paddingBottom: "2px !important", fontSize: 12.5 } } },
+    MuiSelect: { defaultProps: { size: "small" } },
+    MuiChip: { styleOverrides: { root: { height: 22, fontSize: 11.5, fontWeight: 600 }, label: { paddingLeft: 7, paddingRight: 7 } } },
+    MuiTableCell: { styleOverrides: { root: { padding: "5px 10px", borderColor: C.line, fontSize: 12.5 },
+                                      head: { fontWeight: 600, color: C.muted, fontSize: 12, background: "#F7F8FA" } } },
+    MuiTooltip: { styleOverrides: { tooltip: { fontSize: 11.5, background: C.navy } } },
+    MuiStepIcon: { styleOverrides: { root: { "&.Mui-completed": { color: C.green }, "&.Mui-active": { color: C.navy } } } },
+    MuiLinearProgress: { styleOverrides: { root: { height: 5, borderRadius: 3 } } },
+  },
+});

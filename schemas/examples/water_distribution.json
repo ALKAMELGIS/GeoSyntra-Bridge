@@ -1,0 +1,1014 @@
+{
+  "format": 2,
+  "schema_id": "water_distribution",
+  "display_name": "Water Distribution Network",
+  "version": "1.0-draft",
+  "status": "draft",
+  "discipline": "Water",
+  "description": "Potable water transmission/distribution network (pressure system).",
+  "spatial_reference": {
+    "epsg": 32640,
+    "name": "WGS 84 / UTM zone 40N",
+    "verified": false
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "WaterNetwork"
+    }
+  ],
+  "domains": [
+    {
+      "name": "AssetStatus",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PRO": "Proposed",
+        "UC": "Under Construction",
+        "EXI": "Existing",
+        "ABD": "Abandoned",
+        "REM": "Removed",
+        "UNK": "Unknown"
+      }
+    },
+    {
+      "name": "AssetCondition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "Unknown": "Unknown"
+      }
+    },
+    {
+      "name": "FlowDirection",
+      "domain_type": "coded",
+      "field_type": "SMALLINTEGER",
+      "description": "",
+      "coded_values": {
+        "1": "With digitized",
+        "2": "Against digitized",
+        "0": "Undetermined"
+      }
+    },
+    {
+      "name": "PipeMaterial",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PVC": "PVC",
+        "UPVC": "uPVC",
+        "HDPE": "HDPE",
+        "PE": "Polyethylene",
+        "DI": "Ductile Iron",
+        "GRP": "Glass Reinforced Plastic",
+        "ST": "Steel",
+        "CI": "Cast Iron",
+        "AC": "Asbestos Cement",
+        "RCP": "Reinforced Concrete",
+        "VC": "Vitrified Clay",
+        "CU": "Copper"
+      }
+    },
+    {
+      "name": "WaterDiameter",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "",
+      "coded_values": {
+        "20": "20 mm",
+        "25": "25 mm",
+        "32": "32 mm",
+        "50": "50 mm",
+        "63": "63 mm",
+        "75": "75 mm",
+        "90": "90 mm",
+        "100": "100 mm",
+        "110": "110 mm",
+        "150": "150 mm",
+        "160": "160 mm",
+        "200": "200 mm",
+        "225": "225 mm",
+        "250": "250 mm",
+        "300": "300 mm",
+        "315": "315 mm",
+        "350": "350 mm",
+        "400": "400 mm",
+        "450": "450 mm",
+        "500": "500 mm",
+        "600": "600 mm",
+        "700": "700 mm",
+        "800": "800 mm",
+        "900": "900 mm",
+        "1000": "1000 mm",
+        "1200": "1200 mm",
+        "1400": "1400 mm",
+        "1600": "1600 mm"
+      }
+    },
+    {
+      "name": "ValvePosition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "OPEN": "Open",
+        "CLOSED": "Closed",
+        "PART": "Partially Open"
+      }
+    },
+    {
+      "name": "HydrantType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PILLAR": "Pillar",
+        "UG": "Underground",
+        "WALL": "Wall"
+      }
+    },
+    {
+      "name": "FittingType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "TEE": "Tee",
+        "BEND": "Bend",
+        "RED": "Reducer",
+        "CAP": "End Cap",
+        "CROSS": "Cross",
+        "COUP": "Coupling"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "WaterMain",
+      "alias": "Water Main",
+      "geometry_type": "line",
+      "feature_dataset": "WaterNetwork",
+      "category": "edge",
+      "fields": [
+        {
+          "name": "SUBTYPE",
+          "field_type": "SMALLINTEGER",
+          "alias": "Main Type"
+        },
+        {
+          "name": "PIPE_ID",
+          "field_type": "TEXT",
+          "alias": "Pipe ID",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "alias": "Diameter (mm)",
+          "domain": "WaterDiameter"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PipeMaterial"
+        },
+        {
+          "name": "PN_RATING",
+          "field_type": "INTEGER",
+          "alias": "Pressure Rating (bar)"
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE",
+          "alias": "Length (m)"
+        },
+        {
+          "name": "DEPTH",
+          "field_type": "DOUBLE",
+          "alias": "Cover Depth (m)"
+        },
+        {
+          "name": "FROM_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "TO_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "\\bw(?:tr|ater)?[\\s_-]*(?:main|pipe|pp|line)",
+          "\\bwm\\b",
+          "potable"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "water",
+          "wm",
+          "potable",
+          "dn"
+        ],
+        "geometry_types": [
+          "line"
+        ],
+        "typical_length_range": [
+          1,
+          2000
+        ],
+        "value_ranges": {
+          "DIAMETER": [
+            50,
+            2000
+          ]
+        }
+      },
+      "subtype_field": "SUBTYPE",
+      "subtypes": [
+        {
+          "code": 1,
+          "name": "Transmission",
+          "cad_patterns": [
+            "trans",
+            "trunk"
+          ]
+        },
+        {
+          "code": 2,
+          "name": "Distribution",
+          "cad_patterns": [
+            "dist"
+          ]
+        },
+        {
+          "code": 3,
+          "name": "Service",
+          "cad_patterns": [
+            "serv",
+            "house[\\s_-]*conn"
+          ]
+        }
+      ],
+      "default_subtype": 2,
+      "id_field": "PIPE_ID",
+      "network_role": "edge",
+      "attribute_aliases": {
+        "PIPE_ID": [
+          "ID",
+          "PIPEID",
+          "TAG"
+        ],
+        "DIAMETER": [
+          "DIA",
+          "DN",
+          "SIZE"
+        ],
+        "MATERIAL": [
+          "MAT",
+          "MATL"
+        ]
+      }
+    },
+    {
+      "name": "Valve",
+      "alias": "Valve",
+      "geometry_type": "point",
+      "feature_dataset": "WaterNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "SUBTYPE",
+          "field_type": "SMALLINTEGER",
+          "alias": "Valve Type"
+        },
+        {
+          "name": "VALVE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "WaterDiameter"
+        },
+        {
+          "name": "NORMAL_POS",
+          "field_type": "TEXT",
+          "alias": "Normal Position",
+          "length": 10,
+          "domain": "ValvePosition"
+        },
+        {
+          "name": "ELEVATION",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "valve",
+          "\\bv(?:lv|alv)?\\b",
+          "\\bgv\\b",
+          "\\bbfv\\b"
+        ],
+        "block_name_patterns": [
+          "valve",
+          "\\bgv",
+          "bfv",
+          "\\bav\\b",
+          "\\bwo\\b",
+          "prv"
+        ],
+        "text_keywords": [
+          "valve",
+          "gv",
+          "bfv",
+          "av",
+          "prv",
+          "wo"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "subtype_field": "SUBTYPE",
+      "subtypes": [
+        {
+          "code": 1,
+          "name": "Gate Valve",
+          "cad_patterns": [
+            "\\bgv",
+            "gate"
+          ]
+        },
+        {
+          "code": 2,
+          "name": "Butterfly Valve",
+          "cad_patterns": [
+            "bfv",
+            "butter"
+          ]
+        },
+        {
+          "code": 3,
+          "name": "Air Valve",
+          "cad_patterns": [
+            "\\bav\\b",
+            "air"
+          ]
+        },
+        {
+          "code": 4,
+          "name": "Washout",
+          "cad_patterns": [
+            "\\bwo\\b",
+            "wash"
+          ]
+        },
+        {
+          "code": 5,
+          "name": "PRV",
+          "cad_patterns": [
+            "prv",
+            "reduc"
+          ]
+        }
+      ],
+      "default_subtype": 1,
+      "id_field": "VALVE_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "VALVE_ID": [
+          "ID",
+          "TAG",
+          "VALVEID",
+          "NO"
+        ],
+        "DIAMETER": [
+          "DIA",
+          "DN",
+          "SIZE"
+        ]
+      }
+    },
+    {
+      "name": "Hydrant",
+      "alias": "Fire Hydrant",
+      "geometry_type": "point",
+      "feature_dataset": "WaterNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "HYDRANT_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "WaterDiameter"
+        },
+        {
+          "name": "HYD_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "HydrantType"
+        },
+        {
+          "name": "ELEVATION",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "hydrant",
+          "\\bfh\\b",
+          "\\bhyd"
+        ],
+        "block_name_patterns": [
+          "hydrant",
+          "\\bfh",
+          "hyd"
+        ],
+        "text_keywords": [
+          "hydrant",
+          "fh"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "HYDRANT_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "HYDRANT_ID": [
+          "ID",
+          "TAG",
+          "NO"
+        ]
+      }
+    },
+    {
+      "name": "Fitting",
+      "alias": "Fitting",
+      "geometry_type": "point",
+      "feature_dataset": "WaterNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "FITTING_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "FIT_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "FittingType"
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "WaterDiameter"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "fitting",
+          "\\bfit"
+        ],
+        "block_name_patterns": [
+          "tee",
+          "bend",
+          "reducer",
+          "cap",
+          "\\bfit"
+        ],
+        "text_keywords": [
+          "tee",
+          "bend",
+          "reducer"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "FITTING_ID",
+      "network_role": "junction"
+    },
+    {
+      "name": "WaterMeter",
+      "alias": "Water Meter",
+      "geometry_type": "point",
+      "feature_dataset": "WaterNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "METER_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "SIZE_MM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ACCOUNT_NO",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "meter",
+          "\\bwmr?\\b"
+        ],
+        "block_name_patterns": [
+          "meter",
+          "\\bmtr"
+        ],
+        "text_keywords": [
+          "meter"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "METER_ID",
+      "network_role": "junction"
+    },
+    {
+      "name": "ValveChamber",
+      "alias": "Valve Chamber",
+      "geometry_type": "polygon",
+      "feature_dataset": "WaterNetwork",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CHAMBER_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "COVER_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "chamber",
+          "\\bvc\\b"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "chamber"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "id_field": "CHAMBER_ID"
+    },
+    {
+      "name": "PumpStation",
+      "alias": "Pump Station",
+      "geometry_type": "point",
+      "feature_dataset": "WaterNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "STATION_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATION_NAME",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CAPACITY_M3H",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "pump",
+          "\\bps\\b"
+        ],
+        "block_name_patterns": [
+          "pump"
+        ],
+        "text_keywords": [
+          "pump station"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "STATION_ID",
+      "network_role": "junction"
+    }
+  ],
+  "label_rules": [
+    {
+      "field": "DIAMETER",
+      "pattern": "(?:DN|Ø|⌀|%%C|DIA\\.?|D\\s*=)\\s*(?P<v>\\d{2,4})(?:\\s*MM)?\\b|\\b(?P<v2>\\d{2,4})\\s*MM\\b",
+      "value_type": "int",
+      "targets": [
+        "WaterMain",
+        "Valve",
+        "Hydrant",
+        "Fitting"
+      ]
+    },
+    {
+      "field": "MATERIAL",
+      "pattern": "\\b(?P<v>UPVC|HDPE|PVC|GRP|RCP|PE|DI|ST|CI|AC|VC|CU)\\b",
+      "targets": [
+        "WaterMain"
+      ],
+      "value_type": "upper",
+      "description": "pipe material code in label"
+    },
+    {
+      "field": "LENGTH",
+      "pattern": "\\bL\\s*[=:]\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "targets": [
+        "WaterMain"
+      ]
+    },
+    {
+      "field": "PN_RATING",
+      "pattern": "\\bPN\\s*(?P<v>\\d{1,2})\\b",
+      "value_type": "int",
+      "targets": [
+        "WaterMain"
+      ]
+    },
+    {
+      "field": "PIPE_ID",
+      "pattern": "\\b(?P<v>WM[-_]?\\d{1,6})\\b",
+      "value_type": "upper",
+      "targets": [
+        "WaterMain"
+      ]
+    },
+    {
+      "field": "VALVE_ID",
+      "pattern": "\\b(?P<v>(?:GV|BFV|AV|WO|PRV|V)[-_]?\\d{1,6})\\b",
+      "value_type": "upper",
+      "targets": [
+        "Valve"
+      ]
+    },
+    {
+      "field": "HYDRANT_ID",
+      "pattern": "\\b(?P<v>(?:FH|HYD)[-_]?\\d{1,6})\\b",
+      "value_type": "upper",
+      "targets": [
+        "Hydrant"
+      ]
+    },
+    {
+      "field": "ELEVATION",
+      "pattern": "\\b(?:EL|ELEV|RL)\\s*[=:]?\\s*(?P<v>-?\\d+\\.\\d+)",
+      "value_type": "float",
+      "targets": [
+        "Valve",
+        "Hydrant"
+      ]
+    }
+  ],
+  "label_search_radius": 6.0,
+  "network": {
+    "enabled": true,
+    "flow": "pressure",
+    "edges": [
+      "WaterMain"
+    ],
+    "junctions": [
+      "Valve",
+      "Hydrant",
+      "Fitting",
+      "WaterMeter",
+      "PumpStation"
+    ],
+    "snap_tolerance": 0.1,
+    "upstream_node_field": "FROM_NODE",
+    "downstream_node_field": "TO_NODE"
+  },
+  "relationships": [],
+  "validation": {
+    "min_line_length": 0.05,
+    "min_polygon_area": 0.1,
+    "duplicate_tolerance": 0.001,
+    "unique_fields": {
+      "WaterMain": [
+        "PIPE_ID"
+      ],
+      "Valve": [
+        "VALVE_ID"
+      ],
+      "Hydrant": [
+        "HYDRANT_ID"
+      ]
+    }
+  },
+  "repair": {
+    "remove_duplicate_vertices": true,
+    "close_near_closed_rings": true,
+    "ring_closure_tolerance": 0.05,
+    "make_valid_polygons": true,
+    "snap_line_endpoints": true
+  }
+}

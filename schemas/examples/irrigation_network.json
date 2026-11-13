@@ -1,0 +1,864 @@
+{
+  "format": 2,
+  "schema_id": "irrigation_network",
+  "display_name": "Irrigation Network",
+  "version": "1.0-draft",
+  "status": "draft",
+  "discipline": "Irrigation",
+  "description": "TSE / potable irrigation mainlines, laterals, valves, controllers and zones.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "name": "WGS 84 / UTM zone 40N",
+    "verified": false
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "IrrigationNetwork"
+    }
+  ],
+  "domains": [
+    {
+      "name": "AssetStatus",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PRO": "Proposed",
+        "UC": "Under Construction",
+        "EXI": "Existing",
+        "ABD": "Abandoned",
+        "REM": "Removed",
+        "UNK": "Unknown"
+      }
+    },
+    {
+      "name": "AssetCondition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "Unknown": "Unknown"
+      }
+    },
+    {
+      "name": "FlowDirection",
+      "domain_type": "coded",
+      "field_type": "SMALLINTEGER",
+      "description": "",
+      "coded_values": {
+        "1": "With digitized",
+        "2": "Against digitized",
+        "0": "Undetermined"
+      }
+    },
+    {
+      "name": "PipeMaterial",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PVC": "PVC",
+        "UPVC": "uPVC",
+        "HDPE": "HDPE",
+        "PE": "Polyethylene",
+        "DI": "Ductile Iron",
+        "GRP": "Glass Reinforced Plastic",
+        "ST": "Steel",
+        "CI": "Cast Iron",
+        "AC": "Asbestos Cement",
+        "RCP": "Reinforced Concrete",
+        "VC": "Vitrified Clay",
+        "CU": "Copper"
+      }
+    },
+    {
+      "name": "IrrDiameter",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "",
+      "coded_values": {
+        "16": "16 mm",
+        "20": "20 mm",
+        "25": "25 mm",
+        "32": "32 mm",
+        "40": "40 mm",
+        "50": "50 mm",
+        "63": "63 mm",
+        "75": "75 mm",
+        "90": "90 mm",
+        "110": "110 mm",
+        "125": "125 mm",
+        "160": "160 mm",
+        "200": "200 mm",
+        "250": "250 mm",
+        "315": "315 mm"
+      }
+    },
+    {
+      "name": "IrrWaterSource",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "TSE": "TSE Water",
+        "POT": "Potable",
+        "MIX": "Mixed",
+        "GW": "Ground Water"
+      }
+    },
+    {
+      "name": "IrrMethod",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "DRIP": "Drip",
+        "SPRAY": "Spray",
+        "ROTOR": "Rotor",
+        "BUBB": "Bubbler",
+        "FLOOD": "Flood"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "IrrigationMainline",
+      "alias": "Irrigation Mainline",
+      "geometry_type": "line",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "edge",
+      "fields": [
+        {
+          "name": "PIPE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "alias": "Diameter (mm)",
+          "domain": "IrrDiameter"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PipeMaterial"
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "WATER_SOURCE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "IrrWaterSource"
+        },
+        {
+          "name": "FROM_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "TO_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "irr\\w*[\\s_-]*main",
+          "\\bim\\b",
+          "main[\\s_-]*line",
+          "\\btse\\b"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "mainline",
+          "tse"
+        ],
+        "geometry_types": [
+          "line"
+        ],
+        "value_ranges": {
+          "DIAMETER": [
+            50,
+            400
+          ]
+        },
+        "line_weight": "heavy",
+        "linetype_patterns": [
+          "contin",
+          "bylayer"
+        ]
+      },
+      "id_field": "PIPE_ID",
+      "network_role": "edge",
+      "attribute_aliases": {
+        "DIAMETER": [
+          "DIA",
+          "DN",
+          "SIZE"
+        ]
+      }
+    },
+    {
+      "name": "IrrigationLateral",
+      "alias": "Lateral / Drip Line",
+      "geometry_type": "line",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "edge",
+      "fields": [
+        {
+          "name": "PIPE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "alias": "Diameter (mm)",
+          "domain": "IrrDiameter"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PipeMaterial"
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "WATER_SOURCE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "IrrWaterSource"
+        },
+        {
+          "name": "FROM_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "TO_NODE",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "lateral",
+          "drip",
+          "\\blat\\b",
+          "sub[\\s_-]*main"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "lateral",
+          "drip"
+        ],
+        "geometry_types": [
+          "line"
+        ],
+        "typical_length_range": [
+          0.5,
+          200
+        ],
+        "value_ranges": {
+          "DIAMETER": [
+            12,
+            50
+          ]
+        },
+        "line_weight": "light",
+        "linetype_patterns": [
+          "dash",
+          "hidden",
+          "dot",
+          "drip",
+          "center"
+        ]
+      },
+      "id_field": "PIPE_ID",
+      "network_role": "edge"
+    },
+    {
+      "name": "IrrigationValve",
+      "alias": "Irrigation Valve",
+      "geometry_type": "point",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "SUBTYPE",
+          "field_type": "SMALLINTEGER",
+          "alias": "Valve Type"
+        },
+        {
+          "name": "VALVE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "IrrDiameter"
+        },
+        {
+          "name": "ZONE_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "valve",
+          "\\bsv\\b",
+          "\\bqcv\\b",
+          "\\biv\\b"
+        ],
+        "block_name_patterns": [
+          "valve",
+          "\\bsv",
+          "qcv",
+          "\\biv"
+        ],
+        "text_keywords": [
+          "valve",
+          "sv",
+          "qcv"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "subtype_field": "SUBTYPE",
+      "subtypes": [
+        {
+          "code": 1,
+          "name": "Solenoid Valve",
+          "cad_patterns": [
+            "\\bsv",
+            "solen"
+          ]
+        },
+        {
+          "code": 2,
+          "name": "Isolation Valve",
+          "cad_patterns": [
+            "\\biv",
+            "isol",
+            "gate"
+          ]
+        },
+        {
+          "code": 3,
+          "name": "Quick Coupling Valve",
+          "cad_patterns": [
+            "qcv",
+            "quick"
+          ]
+        },
+        {
+          "code": 4,
+          "name": "Air Release Valve",
+          "cad_patterns": [
+            "\\barv",
+            "air"
+          ]
+        }
+      ],
+      "default_subtype": 1,
+      "id_field": "VALVE_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "VALVE_ID": [
+          "ID",
+          "TAG",
+          "NO"
+        ]
+      }
+    },
+    {
+      "name": "IrrigationController",
+      "alias": "Controller",
+      "geometry_type": "point",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATIONS",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "POWER_SOURCE",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "controller",
+          "\\bctrl\\b",
+          "\\bclr\\b"
+        ],
+        "block_name_patterns": [
+          "control",
+          "ctrl"
+        ],
+        "text_keywords": [
+          "controller"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "off_network"
+      },
+      "id_field": "CONTROLLER_ID"
+    },
+    {
+      "name": "IrrigationTank",
+      "alias": "Irrigation Tank",
+      "geometry_type": "point",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "TANK_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "CAPACITY_M3",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "WATER_SOURCE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "IrrWaterSource"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "tank"
+        ],
+        "block_name_patterns": [
+          "tank"
+        ],
+        "text_keywords": [
+          "tank"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "TANK_ID",
+      "network_role": "junction"
+    },
+    {
+      "name": "IrrigationZone",
+      "alias": "Irrigation Zone",
+      "geometry_type": "polygon",
+      "feature_dataset": "IrrigationNetwork",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "ZONE_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IRR_METHOD",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "IrrMethod"
+        },
+        {
+          "name": "AREA_M2",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "zone",
+          "hydrozone"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "zone"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "id_field": "ZONE_NO"
+    }
+  ],
+  "label_rules": [
+    {
+      "field": "DIAMETER",
+      "pattern": "(?:DN|Ø|⌀|%%C|DIA\\.?|D\\s*=)\\s*(?P<v>\\d{2,4})(?:\\s*MM)?\\b|\\b(?P<v2>\\d{2,4})\\s*MM\\b",
+      "value_type": "int",
+      "targets": [
+        "IrrigationMainline",
+        "IrrigationLateral",
+        "IrrigationValve"
+      ]
+    },
+    {
+      "field": "DIAMETER",
+      "pattern": "\\b(?:Ø|PE|HDPE)?\\s*(?P<v>\\d{2,3})\\s*(?:MM|Ø)\\b",
+      "value_type": "int",
+      "targets": [
+        "IrrigationLateral"
+      ]
+    },
+    {
+      "field": "MATERIAL",
+      "pattern": "\\b(?P<v>UPVC|HDPE|PVC|GRP|RCP|PE|DI|ST|CI|AC|VC|CU)\\b",
+      "targets": [
+        "IrrigationMainline",
+        "IrrigationLateral"
+      ],
+      "value_type": "upper",
+      "description": "pipe material code in label"
+    },
+    {
+      "field": "LENGTH",
+      "pattern": "\\bL\\s*[=:]\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "targets": [
+        "IrrigationMainline",
+        "IrrigationLateral"
+      ]
+    },
+    {
+      "field": "WATER_SOURCE",
+      "pattern": "\\b(?P<v>TSE|POT|MIX|GW)\\b",
+      "value_type": "upper",
+      "targets": [
+        "IrrigationMainline",
+        "IrrigationLateral",
+        "IrrigationTank"
+      ]
+    },
+    {
+      "field": "VALVE_ID",
+      "pattern": "\\b(?P<v>(?:SV|IV|QCV|ARV)[-_]?\\d{1,5})\\b",
+      "value_type": "upper",
+      "targets": [
+        "IrrigationValve"
+      ]
+    },
+    {
+      "field": "ZONE_NO",
+      "pattern": "\\bZ(?:ONE)?\\s*[-_#]?\\s*(?P<v>\\d{1,4}[A-Z]?)\\b",
+      "value_type": "upper",
+      "targets": [
+        "IrrigationValve",
+        "IrrigationZone"
+      ]
+    },
+    {
+      "field": "CONTROLLER_ID",
+      "pattern": "\\b(?:CONTROLLER|CTRL|CLR)\\s*[-_#]?\\s*(?P<v>[A-Z]?\\d{1,3})\\b",
+      "value_type": "upper",
+      "targets": [
+        "IrrigationController"
+      ]
+    },
+    {
+      "field": "STATIONS",
+      "pattern": "\\b(?P<v>\\d{1,3})\\s*(?:ST|STN|STATIONS?)\\b",
+      "value_type": "int",
+      "targets": [
+        "IrrigationController"
+      ]
+    }
+  ],
+  "label_search_radius": 4.0,
+  "network": {
+    "enabled": true,
+    "flow": "pressure",
+    "edges": [
+      "IrrigationMainline",
+      "IrrigationLateral"
+    ],
+    "junctions": [
+      "IrrigationValve",
+      "IrrigationTank"
+    ],
+    "snap_tolerance": 0.1,
+    "upstream_node_field": "FROM_NODE",
+    "downstream_node_field": "TO_NODE"
+  },
+  "relationships": [],
+  "validation": {
+    "min_line_length": 0.05,
+    "min_polygon_area": 0.1,
+    "duplicate_tolerance": 0.001,
+    "unique_fields": {
+      "IrrigationValve": [
+        "VALVE_ID"
+      ]
+    }
+  },
+  "repair": {
+    "remove_duplicate_vertices": true,
+    "close_near_closed_rings": true,
+    "ring_closure_tolerance": 0.05,
+    "make_valid_polygons": true,
+    "snap_line_endpoints": true
+  }
+}

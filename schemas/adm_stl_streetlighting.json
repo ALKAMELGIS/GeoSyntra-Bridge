@@ -1,0 +1,2373 @@
+{
+  "format": 2,
+  "schema_id": "adm_stl_streetlighting",
+  "display_name": "ADM Street Lighting (STL) — Template V10",
+  "version": "10 (20012026)",
+  "status": "approved",
+  "discipline": "Street Lighting",
+  "description": "Imported from template geodatabase 'ADM_STL_Templates_Z40_V10_20012026.gdb': 6 feature classes, 20 domains.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "verified": true
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "STL_StreetLight"
+    }
+  ],
+  "domains": [
+    {
+      "name": "BayType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "BayType",
+      "coded_values": {
+        "Bay Feeder": "Bay Feeder",
+        "Bay Trans": "Bay Trans",
+        "N/A": "N/A",
+        "BayShrReac": "Bay Shunt Reactor",
+        "BayCapBnk": "Bay Capacitor Bank"
+      }
+    },
+    {
+      "name": "Boolean",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Boolean",
+      "coded_values": {
+        "Yes": "Yes",
+        "No": "No",
+        "Undefined": "Undefined"
+      }
+    },
+    {
+      "name": "CC_REF",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "CC_REF",
+      "coded_values": {
+        "APP": "APP",
+        "ASB": "ASB",
+        "BKS": "BKS"
+      }
+    },
+    {
+      "name": "Cc_UnitType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Cc_UnitType",
+      "coded_values": {
+        "Median": "Median",
+        "Footpath": "Footpath",
+        "Open space": "Open space",
+        "ELECTRICAL": "ELECTRICAL",
+        "N/A": "N/A",
+        "Undrground": "Underground"
+      }
+    },
+    {
+      "name": "Condition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Condition",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "N/A": "N/A",
+        "Excellent": "Excellent",
+        "Undefined": "Undefined",
+        "Damaged": "Damaged",
+        "No lantern": "No lantern",
+        "No Damage": "No Damage",
+        "Misaligned": "Misaligned",
+        "Missing": "Missing",
+        "Obscured": "Obscured",
+        "Rusted": "Rusted",
+        "BPL_RUSTED": "Base plate Rusted",
+        "CTDOOR_UNF": "Cutout door unfixed",
+        "FPOLE_CRAK": "Foundation pole cracked",
+        "NO_ACCESS": "Not Accessible",
+        "NOT_OPERAT": "Not Operational",
+        "POLEDAMAGE": "Pole Damaged",
+        "BODYRUSTED": "Body Rusted",
+        "DOORDAMAGE": "Door Damaged",
+        "FOUNDCRACK": "Foundation Cracked",
+        "PADLOCKUNV": "Padlock unavailable",
+        "NEEDREPAIR": "Need Repair",
+        "DMGDNOTWRK": "Damaged Not work",
+        "DISCOLOR": "DISCOLOR",
+        "FADED": "FADED",
+        "GRINDED": "GRINDED",
+        "LOS_REFLCT": "LOSS OF REFLECTIVITY",
+        "MINOR_DAMG": "MINOR_DAMAGE",
+        "SCRAPED": "SCRAPED",
+        "WEATHERED": "WEATHERED",
+        "BOLT_MS_LS": "BOLTS MISSING OR LOOSE",
+        "BLB_NOTWRK": "BULBNOTWOTKING",
+        "OTHER": "OTHER",
+        "CRACKED": "CRACKED",
+        "HORIZ_PROJ": "HORIZONTAL_PROJECTION",
+        "LOS_DISLGD": "LOOSE/DISLODGED",
+        "SHATTERED": "SHATTERED",
+        "VERTL_PROJ": "VERTICAL_PROJECTION",
+        "SEVER_DAMG": "Severe Damage",
+        "MINOR_DEFT": "Minor defects of a non-urgent nature",
+        "DM_P_H_S_F": "DAMAGED,_PEELING,_HOLED_SCRAPED_FADED",
+        "HOLED": "HOLED",
+        "INCLN-LOSD": "INCLINED_TO_LINE_OF_SIGHT_CAUSING_CONFLICT_DISPLAY",
+        "PEELING": "PEELING",
+        "SIGN_ILGBL": "SIGN_ILLEGIBLE_AT_NIGHT,100M_USING_LOW_BEAM",
+        "DETERIORAT": "DETERIORATED",
+        "MISALIN-MN": "MISALIGNED-MINOR",
+        "MISALIN-MD": "MISALIGNED-MODERATE",
+        "MISALIN-UH": "MISALIGNED-URGENT_OR_SAFETY_HAZARD",
+        "PAINT_FADE": "PAINT FADED",
+        "PAINT_SCRP": "PAINT SCRAPED"
+      }
+    },
+    {
+      "name": "CutOut_Ways",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "CutOut_Ways",
+      "coded_values": {
+        "2": "2 WAYS",
+        "3": "3 WAYS",
+        "4": "4 WAYS",
+        "5": "5 WAYS",
+        "6": "6 WAYS",
+        "0": "N/A"
+      }
+    },
+    {
+      "name": "DataSource",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Data Source",
+      "coded_values": {
+        "AS BUILT": "AS BUILT",
+        "GPS": "GPS",
+        "SITESURVEY": "SITE SURVEY",
+        "CONSSURVEY": "CONSULTANT SURVEY",
+        "TPSBASEMAP": "TPS BASE MAP",
+        "SURVEY2012": "2012 SURVEY",
+        "DOT DATA": "DOT DATA",
+        "SURVEY2017": "2017 SURVEY",
+        "SURVEY2019": "2019 SURVEY",
+        "Osool": "Osool"
+      }
+    },
+    {
+      "name": "ERT_UnitType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "ERT_UnitType",
+      "coded_values": {
+        "Integral": "Integral",
+        "Truck": "Truck",
+        "Rod": "Rod",
+        "Earthing": "Earthing",
+        "Earthpit": "Earthpit",
+        "UNDEFINED": "UNDEFINED"
+      }
+    },
+    {
+      "name": "InforMigration",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "InforMigration",
+      "coded_values": {
+        "DELETE": "DELETE",
+        "EXPIRE_COMPLETED": "EXPIRE_COMPLETED",
+        "INFOR_UPDATE_COMPLETED": "INFOR_UPDATE_COMPLETED",
+        "INSERT_COMPLETED": "INSERT_COMPLETED",
+        "INSERT": "INSERT",
+        "UPDATE TO INFOR": "UPDATE TO INFOR"
+      }
+    },
+    {
+      "name": "JB_CoutoutType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Junction Box Cutout Type",
+      "coded_values": {
+        "BOX": "BOX",
+        "3WAYCUTOUT": "3 WAY CUTOUT"
+      }
+    },
+    {
+      "name": "JB_UnitType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "JB_UnitType",
+      "coded_values": {
+        "2 TERMINAL": "2 TERMINAL",
+        "3 TERMINAL": "3 TERMINAL",
+        "UNDEFINED": "UNDEFINED",
+        "N/A": "N/A"
+      }
+    },
+    {
+      "name": "LampType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "LampType",
+      "coded_values": {
+        "LED": "LED",
+        "N/A": "N/A",
+        "Fluorescnt": "Fluorescent",
+        "HP-Sodium": "High-Pressure Sodium",
+        "LP-Sodium": "Low Pressure Sodium",
+        "MrcuryVapr": "Mercury Vapor",
+        "MetalHalid": "Metal Halide"
+      }
+    },
+    {
+      "name": "Lc_UnitType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Lc_UnitType",
+      "coded_values": {
+        "Copper": "Copper",
+        "C/X/S/P": "C/X/S/P",
+        "N/A": "N/A",
+        "Undefined": "Undefined",
+        "LV CABLE": "LV CABLE",
+        "OTHER": "OTHER"
+      }
+    },
+    {
+      "name": "Ownership",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Ownership",
+      "coded_values": {
+        "Public": "Public",
+        "Private": "Private",
+        "N/A": "N/A"
+      }
+    },
+    {
+      "name": "PhotoCell",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "PhotoCell",
+      "coded_values": {
+        "Yes": "Yes",
+        "No": "No",
+        "N/A": "N/A"
+      }
+    },
+    {
+      "name": "Pole_Material",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Pole_Material",
+      "coded_values": {
+        "CAST IRON": "CAST IRON",
+        "N/A": "N/A",
+        "Decorative": "Decorative",
+        "HDG Steel": "HDG Steel",
+        "Metal": "Metal",
+        "Wood": "Wood",
+        "ALUMINUM": "ALUMINUM",
+        "GALVANIZED": "GALVANIZED",
+        "CastAlum": "CAST ALUMINUM",
+        "GI-Circ": "GI – CIRCULAR",
+        "GI-Octag": "GI – OCTAGONAL",
+        "GalvMetal": "Galvanized Metal",
+        "GalvnSteel": "Galvanized Steel"
+      }
+    },
+    {
+      "name": "Region",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Region",
+      "coded_values": {
+        "ADM": "Abu Dhabi Municipality",
+        "AAM": "Al Ain Municipality",
+        "DRM": "Dhafra Region Municipality"
+      }
+    },
+    {
+      "name": "STL_UnitType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "STL_UnitType",
+      "coded_values": {
+        "BOLLARD": "BOLLARD",
+        "DECORATIVE": "DECORATIVE",
+        "DOUBLE": "DOUBLE",
+        "FLOOD_LGT": "FLOOD_LGT",
+        "HIGH MAST": "HIGH MAST",
+        "HPS": "HPS",
+        "L45": "L45",
+        "L74": "L74",
+        "L78": "L78",
+        "LANDSCAPE": "LANDSCAPE",
+        "LED": "LED",
+        "LIGHTPOLE": "LIGHTPOLE",
+        "MH": "MH",
+        "SINGLE": "SINGLE",
+        "STR_LIGHT": "STR_LIGHT",
+        "STRIP_LGT": "STRIP_LGT",
+        "TNL/UDRPAS": "TNL/UDRPAS",
+        "UNDEFINED": "UNDEFINED",
+        "UDR_CANOPY": "UDR_CANOPY",
+        "UDR_WATER": "UDR_WATER",
+        "WAYMARKER": "WAYMARKER",
+        "N/A": "N/A",
+        "Solar": "Solar Light"
+      }
+    },
+    {
+      "name": "Status",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Status",
+      "coded_values": {
+        "Inactive": "Inactive",
+        "Active": "Active",
+        "Proposed": "Proposed",
+        "N/A": "N/A",
+        "Warranty": "Warranty",
+        "Unknown": "Unknown",
+        "In Use": "In Use",
+        "Existing": "Existing",
+        "Removed": "Removed",
+        "Closed": "Closed",
+        "Open": "Open",
+        "Planned": "Planned",
+        "Undefined": "Undefined",
+        "Abandoned": "Abandoned",
+        "NORMAL": "NORMAL",
+        "Expired": "Expired",
+        "In Service": "In Service",
+        "UC": "Under Construction",
+        "Approved D": "Approved Design",
+        "FinalHover": "Final Handover"
+      }
+    },
+    {
+      "name": "Timer_Type",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Timer_Type",
+      "coded_values": {
+        "Digital": "Digital",
+        "Mechanical": "Mechanical",
+        "N/A": "N/A",
+        "Photo cell": "Photo cell",
+        "0 (Amplex)": "0 (Amplex)"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "LIGHTCABLE",
+      "geometry_type": "line",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTED_BY",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Lc_UnitType"
+        },
+        {
+          "name": "CKT_NO",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "BURIEDDEPTH",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "CABLESIZE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABLEMANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "PHASEDESIGNATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABLEMATERIAL",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABLE_LENGTH",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WARNINGTAPE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COVERINGTILES",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD_START",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD_START",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD_START",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "XCOORD_END",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD_END",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD_END",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETLOCATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_UNITID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UNITTYPEDESC",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABLECOUNT",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "JOINT_TYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "SUPPLYSTATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADDRKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "lightcable"
+        ],
+        "block_name_patterns": [
+          "lightcable"
+        ],
+        "text_keywords": [
+          "lightcable"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "SL_NODE",
+      "geometry_type": "point",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 38
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Status"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "sl[_\\-\\s]?node"
+        ],
+        "block_name_patterns": [
+          "sl[_\\-\\s]?node"
+        ],
+        "text_keywords": [
+          "sl",
+          "node"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": false
+    },
+    {
+      "name": "STREETLIGHT",
+      "geometry_type": "point",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTED_BY",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "SEG_RW_ID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "LRS_OFFSET",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "FMEAS",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "STL_UnitType"
+        },
+        {
+          "name": "UNITSUPTYPE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "NO_OF_LUMINARIES",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "FIXTURENUMBER",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "PHASEDESIGNATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "FIXTUREHEIGHT",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "WATTAGE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "LAMPTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "LampType"
+        },
+        {
+          "name": "FUSE",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "HEIGHT",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "FIXTUREMANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "CKTNUMBER",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "ISMIDHINGED",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "POLE_MATERIAL",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Pole_Material"
+        },
+        {
+          "name": "POLE_DIAMETER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "POLE_BASEPLATECOVER",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "FOUNDATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "FOUNDATIONSIZE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_UNITID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "POLEID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "BOOM_ANGLE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "CUTOUT_RATE",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "CUTOUT_WAYS",
+          "field_type": "INTEGER",
+          "nullable": false,
+          "domain": "CutOut_Ways"
+        },
+        {
+          "name": "POLEDIAM_BOTTOM",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "POLEDIAM_TOP",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "POLETHICK_BOTTOM",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "POLETHICK_TOP",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "POWRMTRKEY",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCODE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "LOCATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ROUTEID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPEDESC",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "ADDRKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "LUMINAIRE_INS_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ARMLENGTH",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "NOOFBATTERY",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "ADVERTISESIGN",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "Boolean"
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "streetlight"
+        ],
+        "block_name_patterns": [
+          "streetlight"
+        ],
+        "text_keywords": [
+          "streetlight"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "JUNCTIONBOX",
+      "geometry_type": "point",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTED_BY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "JB_UnitType"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "CKT_NO",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SUPPLIER",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADDRKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "JUNCTION_BOX_CUTOUT_TYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "JB_CoutoutType"
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "junctionbox"
+        ],
+        "block_name_patterns": [
+          "junctionbox"
+        ],
+        "text_keywords": [
+          "junctionbox"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "CONTROLCABINET",
+      "geometry_type": "point",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTED_BY",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 100,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "SEG_RW_ID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "LRS_OFFSET",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "FMEAS",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Cc_UnitType"
+        },
+        {
+          "name": "NOOFWAYS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "NOOFCONNECTEDPOLES",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "BAYTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "BayType"
+        },
+        {
+          "name": "PHASEDESIGNATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "TIMER_TYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Timer_Type"
+        },
+        {
+          "name": "TIMERMANUFACTURE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "PHOTOCELL",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false,
+          "domain": "PhotoCell"
+        },
+        {
+          "name": "PHOTOCELLMANUFACTURE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "INCOMING_RATE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "OUTGOING_RATE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "MAIN_CABLE_SIZE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "AMPLEX_CPU_NUMBER",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "MANUFATURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "BREAKERMANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETCODE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CABINETID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "CCABINET_LOCATION",
+          "field_type": "TEXT",
+          "length": 250,
+          "nullable": false
+        },
+        {
+          "name": "REF",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "CC_REF"
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "ROUTEID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADDRKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "controlcabinet"
+        ],
+        "block_name_patterns": [
+          "controlcabinet"
+        ],
+        "text_keywords": [
+          "controlcabinet"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "EARTHING",
+      "geometry_type": "point",
+      "feature_dataset": "STL_StreetLight",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PROJECTID",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "UNITDESC",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "XCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "YCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ZCOORD",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "ADDRESSNUMBER",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "ROADID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ROADNAME_EN",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "ROADNAME_AR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Status"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Condition"
+        },
+        {
+          "name": "ASSET_WARRANTYSTARTDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_WARRANTYENDDATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "ASSET_INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSPECTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INSPECTED_BY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "HANDOVER_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "OWNERSHIP",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "Ownership"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "DataSource"
+        },
+        {
+          "name": "ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_CODE",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "ZONE_OR_DISTRICT_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "SECTOR_OR_COMMUNITY_NAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UNITTYPE",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "ERT_UnitType"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UNITID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "COMPKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "COMPTYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "ASSET_AFTER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSET_BEFORE",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ASSETLOCATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "REGION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false,
+          "domain": "Region"
+        },
+        {
+          "name": "SUPPLIER",
+          "field_type": "TEXT",
+          "length": 100,
+          "nullable": false
+        },
+        {
+          "name": "ATSNUMBER",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADDRKEY",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "TOCSIGNEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "ASSETSEQNUM",
+          "field_type": "INTEGER"
+        },
+        {
+          "name": "EXPBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "EXPDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "INFORMIGRATION",
+          "field_type": "TEXT",
+          "length": 50,
+          "domain": "InforMigration"
+        },
+        {
+          "name": "SYNCSTATUS",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "CREATIONDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "CREATEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "MODIFIEDDATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MODIFIEDBY",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "ADSDI_GUID",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "CITYNAME",
+          "field_type": "TEXT",
+          "length": 50
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "earthing"
+        ],
+        "block_name_patterns": [
+          "earthing"
+        ],
+        "text_keywords": [
+          "earthing"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    }
+  ],
+  "label_rules": [],
+  "network": {
+    "enabled": false
+  },
+  "topology_rules": [
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "CONTROLCABINET",
+      "destination": "CONTROLCABINET"
+    },
+    {
+      "rule": "esriTRTPointCoveredByLineEndpoint",
+      "origin": "CONTROLCABINET",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "EARTHING",
+      "destination": "EARTHING"
+    },
+    {
+      "rule": "esriTRTPointCoveredByLineEndpoint",
+      "origin": "EARTHING",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "JUNCTIONBOX",
+      "destination": "JUNCTIONBOX"
+    },
+    {
+      "rule": "esriTRTPointCoveredByLineEndpoint",
+      "origin": "JUNCTIONBOX",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "STREETLIGHT",
+      "destination": "STREETLIGHT"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "LIGHTCABLE",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "LIGHTCABLE",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "LIGHTCABLE",
+      "destination": "LIGHTCABLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "SL_NODE",
+      "destination": "SL_NODE"
+    }
+  ],
+  "source": "template_gdb",
+  "source_template": "ADM_STL_Templates_Z40_V10_20012026.gdb"
+}

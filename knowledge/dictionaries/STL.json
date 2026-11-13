@@ -1,0 +1,5447 @@
+{
+ "code": "STL",
+ "source_file": "Data_Dictionary_Street Lighting_Asstes_V10_20012026.xlsx",
+ "classes": {
+  "STREETLIGHT": {
+   "name": "STREETLIGHT",
+   "legacy_names": [
+    "ST_STREETLIGHTPOLE",
+    "INFRA_STREETLIGHT",
+    "Street_Light_CC"
+   ],
+   "feature_dataset": "STL_StreetLight",
+   "geometry": "point",
+   "description": "Streetlight: A raised source of light on the edge of a road or path.",
+   "legacy_sources": {
+    "ST_STREETLIGHTPOLE": "ADM - ASSET TYPES",
+    "INFRA_STREETLIGHT": "AAM - ASSET TYPES",
+    "Street_Light_CC": "DRM - ASSET TYPES"
+   },
+   "responsibility": "CONTRACTOR",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Project ID: Asset construction/installation project:\n• For ADM, Take Project ID from ATS (Asset Taking over System)\n• For AAM, Unique project ID is assigned by Asset Section\n• For DRM, Unique project ID is assigned by Finance Department",
+     "aliases": {
+      "PRJ_ID": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "UNITDESC",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "X (longitude) coordinate for the asset.",
+     "aliases": {
+      "LOCX": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "YCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Y (latitude) coordinate for the asset.",
+     "aliases": {
+      "LOCY": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "ZCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Address Number: Address of the nearest building (From addressing system)"
+    },
+    {
+     "name": "ROADID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road ID as per the LRS Data (N/A for off-road features like Parks features)",
+     "aliases": {
+      "ROAD_NUMBER": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in English as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in Arabic as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active",
+     "aliases": {
+      "STATUSINDICATOR": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "CONDITION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Condition of Asset Values: Very Good, Good, Fair, Poor, Very Poor",
+     "values": [
+      "Very Good",
+      "Good",
+      "Fair",
+      "Poor",
+      "Very Poor"
+     ],
+     "aliases": {
+      "GENERALCONDITION": "ADM GIS-NEW",
+      "OVERALL_CONDITION": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty Start Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WRRNTYSTARTDATE": "ADM GIS-NEW",
+      "WARRANTY_BEGINS": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty End Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WRRNTYENDDATE": "ADM GIS-NEW",
+      "WARRANTY_ENDS": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Installation/ Construction Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "CONSTRUCTIONDATE": "ADM GIS-NEW",
+      "INSTALLATION_DATE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Date of last inspection i.e., DD/MM/YYYY",
+     "aliases": {
+      "LAST_INSPECTION_DATE": "MUNICIPALITIES GIS",
+      "SURVEYDATE": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Inspection conducted consultant/engineer/company name",
+     "aliases": {
+      "INSPECTEDBY": "DRM INFRA GIS",
+      "LAST_INSPECTION_BY": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Handover date i.e., DD/MM/YYYY",
+     "aliases": {
+      "HANDEDOVERDATE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Source of Data Values: AS BUILT, SITE SURVEY, CONSULTANT SURVEY",
+     "values": [
+      "AS BUILT",
+      "SITE SURVEY",
+      "CONSULTANT SURVEY"
+     ],
+     "aliases": {
+      "DATASOURCE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Segment or Road Unit ID: Roadway ‘UNITID’ or Street Segment ‘UNITID’ for association",
+     "aliases": {
+      "SEGKEY": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "LRS Offset",
+     "aliases": {
+      "OFFSETLRS": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "FMEAS",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "From measure chainage (Updated from LRS Tool)",
+     "aliases": {
+      "LOCATION": "ADM GIS-NEW",
+      "LRS_CHAINAGE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Image path",
+     "aliases": {
+      "ASSETIMAGE": "MUNICIPALITIES GIS",
+      "IMAGE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Code",
+     "aliases": {
+      "ZONE_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or community Code",
+     "aliases": {
+      "SEC_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Description",
+     "aliases": {
+      "ZONE_DESC": "MUNICIPALITIES GIS",
+      "SUBAREA": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or Community Description",
+     "aliases": {
+      "SECTOR_DESC": "MUNICIPALITIES GIS",
+      "DISTRICT": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Determines Street Light Types Values: Standard light, Decorative light, flood light, strip light, bollard light, tunnel/under pass light, landscape light",
+     "values": [
+      "Standard light",
+      "Decorative light",
+      "flood light",
+      "strip light",
+      "bollard light",
+      "tunnel/under pass light",
+      "landscape light"
+     ]
+    },
+    {
+     "name": "UNITSUPTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Determines Street Light Subtypes Values: Single arm, double arms, three arms, four arms, five arms, six arms, high mast",
+     "values": [
+      "Single arm",
+      "double arms",
+      "three arms",
+      "four arms",
+      "five arms",
+      "six arms",
+      "high mast"
+     ],
+     "aliases": {
+      "ARM_NO": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "NO_OF_LUMINARIES",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Number of luminaries",
+     "aliases": {
+      "LAMPCOUNT": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "FIXTURENUMBER",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Fixture number"
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Phase designation"
+    },
+    {
+     "name": "FIXTUREHEIGHT",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Fixture height",
+     "aliases": {
+      "STREET_LIGHTING_HEIGHT": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "WATTAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Wattage",
+     "aliases": {
+      "LUMINAIRE_WATTAGE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "LAMPTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Determines The Lamp Type Values: Fluorescent, High-Pressure Sodium, LED, Low Pressure Sodium, Mercury Vapor, Metal Halide",
+     "values": [
+      "Fluorescent",
+      "High-Pressure Sodium",
+      "LED",
+      "Low Pressure Sodium",
+      "Mercury Vapor",
+      "Metal Halide"
+     ],
+     "aliases": {
+      "LAMP_TYPE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "FUSE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Fuse: Yes/No",
+     "values": [
+      "Yes",
+      "No"
+     ]
+    },
+    {
+     "name": "HEIGHT",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Hight of the pole",
+     "aliases": {
+      "HEIGHT_OF_POLE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "FIXTUREMANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Fixture manufacturer",
+     "aliases": {
+      "LAMP_MANUFACTURE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "CKTNUMBER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Circuit Number:  C1, C2, C3, C4, C5, C6",
+     "aliases": {
+      "Circuit_Number": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ISMIDHINGED",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "YES/NO"
+    },
+    {
+     "name": "POLE_MATERIAL",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Pole",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Determines the pole's material Values: CAST ALUMINUM, CAST IRON, GI – CIRCULAR, GI – OCTAGONAL",
+     "values": [
+      "CAST ALUMINUM",
+      "CAST IRON",
+      "GI – CIRCULAR",
+      "GI – OCTAGONAL"
+     ]
+    },
+    {
+     "name": "POLE_DIAMETER",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Pole",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Pole diameter"
+    },
+    {
+     "name": "POLE_BASEPLATECOVER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Pole",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "YES/NO"
+    },
+    {
+     "name": "FOUNDATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Foundation",
+     "aliases": {
+      "FOUNDATION_DESC": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "FOUNDATIONSIZE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Foundation size or dimensions"
+    },
+    {
+     "name": "CABINET_UNITID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Cabinet unit ID"
+    },
+    {
+     "name": "POLEID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Pole ID"
+    },
+    {
+     "name": "BOOM_ANGLE",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Boom Angle"
+    },
+    {
+     "name": "CUTOUT_RATE",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Cut-out Rate"
+    },
+    {
+     "name": "CUTOUT_WAYS",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Cut-out Ways Values: 2 WAYS, 3 WAYS, 4 WAYS, 5 WAYS,6 WAYS",
+     "values": [
+      "2 WAYS",
+      "3 WAYS",
+      "4 WAYS",
+      "5 WAYS",
+      "6 WAYS"
+     ]
+    },
+    {
+     "name": "POLEDIAM_BOTTOM",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Bottom pole diameter"
+    },
+    {
+     "name": "POLEDIAM_TOP",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Top pole diameter"
+    },
+    {
+     "name": "POLETHICK_BOTTOM",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Bottom Pole thickness"
+    },
+    {
+     "name": "POLETHICK_TOP",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Top pole thickness"
+    },
+    {
+     "name": "POWRMTRKEY",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Power meter key"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Name of the Entire light pole manufacturer"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Comments if any",
+     "aliases": {
+      "REMARKS": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "UNITID (CL_KCI_2950_5_RO_SL_1103) is a concatenation of ROUTEID (CL_KCI_2950_5_RO) & Street Light unique ID (SL_1103)"
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Short Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSETCODE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset Code assigned by the contractor",
+     "aliases": {
+      "ASSET_CODE_ID": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "LOCATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset descriptive Location on the field (e.g. at footpath, roundabout, intersection, parking etc.)",
+     "aliases": {
+      "LOCDESC": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "REGION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Code that identifies the Municipal jurisdiction where the unit is located.",
+     "aliases": {
+      "AREA": "ADM GIS-NEW",
+      "AREA_NAME": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ROUTEID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Roadway UNITID & Street ID for asset association",
+     "aliases": {
+      "RWKEY": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "UNITTYPEDESC",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unit Type Description or Street Light Type\n1. BOLLARD LIGHT\n2. FLOOD LIGHT\n3. LANDSCAPE LIGHT\n4. STREET LIGHT\n5. STRIP LIGHT\n6. TUNNEL AND UNDERPASS LIGHT\n7. UNDER CANOPY LIGHT\n8. UNDERWATER LIGHT",
+     "aliases": {
+      "STLIGHT_TYPE": "MUNICIPALITIES GIS",
+      "LIGHT_POINT_TYPE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Address key as per Osool",
+     "aliases": {
+      "ADDRNUM": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "LUMINAIRE_INS_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Luminaire Installation Date"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time",
+     "aliases": {
+      "created_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record.",
+     "aliases": {
+      "created_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time",
+     "aliases": {
+      "last_edited_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By",
+     "aliases": {
+      "last_edited_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID",
+     "aliases": {
+      "GUID": "ADM GIS-NEW",
+      "GlobalID_1": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ARMLENGTH",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DRM GIS",
+     "status": "Existing",
+     "description": "Arm Length: 0.5, 1, 2, etc.",
+     "aliases": {
+      "BOOM_LENGTH": "ADM GIS-NEW",
+      "ARM_LENGTH": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "NOOFBATTERY",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "Number of Batteries for Solar Light"
+    },
+    {
+     "name": "ADVERTISESIGN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DRM GIS",
+     "status": "New",
+     "description": "Advertise Sign: Yes/ No",
+     "values": [
+      "Yes",
+      "No"
+     ]
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "STREETLIGHT"
+  },
+  "CONTROLCABINET": {
+   "name": "CONTROLCABINET",
+   "legacy_names": [
+    "Control Cabinet",
+    "ST_CONTROLCABINET",
+    "INFRA_CONTROLCABINET",
+    "Control_Cabinet"
+   ],
+   "feature_dataset": "STL_StreetLight",
+   "geometry": "point",
+   "description": "Control Cabinet: It represents the dynamic Protective Device, which is an abstract class that includes circuit breakers, reclosers, and sectionalizers.",
+   "legacy_sources": {
+    "ST_CONTROLCABINET": "ADM - ASSET TYPES",
+    "INFRA_CONTROLCABINET": "AAM - ASSET TYPES",
+    "Control_Cabinet": "DRM - ASSET TYPES"
+   },
+   "responsibility": "CONTRACTOR",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Project ID: Asset construction/installation project:\n• For ADM, Take Project ID from ATS (Asset Taking over System)\n• For AAM, Unique project ID is assigned by Asset Section\n• For DRM, Unique project ID is assigned by Finance Department",
+     "aliases": {
+      "ProjectNumber": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "UNITDESC",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "X (longitude) coordinate for the asset.",
+     "aliases": {
+      "LOCX": "ADM GIS-NEW",
+      "Longitude": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "YCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Y (latitude) coordinate for the asset.",
+     "aliases": {
+      "LOCY": "ADM GIS-NEW",
+      "Latitude": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ZCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Address Number: Address of the nearest building (From addressing system)",
+     "aliases": {
+      "LOCATIONADDRESS": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "ROADID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road ID as per the LRS Data (N/A for off-road features like Parks features)",
+     "aliases": {
+      "ROAD_NUMBER": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in English as per the LRS Data (N/A for off-road features like Parks’ features)",
+     "aliases": {
+      "Road_Name__Number": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in Arabic as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active",
+     "aliases": {
+      "STATUSINDICATOR": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "CONDITION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Condition of Asset Values: Very Good, Good, Fair, Poor, Very Poor",
+     "values": [
+      "Very Good",
+      "Good",
+      "Fair",
+      "Poor",
+      "Very Poor"
+     ],
+     "aliases": {
+      "GENERALCONDITION": "ADM GIS-NEW",
+      "Cabinet_Condition_Good__Damaged": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty Start Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WRRNTYSTARTDATE": "ADM GIS-NEW",
+      "Warranty_Start_Date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty End Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WRRNTYENDDATE": "ADM GIS-NEW",
+      "Warranty_Ended_Date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Installation/ Construction Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "CONSTRUCTIONDATE": "ADM GIS-NEW",
+      "Installation_Date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Date of last inspection i.e., DD/MM/YYYY",
+     "aliases": {
+      "LAST_INSPECTION_DATE": "MUNICIPALITIES GIS",
+      "SURVEYDATE": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Inspection conducted consultant/engineer/company name"
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Source of Data Values: AS BUILT, SITE SURVEY, CONSULTANT SURVEY",
+     "values": [
+      "AS BUILT",
+      "SITE SURVEY",
+      "CONSULTANT SURVEY"
+     ]
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Segment or Road Unit ID: Roadway ‘UNITID’ or Street Segment ‘UNITID’ for association",
+     "aliases": {
+      "SEGKEY": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "From measure chainage (Updated from LRS Tool)",
+     "aliases": {
+      "LOCATION": "ADM GIS-NEW",
+      "LRS_CHAINAGE": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Image path",
+     "aliases": {
+      "ASSETIMAGE": "MUNICIPALITIES GIS",
+      "LINK": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Code",
+     "aliases": {
+      "ZONE_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or community Code",
+     "aliases": {
+      "SEC_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Description",
+     "aliases": {
+      "ZONE_DESC": "MUNICIPALITIES GIS",
+      "SUBAREA": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or Community Description",
+     "aliases": {
+      "SECTOR_DESC": "MUNICIPALITIES GIS",
+      "DISTRICT": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Control Cabinet Type: Electrical"
+    },
+    {
+     "name": "NOOFWAYS",
+     "type": "Short Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Control Cabinet Number of ways Values: 1, 2, 3, 4, 5, 6, 7, 8",
+     "values": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
+     ],
+     "aliases": {
+      "Types_Of_Control_Cabinets__4_Wa": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "NOOFCONNECTEDPOLES",
+     "type": "Long Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Number of connected poles from control cabinet (Total: C1+C2+C3+C4+C5+C6)",
+     "aliases": {
+      "TOTAL": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "BAYTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Bay Type of Control Cabinet Values: Bay Feeder, Bay Shunt Reactor, Bay Trans",
+     "values": [
+      "Bay Feeder",
+      "Bay Shunt Reactor",
+      "Bay Trans"
+     ]
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Phase Designation"
+    },
+    {
+     "name": "TIMER_TYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Timer Type Values: Digital, Mechanical",
+     "values": [
+      "Digital",
+      "Mechanical"
+     ],
+     "aliases": {
+      "Timer_Type__Electronic_Timer__M": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "TIMERMANUFACTURE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Timer Manufacturer",
+     "aliases": {
+      "Timer_Manufacture": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "PHOTOCELL",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Photocell Values: Yes, No",
+     "values": [
+      "Yes",
+      "No"
+     ]
+    },
+    {
+     "name": "PHOTOCELLMANUFACTURE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Photocell Manufacturer"
+    },
+    {
+     "name": "INCOMING_RATE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Ingoing rate in voltage"
+    },
+    {
+     "name": "OUTGOING_RATE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Outgoing rate in voltage"
+    },
+    {
+     "name": "MAIN_CABLE_SIZE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Incoming cable size in mm example 70 mm",
+     "aliases": {
+      "Main_Cables_Size": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "AMPLEX_CPU_NUMBER",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Amplex CPU Number",
+     "aliases": {
+      "Amplex_CPU_Number_": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MANUFATURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Manufacturer of Control Cabinet",
+     "aliases": {
+      "CC_MANUFATURER": "MUNICIPALITIES GIS",
+      "Cabinet_Manufacturer": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "BREAKERMANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Manufacturer of Breaker",
+     "aliases": {
+      "Breaker_Manufacturer": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "COMMENTS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Comments if any",
+     "aliases": {
+      "REMARKS": "ADM GIS-NEW",
+      "DRM_COMMENT": "DRM INFRA GIS",
+      "FolderPath": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "UNITID (CL_KCI_2950_5_RO_CC_12) is a concatenation of ROUTEID (CL_KCI_2950_5_RO) & Control Cabinet unique ID (CC_12)"
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Short Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset ID"
+    },
+    {
+     "name": "ASSETCODE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset Code assigned by the contractor"
+    },
+    {
+     "name": "CABINETID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Control Cabinet ID as per As Built Drawings",
+     "aliases": {
+      "Name": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "CCABINET_LOCATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset descriptive Location on the field (e.g. at footpath, roundabout, intersection, parking etc.)"
+    },
+    {
+     "name": "REF",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "1. APP\n2. ASB\n3. BKS",
+     "aliases": {
+      "No Comments": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "REGION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Code that identifies the Municipal jurisdiction where the unit is located.",
+     "aliases": {
+      "AREA": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "ROUTEID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Roadway UNITID & Street ID for asset association",
+     "aliases": {
+      "RWKEY": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Address key as per Osool",
+     "aliases": {
+      "ADDRNUM": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time",
+     "aliases": {
+      "created_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record.",
+     "aliases": {
+      "created_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time",
+     "aliases": {
+      "last_edited_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By",
+     "aliases": {
+      "last_edited_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID",
+     "aliases": {
+      "GUID": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "CONTROLCABINET"
+  },
+  "LIGHTCABLE": {
+   "name": "LIGHTCABLE",
+   "legacy_names": [
+    "Light Cable",
+    "ST_LIGHTCABLE",
+    "INFRA_LIGHTCABLE",
+    "Cable"
+   ],
+   "feature_dataset": "STL_StreetLight",
+   "geometry": "line",
+   "description": "Light Cable: A secondary line segment carrying voltage levels of less than 480 V.",
+   "legacy_sources": {
+    "ST_LIGHTCABLE": "ADM - ASSET TYPES",
+    "INFRA_LIGHTCABLE": "AAM - ASSET TYPES",
+    "Cable": "DRM - ASSET TYPES"
+   },
+   "responsibility": "CONTRACTOR",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Project ID: Asset construction/installation project:\n• For ADM, Take Project ID from ATS (Asset Taking over System)\n• For AAM, Unique project ID is assigned by Asset Section\n• For DRM, Unique project ID is assigned by Finance Department",
+     "aliases": {
+      "PRJ_ID": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "UNITDESC",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Unit Description"
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Address Number: Address of the nearest building (From addressing system)"
+    },
+    {
+     "name": "ROADID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road ID as per the LRS Data (N/A for off-road features like Parks features)",
+     "aliases": {
+      "ROAD_NUMBER": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in English as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in Arabic as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active",
+     "aliases": {
+      "STATUSINDICATOR": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "CONDITION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Condition of Asset Values: Very Good, Good, Fair, Poor, Very Poor",
+     "values": [
+      "Very Good",
+      "Good",
+      "Fair",
+      "Poor",
+      "Very Poor"
+     ]
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty Start Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WARRANTY_BEGINS": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Warranty End Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WARRANTY_ENDS": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Asset Installation/ Construction Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "CONSTRUCTIONDATE": "ADM GIS-NEW",
+      "INSTALLATION_DATE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Date of last inspection i.e., DD/MM/YYYY",
+     "aliases": {
+      "LAST_INSPECTION_DATE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Inspection conducted consultant/engineer/company name",
+     "aliases": {
+      "LAST_INSPECTION_BY": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Source of Data Values: AS BUILT, SITE SURVEY, CONSULTANT SURVEY",
+     "values": [
+      "AS BUILT",
+      "SITE SURVEY",
+      "CONSULTANT SURVEY"
+     ]
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Code",
+     "aliases": {
+      "ZONE_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or community Code",
+     "aliases": {
+      "SEC_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Zone or District Description",
+     "aliases": {
+      "ZONE_DESC": "MUNICIPALITIES GIS",
+      "ZONE_NAME": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Sector or Community Description",
+     "aliases": {
+      "SECTOR_DESC": "MUNICIPALITIES GIS",
+      "SECTOR_NAME": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Light Cable Type Values: Copper, C/X/S/P",
+     "values": [
+      "Copper",
+      "C",
+      "X",
+      "S",
+      "P"
+     ]
+    },
+    {
+     "name": "CKT_NO",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Circuit Number:  C1, C2, C3, C4, C5, C6",
+     "aliases": {
+      "POLES": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "BURIEDDEPTH",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Buried Depth",
+     "aliases": {
+      "DEPTH": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "CABLESIZE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Size of conductor",
+     "aliases": {
+      "CONDUCTORSIZE": "ASBUILT DATA SUBMISSION STANDARDS",
+      "CABLE_SIZE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "CABLEMANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Name of the conductor manufacturer",
+     "aliases": {
+      "CONDUCTORMANUFACTURER": "ASBUILT DATA SUBMISSION STANDARDS"
+     }
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Supply phase designating Values: R, B, Y, RB, RY, …etc.",
+     "values": [
+      "R",
+      "B",
+      "Y",
+      "RB",
+      "RY",
+      "…"
+     ]
+    },
+    {
+     "name": "CABLEMATERIAL",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Material of Conductor",
+     "aliases": {
+      "CONDUCTORMATERIAL": "ASBUILT DATA SUBMISSION STANDARDS"
+     }
+    },
+    {
+     "name": "CABLE_LENGTH",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Length of Cable",
+     "aliases": {
+      "SHAPE_Length": "ADM GIS-NEW",
+      "GEOMETRY_Length": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "WARNINGTAPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Warning tape: Yes/ No",
+     "values": [
+      "Yes",
+      "No"
+     ]
+    },
+    {
+     "name": "COVERINGTILES",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Covering tiles: Yes/ No",
+     "values": [
+      "Yes",
+      "No"
+     ]
+    },
+    {
+     "name": "COMMENTS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Comments if any",
+     "aliases": {
+      "REMARKS": "ADM GIS-NEW",
+      "DRM_COMMENT": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "XCOORD_START",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Start X Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "STARTX": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "YCOORD_START",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Start Y Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "STARTY": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZCOORD_START",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Start Z Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "STARTZ": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "XCOORD_END",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "End X Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "ENDX": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "YCOORD_END",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "End Y Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "ENDY": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZCOORD_END",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "End Z Coordinate of linear feature updated from calculate geometry",
+     "aliases": {
+      "ENDZ": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "START_ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Start Image path"
+    },
+    {
+     "name": "END_ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "End Image path"
+    },
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Short Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset ID"
+    },
+    {
+     "name": "ASSETLOCATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset descriptive Location on the field (e.g. at footpath, roundabout, intersection, parking etc.)"
+    },
+    {
+     "name": "CABINET_UNITID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Osool Unique identifier of Control Cabinet UNITID (Beginning of all local circuits)"
+    },
+    {
+     "name": "UNITTYPEDESC",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unit Type Description or Cable Type (CU / XLPE / SWA / PVC, LCC, etc.)",
+     "aliases": {
+      "CABLE_TYPE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "CABLECOUNT",
+     "type": "Short Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Number of cables"
+    },
+    {
+     "name": "JOINT_TYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "1. CHEMICAL\n2. HEAT SHRINK\n3. NOT JOINTED"
+    },
+    {
+     "name": "REGION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Code that identifies the Municipal jurisdiction where the unit is located.",
+     "aliases": {
+      "AREA_NAME": "DRM INFRA GIS",
+      "ASSET_OWNER": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "SUPPLYSTATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Supply Status : Permanent"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Address key as per Osool",
+     "aliases": {
+      "ADDRNUM": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time",
+     "aliases": {
+      "created_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record.",
+     "aliases": {
+      "created_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time",
+     "aliases": {
+      "last_edited_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By",
+     "aliases": {
+      "last_edited_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID",
+     "aliases": {
+      "GUID": "ADM GIS-NEW"
+     }
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "LIGHTCABLE"
+  },
+  "EARTHING": {
+   "name": "EARTHING",
+   "legacy_names": [
+    "INFRA_EARTHING"
+   ],
+   "feature_dataset": "STL_StreetLight",
+   "geometry": "point",
+   "description": "Earthing: A grounding system used to safely dissipate electrical faults or lightning surges into the earth to protect lighting infrastructure.",
+   "legacy_sources": {
+    "INFRA_EARTHING": "AAM - ASSET TYPES"
+   },
+   "responsibility": "CONTRACTOR",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Project ID: Asset construction/installation project:\n• For ADM, Take Project ID from ATS (Asset Taking over System)\n• For AAM, Unique project ID is assigned by Asset Section\n• For DRM, Unique project ID is assigned by Finance Department"
+    },
+    {
+     "name": "UNITDESC",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Address Number: Address of the nearest building (From addressing system)"
+    },
+    {
+     "name": "ROADID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road ID as per the LRS Data (N/A for off-road features like Parks features)"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in English as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in Arabic as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active"
+    },
+    {
+     "name": "CONDITION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Condition of Asset Values: Very Good, Good, Fair, Poor, Very Poor",
+     "values": [
+      "Very Good",
+      "Good",
+      "Fair",
+      "Poor",
+      "Very Poor"
+     ]
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Warranty Start Date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Warranty End Date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Installation/ Construction Date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Date of last inspection i.e., DD/MM/YYYY",
+     "aliases": {
+      "LAST_INSPECTION_DATE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Inspection conducted consultant/engineer/company name"
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Source of Data Values: AS BUILT, SITE SURVEY, CONSULTANT SURVEY",
+     "values": [
+      "AS BUILT",
+      "SITE SURVEY",
+      "CONSULTANT SURVEY"
+     ]
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Image path",
+     "aliases": {
+      "ASSETIMAGE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Zone or District Code",
+     "aliases": {
+      "ZONE_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Sector or community Code",
+     "aliases": {
+      "SEC_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Zone or District Description",
+     "aliases": {
+      "ZONE_DESC": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Sector or Community Description",
+     "aliases": {
+      "SECTOR_DESC": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Type of Earthing: Integral, Truck, Road, Earthpit etc."
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Name of the manufacturer"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Short Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSETLOCATION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset descriptive Location on the field (e.g. at footpath, roundabout, intersection, parking etc.)"
+    },
+    {
+     "name": "REGION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Code that identifies the Municipal jurisdiction where the unit is located."
+    },
+    {
+     "name": "SUPPLIER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset Supplier"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time",
+     "aliases": {
+      "created_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record.",
+     "aliases": {
+      "created_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time",
+     "aliases": {
+      "last_edited_date": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By",
+     "aliases": {
+      "last_edited_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID"
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "EARTHING"
+  },
+  "JUNCTIONBOX": {
+   "name": "JUNCTIONBOX",
+   "legacy_names": [
+    "Junction Box",
+    "INFRA_JUNCTIONBOX"
+   ],
+   "feature_dataset": "STL_StreetLight",
+   "geometry": "point",
+   "description": "Junction Box: An enclosure where electrical lighting cables are joined, protected, and distributed for street lighting networks.",
+   "legacy_sources": {
+    "INFRA_JUNCTIONBOX": "AAM - ASSET TYPES"
+   },
+   "responsibility": "CONTRACTOR",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Project ID: Asset construction/installation project:\n• For ADM, Take Project ID from ATS (Asset Taking over System)\n• For AAM, Unique project ID is assigned by Asset Section\n• For DRM, Unique project ID is assigned by Finance Department",
+     "aliases": {
+      "PRJ_ID": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "UNITDESC",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "Double",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Address Number: Address of the nearest building (From addressing system)"
+    },
+    {
+     "name": "ROADID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road ID as per the LRS Data (N/A for off-road features like Parks features)"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in English as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Road Name in Arabic as per the LRS Data (N/A for off-road features like Parks’ features)"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active"
+    },
+    {
+     "name": "CONDITION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Condition of Asset Values: Very Good, Good, Fair, Poor, Very Poor",
+     "values": [
+      "Very Good",
+      "Good",
+      "Fair",
+      "Poor",
+      "Very Poor"
+     ]
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Warranty Start Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WARRANTY_B": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Warranty End Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "WARRANTY_E": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Asset Installation/ Construction Date i.e., DD/MM/YYYY",
+     "aliases": {
+      "INSTALLATI": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Date of last inspection i.e., DD/MM/YYYY",
+     "aliases": {
+      "LAST_INSPECTION_DATE": "MUNICIPALITIES GIS",
+      "LAST_INSPE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Inspection conducted consultant/engineer/company name",
+     "aliases": {
+      "LAST_INSP1": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "Date",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Ownership by: Public, Private",
+     "aliases": {
+      "ASSET_OWNE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Source of Data Values: AS BUILT, SITE SURVEY, CONSULTANT SURVEY",
+     "values": [
+      "AS BUILT",
+      "SITE SURVEY",
+      "CONSULTANT SURVEY"
+     ],
+     "aliases": {
+      "DATA_SOURC": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Attachments",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Image path",
+     "aliases": {
+      "ASSETIMAGE": "MUNICIPALITIES GIS",
+      "IMAGE": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Zone or District Code",
+     "aliases": {
+      "ZONE_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Sector or community Code",
+     "aliases": {
+      "SEC_CODE": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Zone or District Description",
+     "aliases": {
+      "ZONE_DESC": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Sector or Community Description",
+     "aliases": {
+      "SECTOR_DESC": "MUNICIPALITIES GIS"
+     }
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Junction Box Type (2 TERMINAL, 3 TERMINAL etc.)",
+     "aliases": {
+      "JUNCTION_B": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Name of the manufacturer",
+     "aliases": {
+      "MANUFACTUR": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "COMMENTS",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS TEMPLATE",
+     "status": "Existing",
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Short Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "REGION",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Location",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Code that identifies the Municipal jurisdiction where the unit is located."
+    },
+    {
+     "name": "CKT_NO",
+     "type": "Short Integer",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Circuit Number"
+    },
+    {
+     "name": "SUPPLIER",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Asset SUPPLIER"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "JUNCTION_BOX_CUTOUT_TYPE",
+     "type": "Text",
+     "responsibility": "CONTRACTOR",
+     "mandatory_contractor": true,
+     "mandatory_inspection": false,
+     "municipal": "Review the Contractor data",
+     "visible_in_osool": "YES",
+     "osool_tab": "Structural",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "1. BOX\n2. 3 WAY CUTOUT"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time",
+     "aliases": {
+      "created_date": "DRM INFRA GIS",
+      "CREATIONDA": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record.",
+     "aliases": {
+      "created_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time",
+     "aliases": {
+      "last_edited_date": "DRM INFRA GIS",
+      "MODIFIEDDA": "AAM GIS-NEW AS-BUILT"
+     }
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By",
+     "aliases": {
+      "last_edited_user": "DRM INFRA GIS"
+     }
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID"
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "JUNCTIONBOX"
+  },
+  "DUCTBANK": {
+   "name": "DUCTBANK",
+   "legacy_names": [
+    "INFRA_DUCTBANK"
+   ],
+   "geometry": "line",
+   "legacy_sources": {
+    "INFRA_DUCTBANK": "AAM - ASSET TYPES"
+   }
+  },
+  "METERCABINET": {
+   "name": "METERCABINET",
+   "legacy_names": [],
+   "geometry": "point"
+  },
+  "SL_NODE": {
+   "name": "SL_NODE",
+   "legacy_names": [
+    "INFRA_SL_NODE"
+   ],
+   "geometry": "point",
+   "legacy_sources": {
+    "INFRA_SL_NODE": "AAM - ASSET TYPES"
+   },
+   "responsibility": "MUNICIPAL ENGINEER",
+   "configure_in": "OSOOL & GIS Both",
+   "fields": [
+    {
+     "name": "UNITID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Top section (always visible)",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Associated",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "COMPKEY",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Osool Tool",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Key to an asset.  This is a system generated, non-display, sequential number."
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "Double",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "YES",
+     "osool_tab": "Comp Table",
+     "source": "MUNICIPAL GIS",
+     "status": "Existing",
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Login name of the person who added the record."
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "AAM GIS",
+     "status": "Existing",
+     "description": "ADSDI GUID"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Infor migration: INSERT, UPDATE TO INFOR, UPDATE TO GIS"
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Sync status field keep blank, this field will be used by the data migration tool"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "Long Integer",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by LRS Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "ADM GIS",
+     "status": "Existing",
+     "description": "Asset Sequence Number for asset UNITID Coding (1,2,3.. etc.)"
+    },
+    {
+     "name": "UploadedDirectory",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES, Auto Update by Baianatec Tool",
+     "visible_in_osool": "NO",
+     "osool_tab": "Stays in GIS only",
+     "source": "DMT GIS",
+     "status": "Existing",
+     "description": "Uploaded Directory - Request ID updated by the Baianatec QC tool"
+    },
+    {
+     "name": "STATUS",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "Operational Status of Asset Values: Active (Default Value), Inactive",
+     "values": [
+      "Active",
+      "Inactive"
+     ],
+     "default": "Active"
+    },
+    {
+     "name": "EXPBY",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "Asset expired by - Name of the Municipal Engineer to be filled during the asset expiration"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "Date",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "NO",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "Asset expiry date - to be filled by the Municipal  Engineer during the asset expiration"
+    },
+    {
+     "name": "CITYNAME",
+     "type": "Text",
+     "responsibility": "MUNICIPAL ENGINEER",
+     "mandatory_contractor": false,
+     "mandatory_inspection": false,
+     "municipal": "YES for DRM and Optional for ADM & AAM",
+     "visible_in_osool": "",
+     "osool_tab": "",
+     "source": "",
+     "status": "New",
+     "description": "City Name: 'Al Marfa', 'Dalma', 'Gayathi', 'Liwa', 'Sila' etc."
+    }
+   ],
+   "sheet": "SL_NODE"
+  }
+ },
+ "tables": {
+  "STREETLIGHT_COMPONENTS": [
+   [
+    "PROPOSED SCHEMA - STREETLIGHT COMPONENTS"
+   ],
+   [
+    "FIELD NAME",
+    "FIELD TYPE",
+    "VISIBLE IN OSOOL",
+    "OSOOL TAB",
+    "DESCRIPTION",
+    "SUBTYPE"
+   ],
+   [
+    "UNITID",
+    "Text",
+    "YES",
+    "Top section (always visible)",
+    "Unique identifier for Asset"
+   ],
+   [
+    "COMPONENTID",
+    "Text",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Proposed UNITID for respective SL component",
+    "STREETLIGHT_UNITID_LUM\nSTREETLIGHT_UNITID_ARM\nSTREETLIGHT_UNITID_CUT\nSTREETLIGHT_UNITID_BRK\nSTREETLIGHT_UNITID_ANC\nSTREETLIGHT_UNITID_CTR"
+   ],
+   [
+    "COMPONENT",
+    "Text",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Component type or category",
+    "1-Luminaire\n2-Arm\n3-Cutout\n4-Brackets\n5-Anchor\n6-Control"
+   ],
+   [
+    "COMPONENT_TYPE",
+    "Text",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Component subtypes",
+    "All relevant subtypes"
+   ],
+   [
+    "COMPONENT_INSTALLATIONDATE",
+    "Date",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Installation Date of Component"
+   ],
+   [
+    "COMPONENT_WARRANTYDATE_START",
+    "Date",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Warranty Start Date of Component"
+   ],
+   [
+    "COMPONENT_WARRANTYDATE_END",
+    "Date",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Warranty End Date of Component"
+   ],
+   [
+    "COMPONENT_MANUFACTURER",
+    "Text",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Component Manufacturer"
+   ],
+   [
+    "COMPONENT_LIFE",
+    "Long Integer",
+    "YES",
+    "- LUMINAIR (for Luminaires and Lamps)\n - LIGHT BRACKETS (for Brackets)\n - CONTROL (for Controls)\n - OTHER Components (custom) for rest of components Arms, Cutout, Anchors)",
+    "Life of Component"
+   ]
+  ],
+  "SL_HANDOVER_INFORMATION": [
+   [
+    "PROPOSED SCHEMA - SL HANDOVER INFORMATION TABLE"
+   ],
+   [
+    "FIELD NAME",
+    "FIELD TYPE",
+    "VISIBLE IN OSOOL",
+    "OSOOL TAB",
+    "DESCRIPTION"
+   ],
+   [
+    "UNITID",
+    "Text",
+    "YES",
+    "Top section (always visible)",
+    "Unique identifier for Asset"
+   ],
+   [
+    "UNITTYPE",
+    "Text",
+    "YES",
+    "Top section (always visible)",
+    "Specific type of Asset.  Must be in the Asset Type Table."
+   ],
+   [
+    "CONTRACTORNAME",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Contractor Name"
+   ],
+   [
+    "CONTRACTTYPE",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Type of Contract"
+   ],
+   [
+    "PROJECTNAME",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Name of Project"
+   ],
+   [
+    "PROJECTFUNCTION",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Project Function"
+   ],
+   [
+    "CONSULTANTNAME",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Consultant Name"
+   ],
+   [
+    "CONSULTANTREP",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Consultant Rep"
+   ],
+   [
+    "CONTRACTORREP",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Contractor Rep"
+   ],
+   [
+    "STARTDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "Start Date"
+   ],
+   [
+    "COMPLETIONDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "Completion Date"
+   ],
+   [
+    "FACDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "FAC Date"
+   ],
+   [
+    "PACDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "PAC Date"
+   ],
+   [
+    "OPERATION_COST",
+    "Double",
+    "YES",
+    "Handover Information",
+    "Operation Cost"
+   ],
+   [
+    "TOTALPROJECT_COST",
+    "Double",
+    "YES",
+    "Handover Information",
+    "Total Project Cost"
+   ],
+   [
+    "DATA_SOURCE",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Data Source"
+   ],
+   [
+    "SUBMISSIONTYPE",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Submission Type"
+   ],
+   [
+    "HANDOVERDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "Handover Date"
+   ],
+   [
+    "HANDOVERINSPECTIONBY",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Handover Inspecting Party"
+   ],
+   [
+    "HANDOVERINSPECTIONDATE",
+    "Date",
+    "YES",
+    "Handover Information",
+    "Handover Inspection Date"
+   ],
+   [
+    "HANDOVER_CONDITION",
+    "Text",
+    "YES",
+    "Handover Information",
+    "Handover Condition of asset"
+   ]
+  ]
+ }
+}

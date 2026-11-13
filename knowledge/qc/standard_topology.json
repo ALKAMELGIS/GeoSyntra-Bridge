@@ -1,0 +1,30 @@
+{
+  "_source": "DMT As-Built Data Submission Standards V7, section 4 (asset-specific topology rule tables 4.1-4.7)",
+  "RD":  {"section": "4.1", "point": ["point_disjoint"],
+          "line": ["line_no_overlap", "line_no_intersect", "line_no_self_intersect", "line_no_self_overlap", "line_no_multipart"],
+          "polygon": ["area_no_overlap", "area_no_gaps"]},
+  "STL": {"section": "4.2", "point": ["point_disjoint", "point_covered_by_line"],
+          "line": ["line_no_self_intersect", "line_no_self_overlap", "line_no_multipart", "line_endpoint_covered_by_point"],
+          "polygon": []},
+  "ITC": {"section": "4.3", "point": ["point_disjoint"],
+          "line": ["line_no_self_overlap", "line_no_self_intersect", "line_no_multipart"],
+          "polygon": ["area_closed", "area_edge_match", "area_no_overlap"]},
+  "SW":  {"section": "4.4", "point": ["point_disjoint"],
+          "line": ["line_no_overlap", "line_no_intersect", "line_no_self_intersect", "line_no_self_overlap", "line_endpoint_covered_by_point"],
+          "polygon": ["area_no_overlap", "area_no_gaps"]},
+  "IR":  {"section": "4.5", "point": ["point_disjoint"],
+          "line": ["line_no_intersect", "line_no_self_intersect", "line_no_self_overlap"],
+          "polygon": ["area_no_overlap", "area_no_gaps"]},
+  "SL":  {"section": "4.6", "point": ["point_disjoint"],
+          "line": ["line_no_overlap", "line_no_self_intersect", "line_no_self_overlap", "line_no_multipart"],
+          "polygon": ["area_no_overlap", "area_no_gaps"]},
+  "HL":  {"section": "4.7", "point": ["point_disjoint"],
+          "line": ["line_no_dangles", "line_no_self_intersect", "line_no_self_overlap", "line_no_multipart"],
+          "polygon": ["area_no_overlap", "area_no_gaps"]},
+  "_notes": {
+    "point_covered_by_line": "the STL template encodes the stricter 'Must be covered by endpoint of LIGHTCABLE' - satisfied by it",
+    "line_endpoint_covered_by_point": "STL: enforced by the DMT QC tool rule LIGHTCABLE start/end (appconfig.json); SW: the template encodes the reverse direction (structures covered by PIPELINE endpoints) - not evaluated separately",
+    "area_closed": "every delivered polygon is closed by construction (FileGDB polygons)",
+    "area_edge_match": "edge matching between adjacent submissions - outside one project's data, not evaluated"
+  }
+}

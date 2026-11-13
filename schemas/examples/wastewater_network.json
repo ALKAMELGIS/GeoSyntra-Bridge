@@ -1,0 +1,918 @@
+{
+  "format": 2,
+  "schema_id": "wastewater_network",
+  "display_name": "Wastewater (Sewer) Network",
+  "version": "1.0-draft",
+  "status": "draft",
+  "discipline": "Wastewater",
+  "description": "Gravity sewer network with manholes, force mains and lift stations.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "name": "WGS 84 / UTM zone 40N",
+    "verified": false
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "SewerNetwork"
+    }
+  ],
+  "domains": [
+    {
+      "name": "AssetStatus",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PRO": "Proposed",
+        "UC": "Under Construction",
+        "EXI": "Existing",
+        "ABD": "Abandoned",
+        "REM": "Removed",
+        "UNK": "Unknown"
+      }
+    },
+    {
+      "name": "AssetCondition",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "Very Good": "Very Good",
+        "Good": "Good",
+        "Fair": "Fair",
+        "Poor": "Poor",
+        "Very Poor": "Very Poor",
+        "Unknown": "Unknown"
+      }
+    },
+    {
+      "name": "FlowDirection",
+      "domain_type": "coded",
+      "field_type": "SMALLINTEGER",
+      "description": "",
+      "coded_values": {
+        "1": "With digitized",
+        "2": "Against digitized",
+        "0": "Undetermined"
+      }
+    },
+    {
+      "name": "PipeMaterial",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "PVC": "PVC",
+        "UPVC": "uPVC",
+        "HDPE": "HDPE",
+        "PE": "Polyethylene",
+        "DI": "Ductile Iron",
+        "GRP": "Glass Reinforced Plastic",
+        "ST": "Steel",
+        "CI": "Cast Iron",
+        "AC": "Asbestos Cement",
+        "RCP": "Reinforced Concrete",
+        "VC": "Vitrified Clay",
+        "CU": "Copper"
+      }
+    },
+    {
+      "name": "GravityDiameter",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "",
+      "coded_values": {
+        "100": "100 mm",
+        "150": "150 mm",
+        "160": "160 mm",
+        "200": "200 mm",
+        "225": "225 mm",
+        "250": "250 mm",
+        "300": "300 mm",
+        "315": "315 mm",
+        "375": "375 mm",
+        "400": "400 mm",
+        "450": "450 mm",
+        "500": "500 mm",
+        "600": "600 mm",
+        "700": "700 mm",
+        "750": "750 mm",
+        "800": "800 mm",
+        "900": "900 mm",
+        "1000": "1000 mm",
+        "1050": "1050 mm",
+        "1200": "1200 mm",
+        "1350": "1350 mm",
+        "1500": "1500 mm",
+        "1800": "1800 mm",
+        "2000": "2000 mm",
+        "2400": "2400 mm",
+        "3000": "3000 mm"
+      }
+    },
+    {
+      "name": "SlopeRange",
+      "domain_type": "range",
+      "field_type": "DOUBLE",
+      "description": "",
+      "min_value": 0.0,
+      "max_value": 30.0
+    },
+    {
+      "name": "CoverType",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "",
+      "coded_values": {
+        "DI": "Ductile Iron",
+        "CONC": "Concrete",
+        "COMP": "Composite"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "GravitySewer",
+      "alias": "Gravity Sewer",
+      "geometry_type": "line",
+      "feature_dataset": "SewerNetwork",
+      "category": "edge",
+      "fields": [
+        {
+          "name": "PIPE_ID",
+          "field_type": "TEXT",
+          "alias": "Pipe ID",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "alias": "Diameter (mm)",
+          "domain": "GravityDiameter"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PipeMaterial"
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE",
+          "alias": "Length (m)"
+        },
+        {
+          "name": "US_IL",
+          "field_type": "DOUBLE",
+          "alias": "Upstream Invert Level"
+        },
+        {
+          "name": "DS_IL",
+          "field_type": "DOUBLE",
+          "alias": "Downstream Invert Level"
+        },
+        {
+          "name": "SLOPE_PCT",
+          "field_type": "DOUBLE",
+          "alias": "Slope (%)",
+          "domain": "SlopeRange"
+        },
+        {
+          "name": "US_MH_ID",
+          "field_type": "TEXT",
+          "alias": "Upstream MH",
+          "length": 30
+        },
+        {
+          "name": "DS_MH_ID",
+          "field_type": "TEXT",
+          "alias": "Downstream MH",
+          "length": 30
+        },
+        {
+          "name": "FLOWDIR",
+          "field_type": "SMALLINTEGER",
+          "alias": "Flow Direction",
+          "domain": "FlowDirection"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "sew",
+          "\\bss\\b",
+          "foul",
+          "\\bww\\b",
+          "waste",
+          "gravity"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "sewer",
+          "foul",
+          "gravity"
+        ],
+        "geometry_types": [
+          "line"
+        ],
+        "typical_length_range": [
+          1,
+          300
+        ],
+        "value_ranges": {
+          "DIAMETER": [
+            150,
+            3600
+          ]
+        },
+        "line_weight": "heavy"
+      },
+      "id_field": "PIPE_ID",
+      "network_role": "edge",
+      "attribute_aliases": {
+        "PIPE_ID": [
+          "ID",
+          "TAG",
+          "PIPEID"
+        ],
+        "DIAMETER": [
+          "DIA",
+          "DN",
+          "SIZE"
+        ],
+        "US_IL": [
+          "USIL",
+          "UIL"
+        ],
+        "DS_IL": [
+          "DSIL",
+          "DIL"
+        ]
+      },
+      "computed_fields": {
+        "SLOPE_PCT": "(US_IL - DS_IL) / LENGTH * 100"
+      }
+    },
+    {
+      "name": "SewerManhole",
+      "alias": "Sewer Manhole",
+      "geometry_type": "point",
+      "feature_dataset": "SewerNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "MH_ID",
+          "field_type": "TEXT",
+          "alias": "Manhole ID",
+          "length": 30,
+          "required": true
+        },
+        {
+          "name": "COVER_LEVEL",
+          "field_type": "DOUBLE",
+          "alias": "Cover Level"
+        },
+        {
+          "name": "INVERT_LEVEL",
+          "field_type": "DOUBLE",
+          "alias": "Invert Level"
+        },
+        {
+          "name": "DEPTH",
+          "field_type": "DOUBLE",
+          "alias": "Depth (m)"
+        },
+        {
+          "name": "MH_DIA",
+          "field_type": "INTEGER",
+          "alias": "Manhole Diameter (mm)"
+        },
+        {
+          "name": "COVER_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "CoverType"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "\\bmh\\b",
+          "manhole",
+          "s[\\s_-]*mh"
+        ],
+        "block_name_patterns": [
+          "\\bmh",
+          "manhole"
+        ],
+        "text_keywords": [
+          "mh",
+          "manhole"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "MH_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "MH_ID": [
+          "ID",
+          "TAG",
+          "MHNO",
+          "MH_NO",
+          "NO",
+          "NAME"
+        ],
+        "COVER_LEVEL": [
+          "CL",
+          "COVER",
+          "TL",
+          "RL"
+        ],
+        "INVERT_LEVEL": [
+          "IL",
+          "INVERT",
+          "INV"
+        ],
+        "DEPTH": [
+          "D",
+          "DEP"
+        ]
+      },
+      "computed_fields": {
+        "DEPTH": "COVER_LEVEL - INVERT_LEVEL"
+      }
+    },
+    {
+      "name": "ForceMain",
+      "alias": "Rising / Force Main",
+      "geometry_type": "line",
+      "feature_dataset": "SewerNetwork",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PIPE_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "GravityDiameter"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "TEXT",
+          "length": 10,
+          "domain": "PipeMaterial"
+        },
+        {
+          "name": "LENGTH",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "force",
+          "rising",
+          "\\bfm\\b",
+          "\\brm\\b"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "force main",
+          "rising main"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "id_field": "PIPE_ID"
+    },
+    {
+      "name": "InspectionChamber",
+      "alias": "Inspection Chamber",
+      "geometry_type": "point",
+      "feature_dataset": "SewerNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "IC_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "COVER_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "INVERT_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "inspection",
+          "\\bic\\b"
+        ],
+        "block_name_patterns": [
+          "\\bic\\b",
+          "inspect"
+        ],
+        "text_keywords": [
+          "ic",
+          "inspection"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "IC_ID",
+      "network_role": "junction",
+      "attribute_aliases": {
+        "IC_ID": [
+          "ID",
+          "TAG",
+          "NO"
+        ]
+      }
+    },
+    {
+      "name": "LiftStation",
+      "alias": "Lift / Pumping Station",
+      "geometry_type": "point",
+      "feature_dataset": "SewerNetwork",
+      "category": "junction",
+      "fields": [
+        {
+          "name": "STATION_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATION_NAME",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "WET_WELL_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "lift",
+          "pump",
+          "\\bps\\b",
+          "\\bls\\b"
+        ],
+        "block_name_patterns": [
+          "pump",
+          "lift"
+        ],
+        "text_keywords": [
+          "pumping station"
+        ],
+        "geometry_types": [
+          "point"
+        ],
+        "network_position": "on_network"
+      },
+      "id_field": "STATION_ID",
+      "network_role": "junction"
+    },
+    {
+      "name": "ServiceConnection",
+      "alias": "House Connection",
+      "geometry_type": "line",
+      "feature_dataset": "SewerNetwork",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONN_ID",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "DIAMETER",
+          "field_type": "INTEGER",
+          "domain": "GravityDiameter"
+        },
+        {
+          "name": "PLOT_NO",
+          "field_type": "TEXT",
+          "length": 30
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetStatus"
+        },
+        {
+          "name": "CONDITION",
+          "field_type": "TEXT",
+          "length": 20,
+          "domain": "AssetCondition"
+        },
+        {
+          "name": "INSTALL_DATE",
+          "field_type": "DATE",
+          "alias": "Installation Date"
+        },
+        {
+          "name": "CONTRACTOR",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "PROJECT_NO",
+          "field_type": "TEXT",
+          "alias": "Project Number",
+          "length": 50
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "default": "CAD Conversion"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "conn",
+          "\\bhc\\b",
+          "lateral"
+        ],
+        "block_name_patterns": [],
+        "text_keywords": [
+          "hc",
+          "connection"
+        ],
+        "geometry_types": [
+          "line"
+        ],
+        "typical_length_range": [
+          0.5,
+          40
+        ],
+        "value_ranges": {
+          "DIAMETER": [
+            100,
+            160
+          ]
+        },
+        "line_weight": "light"
+      },
+      "id_field": "CONN_ID"
+    }
+  ],
+  "label_rules": [
+    {
+      "field": "DIAMETER",
+      "pattern": "(?:DN|Ø|⌀|%%C|DIA\\.?|D\\s*=)\\s*(?P<v>\\d{2,4})(?:\\s*MM)?\\b|\\b(?P<v2>\\d{2,4})\\s*MM\\b",
+      "value_type": "int",
+      "targets": [
+        "GravitySewer"
+      ]
+    },
+    {
+      "field": "MATERIAL",
+      "pattern": "\\b(?P<v>UPVC|HDPE|PVC|GRP|RCP|PE|DI|ST|CI|AC|VC|CU)\\b",
+      "targets": [
+        "GravitySewer"
+      ],
+      "value_type": "upper",
+      "description": "pipe material code in label"
+    },
+    {
+      "field": "LENGTH",
+      "pattern": "\\bL\\s*[=:]\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "targets": [
+        "GravitySewer"
+      ]
+    },
+    {
+      "field": "SLOPE_PCT",
+      "pattern": "\\b(?:S|SLOPE|GR)\\s*[=:]?\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*%",
+      "value_type": "float",
+      "targets": [
+        "GravitySewer"
+      ]
+    },
+    {
+      "field": "US_IL",
+      "pattern": "\\b(?:US|U/S|UP)\\s*\\.?\\s*IL\\s*[=:]?\\s*(?P<v>-?\\d+\\.\\d+)",
+      "value_type": "float",
+      "targets": [
+        "GravitySewer"
+      ],
+      "priority": 5
+    },
+    {
+      "field": "DS_IL",
+      "pattern": "\\b(?:DS|D/S|DN)\\s*\\.?\\s*IL\\s*[=:]?\\s*(?P<v>-?\\d+\\.\\d+)",
+      "value_type": "float",
+      "targets": [
+        "GravitySewer"
+      ],
+      "priority": 5
+    },
+    {
+      "field": "PIPE_ID",
+      "pattern": "\\b(?P<v>(?:SP|SW|GS)[-_]?\\d{1,6})\\b",
+      "value_type": "upper",
+      "targets": [
+        "GravitySewer"
+      ]
+    },
+    {
+      "field": "MH_ID",
+      "pattern": "\\b(?P<v>(?:SMH|MH|S)[-_ ]?\\d{1,6}[A-Z]?)\\b",
+      "value_type": "upper",
+      "targets": [
+        "SewerManhole"
+      ]
+    },
+    {
+      "field": "COVER_LEVEL",
+      "pattern": "\\b(?:CL|C\\.L\\.|COVER\\s*LEVEL|RL|TL)\\s*[=:]?\\s*(?P<v>-?\\d+\\.\\d+)",
+      "value_type": "float",
+      "targets": [
+        "SewerManhole"
+      ]
+    },
+    {
+      "field": "INVERT_LEVEL",
+      "pattern": "\\b(?:IL|I\\.L\\.|INV(?:ERT)?\\s*(?:LEVEL)?)\\s*[=:]?\\s*(?P<v>-?\\d+\\.\\d+)",
+      "value_type": "float",
+      "targets": [
+        "SewerManhole"
+      ]
+    },
+    {
+      "field": "DEPTH",
+      "pattern": "\\b(?:DEPTH|D)\\s*[=:]\\s*(?P<v>\\d+(?:\\.\\d+)?)\\s*M?\\b",
+      "value_type": "float",
+      "targets": [
+        "SewerManhole"
+      ]
+    }
+  ],
+  "label_search_radius": 6.0,
+  "network": {
+    "enabled": true,
+    "flow": "gravity",
+    "edges": [
+      "GravitySewer"
+    ],
+    "junctions": [
+      "SewerManhole",
+      "InspectionChamber",
+      "LiftStation"
+    ],
+    "snap_tolerance": 0.1,
+    "upstream_level_field": "US_IL",
+    "downstream_level_field": "DS_IL",
+    "junction_level_field": "INVERT_LEVEL",
+    "direction_field": "FLOWDIR",
+    "upstream_node_field": "US_MH_ID",
+    "downstream_node_field": "DS_MH_ID",
+    "require_junction_at_ends": true
+  },
+  "relationships": [
+    {
+      "name": "SewerManhole_GravitySewer",
+      "origin": "SewerManhole",
+      "destination": "GravitySewer",
+      "origin_primary_key": "MH_ID",
+      "origin_foreign_key": "US_MH_ID",
+      "cardinality": "one_to_many",
+      "forward_label": "Outgoing pipes",
+      "backward_label": "Upstream manhole"
+    }
+  ],
+  "validation": {
+    "min_line_length": 0.05,
+    "min_polygon_area": 0.1,
+    "duplicate_tolerance": 0.001,
+    "unique_fields": {
+      "GravitySewer": [
+        "PIPE_ID"
+      ],
+      "SewerManhole": [
+        "MH_ID"
+      ]
+    }
+  },
+  "repair": {
+    "remove_duplicate_vertices": true,
+    "close_near_closed_rings": true,
+    "ring_closure_tolerance": 0.05,
+    "make_valid_polygons": true,
+    "snap_line_endpoints": true
+  }
+}

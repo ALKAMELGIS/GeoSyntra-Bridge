@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+data/
+output/
+web/node_modules/
+mapping_rules/profiles/
+*.gdb/
+
+# local, never committed
+owner_email.txt
+data_accounts/
+data_commercial/
+.env
+*.tsbuildinfo
+.pytest_cache/

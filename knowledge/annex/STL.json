@@ -1,0 +1,2303 @@
+{
+ "_source": "DMT_As_Built_Data_Submission_Standards_V7.pdf",
+ "asset": "STL",
+ "features": {
+  "STREETLIGHT": {
+   "geometry": "point",
+   "page": 194,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Date of last inspection i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Image path"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITSUPTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Single arm, double arms, three arms,"
+    },
+    {
+     "name": "NO_OF_LUMINARIES",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Number of luminaries"
+    },
+    {
+     "name": "FIXTURENUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Fixture number"
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Phase designation"
+    },
+    {
+     "name": "FIXTUREHEIGHT",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Fixture height"
+    },
+    {
+     "name": "WATTAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Wattage"
+    },
+    {
+     "name": "LAMPTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "FUSE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Fuse: Yes/No"
+    },
+    {
+     "name": "HEIGHT",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Hight of the pole"
+    },
+    {
+     "name": "FIXTUREMANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Fixture manufacturer"
+    },
+    {
+     "name": "CKTNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Circuit Number: C1, C2, C3, C4, C5, C6"
+    },
+    {
+     "name": "ISMIDHINGED",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "YES/NO"
+    },
+    {
+     "name": "POLE_MATERIAL",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "CAST ALUMINUM, CAST IRON, GI –"
+    },
+    {
+     "name": "POLE_DIAMETER",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Pole diameter"
+    },
+    {
+     "name": "POLE_BASEPLATECOVER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "YES/NO"
+    },
+    {
+     "name": "FOUNDATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Foundation"
+    },
+    {
+     "name": "FOUNDATIONSIZE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Foundation size or dimensions"
+    },
+    {
+     "name": "CABINET_UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Cabinet unit ID"
+    },
+    {
+     "name": "POLEID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Pole ID"
+    },
+    {
+     "name": "BOOM_ANGLE",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Boom Angle"
+    },
+    {
+     "name": "CUTOUT_RATE",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Cut-out Rate"
+    },
+    {
+     "name": "CUTOUT_WAYS",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "POLEDIAM_BOTTOM",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Bottom pole diameter"
+    },
+    {
+     "name": "POLEDIAM_TOP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Top pole diameter"
+    },
+    {
+     "name": "POLETHICK_BOTTOM",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Bottom Pole thickness"
+    },
+    {
+     "name": "POLETHICK_TOP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Top pole thickness"
+    },
+    {
+     "name": "POWRMTRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Power meter key"
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "COMPKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "generated, non-display, sequential"
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSETCODE",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset Code assigned by the contractor"
+    },
+    {
+     "name": "LOCATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "(e.g. at footpath, roundabout,"
+    },
+    {
+     "name": "REGION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROUTEID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITTYPEDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "EXPBY",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Asset expired by"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Asset expired date"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "LUMINAIRE_INS_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Luminaire Installation Date"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    },
+    {
+     "name": "ARMLENGTH",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Arm Length: 0.5, 1, 2, etc."
+    }
+   ]
+  },
+  "CONTROLCABINET": {
+   "geometry": "point",
+   "page": 197,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Date of last inspection i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Image path"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Control Cabinet Type: Electrical"
+    },
+    {
+     "name": "NOOFWAYS",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "NOOFCONNECTEDPOLES",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "BAYTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Phase Designation"
+    },
+    {
+     "name": "TIMER_TYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Timer Type Values: Digital, Mechanical"
+    },
+    {
+     "name": "TIMERMANUFACTURE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Timer Manufacturer"
+    },
+    {
+     "name": "PHOTOCELL",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Photocell Values: Yes, No"
+    },
+    {
+     "name": "PHOTOCELLMANUFACTURE",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Photocell Manufacturer"
+    },
+    {
+     "name": "INCOMING_RATE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ingoing rate in voltage"
+    },
+    {
+     "name": "OUTGOING_RATE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Outgoing rate in voltage"
+    },
+    {
+     "name": "MAIN_CABLE_SIZE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "AMPLEX_CPU_NUMBER",
+     "type": "double",
+     "length": null,
+     "mandatory": false,
+     "description": "Amplex CPU Number"
+    },
+    {
+     "name": "MANUFATURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Manufacturer of Control Cabinet"
+    },
+    {
+     "name": "BREAKERMANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Manufacturer of Breaker"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "COMPKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "generated, non-display, sequential"
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset ID"
+    },
+    {
+     "name": "ASSETCODE",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset Code assigned by the contractor"
+    },
+    {
+     "name": "CABINETID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CCABINET_LOCATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "(e.g. at footpath, roundabout,"
+    },
+    {
+     "name": "REF",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "2. ASB"
+    },
+    {
+     "name": "REGION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROUTEID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "EXPBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired by"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired date"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    }
+   ]
+  },
+  "LIGHTCABLE": {
+   "geometry": "line",
+   "page": 199,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Date of last inspection i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Light Cable Type Values: Copper, C/X/S/P"
+    },
+    {
+     "name": "CKT_NO",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Circuit Number: C1, C2, C3, C4, C5, C6"
+    },
+    {
+     "name": "BURIEDDEPTH",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Buried Depth"
+    },
+    {
+     "name": "CABLESIZE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Size of conductor"
+    },
+    {
+     "name": "CABLEMANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Name of the conductor manufacturer"
+    },
+    {
+     "name": "PHASEDESIGNATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CABLEMATERIAL",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Material of Conductor"
+    },
+    {
+     "name": "CABLE_LENGTH",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Length of Cable"
+    },
+    {
+     "name": "WARNINGTAPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Warning tape: Yes/ No"
+    },
+    {
+     "name": "COVERINGTILES",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Covering tiles: Yes/ No"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Comments if any"
+    },
+    {
+     "name": "XCOORD_START",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "YCOORD_START",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZCOORD_START",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "XCOORD_END",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "YCOORD_END",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZCOORD_END",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "START_ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Start Image path"
+    },
+    {
+     "name": "END_ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "End Image path"
+    },
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "generated, non-display, sequential"
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset ID"
+    },
+    {
+     "name": "ASSETLOCATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "(e.g. at footpath, roundabout,"
+    },
+    {
+     "name": "CABINET_UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Cabinet UNITID (Beginning of all local"
+    },
+    {
+     "name": "UNITTYPEDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CABLECOUNT",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Number of cables"
+    },
+    {
+     "name": "JOINT_TYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "2. HEAT SHRINK"
+    },
+    {
+     "name": "REGION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SUPPLYSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Supply Status : Permanent"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "EXPBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired by"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired date"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    }
+   ]
+  },
+  "EARTHING": {
+   "geometry": "point",
+   "page": 201,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Date of last inspection i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Image path"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Name of the manufacturer"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "generated, non-display, sequential"
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSETLOCATION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "(e.g. at footpath, roundabout,"
+    },
+    {
+     "name": "REGION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SUPPLIER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Asset Supplier"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "EXPBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired by"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired date"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    }
+   ]
+  },
+  "JUNCTIONBOX": {
+   "geometry": "point",
+   "page": 203,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Date of last inspection i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": null,
+     "mandatory": true,
+     "description": "Handover date i.e., DD/MM/YYYY"
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Ownership by: Public, Private"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Image path"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "UNITTYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MANUFACTURER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Name of the manufacturer"
+    },
+    {
+     "name": "COMMENTS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Comments if any"
+    },
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "COMPKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": true,
+     "description": "generated, non-display, sequential"
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "REGION",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CKT_NO",
+     "type": "short",
+     "length": null,
+     "mandatory": true,
+     "description": "Circuit Number"
+    },
+    {
+     "name": "SUPPLIER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Asset SUPPLIER"
+    },
+    {
+     "name": "ATSNUMBER",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ATS Number (Handover project number)"
+    },
+    {
+     "name": "ADDRKEY",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": "Address key as per Osool"
+    },
+    {
+     "name": "TOCSIGNEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "TOC Signed date"
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "EXPBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired by"
+    },
+    {
+     "name": "EXPDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Asset expired date"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "JUNCTION_BOX_CUTOUT_TYPE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    }
+   ]
+  },
+  "SL_NODE": {
+   "geometry": "point",
+   "page": 205,
+   "fields": [
+    {
+     "name": "UNITID",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Unique identifier for street light assets."
+    },
+    {
+     "name": "ASSET_BEFORE",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "Before Asset UNIT_ID"
+    },
+    {
+     "name": "ASSET_AFTER",
+     "type": "string",
+     "length": null,
+     "mandatory": true,
+     "description": "After Asset UNIT_ID"
+    },
+    {
+     "name": "COMPKEY",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "COMPTYPE",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "Comptype as per INFOR"
+    },
+    {
+     "name": "CREATIONDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Added Date/Time"
+    },
+    {
+     "name": "CREATEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Login name of the person who added the record."
+    },
+    {
+     "name": "MODIFIEDDATE",
+     "type": "date",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified Date/Time"
+    },
+    {
+     "name": "MODIFIEDBY",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "Modified By"
+    },
+    {
+     "name": "ADSDI_GUID",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": "ADSDI GUID"
+    },
+    {
+     "name": "INFORMIGRATION",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "SYNCSTATUS",
+     "type": "string",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "ASSETSEQNUM",
+     "type": "long",
+     "length": null,
+     "mandatory": false,
+     "description": ""
+    }
+   ]
+  }
+ }
+}

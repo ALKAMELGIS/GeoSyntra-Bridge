@@ -1,0 +1,2721 @@
+{
+ "_source": "DMT_As_Built_Data_Submission_Standards_V7.pdf",
+ "asset": "SL",
+ "features": {
+  "FORESTAREA": {
+   "geometry": "polygon",
+   "page": 406,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "FORESTAREA_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_AREA",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset area"
+    },
+    {
+     "name": "GAZELLE_TYPE",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Gazelle type"
+    },
+    {
+     "name": "GAZELLE_NO",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Gazelle number"
+    },
+    {
+     "name": "AGE_DISTRIBUTION",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Age distribution"
+    },
+    {
+     "name": "FODDER_REQ",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "FODDER_REQ"
+    },
+    {
+     "name": "MEDICAL_REQ",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "MEDICAL_REQ"
+    },
+    {
+     "name": "HEI",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "HEI"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "WATER_REQUIREMENT_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in summer"
+    },
+    {
+     "name": "WATER_REQUIREMENT_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in winter"
+    },
+    {
+     "name": "WATER_REQUIREMENT_AVERAGE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water requirement"
+    },
+    {
+     "name": "WATER_CONSUMPTION_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in summer"
+    },
+    {
+     "name": "WATER_CONSUMPTION_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in winter"
+    },
+    {
+     "name": "WATER_CONSUMPTION_AVERAGE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water consumption"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "PARK": {
+   "geometry": "polygon",
+   "page": 408,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Garden, Hospital, Interchange, Median,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Lake In Park, Pedestrian, Underpass, Pivot"
+    },
+    {
+     "name": "PARK_ID",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Unique ID"
+    },
+    {
+     "name": "PARK_TYPE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Park Type Values:"
+    },
+    {
+     "name": "YEAR_OPEN",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": "Year opened"
+    },
+    {
+     "name": "PARK_STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Park Status Values:"
+    },
+    {
+     "name": "STATUS_COMMENT",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Any comment. Example:"
+    },
+    {
+     "name": "SERVICE_AREA",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Service area of park"
+    },
+    {
+     "name": "PRIORITY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Park Priority Values:"
+    },
+    {
+     "name": "AGENCY_NAME",
+     "type": "string",
+     "length": 200,
+     "mandatory": true,
+     "description": "Agency maintaining the park"
+    },
+    {
+     "name": "DEVELOPMENT_STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Park development status Values:"
+    },
+    {
+     "name": "WATER_REQUIREMENT_SUMMER",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Water requirement in summer"
+    },
+    {
+     "name": "WATER_REQUIREMENT_WINTER",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Water requirement in winter"
+    },
+    {
+     "name": "WATER_REQUIREMENT_AVERGAE",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Average water requirement"
+    },
+    {
+     "name": "WATER_CONSUMPTION_SUMMER",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Water consumption in summer"
+    },
+    {
+     "name": "WATER_CONSUMPTION_WINTER",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Water consumption in winter"
+    },
+    {
+     "name": "WATER_CONSUMPTION_AVERAGE",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Average water consumption"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "GROUNDCOVER": {
+   "geometry": "polygon",
+   "page": 410,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "GROUNDCOVER_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_AREA",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset area"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "WATER_REQUIREMENT_SUMMR",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in summer"
+    },
+    {
+     "name": "WATER_REQUIREMENT_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in winter"
+    },
+    {
+     "name": "WATER_REQUIREMENT_AVERAE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water requirement"
+    },
+    {
+     "name": "WATER_CONSUMPTION_SUMMR",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in summer"
+    },
+    {
+     "name": "WATER_CONSUMPTION_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in winter"
+    },
+    {
+     "name": "WATER_CONSUMPTION_AVERAE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water consumption"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "LAWN": {
+   "geometry": "polygon",
+   "page": 411,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": null,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "LAWN_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_AREA",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset area"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "WATER_REQUIREMENT_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in summer"
+    },
+    {
+     "name": "WATER_REQUIREMENT_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in winter"
+    },
+    {
+     "name": "WATER_REQUIREMENT_AVERAGE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water requirement"
+    },
+    {
+     "name": "WATER_CONSUMPTION_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in summer"
+    },
+    {
+     "name": "WATER_CONSUMPTION_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in winter"
+    },
+    {
+     "name": "WATER_CONSUMPTION_AVERAGE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water consumption"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "SEASONALFLOWER": {
+   "geometry": "polygon",
+   "page": 413,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SEASONALFLOWER_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "CONFIGURATION",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Configuration"
+    },
+    {
+     "name": "SEASON",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Season"
+    },
+    {
+     "name": "ASSET_AREA",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset area"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "WATER_REQUIREMENT_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in summer"
+    },
+    {
+     "name": "WATER_REQUIREMENT_WINTER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water requirement in winter"
+    },
+    {
+     "name": "WATER_REQUIREMENT_AVERAGE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Average water requirement"
+    },
+    {
+     "name": "WATER_CONSUMPTION_SUMMER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Water consumption in summer"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "HEDGE": {
+   "geometry": "line",
+   "page": 415,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "HEDGE_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_AREA",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset area"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    },
+    {
+     "name": "WIDTH",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Width of the Hedge"
+    },
+    {
+     "name": "LENGTH",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Length of the Hedge"
+    }
+   ]
+  },
+  "SHRUB": {
+   "geometry": "point",
+   "page": 417,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "SHRUB_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "PURPOSE",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Soft purpose"
+    },
+    {
+     "name": "OVERALL_HEIGHT",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Overall height"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  },
+  "TREE": {
+   "geometry": "point",
+   "page": 419,
+   "fields": [
+    {
+     "name": "PROJECTID",
+     "type": "string",
+     "length": 30,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "UNITDESC",
+     "type": "string",
+     "length": 300,
+     "mandatory": true,
+     "description": "Unit Description"
+    },
+    {
+     "name": "XCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "X (longitude) coordinate for the asset."
+    },
+    {
+     "name": "YCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Y (latitude) coordinate for the asset."
+    },
+    {
+     "name": "ZCOORD",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "Z (elevation) coordinate for the asset."
+    },
+    {
+     "name": "ADDRESSNUMBER",
+     "type": "long",
+     "length": 4,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ROADID",
+     "type": "double",
+     "length": 10,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_EN",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "ROADNAME_AR",
+     "type": "string",
+     "length": 255,
+     "mandatory": true,
+     "description": "(N/A for offroad features like Parks’"
+    },
+    {
+     "name": "STATUS",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "CONDITION",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYSTARTDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_WARRANTYENDDATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_INSTALLATION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTION_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "INSPECTED_BY",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": ""
+    },
+    {
+     "name": "HANDOVER_DATE",
+     "type": "date",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "OWNERSHIP",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "Ownership by"
+    },
+    {
+     "name": "DATA_SOURCE",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": "AS BUILT, SITE SURVEY, CONSULTANT"
+    },
+    {
+     "name": "SEG_RW_ID",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "‘UNITID’ or Street Segment ‘UNITID’ for"
+    },
+    {
+     "name": "LRS_OFFSET",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": "LRS Offset"
+    },
+    {
+     "name": "FMEAS",
+     "type": "double",
+     "length": 8,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ASSET_IMAGE",
+     "type": "string",
+     "length": 300,
+     "mandatory": false,
+     "description": "Image path"
+    },
+    {
+     "name": "DRAWINGNAME",
+     "type": "string",
+     "length": 100,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Zone or District Code"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_CODE",
+     "type": "string",
+     "length": 10,
+     "mandatory": true,
+     "description": "Sector or community Code"
+    },
+    {
+     "name": "ZONE_OR_DISTRICT_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Zone or District Description"
+    },
+    {
+     "name": "SECTOR_OR_COMMUNITY_NAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": false,
+     "description": "Sector or Community Description"
+    },
+    {
+     "name": "ASSETCATEGORY",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "MAINASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": "Forest, Garden, Hospital, Interchange,"
+    },
+    {
+     "name": "SUBASSETNAME",
+     "type": "string",
+     "length": 50,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "TREE_ID",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": ""
+    },
+    {
+     "name": "VARIETY",
+     "type": "string",
+     "length": 20,
+     "mandatory": true,
+     "description": "Variety"
+    },
+    {
+     "name": "OVER_ALL_HEIGHT",
+     "type": "long",
+     "length": 10,
+     "mandatory": true,
+     "description": "Overall height"
+    },
+    {
+     "name": "CALLIPER_1M_TRUNK_HEIGHT",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Calliper 1m trunk height"
+    },
+    {
+     "name": "CANOPY_DIAMETER",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Canopy diameter"
+    },
+    {
+     "name": "ASSET_SERVICE_HISTORY",
+     "type": "string",
+     "length": 400,
+     "mandatory": false,
+     "description": "Asset service history"
+    },
+    {
+     "name": "ASSET_PERFORMANCE",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Asset performance"
+    },
+    {
+     "name": "LIFE_USABILITY",
+     "type": "long",
+     "length": 10,
+     "mandatory": false,
+     "description": "Life usability"
+    },
+    {
+     "name": "ASSET_REMAINING_LIFE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset remaining life"
+    },
+    {
+     "name": "ASSET_COST",
+     "type": "double",
+     "length": 12,
+     "mandatory": false,
+     "description": "Complete Asset Installation cost in AED"
+    },
+    {
+     "name": "ASSET_USE",
+     "type": "string",
+     "length": 500,
+     "mandatory": false,
+     "description": "Asset use"
+    },
+    {
+     "name": "ASSET_AGE",
+     "type": "string",
+     "length": 2,
+     "mandatory": false,
+     "description": "Asset age"
+    },
+    {
+     "name": "MAINT_OWNERSHIP",
+     "type": "string",
+     "length": 20,
+     "mandatory": false,
+     "description": "Filled with either letters or number Ex.:"
+    },
+    {
+     "name": "REMARKS",
+     "type": "string",
+     "length": 150,
+     "mandatory": false,
+     "description": "Remarks"
+    }
+   ]
+  }
+ }
+}

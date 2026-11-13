@@ -1,0 +1,3672 @@
+{
+  "format": 2,
+  "schema_id": "adm_itc",
+  "display_name": "ADM ITC — Template V10",
+  "version": "10 (20012026)",
+  "status": "approved",
+  "discipline": "ITC",
+  "description": "Imported from template geodatabase 'ADM_ITC_Templates_Z40_V10_20012026.gdb': 30 feature classes, 31 domains.",
+  "spatial_reference": {
+    "epsg": 32640,
+    "verified": true
+  },
+  "xy_tolerance": 0.001,
+  "feature_datasets": [
+    {
+      "name": "ITC_ITS"
+    }
+  ],
+  "domains": [
+    {
+      "name": "Building_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Building_Type",
+      "coded_values": {
+        "1": "Traffic Control Centre",
+        "2": "Hub",
+        "3": "PSS"
+      }
+    },
+    {
+      "name": "Cabinet_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Cabinet_Type",
+      "coded_values": {
+        "1": "TSC Traffic Signal Controller",
+        "2": "Master Controller",
+        "3": "FEC CCTV Cabinet",
+        "4": "ACS Changeover Switch",
+        "5": "FOC Fibre Optic Patch Panel",
+        "6": "Hub Cabinet",
+        "7": "UPS Cabinet",
+        "8": "ADDC Energy Meter Feeder",
+        "9": "ADDC Junction"
+      }
+    },
+    {
+      "name": "Cable_Type ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Cable_Type ",
+      "coded_values": {
+        "1": "Fibre",
+        "2": "Copper",
+        "3": "Ethernet",
+        "4": "Power"
+      }
+    },
+    {
+      "name": "Controller_Model",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Controller_Model",
+      "coded_values": {
+        "1": "MP",
+        "10": "ST950",
+        "11": "ITC_3",
+        "12": "FXM2000",
+        "2": "C800VK",
+        "3": "C800V",
+        "4": "C800XS",
+        "5": "C800",
+        "6": "MP16"
+      }
+    },
+    {
+      "name": "Controller_Support",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Controller_Support",
+      "coded_values": {
+        "1": "HUB1",
+        "10": "ADP",
+        "11": "POLICEHUB",
+        "12": "HUB1-HUB2",
+        "13": "HUB1-HUB3",
+        "14": "HUB1-TCC",
+        "15": "HUB2-HUB3",
+        "16": "HUB2-TCC",
+        "17": "HUB3-TCC",
+        "18": "HUB1-ADP",
+        "19": "HUB2-ADP",
+        "2": "HUB2",
+        "20": "HUB1-HUB2-HUB3",
+        "21": "HUB1-HUB2-HUB3-TCC",
+        "22": "MBZ_TCC",
+        "23": "GSM",
+        "24": "Swarco",
+        "25": "XC1, XC2, XF",
+        "26": "YAS_FP",
+        "27": "YAS_SS",
+        "28": "XC1",
+        "29": "XC2",
+        "3": "HUB3",
+        "30": "XF",
+        "4": "HUB4",
+        "5": "TCC",
+        "6": "PSS1",
+        "7": "PSS2",
+        "8": "PSS3",
+        "9": "PSS4"
+      }
+    },
+    {
+      "name": "Data_Origin",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Data_Origin",
+      "coded_values": {
+        "1": "ADM",
+        "2": "TPSS SDD",
+        "3": "TCC",
+        "4": "DoT",
+        "5": "ADP",
+        "6": "Contractor",
+        "7": "TMC"
+      }
+    },
+    {
+      "name": "Data_Status",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Data_Status",
+      "coded_values": {
+        "1": "Planned",
+        "2": "As-Built"
+      }
+    },
+    {
+      "name": "Design_Format",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Design_Format",
+      "coded_values": {
+        "1": "DWG",
+        "2": "DGN",
+        "3": "PDF",
+        "4": "TIF",
+        "5": "TAB",
+        "6": "MDB"
+      }
+    },
+    {
+      "name": "Direction",
+      "domain_type": "coded",
+      "field_type": "DOUBLE",
+      "description": "Direction",
+      "coded_values": {
+        "1": "Inbound",
+        "2": "Outbound",
+        "3": "South",
+        "4": "North",
+        "5": "East",
+        "6": "West"
+      }
+    },
+    {
+      "name": "Duct _Size ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Duct _Size ",
+      "coded_values": {
+        "1": "110mm",
+        "2": "114mm",
+        "3": "100mm",
+        "4": "50mm",
+        "5": "150mm",
+        "6": "75mm",
+        "7": "60mm"
+      }
+    },
+    {
+      "name": "Duct_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Duct_Type",
+      "coded_values": {
+        "1": "Command",
+        "2": "Power",
+        "3": "Audio",
+        "4": "Fibre Optic",
+        "5": "Video",
+        "6": "Data/Control"
+      }
+    },
+    {
+      "name": "Group ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Group ",
+      "coded_values": {
+        "1": "1",
+        "10": "10",
+        "11": "11",
+        "12": "12",
+        "13": "A",
+        "14": "C",
+        "15": "D",
+        "16": "E3, V4 & V5",
+        "17": "E2, V2 & V3",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5",
+        "6": "6",
+        "7": "7",
+        "8": "8",
+        "9": "9"
+      }
+    },
+    {
+      "name": "Led_Size ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Led_Size ",
+      "coded_values": {
+        "1": "8",
+        "2": "12",
+        "3": "1 PED",
+        "4": "300 mm",
+        "5": "200 mm",
+        "6": "200*170mm",
+        "7": "210*279mm"
+      }
+    },
+    {
+      "name": "Led_Type ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Led_Type ",
+      "coded_values": {
+        "1": "Lamp",
+        "2": "LED",
+        "3": "WM",
+        "4": "WM Centre",
+        "5": "LENS",
+        "6": "LED Type High Flux"
+      }
+    },
+    {
+      "name": "Loop_Type ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Loop_Type ",
+      "coded_values": {
+        "1": "TVR Loop Detector",
+        "10": "Flasher",
+        "2": "Apportionment Loop Detector",
+        "3": "System Loop Detector",
+        "4": "Local Loop Detector",
+        "5": "Virtual Loop Detector",
+        "6": "Free right turn Loop Detector",
+        "7": "Exit Loop Detector",
+        "8": "Give Way Loop Detector",
+        "9": "Stop Line Loop Detector"
+      }
+    },
+    {
+      "name": "Network_Name",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Network_Name",
+      "coded_values": {
+        "1": "Apportionment Loop Cable",
+        "10": "Fibre Optic Cable for Traffic Signal Network",
+        "11": "Fibre Optic Cable for TVR System Network",
+        "12": "Fibre Optic Cable Telephone System Routing To HUB-1",
+        "13": "Fibre Optic Cable Telephone System Routing To HUB-2",
+        "14": "Fibre Optic Cable Tie Line Between HUB-1 To ADP",
+        "15": "Fibre Optic Cable Tie Line Between HUB-1 To HUB-2",
+        "16": "Fibre Optic Cable Tie Line Between HUB-1 To HUB-3",
+        "17": "Fibre Optic Cable Tie Line Between HUB-1 To TCC",
+        "18": "Fibre Optic Cable Tie Line Between HUB-2 To ADP",
+        "19": "Fibre Optic Cable Tie Line Between HUB-2 To HUB-3",
+        "2": "Audio System Cable",
+        "20": "Fibre Optic Cable Tie Line Between HUB-2 To TCC",
+        "21": "Fibre Optic Cable Tie Line Between HUB-3 To TCC",
+        "22": "Local Loop Cable",
+        "23": "Local Signal Cable",
+        "24": "Local TVR Cable",
+        "25": "Non Fibre Optic Traffic Signal Network Cable",
+        "26": "Power Cable",
+        "27": "System Loop Cable",
+        "28": "Traffic Signal Power Backup System Cable Route",
+        "29": "TVR Loop Cable",
+        "3": "CCTV Control Cable",
+        "30": "Free Right Turn Loop Cable",
+        "31": "Ethernet Cable",
+        "32": "EARTHING WIRE",
+        "4": "CCTV Fiber Optic Network Cable",
+        "5": "CCTV Video Cable",
+        "6": "Communication Network Cable",
+        "7": "Fibre Optic Cable CCTV Routing To HUB-1",
+        "8": "Fibre Optic Cable CCTV Routing To HUB-2",
+        "9": "Fibre Optic Cable CCTV Routing To HUB-3"
+      }
+    },
+    {
+      "name": "No_Of_ Ducts",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "No_Of_ Ducts",
+      "coded_values": {
+        "0": "0 Way",
+        "1": "1 Way",
+        "10": "9 Way",
+        "11": "10 Way",
+        "12": "24 Way",
+        "13": "36 Way",
+        "2": "2 Way",
+        "3": "4 Way",
+        "5": "8 Way",
+        "6": "16 Way",
+        "7": "3 Way",
+        "8": "12 Way",
+        "9": "6 Way"
+      }
+    },
+    {
+      "name": "Pole_Subtype",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Pole_Subtype",
+      "coded_values": {
+        "1": "Traffic Signal",
+        "2": "CCTV",
+        "3": "TVR Camera"
+      }
+    },
+    {
+      "name": "Pole_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Pole_Type",
+      "coded_values": {
+        "1": "Mast Arm & Pole",
+        "10": "Foundation",
+        "11": "Flasher Pole",
+        "12": "Signal Pole",
+        "2": "Pedestrian Pylon",
+        "3": "Street Lighting",
+        "4": "Free Right Turn",
+        "5": "TVR Pole",
+        "6": "Pedestrian Pole",
+        "7": "CCTV Pole",
+        "8": "Free U Turn",
+        "9": "Repeater Pole"
+      }
+    },
+    {
+      "name": "Projectstatus",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Projectstatus",
+      "coded_values": {
+        "1": "Planned",
+        "2": "Started",
+        "3": "Completed",
+        "4": "Demolished"
+      }
+    },
+    {
+      "name": "Signal_Head_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Signal_Head_Type",
+      "coded_values": {
+        "1": "3 Aspect Vehicular Left Turn",
+        "10": "3 Aspect Pedestrian",
+        "11": "3 Aspect Vehicular (Repeater)",
+        "12": "Free U Turn on Pole",
+        "13": "Pedestrian Crossing",
+        "14": "Pedestrian Push Button One",
+        "15": "Pedestrian Push Button Two",
+        "16": "Vehicular Double Signal Head",
+        "17": "4 Aspect Vehicular Left Turn",
+        "18": "3 Aspect Vehicular on Pole",
+        "19": "2 Aspect Pedestrian on Pole",
+        "2": "3 Aspect Vehicular (Clear)",
+        "20": "3 Aspect Vehicular Left Turn (Repeater)",
+        "21": "3 Aspect Vehicular U Turn (Repeater)",
+        "22": "1 Aspect Free Right Turn (Flasher)",
+        "23": "3 Aspect Vehicular Right Turn (Repeater)",
+        "24": "1 Aspect Free Right Turn (Flasher Amber)",
+        "25": "3 Aspect Vehicular Signal Head (Clear Repeater)",
+        "26": "3 Aspect Vehicular (Clear Repeater)",
+        "3": "2 Aspect Pedestrian",
+        "4": "1 Aspect Free Right Turn",
+        "5": "Pedestrian Signal Head Mounted",
+        "6": "Free Right Turn on Pole",
+        "7": "Signal Head Mounted on Street Light",
+        "8": "3 Aspect Vehicular Right Turn",
+        "9": "3 Aspect Vehicular U Turn"
+      }
+    },
+    {
+      "name": "Signal_Support ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Signal_Support ",
+      "coded_values": {
+        "1": "Arm",
+        "2": "Wire",
+        "3": "Pole"
+      }
+    },
+    {
+      "name": "Signal_Type ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Signal_Type ",
+      "coded_values": {
+        "1": "Pedestrian",
+        "2": "Flasher",
+        "3": "Signal"
+      }
+    },
+    {
+      "name": "Source_Of_Origin",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Source_Of_Origin",
+      "coded_values": {
+        "1": "ADM",
+        "2": "TPSS SDD",
+        "3": "TCC",
+        "4": "DoT",
+        "5": "ADP",
+        "6": "Contractor",
+        "7": "TMC",
+        "8": "ITS"
+      }
+    },
+    {
+      "name": "Source_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Source_Type",
+      "coded_values": {
+        "1": "Field Survey and Detection",
+        "2": "Photogrammetry",
+        "3": "Field Survey",
+        "4": "Planning Drawing",
+        "5": "As-Built Drawing",
+        "6": "Contract Drawing",
+        "7": "Assumption",
+        "8": "Submitted As-Built Drawing"
+      }
+    },
+    {
+      "name": "Spliceenc _Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Spliceenc _Type",
+      "coded_values": {
+        "1": "Enclosure",
+        "2": "Joiner"
+      }
+    },
+    {
+      "name": "Status",
+      "domain_type": "coded",
+      "field_type": "TEXT",
+      "description": "Status",
+      "coded_values": {
+        "Inactive": "Inactive",
+        "Active": "Active",
+        "Proposed": "Proposed",
+        "N/A": "N/A",
+        "Warranty": "Warranty",
+        "Unknown": "Unknown",
+        "In Use": "In Use",
+        "Existing": "Existing",
+        "Removed": "Removed",
+        "Closed": "Closed",
+        "Open": "Open",
+        "Planned": "Planned",
+        "Undefined": "Undefined",
+        "Abandoned": "Abandoned",
+        "NORMAL": "NORMAL",
+        "Expired": "Expired",
+        "In Service": "In Service",
+        "UC": "Under Construction",
+        "Approved D": "Approved Design",
+        "FinalHover": "Final Handover"
+      }
+    },
+    {
+      "name": "Tcs_Itc_Data_Source",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Tcs_Itc_Data_Source",
+      "coded_values": {
+        "1": "Field Survey and Detection",
+        "2": "Photogrammetry",
+        "3": "Field Survey",
+        "4": "Planning Drawing",
+        "5": "As-Built Drawing",
+        "6": "Contract Drawing",
+        "7": "Assumption",
+        "8": "Submitted As-Built Drawing"
+      }
+    },
+    {
+      "name": "Tcs_Itc_Material ",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Tcs_Itc_Material ",
+      "coded_values": {
+        "1": "PVC",
+        "2": "Concrete",
+        "3": "Galvanized",
+        "4": "Steel",
+        "5": "UPVC",
+        "6": "Composite"
+      }
+    },
+    {
+      "name": "Tcs_Itc_Status",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Tcs_Itc_Status",
+      "coded_values": {
+        "1": "Active",
+        "5": "Dismantled",
+        "7": "Existing",
+        "9": "In Service",
+        "2": "Inactive",
+        "3": "Missing",
+        "10": "Not Active",
+        "11": "Not Install",
+        "8": "Not Visible",
+        "4": "Temporary",
+        "6": "Virtual"
+      }
+    },
+    {
+      "name": "Wireless_Type",
+      "domain_type": "coded",
+      "field_type": "INTEGER",
+      "description": "Wireless_Type",
+      "coded_values": {
+        "1": "Subscriber Module",
+        "2": "Access Point",
+        "3": "CCTV",
+        "4": "PTP800"
+      }
+    }
+  ],
+  "layers": [
+    {
+      "name": "TRCABLEJOIN",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "JOIN_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "NETWORK_NAME",
+          "field_type": "TEXT",
+          "length": 200,
+          "nullable": false,
+          "domain": "Network_Name"
+        },
+        {
+          "name": "PULLBOX_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trcablejoin"
+        ],
+        "block_name_patterns": [
+          "trcablejoin"
+        ],
+        "text_keywords": [
+          "trcablejoin"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "ITS_ENCLOSURE",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Support"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "its[_\\-\\s]?enclosure"
+        ],
+        "block_name_patterns": [
+          "its[_\\-\\s]?enclosure"
+        ],
+        "text_keywords": [
+          "its",
+          "enclosure"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRPOLE",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "POLE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Pole_Type"
+        },
+        {
+          "name": "POLE_SUBTYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Pole_Subtype"
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "INTEGER",
+          "domain": "Tcs_Itc_Material "
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "HEIGHT",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "DIRECTION",
+          "field_type": "DOUBLE",
+          "nullable": false,
+          "domain": "Direction"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trpole"
+        ],
+        "block_name_patterns": [
+          "trpole"
+        ],
+        "text_keywords": [
+          "trpole"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "ACS",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "acs"
+        ],
+        "block_name_patterns": [
+          "acs"
+        ],
+        "text_keywords": [
+          "acs"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "WIM",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "LOCATION",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "CONTROL_CENTER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "CONTROL_CABINET_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "wim"
+        ],
+        "block_name_patterns": [
+          "wim"
+        ],
+        "text_keywords": [
+          "wim"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRBUILDING",
+      "geometry_type": "polygon",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "BUILDING_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "BUILDING_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Building_Type"
+        },
+        {
+          "name": "CONSTRUCTION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trbuilding"
+        ],
+        "block_name_patterns": [
+          "trbuilding"
+        ],
+        "text_keywords": [
+          "trbuilding"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRINTERSECTIONPOINT",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "LOCATION_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "LOCATION_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trintersectionpoint"
+        ],
+        "block_name_patterns": [
+          "trintersectionpoint"
+        ],
+        "text_keywords": [
+          "trintersectionpoint"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRSIGNAL",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SIGNAL_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Signal_Type "
+        },
+        {
+          "name": "SIGNAL_SUPPORT",
+          "field_type": "INTEGER",
+          "domain": "Signal_Support "
+        },
+        {
+          "name": "SIGNAL_HEAD_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Signal_Head_Type"
+        },
+        {
+          "name": "GROUP_",
+          "field_type": "INTEGER",
+          "domain": "Group "
+        },
+        {
+          "name": "LED_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Led_Type "
+        },
+        {
+          "name": "LED_SIZE",
+          "field_type": "INTEGER",
+          "domain": "Led_Size "
+        },
+        {
+          "name": "LED_INSTALL",
+          "field_type": "DATE"
+        },
+        {
+          "name": "LED_EXPIRY",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trsignal"
+        ],
+        "block_name_patterns": [
+          "trsignal"
+        ],
+        "text_keywords": [
+          "trsignal"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRPOWERCABINET",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLLER_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "CABINET_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "JUNCTION_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trpowercabinet"
+        ],
+        "block_name_patterns": [
+          "trpowercabinet"
+        ],
+        "text_keywords": [
+          "trpowercabinet"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRCABLE",
+      "geometry_type": "line",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONDUIT_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "DUCT_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Duct_Type"
+        },
+        {
+          "name": "CABLE_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Cable_Type "
+        },
+        {
+          "name": "CABLE_RUN_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "NETWORK_NAME",
+          "field_type": "TEXT",
+          "length": 200,
+          "nullable": false,
+          "domain": "Network_Name"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "XCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "XCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trcable"
+        ],
+        "block_name_patterns": [
+          "trcable"
+        ],
+        "text_keywords": [
+          "trcable"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "CFEC",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Support"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "cfec"
+        ],
+        "block_name_patterns": [
+          "cfec"
+        ],
+        "text_keywords": [
+          "cfec"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRLOOPCJ",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "TRLOOPCJ_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "PULLBOX_ID",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "LOOP_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trloopcj"
+        ],
+        "block_name_patterns": [
+          "trloopcj"
+        ],
+        "text_keywords": [
+          "trloopcj"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "OHVD",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "LOCATION",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "ENCLOSURE_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CONTROL_CENTER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "ohvd"
+        ],
+        "block_name_patterns": [
+          "ohvd"
+        ],
+        "text_keywords": [
+          "ohvd"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRHISTORICAL",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "DATA_STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Data_Status"
+        },
+        {
+          "name": "DESIGN_FORMAT",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Design_Format"
+        },
+        {
+          "name": "DATA_SOURCE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Data_Source"
+        },
+        {
+          "name": "DATA_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Data_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "PROJECTSTATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Projectstatus"
+        },
+        {
+          "name": "FILEPATH_LOCATION",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "COMMENTS",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "CONTRACT_NO",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "REPORT_REF",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "DATE_REPORT",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trhistorical"
+        ],
+        "block_name_patterns": [
+          "trhistorical"
+        ],
+        "text_keywords": [
+          "trhistorical"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "HUB",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "hub"
+        ],
+        "block_name_patterns": [
+          "hub"
+        ],
+        "text_keywords": [
+          "hub"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "VMS",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "LOCATION",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "VMS_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "VMS_SIZE",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLL_CABINET_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CONTROL_CENTER_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "vms"
+        ],
+        "block_name_patterns": [
+          "vms"
+        ],
+        "text_keywords": [
+          "vms"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "EARTH_PIT",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "Earth_Pit_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "alias": "Earth_Pit__ID"
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "PULLBOX_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "COVER_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "INVERT_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "PHOTOGRAPH",
+          "field_type": "TEXT",
+          "length": 200,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "earth[_\\-\\s]?pit"
+        ],
+        "block_name_patterns": [
+          "earth[_\\-\\s]?pit"
+        ],
+        "text_keywords": [
+          "earth",
+          "pit"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRPULLBOX",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "PULLBOX_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "PULLBOX_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "PB_DIMENSION",
+          "field_type": "DOUBLE",
+          "alias": "PB__DIMENSION",
+          "nullable": false
+        },
+        {
+          "name": "DICOVER_DIMENSION",
+          "field_type": "DOUBLE",
+          "nullable": false
+        },
+        {
+          "name": "COVER_DUTY",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "COVER_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "INVERT_LEVEL",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "DI_COVER_MANUFACTURE",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_DI_COVER_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "PHOTOGRAPH",
+          "field_type": "TEXT",
+          "length": 200,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trpullbox"
+        ],
+        "block_name_patterns": [
+          "trpullbox"
+        ],
+        "text_keywords": [
+          "trpullbox"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRLOOPS",
+      "geometry_type": "polygon",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "LOOP_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "JOINE_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "DISTANCE_STL",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "GROUP_",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "LOOP_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Loop_Type "
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trloops"
+        ],
+        "block_name_patterns": [
+          "trloops"
+        ],
+        "text_keywords": [
+          "trloops"
+        ],
+        "geometry_types": [
+          "polygon"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRDUCT",
+      "geometry_type": "line",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "DUCT_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "DUCT_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "NO_OF_DUCTS",
+          "field_type": "INTEGER",
+          "alias": "NO_OF__DUCTS",
+          "domain": "No_Of_ Ducts"
+        },
+        {
+          "name": "DUCT_SIZE",
+          "field_type": "INTEGER",
+          "alias": "DUCT__SIZE",
+          "domain": "Duct _Size "
+        },
+        {
+          "name": "DUCT_THICKNESS",
+          "field_type": "SMALLINTEGER",
+          "alias": "DUCT__THICKNESS",
+          "nullable": false
+        },
+        {
+          "name": "DUCT_DEPTH",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "MATERIAL",
+          "field_type": "INTEGER",
+          "domain": "Tcs_Itc_Material "
+        },
+        {
+          "name": "DUCT_MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "alias": "DUCT__MANUFACTURER",
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_DUCT_MANUFACTURE",
+          "field_type": "DATE",
+          "alias": "DATE_OF__DUCT__MANUFACTURE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "XCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "XCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trduct"
+        ],
+        "block_name_patterns": [
+          "trduct"
+        ],
+        "text_keywords": [
+          "trduct"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "UPS",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Support"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "ups"
+        ],
+        "block_name_patterns": [
+          "ups"
+        ],
+        "text_keywords": [
+          "ups"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TR_SPLICE_ENC",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "SPLICEENC_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "PULLBOX_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "Junction_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "SPLICEENC_TYPE",
+          "field_type": "SMALLINTEGER",
+          "alias": "SPLICEENC__TYPE",
+          "nullable": false,
+          "domain": "Spliceenc _Type"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Type"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Data_Source"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "tr[_\\-\\s]?splice[_\\-\\s]?enc"
+        ],
+        "block_name_patterns": [
+          "tr[_\\-\\s]?splice[_\\-\\s]?enc"
+        ],
+        "text_keywords": [
+          "tr",
+          "splice",
+          "enc"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRWIRELESS",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "WIRELESS_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "WIRELESS_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Wireless_Type"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trwireless"
+        ],
+        "block_name_patterns": [
+          "trwireless"
+        ],
+        "text_keywords": [
+          "trwireless"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "PMC",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Cabinet_Type"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Model"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Status"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER",
+          "domain": "Controller_Support"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "pmc"
+        ],
+        "block_name_patterns": [
+          "pmc"
+        ],
+        "text_keywords": [
+          "pmc"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRCABINET",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "OBJECT_ID",
+          "field_type": "INTEGER",
+          "nullable": false
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "TEXT",
+          "length": 40,
+          "nullable": false
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "EVP",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "TRCABINET_DIMENSION",
+          "field_type": "TEXT",
+          "length": 50,
+          "nullable": false
+        },
+        {
+          "name": "TRCABINET_MATERIAL",
+          "field_type": "TEXT",
+          "length": 50,
+          "alias": "TRCABINET___MATERIAL",
+          "nullable": false
+        },
+        {
+          "name": "STATUS",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false,
+          "domain": "Status"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 255,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DRAWING_SOURCE",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trcabinet"
+        ],
+        "block_name_patterns": [
+          "trcabinet"
+        ],
+        "text_keywords": [
+          "trcabinet"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRCONTROLLER",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONTROLLER_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "IP_NAME",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "CABINET_TYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "CONTROLLER_MODEL",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "EVP",
+          "field_type": "SMALLINTEGER",
+          "nullable": false
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "CONTROLLER_SUPPORT",
+          "field_type": "SMALLINTEGER"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trcontroller"
+        ],
+        "block_name_patterns": [
+          "trcontroller"
+        ],
+        "text_keywords": [
+          "trcontroller"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRHUBCABLE",
+      "geometry_type": "line",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONDUIT_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "DUCT_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Duct_Type"
+        },
+        {
+          "name": "CABLE_TYPE",
+          "field_type": "INTEGER",
+          "domain": "Cable_Type "
+        },
+        {
+          "name": "CABLE_RUN_NO",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "NETWORK_NAME",
+          "field_type": "TEXT",
+          "length": 200,
+          "domain": "Network_Name"
+        },
+        {
+          "name": "FROM_HUB",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "TO_HUB",
+          "field_type": "TEXT",
+          "length": 10
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "XCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "XCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trhubcable"
+        ],
+        "block_name_patterns": [
+          "trhubcable"
+        ],
+        "text_keywords": [
+          "trhubcable"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRCAM",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "POLE_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "CAM_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "alias": "CAM__ID"
+        },
+        {
+          "name": "CONTROLL_CABINET_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CAM_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "CAMENCLOSURE_TYPE",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "MANUFACTURER",
+          "field_type": "TEXT",
+          "length": 30,
+          "nullable": false
+        },
+        {
+          "name": "DATE_OF_MANUFACTURE",
+          "field_type": "DATE",
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "STATUS",
+          "field_type": "SMALLINTEGER",
+          "domain": "Tcs_Itc_Data_Source"
+        },
+        {
+          "name": "INSTALLATION_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "DATE_COMMISSIONED",
+          "field_type": "DATE"
+        },
+        {
+          "name": "MAINTENANCE_DATE",
+          "field_type": "DATE"
+        },
+        {
+          "name": "GROUP_",
+          "field_type": "INTEGER",
+          "domain": "Group "
+        },
+        {
+          "name": "DIRECTION",
+          "field_type": "DOUBLE",
+          "domain": "Direction"
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trcam"
+        ],
+        "block_name_patterns": [
+          "trcam"
+        ],
+        "text_keywords": [
+          "trcam"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRTVR",
+      "geometry_type": "point",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "TVR_ID",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "IP_ID",
+          "field_type": "TEXT",
+          "length": 10,
+          "nullable": false
+        },
+        {
+          "name": "SOURCE_TYPE",
+          "field_type": "SMALLINTEGER",
+          "domain": "Source_Type"
+        },
+        {
+          "name": "SOURCE_OF_ORIGIN",
+          "field_type": "SMALLINTEGER",
+          "nullable": false,
+          "domain": "Source_Of_Origin"
+        },
+        {
+          "name": "GROUP_",
+          "field_type": "INTEGER",
+          "domain": "Group "
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 1000
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trtvr"
+        ],
+        "block_name_patterns": [
+          "trtvr"
+        ],
+        "text_keywords": [
+          "trtvr"
+        ],
+        "geometry_types": [
+          "point"
+        ]
+      },
+      "has_z": true
+    },
+    {
+      "name": "TRPOWERCABLE",
+      "geometry_type": "line",
+      "feature_dataset": "ITC_ITS",
+      "category": "asset",
+      "fields": [
+        {
+          "name": "CONDUIT_ID",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "FROM_CABINET",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "TO_JUNCTION",
+          "field_type": "TEXT",
+          "length": 20,
+          "nullable": false
+        },
+        {
+          "name": "NETWORK_NAME",
+          "field_type": "TEXT",
+          "length": 200,
+          "domain": "Network_Name"
+        },
+        {
+          "name": "REMARKS",
+          "field_type": "TEXT",
+          "length": 20
+        },
+        {
+          "name": "XCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_START",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "XCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "YCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "ZCOORD_END",
+          "field_type": "DOUBLE"
+        },
+        {
+          "name": "START_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "END_ASSET_IMAGE",
+          "field_type": "TEXT",
+          "length": 255
+        },
+        {
+          "name": "UploadedDirectory",
+          "field_type": "TEXT",
+          "length": 100
+        }
+      ],
+      "classification_hints": {
+        "layer_name_patterns": [
+          "trpowercable"
+        ],
+        "block_name_patterns": [
+          "trpowercable"
+        ],
+        "text_keywords": [
+          "trpowercable"
+        ],
+        "geometry_types": [
+          "line"
+        ]
+      },
+      "has_z": true
+    }
+  ],
+  "label_rules": [],
+  "network": {
+    "enabled": false
+  },
+  "topology_rules": [
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRHISTORICAL",
+      "destination": "TRHISTORICAL"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRINTERSECTIONPOINT",
+      "destination": "TRINTERSECTIONPOINT"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRCONTROLLER",
+      "destination": "TRCONTROLLER"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "ACS",
+      "destination": "ACS"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "CFEC",
+      "destination": "CFEC"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "HUB",
+      "destination": "HUB"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "UPS",
+      "destination": "UPS"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "PMC",
+      "destination": "PMC"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "ITS_ENCLOSURE",
+      "destination": "ITS_ENCLOSURE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRPOLE",
+      "destination": "TRPOLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "VMS",
+      "destination": "VMS"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "OHVD",
+      "destination": "OHVD"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "WIM",
+      "destination": "WIM"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRSIGNAL",
+      "destination": "TRSIGNAL"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRTVR",
+      "destination": "TRTVR"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRLOOPCJ",
+      "destination": "TRLOOPCJ"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRCABLEJOIN",
+      "destination": "TRCABLEJOIN"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRWIRELESS",
+      "destination": "TRWIRELESS"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRPOWERCABINET",
+      "destination": "TRPOWERCABINET"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "TRLOOPS",
+      "destination": "TRLOOPS"
+    },
+    {
+      "rule": "esriTRTAreaNoOverlap",
+      "origin": "TRBUILDING",
+      "destination": "TRBUILDING"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "TRCABLE",
+      "destination": "TRCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "TRHUBCABLE",
+      "destination": "TRHUBCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "TRPOWERCABLE",
+      "destination": "TRPOWERCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "TRCABLE",
+      "destination": "TRCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "TRHUBCABLE",
+      "destination": "TRHUBCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "TRPOWERCABLE",
+      "destination": "TRPOWERCABLE"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRCABINET",
+      "destination": "TRCABINET"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRCAM",
+      "destination": "TRCAM"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TRPULLBOX",
+      "destination": "TRPULLBOX"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "EARTH_PIT",
+      "destination": "EARTH_PIT"
+    },
+    {
+      "rule": "esriTRTLineNoSelfOverlap",
+      "origin": "TRDUCT",
+      "destination": "TRDUCT"
+    },
+    {
+      "rule": "esriTRTPointDisjoint",
+      "origin": "TR_SPLICE_ENC",
+      "destination": "TR_SPLICE_ENC"
+    },
+    {
+      "rule": "esriTRTLineNoMultipart",
+      "origin": "TRDUCT",
+      "destination": "TRDUCT"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "TRDUCT",
+      "destination": "TRDUCT"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "TRPOWERCABLE",
+      "destination": "TRPOWERCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "TRHUBCABLE",
+      "destination": "TRHUBCABLE"
+    },
+    {
+      "rule": "esriTRTLineNoSelfIntersect",
+      "origin": "TRCABLE",
+      "destination": "TRCABLE"
+    }
+  ],
+  "source": "template_gdb",
+  "source_template": "ADM_ITC_Templates_Z40_V10_20012026.gdb"
+}
