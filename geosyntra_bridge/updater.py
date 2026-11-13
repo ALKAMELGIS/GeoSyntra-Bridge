@@ -111,6 +111,14 @@ def apply(sha: str) -> Dict[str, Any]:
         except OSError:
             pass
         os.makedirs(os.path.dirname(dst), exist_ok=True)
+        if os.path.exists(dst):          # keep the replaced copy, never lose a local change
+            bak = os.path.join(ROOT, "_previous_version", *rel.split("/"))
+            try:
+                os.makedirs(os.path.dirname(bak), exist_ok=True)
+                with open(dst, "rb") as s_, open(bak, "wb") as d_:
+                    d_.write(s_.read())
+            except OSError:
+                pass
         tmp = dst + ".gsbtmp"
         with open(tmp, "wb") as f:
             f.write(new)
