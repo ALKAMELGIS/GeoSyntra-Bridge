@@ -54,7 +54,6 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
   const list = useMemo(() => (jobs || []).filter((j) => !q || `${j.file?.name} ${j.schema_name}`.toLowerCase().includes(q.toLowerCase())), [jobs, q]);
   const delivered = (jobs || []).filter((j) => j.status === "completed").length;
   const open = (jobs || []).filter((j) => j.status !== "completed").length;
-  const first = (me?.name || "").split(" ")[0];
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
@@ -62,10 +61,16 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
       <Box sx={{ bgcolor: "#fff", borderBottom: `1px solid ${C.line}` }}>
         <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4.5 }, display: "flex", flexWrap: "wrap", alignItems: "flex-end", gap: 3 }}>
           <Box sx={{ flex: 1, minWidth: 280 }}>
-            <Typography variant="h4">{first ? `Welcome back, ${first}` : "Conversions"}</Typography>
-            <Typography sx={{ color: C.muted, mt: 1, fontSize: 15, maxWidth: 560 }}>
-              Upload an as-built drawing, check how its layers map to the ADM template, and download the submission package.
-            </Typography>
+            <Typography variant="h4">Conversions</Typography>
+            <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mt: 1.25, color: C.muted, fontSize: 14 }} flexWrap="wrap" useFlexGap>
+              {["Upload", "Layers", "Review", "Deliver"].map((t, i) => (
+                <Stack key={t} direction="row" spacing={0.75} alignItems="center">
+                  {i > 0 && <Box sx={{ width: 16, height: 1.5, bgcolor: C.line, mr: 0.5 }} />}
+                  <Box sx={{ width: 20, height: 20, borderRadius: "50%", border: `1.5px solid ${C.line}`, display: "grid", placeItems: "center", fontSize: 11, fontWeight: 700 }}>{i + 1}</Box>
+                  <span>{t}</span>
+                </Stack>
+              ))}
+            </Stack>
           </Box>
           <Stack direction="row" spacing={4} sx={{ mr: 2 }}>
             {mode === "accounts" && me?.credits != null && (me.role === "owner" || me.role === "admin"
@@ -122,7 +127,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
                           <InsertDriveFileOutlined sx={{ color: C.muted, fontSize: 20 }} />
                           <Box sx={{ minWidth: 0 }}>
                             <Typography sx={{ fontWeight: 600, fontSize: 13.5 }} noWrap>{j.file?.name}{j.extra_files?.length ? <Box component="span" sx={{ color: C.muted, fontWeight: 400 }}> + {j.extra_files.length} sheet{j.extra_files.length === 1 ? "" : "s"}</Box> : null}</Typography>
-                            <Typography variant="caption" noWrap component="div" sx={{ maxWidth: 420 }}>{j.schema_name}</Typography>
+                            <Typography variant="caption" noWrap component="div" sx={{ maxWidth: 420 }}>{(j.schema_name || "").split(" — ")[0]}</Typography>
                           </Box>
                         </Stack>
                       </TableCell>
@@ -156,7 +161,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
               </DialogActions>
             </Dialog>
             <Typography variant="caption" component="div" sx={{ px: 2.5, py: 1.25, borderTop: `1px solid ${C.line}` }}>
-              Drawings and outputs are kept for 72 hours, then deleted — download your packages before then.
+              Files are deleted after 72 hours
             </Typography>
           </Paper>
         )}

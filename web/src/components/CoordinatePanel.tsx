@@ -164,6 +164,8 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
     : inList ? (CONF[sug.confidence] || CONF.low) : ["#9A5B0F", "Defined by hand — check it on the satellite image"];
   const name = m.source_crs ? `EPSG:${m.source_crs}${srcInfo ? ` — ${srcInfo.name}` : ""}` : "Not defined";
   const say = (tone: "ok" | "warn" | "err", text: string) => setMsg({ tone, text });
+  // settled projection → one line; the tools open on demand
+  const [open, setOpen] = useState(!m.source_crs || (sug.confidence === "low" && !m.georef));
 
   return (
     <Box>
@@ -172,12 +174,14 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
         <Box sx={{ width: 7, height: 7, borderRadius: "50%", bgcolor: dot }} />
         <Typography sx={{ fontSize: 13.5, fontWeight: 500 }}>{name}</Typography>
         <Typography sx={{ fontSize: 12.5, color: C.muted }}>{label}</Typography>
-        {tgt && <Typography sx={{ fontSize: 12.5, color: C.muted }}>→ delivered in EPSG:{tgt}</Typography>}
+        {tgt && open && <Typography sx={{ fontSize: 12.5, color: C.muted }}>→ EPSG:{tgt}</Typography>}
         <Box sx={{ flex: 1 }} />
-        <Seg value={part} onChange={(v) => { setPart(v); setMsg(null); }} options={[["define", "Define projection"], ["transform", "Transform"]]} />
+        {open && <Seg value={part} onChange={(v) => { setPart(v); setMsg(null); }} options={[["define", "Define"], ["transform", "Transform"]]} />}
+        <Button size="small" variant={open ? "text" : "outlined"} onClick={() => setOpen(!open)} sx={{ minWidth: 0, color: open ? C.muted : undefined }}>
+          {open ? "Close" : "Change"}</Button>
       </Stack>
 
-      <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "minmax(400px, 520px) 1fr" }, gap: 3, mt: 2 }}>
+      {open && <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", lg: "minmax(400px, 520px) 1fr" }, gap: 3, mt: 2 }}>
         <Box sx={{ minWidth: 0 }}>
           {part === "define" ? (
             <>
@@ -242,7 +246,7 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
           </Stack>}
         </Box>
         )}
-      </Box>
+      </Box>}
     </Box>
   );
 }

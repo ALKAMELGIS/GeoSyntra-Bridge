@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {
+import { Button,
   Alert, Box, MenuItem, Paper, Stack, TextField, Tooltip, Typography,
 } from "@mui/material";
 import AssignmentOutlined from "@mui/icons-material/AssignmentOutlined";
@@ -19,6 +19,7 @@ export function SubmissionPanel({ job, mapping, onPatch, compact, showBoundary, 
   const [st, setSt] = useState<SubmissionStatus | null>(null);
   const [open, setOpen] = useState<string | null>(compact ? null : "naming");
   const [draft, setDraft] = useState<Record<string, any>>({});
+  const [show, setShow] = useState(!compact);             // compact: one line until the user opens the form
 
   const load = () => api.submission(job.job_id).then((s) => { setSt(s); setDraft(s.info); }).catch(() => setSt(null));
   useEffect(() => { load(); }, [job.job_id, mapping?.project]);
@@ -84,8 +85,11 @@ export function SubmissionPanel({ job, mapping, onPatch, compact, showBoundary, 
           <Typography sx={{ fontSize: 12.5, color: nMissing ? C.amber : C.green, whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
             {nMissing ? `${filled} of ${req.length} required` : "Complete"}{st.errors.length ? ` · ${st.errors.length} invalid` : ""}
           </Typography>
+          {compact && <Button size="small" variant={show ? "text" : "outlined"} onClick={() => setShow(!show)} sx={{ minWidth: 0, color: show ? C.muted : undefined }}>
+            {show ? "Close" : nMissing ? "Fill in" : "Edit"}</Button>}
         </Stack>
       </Stack>
+      {show && <>
 
       {/* three parts of the standard, one at a time */}
       <Stack direction="row" role="tablist" aria-label="Submission" sx={{ mt: 1.5, p: 0.5, gap: 0.5, borderRadius: 2, bgcolor: "#EEEDE9", width: "fit-content", maxWidth: "100%", overflowX: "auto" }}>
@@ -114,6 +118,7 @@ export function SubmissionPanel({ job, mapping, onPatch, compact, showBoundary, 
           </Box>
         ))}
       </Stack>
+      </>}
       {showBoundary && (
         <Box sx={{ mt: 1.5 }}>
           <Typography variant="body2" fontWeight={600}>Project boundary — PROJECT_BOUND (standard 3.9)</Typography>

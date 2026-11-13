@@ -19,17 +19,12 @@ import { FieldsStep } from "./components/FieldsStep";
 import { ValidateStep } from "./components/ValidateStep";
 import { GenerateStep } from "./components/GenerateStep";
 import { ReviewStep, DetailsDrawer } from "./components/ReviewStep";
-import FileUploadOutlined from "@mui/icons-material/FileUploadOutlined";
-import LayersOutlined from "@mui/icons-material/LayersOutlined";
-import MapOutlined from "@mui/icons-material/MapOutlined";
-import DownloadOutlined from "@mui/icons-material/DownloadOutlined";
+import CheckRounded from "@mui/icons-material/CheckRounded";
 import { AppHeader } from "./components/AppHeader";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
 import type { AuthUser } from "./types";
 
 const STEPS = ["Upload", "Layers", "Review", "Deliver"];
-const STEP_ICONS = [FileUploadOutlined, LayersOutlined, MapOutlined, DownloadOutlined];
-const NEXT = ["Layers", "Review", "Deliver"];
 // old 7-step numbers (still used by a few panels) → the 4 steps
 const FROM_OLD = (n: number) => (n <= 1 ? n : n >= 6 ? 3 : 2);
 
@@ -39,11 +34,6 @@ function jobFromHash(): string | null {
 }
 
 interface AppProps { me?: AuthUser | null; mode?: string; go?: (r: string) => void; onLogout?: () => void; refreshMe?: () => void }
-
-function Pill({ tone, children }: { tone: "green" | "amber" | "red" | "muted"; children: React.ReactNode }) {
-  const [bg, c] = tone === "green" ? ["#DCFCE7", "#15803D"] : tone === "red" ? ["#FEE2E2", "#B91C1C"] : tone === "muted" ? ["#F1F2F4", "#646B76"] : ["#FEF3C7", "#92400E"];
-  return <Box sx={{ px: 1.1, py: 0.3, borderRadius: 99, bgcolor: bg, color: c, fontSize: 12, fontWeight: 700, whiteSpace: "nowrap" }}>{children}</Box>;
-}
 
 export default function App({ me = null, mode = "none", go = () => undefined, onLogout = () => undefined, refreshMe = () => undefined }: AppProps) {
   const [caps, setCaps] = useState<Capabilities | null>(null);
@@ -239,45 +229,37 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
           {!me && caps && <Typography sx={{ fontSize: 12, opacity: 0.7 }}>{caps.user}</Typography>}
         </>} />
 
-      <Box sx={{ display: "flex", alignItems: "stretch" }}>
-        {/* ---- steps: one slim icon rail */}
-        <Box component="nav" aria-label="Steps" sx={{ width: 76, flex: "none", bgcolor: "#fff", borderRight: `1px solid ${C.line}`, position: "sticky", top: 0,
-                   alignSelf: "flex-start", height: "calc(100vh - 56px)", display: "flex", flexDirection: "column", alignItems: "center", pt: 1.5, gap: 0.75 }}>
-          {STEPS.map((t, i) => {
-            const Icon = STEP_ICONS[i];
-            const done = [!!discovery, !!visited[1] && !!mapping && unresolved === 0, !!visited[2] && !!results && !nErrors && !topoOpen, job?.status === "completed"][i];
-            const warn = [false, !!mapping && unresolved > 0, !!results && (nErrors > 0 || topoOpen > 0), false][i];
-            const on = step === i;
-            return (
-              <Tooltip key={t} placement="right" title={[job ? `${discovery?.feature_entity_count.toLocaleString() || ""} objects read` : "Choose the template and the drawing",
-                mapping ? (unresolved ? `${unresolved} layer${unresolved > 1 ? "s" : ""} to check` : "All layers connected") : "",
-                results ? `${nErrors + topoOpen} to fix` : "", job?.status === "completed" ? "Ready to download" : "One geodatabase per template"][i] || t}>
-                <span>
-                  <ButtonBase disabled={!enabled[i] || (!!busy && i !== step)} onClick={() => setStep(i)} aria-current={on ? "step" : undefined}
-                    sx={{ width: 60, py: 1, borderRadius: 2, flexDirection: "column", gap: 0.4, position: "relative", color: on ? C.cyan : enabled[i] ? C.ink : "#B8BDC5",
-                          bgcolor: on ? C.cyanSoft : "transparent", "&:hover": { bgcolor: on ? C.cyanSoft : "#F4F5F7" } }}>
-                    <Icon sx={{ fontSize: 22 }} />
-                    <Typography sx={{ fontSize: 11, fontWeight: on ? 700 : 500, lineHeight: 1 }}>{t}</Typography>
-                    {(done || warn) && <Box sx={{ position: "absolute", top: 6, right: 12, width: 8, height: 8, borderRadius: "50%", bgcolor: warn ? "#F59E0B" : C.green, border: "1.5px solid #fff" }} />}
-                  </ButtonBase>
-                </span>
-              </Tooltip>
-            );
-          })}
-        </Box>
-
+      <Box>
         <Box sx={{ flex: 1, minWidth: 0 }}>
           {/* ---- one line: the drawing, where it stands, the next action */}
           <Stack direction="row" alignItems="center" spacing={1.25} sx={{ px: { xs: 2, md: 3 }, height: 60, bgcolor: "#fff", borderBottom: `1px solid ${C.line}`, position: "sticky", top: 0, zIndex: 6 }}>
             <Tooltip title="All conversions"><IconButton size="small" onClick={() => go("/app")} sx={{ color: C.muted }}><ArrowBackOutlined fontSize="small" /></IconButton></Tooltip>
-            <Typography sx={{ fontWeight: 700, fontSize: 15.5, minWidth: 0, maxWidth: 420 }} noWrap>{job ? job.file.name : "New conversion"}</Typography>
-            {results && step > 0 && <>
-              <Pill tone={results.summary.features_imported ? "green" : "muted"}>{results.summary.features_imported.toLocaleString()} ready</Pill>
-              {results.summary.features_failed > 0 && <Pill tone="red">{results.summary.features_failed.toLocaleString()} blocked</Pill>}
-              {(nErrors + topoOpen) > 0 && <Pill tone="amber">{(nErrors + topoOpen).toLocaleString()} to fix</Pill>}
-            </>}
-            {(busy || auto) && <Typography sx={{ fontSize: 12, color: C.muted }} noWrap>{job?.message || "working…"}</Typography>}
-            <Box sx={{ flex: 1 }} />
+            <Typography sx={{ fontWeight: 700, fontSize: 15, minWidth: 0, maxWidth: 260, display: { xs: "none", lg: "block" } }} noWrap>{job ? job.file.name : "New conversion"}</Typography>
+            {/* ---- the four steps, numbered, in one line */}
+            <Stack component="nav" aria-label="Steps" direction="row" alignItems="center" sx={{ flex: 1, justifyContent: "center", minWidth: 0 }}>
+              {STEPS.map((t, i) => {
+                const done = [!!discovery, !!visited[1] && !!mapping && unresolved === 0, !!visited[2] && !!results && !nErrors && !topoOpen, job?.status === "completed"][i];
+                const warn = [0, mapping ? unresolved : 0, results ? nErrors + topoOpen : 0, 0][i];
+                const on = step === i;
+                return (
+                  <Stack key={t} direction="row" alignItems="center">
+                    {i > 0 && <Box sx={{ width: { xs: 10, md: 28 }, height: 1.5, bgcolor: done || on ? C.ink : C.line, mx: 0.5 }} />}
+                    <ButtonBase disabled={!enabled[i] || (!!busy && i !== step)} onClick={() => setStep(i)} aria-current={on ? "step" : undefined}
+                      sx={{ px: 1.25, py: 0.75, borderRadius: 99, gap: 0.9, bgcolor: on ? C.ink : "transparent", color: on ? "#fff" : enabled[i] ? C.ink : "#B8BDC5",
+                            "&:hover": { bgcolor: on ? C.ink : "#F1F2F4" } }}>
+                      <Box sx={{ width: 20, height: 20, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 11.5, fontWeight: 700, flex: "none",
+                                 bgcolor: on ? "#fff" : done ? C.green : "transparent", color: on ? C.ink : done ? "#fff" : "inherit",
+                                 border: on || done ? "none" : `1.5px solid ${enabled[i] ? C.ink : C.line}` }}>
+                        {done && !on ? <CheckRounded sx={{ fontSize: 14 }} /> : i + 1}
+                      </Box>
+                      <Typography sx={{ fontSize: 13.5, fontWeight: on ? 700 : 600, display: { xs: on ? "block" : "none", sm: "block" } }}>{t}</Typography>
+                      {warn > 0 && <Box sx={{ fontSize: 11, fontWeight: 700, px: 0.75, borderRadius: 99, bgcolor: "#FEF3C7", color: "#92400E" }}>{warn}</Box>}
+                    </ButtonBase>
+                  </Stack>
+                );
+              })}
+            </Stack>
+            {(busy || auto) && <Typography sx={{ fontSize: 12, color: C.muted, maxWidth: 200 }} noWrap>{job?.message || "working…"}</Typography>}
             {step === 1 && workflowModel && (
               <ToggleButtonGroup size="small" exclusive value={view === "workflow" ? "workflow" : view === "board" ? "board" : "steps"} onChange={(_, v) => v && setView(v)} aria-label="View">
                 <Tooltip title="Connections"><ToggleButton value="board" aria-label="Connections"><CableOutlined fontSize="small" /></ToggleButton></Tooltip>
@@ -285,10 +267,9 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
                 <Tooltip title="List"><ToggleButton value="steps" aria-label="List"><ViewAgendaOutlined fontSize="small" /></ToggleButton></Tooltip>
               </ToggleButtonGroup>
             )}
-            {step > 0 && <Button onClick={() => setStep(step - 1)} sx={{ color: C.muted, minWidth: 0 }}>Back</Button>}
             {step < 3 && (
               <Button variant="contained" endIcon={<ArrowForwardOutlined />} disabled={!enabled[step + 1] || !!busy} onClick={() => setStep(step + 1)}>
-                {NEXT[step]}
+                Next
               </Button>
             )}
             {step === 3 && job?.status === "completed" && <Button variant="outlined" onClick={reset}>New conversion</Button>}
