@@ -127,7 +127,7 @@ function DropZone({ caps, schemaId, job, onUploaded, onError, onAddSheets }: Pro
     const ext = f.name.toLowerCase().split(".").pop();
     if (!["dxf", "dwg", "dgn", "zip"].includes(ext || "")) return onError("Accepted: .dwg, .dxf, .dgn (MicroStation V7), or a .zip with the drawing and its xrefs.");
     if (ext === "dwg" && caps && !caps.dwg.available)
-      return onError("DWG conversion is not available on this server — restart it with start_windows.bat (it ships the LibreDWG converter) or save the drawing as DXF.");
+      return onError("This DWG could not be read. Save it as AutoCAD 2010 or newer, or as DXF, and upload it again.");
     if (caps && f.size > caps.max_upload_mb * 1024 * 1024) return onError(`File exceeds the ${caps.max_upload_mb} MB limit.`);
     if (!schemaId) return onError("Choose the asset type first.");
     try {

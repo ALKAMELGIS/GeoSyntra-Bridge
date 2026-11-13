@@ -2,7 +2,7 @@
 fastapi>=0.110
 uvicorn>=0.29
 python-multipart>=0.0.9
-ezdxf>=1.3            # DXF reading (DWG via the free ODA File Converter)
+ezdxf>=1.3            # DXF reading (DWG is read by the built-in reader)
 pyogrio>=0.9          # bundles GDAL >= 3.8 incl. the OpenFileGDB writer used through its C API
 pyproj>=3.6
 shapely>=2.0

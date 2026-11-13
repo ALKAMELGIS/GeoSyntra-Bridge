@@ -34,12 +34,6 @@ STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
 def create_app(s: Optional[Settings] = None) -> FastAPI:
     s = s or default_settings
     os.makedirs(s.data_dir, exist_ok=True)
-    try:                                   # ODA package dropped into tools/oda → unpack it once, in the background
-        import threading
-        from ..cad.reader import unpack_bundled_oda
-        threading.Thread(target=unpack_bundled_oda, daemon=True).start()
-    except Exception:  # noqa: BLE001
-        pass
     reg = SchemaRegistry(s.schemas_dir, s.extra_schema_dirs)
     jobs = JobManager(s, reg)
     from ..accounts.routes import Accounts, build_router as accounts_router

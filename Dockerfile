@@ -3,14 +3,7 @@
 #   docker compose -f deploy/docker-compose.yml up -d
 FROM python:3.12-slim
 
-# DWG reading: LibreDWG's dwg2dxf from Debian when available; the free ODA File Converter can be added with
-#   --build-arg ODA_DEB_URL=<link to the ODAFileConverter .deb from opendesign.com>  (accepting the ODA licence)
-ARG ODA_DEB_URL=""
-RUN apt-get update \
- && (apt-get install -y --no-install-recommends libredwg-tools || true) \
- && if [ -n "$ODA_DEB_URL" ]; then apt-get install -y --no-install-recommends curl xvfb \
-      && curl -fsSL "$ODA_DEB_URL" -o /tmp/oda.deb && apt-get install -y /tmp/oda.deb && rm /tmp/oda.deb; fi \
- && rm -rf /var/lib/apt/lists/*
+# DWG is read by the built-in reader (geosyntra_bridge/cad/dwg): no outside converter is installed.
 
 WORKDIR /app
 COPY requirements.txt .

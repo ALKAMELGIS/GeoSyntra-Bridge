@@ -1,7 +1,6 @@
 """
-CAD reader: DXF (ASCII + binary, R12..R2018+) through ezdxf, DWG through the
-ODA File Converter (converted to a temporary DXF — the original is never
-opened for writing).
+CAD reader: DXF (ASCII + binary, R12..R2018+) through ezdxf, DWG through GeoSyntra Bridge's own DWG reader
+(decoded to a temporary DXF — the original is never opened for writing).
 
 Extracted: LINE, LWPOLYLINE, POLYLINE (2D/3D), ARC, CIRCLE, ELLIPSE, SPLINE,
 POINT, INSERT (+ATTRIB values, rotation), HATCH (boundary + islands), SOLID,
@@ -55,76 +54,9 @@ def sniff_cad_file(path: str) -> str:
 
 
 # ----------------------------------------------------------------- DWG
-BUNDLED_ODA = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "tools", "oda")
-
-
-def _bundled_oda() -> List[str]:
-    """ODA File Converter shipped inside the system: tools/oda (any sub-folder) — the extracted Windows package
-    (ODAFileConverter.exe + its DLLs) or the Linux AppImage / extracted AppImage."""
-    out: List[str] = []
-    if not os.path.isdir(BUNDLED_ODA):
-        return out
-    for root, _dirs, files in os.walk(BUNDLED_ODA):
-        for f in files:
-            fl = f.lower()
-            if (os.name == "nt" and fl == "odafileconverter.exe") or \
-               (os.name != "nt" and (f == "ODAFileConverter" or fl.endswith(".appimage"))):
-                out.append(os.path.join(root, f))
-    return sorted(out, key=len)
-
-
-def unpack_bundled_oda() -> Optional[str]:
-    """Windows: an ODA .msi dropped into tools/oda is unpacked in place (administrative install — no admin rights,
-    nothing installed on the machine), so the converter lives inside the system folder."""
-    if os.name != "nt" or not os.path.isdir(BUNDLED_ODA) or any(p.lower().endswith(".exe") for p in _bundled_oda()):
-        return None
-    msis = sorted(f for f in os.listdir(BUNDLED_ODA) if f.lower().endswith(".msi"))
-    if not msis:
-        return None
-    target = os.path.join(BUNDLED_ODA, "app")
-    try:
-        subprocess.run(["msiexec", "/a", os.path.join(BUNDLED_ODA, msis[-1]), "/qn", f"TARGETDIR={target}"],
-                       timeout=600, capture_output=True, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    except Exception:  # noqa: BLE001
-        return None
-    found = _bundled_oda()
-    return found[0] if found else None
-
-
-def find_oda_converter() -> Optional[str]:
-    env = os.environ.get("GSB_ODA_CONVERTER")
-    if env and os.path.isfile(env):
-        return env
-    cands = _bundled_oda() + [shutil.which("ODAFileConverter"), shutil.which("ODAFileConverter.exe")]
-    for root in (r"C:\Program Files\ODA", r"C:\Program Files (x86)\ODA"):
-        if os.path.isdir(root):
-            for d in sorted(os.listdir(root), reverse=True):
-                cands.append(os.path.join(root, d, "ODAFileConverter.exe"))
-    cands += ["/usr/bin/ODAFileConverter", "/opt/ODAFileConverter/ODAFileConverter",
-              "/Applications/ODAFileConverter.app/Contents/MacOS/ODAFileConverter"]
-    for c in cands:
-        if c and os.path.isfile(c):
-            if os.name != "nt" and not os.access(c, os.X_OK):
-                try: os.chmod(c, 0o755)
-                except OSError: continue
-            return c
-    return None
-
-
-BUNDLED_LIBREDWG = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-                                "tools", "libredwg")
-
-
-def find_libredwg() -> Optional[str]:
-    """GSB_DWG2DXF, then the copy shipped in tools/libredwg (Windows build of LibreDWG 0.13.3), then PATH."""
-    env = os.environ.get("GSB_DWG2DXF")
-    if env and os.path.isfile(env):
-        return env
-    for name in ("dwg2dxf.exe", "dwg2dxf") if os.name == "nt" else ("dwg2dxf",):
-        p = os.path.join(BUNDLED_LIBREDWG, name)
-        if os.path.isfile(p) and (os.name == "nt" or os.access(p, os.X_OK)):
-            return p
-    return shutil.which("dwg2dxf") or shutil.which("dwg2dxf.exe")
+# DWG is read by GeoSyntra Bridge's own reader (geosyntra_bridge/cad/dwg) — no outside program, nothing to install.
+# An installed AutoCAD / Civil 3D (the user's own licence) is only a fallback for drawings it cannot read.
+NATIVE_DWG = "GeoSyntra DWG reader"
 
 
 def find_autocad_console() -> Optional[str]:
@@ -148,17 +80,25 @@ def find_autocad_console() -> Optional[str]:
 
 
 def dwg_converters() -> List[str]:
-    """Every DWG engine available here, most reliable first."""
-    out = []
-    if find_oda_converter(): out.append(f"ODA File Converter ({find_oda_converter()})")
+    out = [NATIVE_DWG]
     if find_autocad_console(): out.append(f"AutoCAD Core Console ({find_autocad_console()})")
-    if find_libredwg(): out.append(f"LibreDWG dwg2dxf ({find_libredwg()})")
     return out
 
 
 def dwg_converter() -> Optional[str]:
-    c = dwg_converters()
-    return c[0] if c else None
+    return dwg_converters()[0]
+
+
+def _convert_native(_exe, dwg_path: str, out_dir: str, timeout: int) -> str:
+    from .dwg import DwgError, dwg_to_dxf
+    out = os.path.join(tempfile.mkdtemp(prefix="gsb_dwg_out_", dir=out_dir), "drawing.dxf")
+    try:
+        dwg_to_dxf(dwg_path, out)
+    except DwgError as e:
+        raise CadReadError(str(e)) from e
+    except Exception as e:  # noqa: BLE001
+        raise CadReadError(f"the drawing could not be decoded ({type(e).__name__}: {str(e)[:120]})") from e
+    return out
 
 
 def _convert_autocad(exe: str, dwg_path: str, out_dir: str, timeout: int) -> str:
@@ -181,68 +121,20 @@ def _convert_autocad(exe: str, dwg_path: str, out_dir: str, timeout: int) -> str
     return out
 
 
-def _convert_libredwg(exe: str, dwg_path: str, out_dir: str, timeout: int) -> str:
-    out = os.path.join(tempfile.mkdtemp(prefix="gsb_dwg_out_", dir=out_dir), "drawing.dxf")
-    try:
-        proc = subprocess.run([exe, "-y", "-o", out, dwg_path], capture_output=True, timeout=timeout,
-                              cwd=os.path.dirname(exe) or None,
-                              creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    except subprocess.TimeoutExpired as e:
-        raise CadReadError(f"dwg2dxf timed out after {timeout}s") from e
-    if not os.path.isfile(out) or os.path.getsize(out) < 100:
-        msg = " ".join((proc.stderr or b"").decode("utf-8", "replace").split())
-        raise CadReadError(f"DWG conversion failed. {msg[-160:]}")
-    return out
-
-
-DWG_HELP = ("Install the free ODA File Converter (opendesign.com → Guest Files → ODA File Converter, Windows 64-bit) "
-            "and restart GeoSyntra Bridge — it is found automatically. If AutoCAD or Civil 3D is installed it is used "
-            "too. Or open the drawing in AutoCAD, run AUDIT, then save it as DXF and upload that.")
+DWG_HELP = ("Open the drawing in AutoCAD, run AUDIT, save it as AutoCAD 2010 or newer (or as DXF) and upload it again.")
 
 
 def convert_dwg_to_dxf(dwg_path: str, out_dir: str, timeout: int = 600) -> str:
-    """Try every installed engine, most reliable first; the first good DXF wins. The original is never written."""
-    engines = []
-    if find_oda_converter(): engines.append(("ODA File Converter", _convert_oda, find_oda_converter()))
+    """The built-in reader first, then AutoCAD if it is installed. The original is never written."""
+    engines = [(NATIVE_DWG, _convert_native, None)]
     if find_autocad_console(): engines.append(("AutoCAD Core Console", _convert_autocad, find_autocad_console()))
-    if find_libredwg(): engines.append(("LibreDWG", _convert_libredwg, find_libredwg()))
-    if not engines:
-        raise CadReadError("DWG input needs a converter. " + DWG_HELP)
     errors = []
     for name, fn, exe in engines:
         try:
             return fn(exe, dwg_path, out_dir, timeout)
         except CadReadError as e:
-            errors.append(f"{name}: {str(e)[:160]}")
-    tried = ", ".join(n for n, _, _ in engines)
-    hint = DWG_HELP if not find_oda_converter() else "Open the drawing in AutoCAD, run AUDIT and RECOVER, save it, and upload it again."
-    raise CadReadError(f"This DWG could not be read by {tried}. {hint}")
-
-
-def _convert_oda(exe: str, dwg_path: str, out_dir: str, timeout: int) -> str:
-    in_dir = tempfile.mkdtemp(prefix="gsb_dwg_in_", dir=out_dir)
-    conv_dir = tempfile.mkdtemp(prefix="gsb_dwg_out_", dir=out_dir)
-    base = os.path.basename(dwg_path)
-    if not base.lower().endswith(".dwg"):
-        base += ".dwg"
-    shutil.copy2(dwg_path, os.path.join(in_dir, base))  # ODA works on folders; work on a copy
-    cmd = [exe, in_dir, conv_dir, "ACAD2018", "DXF", "0", "1", "*.DWG"]   # audit on: damaged files are repaired
-    env = dict(os.environ)
-    if os.name != "nt":
-        env.setdefault("QT_QPA_PLATFORM", "offscreen")            # servers have no display
-        if exe.lower().endswith(".appimage"):
-            env.setdefault("APPIMAGE_EXTRACT_AND_RUN", "1")      # works without FUSE (containers)
-    try:
-        proc = subprocess.run(cmd, capture_output=True, timeout=timeout, env=env, cwd=os.path.dirname(exe) or None,
-                              creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
-    except subprocess.TimeoutExpired as e:
-        raise CadReadError(f"ODA File Converter timed out after {timeout}s") from e
-    out = os.path.join(conv_dir, os.path.splitext(base)[0] + ".dxf")
-    if not os.path.isfile(out):
-        msg = (proc.stderr or proc.stdout or b"").decode("utf-8", "replace")[:500]
-        raise CadReadError(f"DWG conversion failed (file corrupted or unsupported version). {msg}")
-    shutil.rmtree(in_dir, ignore_errors=True)
-    return out
+            errors.append(f"{name}: {str(e)[:200]}")
+    raise CadReadError(f"This DWG could not be read — {'; '.join(errors)}. {DWG_HELP}")
 
 
 # ----------------------------------------------------------------- DXF
@@ -290,14 +182,21 @@ def read_cad(path: str, work_dir: Optional[str] = None, progress: ProgressFn = N
     dxf_path = path
     converted = False
     if kind == "dwg":
-        if progress: progress(0.05, f"Converting DWG to DXF ({(dwg_converter() or 'no converter').split(' (')[0]})")
-        dxf_path = convert_dwg_to_dxf(path, work_dir)
+        if progress: progress(0.05, "Reading DWG")
+        native_doc = None
+        try:                                   # built-in reader: the document stays in memory (no DXF round trip)
+            from .dwg import DwgError, read_dwg_doc
+            native_doc = read_dwg_doc(path)
+        except Exception:  # noqa: BLE001 - fall back to the converters (AutoCAD, if installed)
+            native_doc = None
+        if native_doc is None:
+            dxf_path = convert_dwg_to_dxf(path, work_dir)
         converted = True
 
     if progress: progress(0.12, "Parsing drawing")
     warnings: List[str] = []
     try:
-        doc = ezdxf.readfile(dxf_path)
+        doc = native_doc if kind == "dwg" and native_doc is not None else ezdxf.readfile(dxf_path)
     except ezdxf.DXFStructureError:
         try:
             doc, auditor = recover.readfile(dxf_path)

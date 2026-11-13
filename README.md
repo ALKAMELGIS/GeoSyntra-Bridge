@@ -18,9 +18,9 @@ browser opens at <http://localhost:8600>.
 
 Requirements: Python 3.9–3.13. Everything else installs from `requirements.txt` (no ArcGIS licence needed —
 GDAL ships inside the `pyogrio` wheel).
-**DWG input:** install the free [ODA File Converter](https://www.opendesign.com/guestfiles/oda_file_converter) (preferred)
-or LibreDWG's `dwg2dxf` (GitHub releases ship Windows builds); both are detected automatically
-(`GSB_ODA_CONVERTER` / `GSB_DWG2DXF`). Without either the tool accepts DXF and says so.
+**DWG input:** read by the system's own DWG reader (`geosyntra_bridge/cad/dwg`) — AutoCAD 2010 to 2018+
+drawings (AC1024 / AC1027 / AC1032), nothing to install. Older drawings: save them as AutoCAD 2010 or newer, or as DXF.
+If AutoCAD or Civil 3D is installed on the server, its Core Console is used as a fallback.
 
 ## The seven schemas
 
@@ -347,7 +347,7 @@ pass; Softscape-04 — 5 duplicates removed, 8/10 groups automatic, 2,050 featur
   Admins: `GSB_ADMIN_USERS`. Jobs are visible to their owner only.
 * **Storage:** `GSB_DATA_DIR` (jobs), `GSB_SCHEMAS_DIR`, `GSB_RULES_DIR` (approved rules + profiles).
 * Other settings: `GSB_MAX_UPLOAD_MB` (500), `GSB_JOB_TTL_HOURS` (72), `GSB_WORKERS` (2), `GSB_CORS_ORIGINS`,
-  `GSB_GDAL_LIBRARY` (use a specific GDAL), `GSB_ODA_CONVERTER`.
+  `GSB_GDAL_LIBRARY` (use a specific GDAL).
 * API docs: <http://localhost:8600/api/docs>.
 
 ## Headless / batch

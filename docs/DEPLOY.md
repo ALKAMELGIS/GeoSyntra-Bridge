@@ -6,8 +6,8 @@ One server, everyone uses the browser. Nothing to install on the users' computer
 * Linux (Docker) or Windows. 4+ CPU cores, 8–16 GB RAM, disk for 72 h of jobs (≈ 3 × the drawings uploaded per day).
 * **Docker:** copy `deploy/commercial-settings.example` to `deploy/.env`, fill it in, then
   `docker compose -f deploy/docker-compose.yml up -d --build`.
-  Add the free ODA File Converter for the best DWG reading: `--build-arg ODA_DEB_URL=…` (see the Dockerfile).
-* **Windows:** `start_windows_commercial.bat` (the LibreDWG DWG converter ships in `tools/libredwg`).
+  DWG drawings are read by the built-in reader — nothing else to install.
+* **Windows:** `start_windows_commercial.bat`.
 * Put HTTPS in front (nginx, Caddy, IIS) and point `GSB_PUBLIC_URL` at it.
 
 ## 2. Settings (environment variables)
