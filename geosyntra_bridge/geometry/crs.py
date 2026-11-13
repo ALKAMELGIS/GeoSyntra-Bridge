@@ -297,7 +297,7 @@ def detect_source_crs(extent: Optional[List[float]], geodata_epsg: Optional[int]
         reasons.append("coordinates look like a local / engineering grid — no coordinate system places them; "
                        "choose one, or the coordinates are written as they are")
         return {"v": 2, "suggested": None, "suggested_scale": unit_hint or 1.0, "candidates": [], "confidence": "none",
-                "reasons": reasons}
+                "reasons": reasons, "extent": extent}
     best = out[0]
     rivals = [c for c in out[1:] if _dist_km(c["center"], best["center"]) > 2 and c["score"] >= best["score"] - 10]
     if best["score"] >= 90 or (best["score"] >= 60 and not rivals):
@@ -310,7 +310,7 @@ def detect_source_crs(extent: Optional[List[float]], geodata_epsg: Optional[int]
     if rivals:
         reasons.append("other systems also place it plausibly — check it against the satellite image")
     return {"v": 2, "suggested": best["epsg"], "suggested_scale": best["scale"], "candidates": out,
-            "confidence": conf, "reasons": reasons}
+            "confidence": conf, "reasons": reasons, "extent": extent}
 
 
 def _unit_word(sc: float) -> str:

@@ -283,11 +283,25 @@ class DrawingOps:
                 for k, v in (prev.get("layers") or {}).items():
                     if k in mapping["layers"] and v.get("status") == "USER":
                         mapping["layers"][k].update({x: v[x] for x in ("target", "role", "status", "confidence", "subtype") if x in v})
-                for key in ("fields", "value_maps", "project", "elevation", "dem", "source_crs", "unit_scale"):
+                for key in ("fields", "value_maps", "project", "elevation", "dem", "source_crs", "unit_scale", "georef", "transform_op"):
                     if prev.get(key):
                         mapping[key] = prev[key] if key != "fields" else {**mapping.get("fields", {}), **{
                             fc: {**mapping.get("fields", {}).get(fc, {}), **{f: sp for f, sp in fs.items() if sp.get("user")}}
                             for fc, fs in prev["fields"].items()}}
+            else:                        # a saved projection for drawings in this place (same raw coordinates)
+                try:
+                    from ..geometry import presets as PR
+                    sug = mapping.get("crs_suggestion") or {}
+                    pre = PR.match_preset(self.s.data_dir, self.state(job_id).get("owner") or "_", sug.get("extent"),
+                                          list(doc.layers))
+                    if pre and (sug.get("confidence") != "high" or pre.get("georef")):
+                        PR.apply_to(mapping, pre)
+                        sug["preset"] = {"id": pre["id"], "name": pre["name"]}
+                        sug["reasons"] = [f"saved setting “{pre['name']}” applied — an earlier drawing in the same "
+                                          f"coordinates used it"] + list(sug.get("reasons") or [])
+                        self.log(job_id, f"projection preset applied: {pre['name']}")
+                except Exception as ex:  # noqa: BLE001
+                    self.log(job_id, f"projection preset skipped: {ex}")
             disc["schema_ranking"] = self._rank_schemas(doc)
             try:
                 from ..cad import cleanup as CU
@@ -506,7 +520,7 @@ class DrawingOps:
         return f
 
     def cad_preview(self, job_id: str, limit: int = 30000, epsg: Optional[int] = None,
-                    scale: Optional[float] = None) -> Dict[str, Any]:
+                    scale: Optional[float] = None, local: bool = False) -> Dict[str, Any]:
         """The drawing as GeoJSON (lon/lat when a source CRS is set; `epsg` / `scale` try another one)."""
         from ..geometry.crs import validate_epsg
         from ..geometry.convert import pipeline_for
@@ -516,11 +530,13 @@ class DrawingOps:
             m["source_crs"] = int(epsg); m["transform_op"] = None
             if scale and scale > 0:
                 m["unit_scale"] = float(scale); m["georef"] = None
+        if local:                        # raw drawing coordinates (picking control points)
+            m = {"unit_scale": 1.0}
         src = m.get("source_crs")
         cp = pipeline_for(m, 4326 if src else None)
         feats = []
         ents = [e for e in doc.entities if e.kind != "artifact"]
-        step = max(1, len(ents) // limit) if epsg else 1     # a spread-out sample for a quick look
+        step = max(1, len(ents) // limit) if (epsg or local) else 1     # a spread-out sample for a quick look
         for e in ents[::step][:limit]:
             if e.kind == "artifact":
                 continue

@@ -1,5 +1,5 @@
 import type {
-  Capabilities, Completeness, CrsInfo, CrsSuggestion, GeorefFit, GeorefPoint, TransformOption, Discovery, FeatureDetail, GeoJSON, JobState, Mapping, Results, SchemaDetail, SchemaSummary,
+  Capabilities, Completeness, CrsInfo, CrsPreset, CrsSuggestion, GeorefFit, GeorefPoint, TransformOption, Discovery, FeatureDetail, GeoJSON, JobState, Mapping, Results, SchemaDetail, SchemaSummary,
   DemSourceInfo, ElevationOptions, DemMeta, SubmissionStatus, TemplateUpdate, TemplateVersion,
   AuthUser, AuthConfig, Plan, BillingStatus, Payment, LedgerRow, AssignOverview, AssignDetail, AssignState, AutofixReport, PurchaseRequest, AssignSaved, TopologyErrors,
 } from "./types";
@@ -147,6 +147,12 @@ export const api = {
   preview: (id: string) => req<GeoJSON>(`/jobs/${id}/preview`),
   cadPreview: (id: string, o?: { epsg: number; scale: number; limit?: number }) =>
     req<GeoJSON>(`/jobs/${id}/cad-preview` + (o ? `?epsg=${o.epsg}&scale=${o.scale}&limit=${o.limit || 4000}` : "")),
+  cadLocal: (id: string, limit = 6000) => req<GeoJSON>(`/jobs/${id}/cad-preview?local=true&limit=${limit}`),
+  crsProject: (epsg: number, points: number[][]) => req<number[][]>(`/crs/project`, { method: "POST", body: JSON.stringify({ epsg, points }) }),
+  crsPresets: () => req<CrsPreset[]>(`/crs/presets`),
+  crsPresetSave: (id: string, name: string) => req<CrsPreset>(`/jobs/${id}/crs/presets`, { method: "POST", body: JSON.stringify({ name }) }),
+  crsPresetApply: (id: string, pid: string) => req<Mapping>(`/jobs/${id}/crs/presets/${pid}/apply`, { method: "POST" }),
+  crsPresetDelete: (pid: string) => req<{ ok: boolean }>(`/crs/presets/${pid}`, { method: "DELETE" }),
   crsDetect: (id: string) => req<CrsSuggestion>(`/jobs/${id}/crs-detect`),
   crsTransforms: (src: number, dst: number) => req<TransformOption[]>(`/crs/transforms?src=${src}&dst=${dst}`),
   crsParse: (text: string) => req<CrsInfo>(`/crs/parse`, { method: "POST", body: JSON.stringify({ text }) }),

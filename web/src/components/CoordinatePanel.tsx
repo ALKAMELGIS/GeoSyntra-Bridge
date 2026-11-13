@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Autocomplete, Box, Button, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material";
 import DeleteOutline from "@mui/icons-material/DeleteOutline";
 import { api } from "../api";
-import type { CrsInfo, CrsSuggestion, GeorefFit, GeorefPoint, JobState, Mapping, SchemaDetail, TransformOption } from "../types";
+import type { CrsInfo, CrsPreset, CrsSuggestion, GeorefFit, GeorefPoint, JobState, Mapping, SchemaDetail, TransformOption } from "../types";
 import { C } from "../theme";
 import GeoPreview, { type GeoShape } from "./GeoPreview";
 
@@ -27,7 +27,8 @@ interface Props {
   onPatch: (p: unknown) => Promise<void>;
 }
 
-type Mode = "detected" | "search" | "prj" | "points";
+type Mode = "detected" | "search" | "prj" | "points" | "saved";
+type CP = GeorefPoint & { ll?: number[] };
 
 function Seg<T extends string>({ value, options, onChange }: { value: T; options: [T, string][]; onChange: (v: T) => void }) {
   return (
@@ -70,6 +71,37 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
   const [hover, setHover] = useState<number | null>(null);
   const [lines, setLines] = useState<GeoShape[]>([]);
   const [srcInfo, setSrcInfo] = useState<CrsInfo | null>(null);
+  // control points live here: the table (left) and the two pick maps (right) share them
+  const [pts, setPts] = useState<CP[]>(m.georef?.points || []);
+  const [cpCrs, setCpCrs] = useState<CrsInfo | null>(null);
+  const [picking, setPicking] = useState(false);
+  const [pend, setPend] = useState<number[] | null>(null);
+  const [localLines, setLocalLines] = useState<GeoShape[]>([]);
+  const realEpsg = cpCrs?.epsg || m.source_crs || sug.suggested || tgt || null;
+  useEffect(() => {
+    if (!picking || localLines.length) return;
+    api.cadLocal(job.job_id).then((g) => setLocalLines(g.features.flatMap((f: any): GeoShape[] => {
+      const t = f.geometry?.type, c = f.geometry?.coordinates;
+      if (t === "LineString") return [{ c, k: "line", color: "#5F5D58", width: 1, halo: false }];
+      if (t === "Polygon") return [{ c: c[0], k: "line", color: "#5F5D58", width: 1, halo: false }];
+      return [];
+    }))).catch(() => setLocalLines([]));
+  }, [picking]);
+  const localFit = useMemo(() => {   // the drawing itself (2nd–98th percentile), not stray objects or markers
+    const q = localLines.flatMap((g) => g.c);
+    if (q.length < 2) return undefined;
+    const xs = q.map((v) => v[0]).sort((a, b) => a - b), ys = q.map((v) => v[1]).sort((a, b) => a - b);
+    const k = q.length < 200 ? 0 : Math.floor(q.length * 0.02), n = q.length - 1 - k;
+    return [[xs[k], ys[k]], [xs[n], ys[n]]];
+  }, [localLines]);
+  const pickSat = async (ll: number[]) => {
+    if (!pend || !realEpsg) return;
+    try {
+      const [[E, N]] = await api.crsProject(realEpsg, [ll]);
+      setPts([...pts, { x: pend[0], y: pend[1], E: Math.round(E * 1000) / 1000, N: Math.round(N * 1000) / 1000, ll }]);
+      setPend(null);
+    } catch { /* stay on this step */ }
+  };
 
   const detect = async (apply: boolean) => {
     setBusy("detect");
@@ -150,21 +182,55 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
           {part === "define" ? (
             <>
               <Seg value={mode} onChange={(v) => { setMode(v); setMsg(null); }}
-                options={[["detected", "Detected"], ["search", "Search"], ["prj", ".prj / WKT"], ["points", "Control points"]]} />
+                options={[["detected", "Detected"], ["search", "Search"], ["prj", ".prj / WKT"], ["points", "Control points"], ["saved", "Saved"]]} />
               <Box sx={{ mt: 2 }}>
                 {mode === "detected" && <Detected cands={cands} m={m} sug={sug} busy={busy === "detect"} onDetect={() => detect(true)}
                   onHover={setHover} onPick={(c) => onPatch({ source_crs: c.epsg, unit_scale: c.scale || 1 })} />}
                 {mode === "search" && <SearchDefine m={m} onPatch={onPatch} />}
                 {mode === "prj" && <PrjDefine onPatch={onPatch} say={say} />}
-                {mode === "points" && <ControlPoints job={job} m={m} onPatch={onPatch} say={say} sug={sug} />}
+                {mode === "points" && <ControlPoints job={job} m={m} onPatch={onPatch} say={say} pts={pts} setPts={setPts}
+                  crs={cpCrs} setCrs={setCpCrs} realEpsg={realEpsg} picking={picking}
+                  onPicking={(v) => { setPicking(v); setPend(null); }} />}
+                {mode === "saved" && <Saved job={job} m={m} onPatch={onPatch} say={say} />}
               </Box>
             </>
           ) : (
             <TransformPart job={job} m={m} tgt={tgt} onPatch={onPatch} />
           )}
+          {sug.preset && m.source_crs && part === "define" && <Typography sx={{ mt: 1.5, fontSize: 12.5, color: C.green }}>Saved setting “{sug.preset.name}” was applied automatically</Typography>}
           {msg && <Typography sx={{ mt: 1.5, fontSize: 12.5, color: msg.tone === "ok" ? C.green : msg.tone === "warn" ? C.amber : C.red }}>{msg.text}</Typography>}
         </Box>
 
+        {part === "define" && mode === "points" && picking ? (
+          <Box sx={{ minWidth: 0 }}>
+            <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1, minHeight: 28 }}>
+              <Box sx={{ width: 22, height: 22, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 12, fontWeight: 600,
+                bgcolor: pend ? "#E4E2DD" : C.ink, color: pend ? C.muted : "#FBFAF8" }}>1</Box>
+              <Typography sx={{ fontSize: 13, color: pend ? C.muted : C.ink }}>Click a point in the drawing</Typography>
+              <Box sx={{ width: 22, height: 22, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 12, fontWeight: 600,
+                bgcolor: pend ? C.ink : "#E4E2DD", color: pend ? "#FBFAF8" : C.muted }}>2</Box>
+              <Typography sx={{ fontSize: 13, color: pend ? C.ink : C.muted }}>Click the same place on the satellite image</Typography>
+            </Stack>
+            <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 1.5 }}>
+              <Box>
+                <GeoPreview local bg="#FBFAF8" picking={!pend} height={440} fitKey={`local:${localLines.length}`} fit={localFit}
+                  shapes={[...localLines,
+                    ...pts.filter((q) => isFinite(q.x)).map((q, i): GeoShape => ({ c: [[q.x, q.y]], k: "point", color: "#F97316", width: 2, fill: "#F97316", label: String(i + 1) })),
+                    ...(pend ? [{ c: [pend], k: "point", color: "#16171A", width: 2, fill: "#FDE047", label: String(pts.length + 1) } as GeoShape] : [])]}
+                  onPick={(c) => setPend(c)} />
+                <Typography sx={{ mt: 0.75, fontSize: 12.5, color: C.muted }}>Drawing — snaps to the nearest vertex</Typography>
+              </Box>
+              <Box>
+                <GeoPreview picking={!!pend} height={440} minSpan={150}
+                  fitKey={`sat:${viewEpsg || "none"}:${lines.length}`} fit={fitArea}
+                  shapes={[...lines.filter(near),
+                    ...pts.filter((q) => q.ll).map((q): GeoShape => ({ c: [q.ll!], k: "point", color: "#F97316", width: 2, fill: "#F97316", label: String(pts.indexOf(q) + 1) }))]}
+                  onPick={pend ? pickSat : undefined} />
+                <Typography sx={{ mt: 0.75, fontSize: 12.5, color: C.muted }}>Satellite — real coordinates in EPSG:{realEpsg ?? "—"}</Typography>
+              </Box>
+            </Box>
+          </Box>
+        ) : (
         <Box sx={{ minWidth: 0 }}>
           {viewEpsg ? <GeoPreview shapes={shapes} height={440} minSpan={120} fit={fitArea} fitKey={`${viewEpsg}:${preview?.scale}:${lines.length}:${JSON.stringify(m.georef?.offset || null)}`} />
             : <Box sx={{ height: 440, borderRadius: 1.5, bgcolor: "#F4F3F0", display: "grid", placeItems: "center", color: C.muted, fontSize: 13, px: 4, textAlign: "center" }}>
@@ -175,6 +241,7 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
             {shown && shown.epsg !== m.source_crs && <span>Previewing EPSG:{shown.epsg}</span>}
           </Stack>}
         </Box>
+        )}
       </Box>
     </Box>
   );
@@ -274,14 +341,13 @@ function PrjDefine({ onPatch, say }: { onPatch: (p: unknown) => Promise<void>; s
 }
 
 /* ---------------- Define: georeference from control points */
-function ControlPoints({ job, m, onPatch, say, sug }: {
-  job: JobState; m: Mapping; onPatch: (p: unknown) => Promise<void>; say: (t: "ok" | "warn" | "err", s: string) => void; sug: CrsSuggestion;
+function ControlPoints({ job, m, onPatch, say, pts, setPts, crs, setCrs, realEpsg, picking, onPicking }: {
+  job: JobState; m: Mapping; onPatch: (p: unknown) => Promise<void>; say: (t: "ok" | "warn" | "err", s: string) => void;
+  pts: CP[]; setPts: (p: CP[]) => void; crs: CrsInfo | null; setCrs: (c: CrsInfo | null) => void; realEpsg: number | null;
+  picking: boolean; onPicking: (v: boolean) => void;
 }) {
-  const [pts, setPts] = useState<GeorefPoint[]>(m.georef?.points || []);
   const [fit, setFit] = useState<GeorefFit | null>(m.georef || null);
-  const [crs, setCrs] = useState<CrsInfo | null>(null);
   const [busy, setBusy] = useState(false);
-  const realEpsg = crs?.epsg || m.source_crs || sug.suggested || null;
   useEffect(() => {
     if (pts.length < 1 || pts.some((p) => [p.x, p.y, p.E, p.N].some((v) => !isFinite(v)))) { setFit(null); return; }
     const t = setTimeout(() => api.georefFit(pts, pts.length === 1 ? m.unit_scale : undefined).then(setFit).catch(() => setFit(null)), 300);
@@ -298,7 +364,7 @@ function ControlPoints({ job, m, onPatch, say, sug }: {
       say(r.already_real ? "ok" : "ok", `${r.found} coordinate labels found — ${r.message}`);
     } catch (e: any) { say("err", e?.message || "Could not read the labels"); } finally { setBusy(false); }
   };
-  const set = (i: number, k: keyof GeorefPoint, v: string) => setPts(pts.map((p, j) => j === i ? { ...p, [k]: v === "" ? NaN : Number(v) } : p));
+  const set = (i: number, k: "x" | "y" | "E" | "N", v: string) => setPts(pts.map((p, j) => j === i ? { ...p, [k]: v === "" ? NaN : Number(v) } : p));
   const apply = async () => {
     if (!fit || !realEpsg) return;
     const identity = Math.abs(fit.rotation) < 1e-6 && Math.abs(fit.offset[0]) < 0.05 && Math.abs(fit.offset[1]) < 0.05;
@@ -311,8 +377,12 @@ function ControlPoints({ job, m, onPatch, say, sug }: {
     <Stack spacing={2}>
       <Typography sx={{ fontSize: 13, color: C.ink }}>
         Tie drawing points to their real coordinates. Two points or more fix shift, rotation and scale; one point fixes the shift.</Typography>
-      <Button variant="outlined" disabled={busy} onClick={fromLabels} sx={{ alignSelf: "start", height: 36 }}>
-        {busy ? "Reading labels…" : "Use coordinate labels in the drawing"}</Button>
+      <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+        <Button variant={picking ? "contained" : "outlined"} onClick={() => onPicking(!picking)} sx={{ height: 36 }}>
+          {picking ? "Done picking" : "Pick on the map"}</Button>
+        <Button variant="outlined" disabled={busy} onClick={fromLabels} sx={{ height: 36 }}>
+          {busy ? "Reading labels…" : "Use coordinate labels"}</Button>
+      </Stack>
 
       <Box>
         <Box sx={{ display: "grid", gridTemplateColumns: "0.8fr 0.8fr 1.25fr 1.25fr 52px 28px", gap: 0.75, alignItems: "center", fontSize: 12, color: C.muted, mb: 0.5 }}>
@@ -412,6 +482,47 @@ function TransformPart({ job, m, tgt, onPatch }: { job: JobState; m: Mapping; tg
             {chk.lonlat && <><Box sx={{ color: C.muted }}>Lat / lon</Box><Box>{fmtLL(chk.lonlat)}</Box></>}
           </Box>
         )}
+      </Box>
+    </Stack>
+  );
+}
+
+/* ---------------- Define: saved settings (per account) */
+function Saved({ job, m, onPatch, say }: { job: JobState; m: Mapping; onPatch: (p: unknown) => Promise<void>; say: (t: "ok" | "warn" | "err", s: string) => void }) {
+  const [list, setList] = useState<CrsPreset[] | null>(null);
+  const [name, setName] = useState("");
+  const load = () => api.crsPresets().then(setList).catch(() => setList([]));
+  useEffect(() => { load(); }, []);
+  const save = async () => {
+    try { const p = await api.crsPresetSave(job.job_id, name); say("ok", `Saved as “${p.name}” — drawings in the same coordinates get it automatically`); setName(""); load(); }
+    catch (e: any) { say("err", e?.message || "Could not save"); }
+  };
+  return (
+    <Stack spacing={2}>
+      <Box>
+        <Label>Save this drawing's projection for the next drawings of the same project or consultant</Label>
+        <Stack direction="row" spacing={1}>
+          <TextField size="small" placeholder="Name — e.g. Madinat Zayed parks, site grid" value={name} onChange={(e) => setName(e.target.value)} sx={{ flex: 1 }} />
+          <Button variant="contained" disabled={!m.source_crs} onClick={save} sx={{ height: 40 }}>Save</Button>
+        </Stack>
+        {!m.source_crs && <Typography sx={{ mt: 0.75, fontSize: 12.5, color: C.muted }}>Define the projection first</Typography>}
+      </Box>
+      <Box>
+        <Label>Saved settings</Label>
+        {list === null && <Typography sx={{ fontSize: 13, color: C.muted }}>Loading…</Typography>}
+        {list?.length === 0 && <Typography sx={{ fontSize: 13, color: C.muted }}>None yet</Typography>}
+        {list?.map((p) => (
+          <Box key={p.id} sx={{ display: "grid", gridTemplateColumns: "1fr auto auto", alignItems: "center", gap: 1, py: 1, borderTop: `1px solid ${C.line}` }}>
+            <Box sx={{ minWidth: 0 }}>
+              <Typography sx={{ fontSize: 13.5, fontWeight: 500 }} noWrap>{p.name}</Typography>
+              <Typography sx={{ fontSize: 12.5, color: C.muted }}>EPSG:{p.source_crs}{p.georef ? " · georeferenced" : p.unit_scale !== 1 ? ` · ×${p.unit_scale}` : ""}
+                {" · "}{new Date(p.created * 1000).toLocaleDateString()}</Typography>
+            </Box>
+            <Button size="small" onClick={async () => { await onPatch({ source_crs: p.source_crs, unit_scale: p.unit_scale, georef: p.georef, transform_op: p.transform_op }); say("ok", `“${p.name}” applied`); }}
+              sx={{ height: 30 }}>Apply</Button>
+            <IconButton size="small" aria-label={`Delete ${p.name}`} onClick={() => api.crsPresetDelete(p.id).then(load)} sx={{ color: C.muted }}><DeleteOutline sx={{ fontSize: 17 }} /></IconButton>
+          </Box>
+        ))}
       </Box>
     </Stack>
   );

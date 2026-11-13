@@ -28,3 +28,15 @@ class Georef(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Presets(unittest.TestCase):
+    def test_match_needs_same_place_and_for_local_grids_same_layers(self):
+        import tempfile
+        from geosyntra_bridge.geometry import presets as PR
+        d = tempfile.mkdtemp()
+        PR.save_preset(d, "u1", "Site grid", {"source_crs": 32640, "unit_scale": 1.0, "georef": {"scale": 1, "rotation": 15, "offset": [1, 2]}},
+                       [0, 0, 120, 80], ["PLOT", "SW_MH", "SW_PIPE"])
+        self.assertIsNotNone(PR.match_preset(d, "u1", [0, 0, 120, 80], ["PLOT", "SW_MH", "SW_PIPE", "TXT"]))
+        self.assertIsNone(PR.match_preset(d, "u1", [0, 0, 120, 80], ["A-WALL", "A-DOOR"]))     # another site at 0,0
+        self.assertIsNone(PR.match_preset(d, "u2", [0, 0, 120, 80], ["PLOT", "SW_MH", "SW_PIPE"]))  # another account

@@ -525,6 +525,56 @@ def create_app(s: Optional[Settings] = None) -> FastAPI:
             out["lonlat"] = list(pipeline_for(m, 4326).point(pt))
         return out
 
+    @r.post("/crs/project")
+    def crs_project(body: Dict[str, Any] = Body(...), p: Principal = Depends(auth)):
+        """lon/lat points -> a projected system (the real E / N of a point picked on the satellite image)."""
+        from ..geometry.crs import transformer
+        try:
+            epsg = int(body["epsg"]); pts = [(float(a), float(b)) for a, b in body.get("points") or []]
+        except (KeyError, TypeError, ValueError):
+            raise HTTPException(400, "give epsg and points [[lon, lat], …]")
+        if not validate_epsg(epsg):
+            raise HTTPException(400, "unknown EPSG code")
+        t = transformer(4326, epsg)
+        if t is None:
+            return [list(q) for q in pts]
+        xs, ys = t.transform([q[0] for q in pts], [q[1] for q in pts])
+        return [[float(a), float(b)] for a, b in zip(xs, ys)]
+
+    @r.get("/crs/presets")
+    def crs_presets(p: Principal = Depends(auth)):
+        from ..geometry import presets as PR
+        return PR.list_presets(s.data_dir, p.user)
+
+    @r.post("/jobs/{job_id}/crs/presets")
+    def crs_preset_save(job_id: str, body: Dict[str, Any] = Body(...), p: Principal = Depends(auth)):
+        from ..geometry import presets as PR
+        jid = owned(job_id, p)
+        m = jobs.get_mapping(jid)
+        try:
+            disc = jobs._read(jid, "discovery.json") or {}
+            lay = [x.get("name") if isinstance(x, dict) else str(x) for x in (disc.get("layers") or [])]
+            return PR.save_preset(s.data_dir, p.user, str(body.get("name") or ""), m,
+                                  (m.get("crs_suggestion") or {}).get("extent"), [x for x in lay if x])
+        except ValueError as e:
+            raise HTTPException(400, str(e))
+
+    @r.post("/jobs/{job_id}/crs/presets/{pid}/apply")
+    def crs_preset_apply(job_id: str, pid: str, p: Principal = Depends(auth)):
+        from ..geometry import presets as PR
+        jid = owned(job_id, p)
+        pre = PR.get_preset(s.data_dir, p.user, pid)
+        if not pre:
+            raise HTTPException(404, "saved setting not found")
+        return jobs.update_mapping(jid, {k: pre.get(k) for k in PR.KEYS})
+
+    @r.delete("/crs/presets/{pid}")
+    def crs_preset_delete(pid: str, p: Principal = Depends(auth)):
+        from ..geometry import presets as PR
+        if not PR.delete_preset(s.data_dir, p.user, pid):
+            raise HTTPException(404, "saved setting not found")
+        return {"ok": True}
+
     @r.get("/jobs/{job_id}/georef/labels")
     def georef_labels(job_id: str, p: Principal = Depends(auth)):
         return jobs.georef_from_labels(owned(job_id, p))
@@ -544,8 +594,8 @@ def create_app(s: Optional[Settings] = None) -> FastAPI:
 
     @r.get("/jobs/{job_id}/cad-preview")
     def cad_preview(job_id: str, epsg: Optional[int] = None, scale: Optional[float] = None, limit: int = 30000,
-                    p: Principal = Depends(auth)):
-        return jobs.cad_preview(owned(job_id, p), limit=max(100, min(limit, 30000)), epsg=epsg, scale=scale)
+                    local: bool = False, p: Principal = Depends(auth)):
+        return jobs.cad_preview(owned(job_id, p), limit=max(100, min(limit, 30000)), epsg=epsg, scale=scale, local=local)
 
     @r.get("/jobs/{job_id}/features/{fid}")
     def feature(job_id: str, fid: int, p: Principal = Depends(auth)):

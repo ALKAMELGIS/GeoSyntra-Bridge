@@ -49,12 +49,16 @@ export interface SchemaDetail extends SchemaSummary {
 export interface CrsCandidate extends CrsInfo {
   scale: number; center: number[]; footprint: number[][]; size_m: number; region: string; score: number; why: string[];
 }
+export interface CrsPreset {
+  id: string; name: string; created: number; extent: number[] | null;
+  source_crs: number | null; unit_scale: number; georef: GeorefFit | null; transform_op: string | null;
+}
 export interface GeorefPoint { x: number; y: number; E: number; N: number; text?: string; residual?: number }
 export interface GeorefFit { scale: number; rotation: number; offset: number[]; residuals?: number[]; rms: number | null }
 export interface TransformOption { id: string | null; name: string; accuracy: number | null; available: boolean; best: boolean }
 export interface CrsSuggestion {
   v?: number; suggested: number | null; suggested_scale?: number; candidates: (CrsInfo & Partial<CrsCandidate>)[];
-  confidence: string; reasons: string[];
+  confidence: string; reasons: string[]; extent?: number[]; preset?: { id: string; name: string };
 }
 export interface CrsInfo { epsg: number; name: string; is_geographic: boolean; units: string; area_of_use: number[] | null }
 
