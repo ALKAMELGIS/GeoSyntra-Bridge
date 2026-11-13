@@ -9,7 +9,7 @@ the user: no zip to download, no folder to replace.
 
 Settings (environment):
   GSB_AUTO_UPDATE   1 (default) / 0 to switch it off
-  GSB_UPDATE_REPO   owner/repo (default ALKAMELGIS/geosyntra-bridge-)
+  GSB_UPDATE_REPO   owner/repo (default ALKAMELGIS/GeoSyntra-Bridge)
   GSB_UPDATE_BRANCH branch (default main)
 """
 from __future__ import annotations
@@ -27,7 +27,7 @@ from typing import Any, Dict, Optional
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATE = os.path.join(ROOT, ".gsb_update.json")
-REPO = os.environ.get("GSB_UPDATE_REPO", "ALKAMELGIS/geosyntra-bridge-")
+REPO = os.environ.get("GSB_UPDATE_REPO", "ALKAMELGIS/GeoSyntra-Bridge")
 BRANCH = os.environ.get("GSB_UPDATE_BRANCH", "main")
 INTERVAL = 30 * 60
 
