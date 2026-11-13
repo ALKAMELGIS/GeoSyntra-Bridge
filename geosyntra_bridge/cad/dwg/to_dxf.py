@@ -33,6 +33,15 @@ class Builder:
         self.layers: Dict[int, str] = {}
         self.blocks: Dict[int, str] = {}     # block header handle -> name in the new document
         self.skipped: Dict[str, int] = {}
+        self.children: Dict[int, List[int]] = {}   # owner -> owned entities (R2000 has no owned lists)
+        self.model_free: List[int] = []
+        for o in objs:
+            if "space" not in o:
+                continue
+            if o.get("owner") is not None:
+                self.children.setdefault(o["owner"], []).append(o["handle"])
+            elif o.get("space") == 2:
+                self.model_free.append(o["handle"])
 
     # ------------------------------------------------------------ tables
     def build_layers(self):
@@ -83,7 +92,9 @@ class Builder:
             if not target:
                 continue
             layout = self.doc.modelspace() if target == "*Model_Space" else self.doc.blocks.get(target)
-            for hd in o.get("owned", []):
+            owned = o.get("owned") or (self.children.get(o["handle"], []) +
+                                        (self.model_free if target == "*Model_Space" else []))
+            for hd in owned:
                 e = self.by_handle.get(hd)
                 if e is not None and not e.get("invisible"):
                     self.add(layout, e)
@@ -149,7 +160,7 @@ class Builder:
 
     def _verts(self, e):
         out = []
-        for hd in e.get("vertices", []):
+        for hd in e.get("vertices") or self.children.get(e["handle"], []):
             v = self.by_handle.get(hd)
             if v is not None and v["type"] in ("VERTEX2D", "VERTEX3D"):
                 if v.get("vflags", 0) & 16:          # spline frame control point
@@ -194,7 +205,7 @@ class Builder:
         sx, sy, sz = e["scale"]
         a.update(xscale=sx, yscale=sy, zscale=sz, rotation=e["rot"] * DEG)
         ins = L.add_blockref(name, e["c"], dxfattribs=a)
-        for hd in e.get("attribs", []):
+        for hd in e.get("attribs") or self.children.get(e["handle"], []):
             at = self.by_handle.get(hd)
             if at is None or at["type"] != "ATTRIB" or not at.get("tag"):
                 continue
@@ -216,6 +227,33 @@ class Builder:
         for hd in e.get("heads", [])[:4]:
             ml.add_leader_line(ConnectionSide.left, [Vec2(hd[0], hd[1])])
         ml.build(insert=Vec2(e["c"][0], e["c"][1]), rotation=e.get("rot", 0.0) * DEG)
+
+    def _pface(self, L, e, a):
+        a.pop("extrusion", None)
+        kids = [self.by_handle.get(hd) for hd in (e.get("vertices") or self.children.get(e["handle"], []))]
+        pts = [k["c"] for k in kids if k is not None and k["type"] == "VERTEX_PFACE"]
+        faces = []
+        for k in kids:
+            if k is not None and k["type"] == "PFACE_FACE":
+                f = [pts[abs(i) - 1] for i in k["idx"] if i and abs(i) <= len(pts)]
+                if len(f) >= 3:
+                    faces.append(f)
+        if faces:
+            L.add_polyface(dxfattribs=a).append_faces(faces)
+
+    def _mline(self, L, e, a):
+        """A multiline becomes one polyline per element (offset along each vertex's miter direction)."""
+        a.pop("extrusion", None)
+        vs = e.get("verts") or []
+        for j in range(e.get("nlines", 0)):
+            pts = [(p[0] + m[0] * o[j], p[1] + m[1] * o[j], p[2] + m[2] * o[j]) for p, m, o in vs if j < len(o)]
+            if len(pts) < 2:
+                continue
+            if len({round(q[2], 9) for q in pts}) == 1:
+                L.add_lwpolyline([q[:2] for q in pts], close=e.get("closed", False),
+                                 dxfattribs={**a, "elevation": pts[0][2]})
+            else:
+                L.add_polyline3d(pts, close=e.get("closed", False), dxfattribs=a)
 
     def _solid(self, L, e, a):
         L.add_solid(e["p"], dxfattribs=a)

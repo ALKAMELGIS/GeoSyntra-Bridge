@@ -121,7 +121,7 @@ def _convert_autocad(exe: str, dwg_path: str, out_dir: str, timeout: int) -> str
     return out
 
 
-DWG_HELP = ("Open the drawing in AutoCAD, run AUDIT, save it as AutoCAD 2010 or newer (or as DXF) and upload it again.")
+DWG_HELP = ("Open the drawing in AutoCAD, run AUDIT, save it as AutoCAD 2000 or newer (or as DXF) and upload it again.")
 
 
 def convert_dwg_to_dxf(dwg_path: str, out_dir: str, timeout: int = 600) -> str:

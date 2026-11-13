@@ -34,6 +34,16 @@ def str_stream(data: bytes, endbit: int) -> Optional[BitReader]:
     return r
 
 
+class _Strings(BitReader):
+    """R2007 string stream, positioned once the object's data size is known."""
+    def __init__(self, data: bytes):
+        super().__init__(data, 0, unicode=True)
+        self.empty = True
+
+    def TV(self) -> str:
+        return "" if self.empty else super().TV()
+
+
 class _NoText(BitReader):
     def __init__(self):
         super().__init__(b"")
@@ -78,22 +88,32 @@ def read_handles(buf: bytes) -> Dict[int, int]:
 
 
 def read_classes(f: DwgFile, buf: bytes) -> Dict[int, str]:
-    r = BitReader(buf, 16 * 8, unicode=True)
-    r.RL()
-    if f.version > "AC1027" or (f.version >= "AC1024" and f.maint > 3):
+    if f.version >= "AC1021":
+        r = BitReader(buf, 16 * 8, unicode=True)
         r.RL()
-    p0 = r.pos
-    flag_pos = p0 + r.RL() - 1
-    text = str_stream(buf, flag_pos)
-    end = text.pos if text else flag_pos
-    text = text or _NoText()
-    r.BL(); r.B()
+        if f.version > "AC1027" or (f.version >= "AC1024" and f.maint > 3):
+            r.RL()
+        p0 = r.pos
+        flag_pos = p0 + r.RL() - 1
+        text = str_stream(buf, flag_pos)
+        end = text.pos if text else flag_pos
+        text = text or _NoText()
+        r.BL(); r.B()
+    else:                                             # R2000 / R2004: names inline, end given in bytes
+        r = BitReader(buf, 16 * 8, unicode=False)
+        size = r.RL()
+        end = (20 + size) * 8
+        if f.version == "AC1018":
+            r.BS(); r.RC(); r.RC(); r.B()
+        text = r
     out: Dict[int, str] = {}
-    while r.pos < end:
+    while r.pos < end - 8:
         num = r.BS(); r.BS()
         text.TV(); text.TV()
         name = text.TV()
-        r.B(); r.BS(); r.BL(); r.BL(); r.BL(); r.BL(); r.BL()
+        r.B(); r.BS()
+        if f.version >= "AC1018":
+            r.BL(); r.BL(); r.BL(); r.BL(); r.BL()
         out[num] = name
     return out
 
@@ -104,33 +124,53 @@ class Obj(dict):
 
 class ObjectReader:
     def __init__(self, f: DwgFile):
-        if f.version < "AC1024":
-            raise DwgError(f"DWG {f.version}: only AutoCAD 2010 and newer drawings are read natively for now")
+        if f.version not in ("AC1015", "AC1018", "AC1021") and f.version < "AC1024":
+            raise DwgError(f"DWG {f.version} is not read natively yet: save it as AutoCAD 2000 or newer, or as DXF")
         self.f = f
-        self.r2013 = f.version >= "AC1027"
-        self.r2018 = f.version >= "AC1032"
+        v = f.version
+        self.r2004 = v >= "AC1018"
+        self.r2007 = v >= "AC1021"
+        self.r2010 = v >= "AC1024"
+        self.r2013 = v >= "AC1027"
+        self.r2018 = v >= "AC1032"
         self.data = f.section("AcDb:AcDbObjects")
         self.map = read_handles(f.section("AcDb:Handles"))
         self.classes = read_classes(f, f.section("AcDb:Classes"))
         self.errors: Dict[str, int] = {}
+        self._start = 0
+        self._h: Optional[BitReader] = None
 
     # ------------------------------------------------------------ framing
     def _open(self, off: int):
         d = self.data
-        r = BitReader(d, off * 8)
+        r = BitReader(d, off * 8, unicode=self.r2007)
         size = r.MS()
-        hsize = r.MC()
-        start = r.pos
-        hpos = start + size * 8 - hsize
-        t = r.BOT()
-        h = BitReader(d, hpos)
-        s = str_stream(d, hpos - 1) or _NoText()
+        if self.r2010:
+            hsize = r.MC()
+            start = r.pos
+            hpos = start + size * 8 - hsize
+            t = r.BOT()
+            h = BitReader(d, hpos)
+            s = str_stream(d, hpos - 1) or _NoText()
+        else:                                         # handle stream located by the RL in the common data
+            start = r.pos
+            t = r.BS()
+            h = BitReader(d, 0)
+            s = _Strings(d) if self.r2007 else r
+        self._start, self._h, self._s = start, h, s
         return t, r, s, h
 
     def type_name(self, t: int) -> str:
         return self.classes.get(t, "") if t >= 500 else ""
 
     def _common(self, r: BitReader) -> int:
+        if not self.r2010:
+            end = self._start + r.RL()                # end of the data = start of the handle stream
+            self._h.pos = end
+            if self.r2007:                            # R2007: strings sit at the end of the data
+                ss = str_stream(self.data, end - 1)
+                self._s.empty = ss is None
+                self._s.pos = ss.pos if ss else 0
         handle = r.H()
         size = r.BS()
         while size:                                   # extended data: skipped
@@ -143,48 +183,56 @@ class ObjectReader:
         o = Obj()
         o["handle"] = handle = self._common(r)
         if r.B():                                     # proxy graphics
-            n = r.BLL()
+            n = r.BLL() if self.r2010 else r.RL()
             r.pos += n * 8
         mode = r.BB()
         o["owner"] = h.H(handle) if mode == 0 else None
         o["space"] = mode
         for _ in range(r.BL()):
             h.H(handle)
-        if not r.B():
+        if not self.r2004 or not r.B():
             h.H(handle)                               # xdictionary
         if self.r2013:
             r.B()
-        size = r.BS() & 0xFFFF                        # ENC colour
-        aci, rgb, book = 256, None, False
-        if size:
-            fl = size & 0xFF00
-            if fl & 0x4000:                           # colour-book colour: an AcDbColor object holds it
-                aci = 7
-            elif fl & 0x8000:
-                aci, rgb = _decode_rgb(r.BL() & 0xFFFFFFFF)
-            else:
-                aci = size & 0x0FFF
-            if fl & 0x4000:
-                book = True
-            if fl & 0x2000:
-                r.BL()
+        if not self.r2004:
+            if not r.B():                             # R2000: previous / next entity links
+                h.H(handle); h.H(handle)
+            aci = r.BS()
+            o["color"], o["rgb"] = (aci if 0 <= aci <= 257 else 256), None
         else:
-            aci = 0
-        if book:
-            h.H(handle)
-        o["color"], o["rgb"] = aci, rgb
+            size = r.BS() & 0xFFFF                    # ENC colour
+            aci, rgb, book = 256, None, False
+            if size:
+                fl = size & 0xFF00
+                if fl & 0x4000:                       # colour-book colour: an AcDbColor object holds it
+                    aci = 7
+                elif fl & 0x8000:
+                    aci, rgb = _decode_rgb(r.BL() & 0xFFFFFFFF)
+                else:
+                    aci = size & 0x0FFF
+                if fl & 0x4000:
+                    book = True
+                if fl & 0x2000:
+                    r.BL()
+            else:
+                aci = 0
+            if book:
+                h.H(handle)
+            o["color"], o["rgb"] = aci, rgb
         r.BD()                                        # linetype scale
         o["layer"] = h.H(handle)
         if r.BB() == 3:
             h.H(handle)
-        if r.BB() == 3:                               # material
-            h.H(handle)
-        r.RC()                                        # shadow
+        if self.r2007:
+            if r.BB() == 3:                           # material
+                h.H(handle)
+            r.RC()                                    # shadow
         if r.BB() == 3:                               # plot style
             h.H(handle)
-        for _ in range(3):                            # visual styles
-            if r.B():
-                h.H(handle)
+        if self.r2010:
+            for _ in range(3):                        # visual styles
+                if r.B():
+                    h.H(handle)
         o["invisible"] = r.BS() & 1
         r.RC()                                        # lineweight
         return o
@@ -195,11 +243,17 @@ class ObjectReader:
         o["owner"] = h.H(handle)
         for _ in range(r.BL()):
             h.H(handle)
-        if not r.B():
+        if not self.r2004 or not r.B():
             h.H(handle)
         if self.r2013:
             r.B()
         return o
+
+    def _xref_bits(self, r: BitReader):
+        if self.r2007:
+            r.BS()
+        else:
+            r.B(); r.BS(); r.B()
 
     # ------------------------------------------------------------ objects
     def read(self, handle: int) -> Optional[Obj]:
@@ -295,7 +349,7 @@ def _pline2d(R, r, s, h):
     o = R._entity(r, h)
     o["flags"] = r.BS(); r.BS(); r.BD(); r.BD(); r.BT()
     o["elev"] = r.BD(); o["ext"] = r.BE()
-    n = r.BL()
+    n = r.BL() if R.r2004 else 0                      # R2000: vertices are found by their owner
     o["vertices"] = [h.H(o["handle"]) for _ in range(n)]
     o["closed"] = bool(o["flags"] & 1)
     return o
@@ -304,8 +358,22 @@ def _pline2d(R, r, s, h):
 def _pline3d(R, r, s, h):
     o = R._entity(r, h)
     r.RC(); o["closed"] = bool(r.RC() & 1)
-    n = r.BL()
+    n = r.BL() if R.r2004 else 0
     o["vertices"] = [h.H(o["handle"]) for _ in range(n)]
+    return o
+
+
+def _pface(R, r, s, h):
+    o = R._entity(r, h)
+    r.BS(); r.BS()
+    n = r.BL() if R.r2004 else 0
+    o["vertices"] = [h.H(o["handle"]) for _ in range(n)]
+    return o
+
+
+def _pface_face(R, r, s, h):
+    o = R._entity(r, h)
+    o["idx"] = [r.BS() for _ in range(4)]
     return o
 
 
@@ -349,7 +417,8 @@ def _text(R, r, s, h):
 
 def _attrib(R, r, s, h):
     o = _text_common(R, r, s, h, R._entity(r, h))
-    r.RC()                                            # version
+    if R.r2010:
+        r.RC()                                        # version
     kind = r.RC() if R.r2018 else 1
     o["tag"] = s.TV() if kind in (0, 1) else ""
     return o
@@ -358,7 +427,9 @@ def _attrib(R, r, s, h):
 def _mtext(R, r, s, h):
     o = R._entity(r, h)
     o["c"] = r.BD3(); o["ext"] = r.BD3(); o["xdir"] = r.BD3()
-    o["rect_w"] = r.BD(); r.BD()
+    o["rect_w"] = r.BD()
+    if R.r2007:
+        r.BD()
     o["height"] = r.BD(); o["attach"] = r.BS(); r.BS(); r.BD(); r.BD()
     o["text"] = s.TV()
     o["rot"] = math.atan2(o["xdir"][1], o["xdir"][0])
@@ -380,7 +451,7 @@ def _insert(R, r, s, h, minsert=False):
     o["scale"] = (sx, sy, sz)
     o["rot"] = r.BD(); o["ext"] = r.BD3()
     has = r.B()
-    n = r.BL() if has else 0
+    n = r.BL() if (has and R.r2004) else 0
     if minsert:
         o["cols"] = r.BS(); o["rows"] = r.BS(); o["cs"] = r.BD(); o["rs"] = r.BD()
     o["block"] = h.H(o["handle"])
@@ -441,10 +512,11 @@ def _spline(R, r, s, h):
 
 def _hatch(R, r, s, h):
     o = R._entity(r, h)
-    r.BL(); r.BL(); r.BD(); r.BD(); r.BL(); r.BD()
-    for _ in range(r.BL()):
-        r.BD(); r.CMC(s)
-    s.TV()
+    if R.r2004:                                       # gradient
+        r.BL(); r.BL(); r.BD(); r.BD(); r.BL(); r.BD()
+        for _ in range(r.BL()):
+            r.BD(); r.CMC(s)
+        s.TV()
     o["elev"] = r.BD(); o["ext"] = r.BD3()
     o["pattern"] = s.TV()
     o["solid"] = r.B(); r.B()
@@ -471,7 +543,7 @@ def _hatch(R, r, s, h):
                         cps.append(r.RD2())
                         if rat:
                             ws.append(r.BD())
-                    nfit = r.BL()
+                    nfit = r.BL() if R.r2010 else 0
                     fit = [r.RD2() for _ in range(nfit)]
                     if nfit:
                         r.RD2(); r.RD2()
@@ -496,9 +568,9 @@ def _hatch(R, r, s, h):
 def _block_header(R, r, s, h):
     o = R._nonentity(r, h)
     o["name"] = s.TV()
-    r.BS()                                            # xref index
+    R._xref_bits(r)
     o["anon"] = r.B(); r.B(); o["xref"] = r.B(); o["overlay"] = r.B(); r.B()
-    n = 0 if (o["xref"] or o["overlay"]) else r.BL()
+    n = 0 if (o["xref"] or o["overlay"] or not R.r2004) else r.BL()
     o["base"] = r.BD3()
     s.TV()
     hd = o["handle"]
@@ -508,7 +580,8 @@ def _block_header(R, r, s, h):
     s.TV()
     npv = r.BL()
     r.pos += npv * 8                                  # preview image
-    r.BS(); r.B(); r.RC()
+    if R.r2007:
+        r.BS(); r.B(); r.RC()
     h.H(hd)                                           # (null)
     o["block_ent"] = h.H(hd)
     o["owned"] = [h.H(hd) for _ in range(n)]
@@ -524,16 +597,22 @@ def _block(R, r, s, h):
 def _layer(R, r, s, h):
     o = R._nonentity(r, h)
     o["name"] = s.TV()
-    r.BS()
+    R._xref_bits(r)
     v = r.BS()
     o["frozen"] = bool(v & 1); o["off"] = bool(v & 2); o["locked"] = bool(v & 8)
-    o["color"], o["rgb"] = r.CMC(s)
+    if R.r2004:
+        o["color"], o["rgb"] = r.CMC(s)
+    else:
+        c = r.BS()
+        o["off"] = o["off"] or c < 0
+        o["color"], o["rgb"] = abs(c), None
     return o
 
 
 def _mleader(R, r, s, h):
     o = R._entity(r, h)
-    r.BS()                                            # class version
+    if R.r2010:
+        r.BS()                                        # class version
     heads = []
     for _ in range(r.BL()):                           # leader roots
         r.B(); r.B(); r.BD3(); r.BD3()
@@ -548,8 +627,11 @@ def _mleader(R, r, s, h):
                 r.BL()
                 for _ in range(r.BL()):
                     r.BD3(); r.BD3()
-            r.BL(); r.BS(); r.CMC(s); h.H(o["handle"]); r.BL(); r.BD(); h.H(o["handle"]); r.BL()
-        r.BS()
+            r.BL()
+            if R.r2010:
+                r.BS(); r.CMC(s); h.H(o["handle"]); r.BL(); r.BD(); h.H(o["handle"]); r.BL()
+        if R.r2010:
+            r.BS()
     r.BD(); o["base"] = r.BD3(); o["height"] = r.BD(); r.BD(); r.BD()
     r.BS(); r.BS(); r.BS(); r.BS()
     if not r.B():
@@ -557,6 +639,25 @@ def _mleader(R, r, s, h):
     o["text"] = s.TV(); r.BD3(); h.H(o["handle"])
     o["c"] = r.BD3(); d = r.BD3(); o["rot"] = math.atan2(d[1], d[0])
     o["heads"] = heads
+    return o
+
+
+def _mline(R, r, s, h):
+    o = R._entity(r, h)
+    r.BD(); r.RC(); r.BD3(); o["ext"] = r.BD3()
+    o["closed"] = r.BS() == 3
+    nl = r.RC()
+    verts = []
+    for _ in range(r.BS()):
+        pos = r.BD3(); r.BD3(); miter = r.BD3()
+        offs = []
+        for _ in range(nl):
+            prm = [r.BD() for _ in range(r.BS())]
+            for _ in range(r.BS()):
+                r.BD()
+            offs.append(prm[0] if prm else 0.0)
+        verts.append((pos, miter, offs))
+    o["verts"], o["nlines"] = verts, nl
     return o
 
 
@@ -581,11 +682,11 @@ _READERS = {
     T_VERTEX2D: _vertex2d, T_VERTEX3D: _vertex3d, T_TEXT: _text, T_ATTRIB: _attrib, T_MTEXT: _mtext,
     T_INSERT: _insert, T_MINSERT: lambda R, r, s, h: _insert(R, r, s, h, True), T_SOLID: _solid, T_TRACE: _solid,
     T_3DFACE: _face3d, T_SPLINE: _spline, T_HATCH: _hatch, T_BLOCK_HEADER: _block_header, T_BLOCK: _block,
-    T_LAYER: _layer,
+    T_LAYER: _layer, 47: _mline, 29: _pface, T_VERTEX_PFACE: _vertex3d, 14: _pface_face,
 }
 _CLASS_READERS = {"LWPOLYLINE": _lwpline, "HATCH": _hatch, "GEODATA": _geodata, "MULTILEADER": _mleader}
 _NAMES = {T_LINE: "LINE", T_CIRCLE: "CIRCLE", T_ARC: "ARC", T_POINT: "POINT", T_ELLIPSE: "ELLIPSE",
           T_LWPOLYLINE: "LWPOLYLINE", T_POLYLINE2D: "POLYLINE2D", T_POLYLINE3D: "POLYLINE3D", T_VERTEX2D: "VERTEX2D",
           T_VERTEX3D: "VERTEX3D", T_TEXT: "TEXT", T_ATTRIB: "ATTRIB", T_MTEXT: "MTEXT", T_INSERT: "INSERT",
           T_MINSERT: "MINSERT", T_SOLID: "SOLID", T_TRACE: "TRACE", T_3DFACE: "3DFACE", T_SPLINE: "SPLINE",
-          T_HATCH: "HATCH", T_BLOCK_HEADER: "BLOCK_HEADER", T_BLOCK: "BLOCK", T_LAYER: "LAYER"}
+          T_HATCH: "HATCH", 47: "MLINE", 29: "PFACE", T_VERTEX_PFACE: "VERTEX_PFACE", 14: "PFACE_FACE", T_BLOCK_HEADER: "BLOCK_HEADER", T_BLOCK: "BLOCK", T_LAYER: "LAYER"}

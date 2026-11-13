@@ -18,8 +18,9 @@ browser opens at <http://localhost:8600>.
 
 Requirements: Python 3.9–3.13. Everything else installs from `requirements.txt` (no ArcGIS licence needed —
 GDAL ships inside the `pyogrio` wheel).
-**DWG input:** read by the system's own DWG reader (`geosyntra_bridge/cad/dwg`) — AutoCAD 2010 to 2018+
-drawings (AC1024 / AC1027 / AC1032), nothing to install. Older drawings: save them as AutoCAD 2010 or newer, or as DXF.
+**DWG input:** read by the system's own DWG reader (`geosyntra_bridge/cad/dwg`) — AutoCAD 2000 to 2018+
+drawings (AC1015, AC1018, AC1021, AC1024, AC1027, AC1032), nothing to install. Older drawings (R14 and before):
+save them as AutoCAD 2000 or newer, or as DXF.
 If AutoCAD or Civil 3D is installed on the server, its Core Console is used as a fallback.
 
 ## The seven schemas

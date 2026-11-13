@@ -49,3 +49,16 @@ def test_handle_map():
     payload = bytes([1, 0x80 | 100 & 0x7F, 0]) + bytes([2, 50])
     page = (len(payload) + 2).to_bytes(2, "big") + payload + b"\0\0"
     assert read_handles(page + (2).to_bytes(2, "big")) == {1: 100, 3: 150}
+
+
+def test_r2007_literal_permutations_are_complete():
+    from geosyntra_bridge.cad.dwg.r2007 import PERM, deinterleave
+    for n, p in PERM.items():
+        assert sorted(p) == list(range(n)), n
+    # 3 blocks of 2 interleaved column-wise
+    assert deinterleave(bytes([1, 3, 5, 2, 4, 6]), 6, 3, 2) == bytes([1, 2, 3, 4, 5, 6])
+
+
+def test_versions_supported():
+    from geosyntra_bridge.cad.dwg.container import VERSIONS
+    assert {"AC1015", "AC1018", "AC1021", "AC1024", "AC1027", "AC1032"} <= set(VERSIONS)

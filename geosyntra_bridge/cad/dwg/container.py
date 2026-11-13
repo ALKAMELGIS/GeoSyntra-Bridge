@@ -1,5 +1,6 @@
 """
-DWG R2004+ file container (AC1018, AC1024, AC1027, AC1032): the encrypted file header, the page map, the section
+DWG file container: R2000 (AC1015, plain section locators), R2004+ (AC1018, AC1024, AC1027, AC1032) and,
+through r2007.py, R2007 (AC1021): the encrypted file header, the page map, the section
 map and the LZ77-compressed data pages that make up each named section (AcDb:Header, AcDb:Classes, AcDb:Handles,
 AcDb:AcDbObjects…).
 
@@ -12,7 +13,8 @@ import struct
 from dataclasses import dataclass, field
 from typing import Dict, List
 
-VERSIONS = {"AC1018": 2004, "AC1024": 2010, "AC1027": 2013, "AC1032": 2018}
+VERSIONS = {"AC1015": 2000, "AC1018": 2004, "AC1021": 2007, "AC1024": 2010, "AC1027": 2013, "AC1032": 2018}
+R2000_SECTIONS = {"AcDb:Header": 0, "AcDb:Classes": 1, "AcDb:Handles": 2}
 
 
 class DwgError(Exception):
@@ -117,9 +119,22 @@ class DwgFile:
         self.data = data
         self.version = data[:6].decode("ascii", "replace")
         if self.version not in VERSIONS:
-            raise DwgError(f"DWG version {self.version} is not supported yet (supported: AutoCAD 2004–2018+)")
+            raise DwgError(f"DWG version {self.version} is not supported yet "
+                           f"(supported: AutoCAD 2000 to 2018+)")
         self.codepage = struct.unpack_from("<H", data, 0x13)[0]
         self.maint = data[0x0B]
+        self.sections: Dict[str, "Section"] = {}
+        self.locators: Dict[int, tuple] = {}
+        if self.version == "AC1015":                  # R2000: plain section locators, nothing compressed
+            (n,) = struct.unpack_from("<I", data, 0x15)
+            for i in range(n):
+                num, seek, size = struct.unpack_from("<BII", data, 0x19 + i * 9)
+                self.locators[num] = (seek, size)
+            return
+        if self.version == "AC1021":                  # R2007: its own page format
+            from .r2007 import R2007Sections
+            self.r2007 = R2007Sections(data)
+            return
         hdr = bytes(a ^ b for a, b in zip(data[0x80:0x80 + 0x6C], _MAGIC))
         if not hdr.startswith(b"AcFssFcAJMB"):
             raise DwgError("not a valid DWG file (header signature missing)")
@@ -128,7 +143,6 @@ class DwgFile:
         (self.section_map_id,) = struct.unpack_from("<I", hdr, 0x5C)
         self.pages: Dict[int, int] = {}          # page number -> file offset
         self._read_page_map(page_map_addr + 0x100)
-        self.sections: Dict[str, Section] = {}
         self._read_section_map()
 
     def _system_page(self, off: int) -> bytes:
@@ -163,6 +177,13 @@ class DwgFile:
             self.sections[name] = s
 
     def section(self, name: str) -> bytes:
+        if self.version == "AC1015":
+            if name == "AcDb:AcDbObjects":
+                return self.data                      # object offsets are absolute in R2000 files
+            loc = self.locators.get(R2000_SECTIONS.get(name, -1))
+            return self.data[loc[0]:loc[0] + loc[1]] if loc else b""
+        if self.version == "AC1021":
+            return self.r2007.section(name)
         s = self.sections.get(name)
         if s is None:
             return b""
