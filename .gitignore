@@ -13,3 +13,6 @@ data_commercial/
 .env
 *.tsbuildinfo
 .pytest_cache/
+
+.gsb_update.json
+*.gsbtmp

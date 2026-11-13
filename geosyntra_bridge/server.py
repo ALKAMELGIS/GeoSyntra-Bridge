@@ -76,6 +76,8 @@ def main():
         webbrowser.open(url)
     if a.watch:
         threading.Thread(target=_watch_code, args=(app,), daemon=True).start()
+        from . import updater          # new versions arrive from GitHub by themselves (GSB_AUTO_UPDATE=0 to stop)
+        updater.start()
     uvicorn.run(app, host=a.host, port=a.port, log_level="info")
 
 

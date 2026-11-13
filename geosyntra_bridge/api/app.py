@@ -87,6 +87,19 @@ def create_app(s: Optional[Settings] = None) -> FastAPI:
         jobs.check_owner(job_id, p.user, p.admin)
         return job_id
 
+    # ---------------------------------------------------------------- updates from GitHub
+    @r.get("/system/update")
+    def update_status(p: Principal = Depends(auth)):
+        from .. import updater
+        return updater.status
+
+    @r.post("/system/update")
+    def update_now(p: Principal = Depends(auth)):
+        if not p.admin:
+            raise HTTPException(403, "only the owner can update")
+        from .. import updater
+        return updater.check_and_update()
+
     # ---------------------------------------------------------------- system
     from ..server import _code_stamp as _stamp_of
     _pkg = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
