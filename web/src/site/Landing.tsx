@@ -5,7 +5,7 @@ import { lazy, Suspense } from "react";
 import type { ViewMode } from "./UtilityScene";
 const UtilityScene = lazy(() => import("./UtilityScene"));
 const HeroMachine = lazy(() => import("./HeroMachine"));
-import HeroDevices from "./HeroDevices";
+import HeroSeam from "./HeroSeam";
 import { LogoMark } from "../components/Logo";
 import { billing } from "../api";
 import type { AuthConfig, AuthUser, Plan } from "../types";
@@ -126,25 +126,24 @@ export function Landing({ cfg, user, go }: Props) {
         </div>
       </nav>
 
-      <header className="lx-hero" id="home">
-        <HeroDevices lang={lang} />
+      <header className="lx-hero2" id="home">
         <div className="lx-hero-txt">
           <p className="lx-eye">{t.l_eyebrow}</p>
           <h1>{t.l_h1a}<br /><em>{t.l_h1b}</em></h1>
-          <p className="lx-tag">{t.l_tag}</p>
           <p className="lx-lead">{t.l_lead}</p>
           <div className="lx-ctas">
             <button className="lx-pill lg" onClick={start}>{user ? t.open_app : t.cta_trial(trial)} <Arrow /></button>
             <a className="lx-link" href="#platform" onClick={to("platform")}>{t.l_more} <Arrow /></a>
           </div>
         </div>
+        <HeroSeam lang={lang} labels={t.l_seam} layers={TEMPLATES.map((x) => ({ id: x.id, name: ar ? x.ar : x.en, color: x.color }))} />
       </header>
 
       <section className="lx-sec lx-bridge lx-page" id="platform">
         <p className="lx-eye rv">{t.l_bridge_e}</p>
         <h2 className="lx-big rv">{t.l_bridge_a} <em>{t.l_bridge_b}</em></h2>
         <div className="lx-bridge-viz rv"><Suspense fallback={null}><HeroMachine labels={t.l_hm} centered /></Suspense></div>
-        <div className="lx-bridge-p rv">{t.l_bridge_p.map((x) => <p key={x}>{x}</p>)}</div>
+        <ol className="lx-bridge-p lx-steps4 rv">{t.l_bridge_p.map((x, i) => { const [a, ...b] = x.split(" — "); return <li key={x}><i>{i + 1}</i><span><b>{a}</b> — {b.join(" — ")}</span></li>; })}</ol>
         <div className="lx-stats lx-stats-in">{t.l_stats.map(([n, l]) => <div key={l} className="rv"><b>{n}</b><span>{l}</span></div>)}</div>
       </section>
 
