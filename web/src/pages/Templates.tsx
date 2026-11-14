@@ -72,11 +72,11 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
     for (const f of files) {
       const code = (/ADM_([A-Z]+)_/i.exec(f.name)?.[1] || "").toUpperCase();
       const t = list?.find((s) => codeOf(s) === code);
-      if (!t) { out.push({ file: f.name, code: code || "?", result: tr("No template matches this file name"), ok: false }); continue; }
+      if (!t) { out.push({ file: f.name, code: code || "?", result: tr("unknown template"), ok: false }); continue; }
       try {
         const u = await api.stageTemplate(t.schema_id, f);
         if (u.summary?.identical) await api.rejectTemplate(t.schema_id, u.update_id).catch(() => undefined);   // nothing to decide: closed at once
-        out.push({ file: f.name, code, ok: true, result: u.summary?.identical ? tr("identical — nothing to apply") : tr("ready for review") });
+        out.push({ file: f.name, code, ok: true, result: u.summary?.identical ? tr("identical") : tr("ready for review") });
       } catch (e: any) { out.push({ file: f.name, code, result: e.message, ok: false }); }
     }
     setBulk(out);
@@ -92,17 +92,18 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
         <Stack direction="row" alignItems="flex-end" flexWrap="wrap" useFlexGap gap={2}>
         <Box sx={{ flex: 1, minWidth: 280 }}>
           <Typography component="h1" sx={{ fontSize: 22, fontWeight: 500 }}>{tr("ADM templates")}</Typography>
-          <Typography sx={{ fontSize: 13.5, color: C.muted, mt: 0.5, maxWidth: 760 }}>
-            {tr("The geodatabases every delivery is built from. When the authority publishes a new release, upload it here: it is checked and compared first, and nothing changes until you apply it.")}
-          </Typography>
         </Box>
         {admin && <Button variant="outlined" startIcon={<UploadFileOutlined />} disabled={!!busy} onClick={() => bulkFile.current?.click()}>{tr("Upload several releases")}</Button>}
         </Stack>
         {bulk && (
-          <Alert severity={bulk.every((b) => b.ok) ? "success" : "warning"} onClose={() => setBulk(null)}>
-            <b style={{ fontWeight: 500 }}>{tr("{n} files read", { n: bulk.length })}</b>
-            {bulk.map((b) => <Box key={b.file} sx={{ fontSize: 13 }}><Box component="span" sx={{ fontFamily: MONO }}>{b.code}</Box> · {b.file} — {b.result}</Box>)}
-          </Alert>
+          <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
+            {bulk.map((b) => (
+              <Tooltip key={b.file} title={`${b.file} — ${b.result}`}>
+                <Chip size="small" label={`${b.code} · ${b.result.split(" — ")[0]}`} onDelete={() => setBulk((x) => (x || []).filter((y) => y !== b))}
+                  sx={{ bgcolor: b.ok ? C.greenSoft : C.amberSoft, color: b.ok ? C.green : C.amber, fontFamily: MONO, fontSize: 12 }} />
+              </Tooltip>
+            ))}
+          </Stack>
         )}
         {err && <Alert severity="error" onClose={() => setErr(null)}>{err}</Alert>}
         {ok && <Alert severity="success" onClose={() => setOk(null)}>{ok}</Alert>}
@@ -162,7 +163,7 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
                 {admin && rev?.status !== "pending" && (
                   <Box onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files?.[0]; if (f) upload(f); }}
                     sx={{ mt: 2, p: 2, borderRadius: 2, border: `1px dashed ${C.line}`, color: C.muted, fontSize: 13, textAlign: "center" }}>
-                    {tr("Drop the new release here — the .gdb folder zipped, as published by the authority")}
+                    {tr("Drop .zip here")}
                   </Box>
                 )}
                 {busy && <Box sx={{ mt: 2 }}><LinearProgress /><Typography sx={{ fontSize: 12.5, color: C.muted, mt: 0.75 }}>{tr(busy)}</Typography></Box>}
@@ -207,8 +208,7 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
               </Paper>
 
               <Paper sx={{ borderRadius: 3, overflow: "hidden" }}>
-                <Typography sx={{ px: 2.5, pt: 2, pb: 0.5, fontSize: 15, fontWeight: 500 }}>{tr("Archived releases")}</Typography>
-                <Typography sx={{ px: 2.5, pb: 1, fontSize: 12.5, color: C.muted }}>{tr("Every release that was replaced. Restoring one archives the release in use first.")}</Typography>
+                <Typography sx={{ px: 2.5, pt: 2, pb: 1, fontSize: 15, fontWeight: 500 }}>{tr("Archived releases")}</Typography>
                 <Box sx={{ overflowX: "auto" }}>
                   <Table size="small" sx={{ minWidth: 640, "& td, & th": { borderColor: "#EEF0F3" } }}>
                     <TableHead><TableRow sx={{ "& th": { fontWeight: 500, fontSize: 12, color: C.muted } }}>
