@@ -30,7 +30,11 @@ const review = (m?: LayerMap) => !!m && m.role !== "ignore" && !!m.target && ["S
 const ASIDE: Record<string, string> = { basemap: "base map", sheet: "sheet", annotation: "annotation" };
 
 export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMapping, onError }: Props) {
-  const [sel, setSel] = useState<string | null>(null);
+  // several layers can be picked at once (Shift / Ctrl+click) and connected or set aside together
+  const [sels, setSels] = useState<string[]>([]);
+  const sel = sels[0] ?? null;
+  const setSel = (k: string | null) => setSels(k ? [k] : []);
+  const [q, setQ] = useState("");
   const [hoverWire, setHoverWire] = useState<string | null>(null);
   const [showAside, setShowAside] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -41,7 +45,8 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
   const fcByName = useMemo(() => new Map(schema.layers.map((l) => [l.name, l])), [schema]);
   const groups = discovery.groups;
   const rows = useMemo(() => groups.map((g) => ({ g, m: mapping.layers[g.key] }))
-    .filter(({ m }) => showAside || (m && m.role !== "ignore")), [groups, mapping, showAside]);
+    .filter(({ m }) => showAside || (m && m.role !== "ignore"))
+    .filter(({ g, m }) => !q || `${g.layer} ${g.style || ""} ${m?.target || ""}`.toLowerCase().includes(q.toLowerCase())), [groups, mapping, showAside, q]);
   const connected = groups.filter((g) => { const m = mapping.layers[g.key]; return m && m.role !== "ignore" && m.target; });
   const toReview = groups.filter((g) => review(mapping.layers[g.key])).length;
   const aside = groups.filter((g) => mapping.layers[g.key]?.role === "ignore").length;
@@ -95,8 +100,27 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
     return () => ro.disconnect();
   }, [measure]);
 
-  const connect = (key: string, target: string) => { onPatch({ layers: { [key]: { target, role: "feature" } } }); setSel(null); };
+  const connect = (_key: string, target: string) => {
+    onPatch({ layers: Object.fromEntries(sels.map((k) => [k, { target, role: "feature" }])) }); setSels([]);
+  };
   const setAside = (key: string) => onPatch({ layers: { [key]: { role: "ignore" } } });
+  const asideSel = () => { onPatch({ layers: Object.fromEntries(sels.map((k) => [k, { role: "ignore" }])) }); setSels([]); };
+  /** click a layer: plain = only this one · Shift = range from the last one · Ctrl/⌘ = add or remove */
+  const lastClick = useRef<string | null>(null);
+  const pickLayer = (key: string, e: React.MouseEvent | React.KeyboardEvent) => {
+    const order = sortedRows.filter((r) => r.m && r.m.role !== "ignore").map((r) => r.g.key);
+    if (e.shiftKey && lastClick.current && order.includes(lastClick.current)) {
+      const a = order.indexOf(lastClick.current), b = order.indexOf(key);
+      const range = order.slice(Math.min(a, b), Math.max(a, b) + 1);
+      setSels((cur) => [...cur.filter((k) => !range.includes(k)), ...range]);
+    } else if (e.ctrlKey || e.metaKey) setSels((cur) => cur.includes(key) ? cur.filter((k) => k !== key) : [...cur, key]);
+    else setSels((cur) => cur.length === 1 && cur[0] === key ? [] : [key]);
+    lastClick.current = key;
+  };
+  useEffect(() => {
+    const h = (e: KeyboardEvent) => { if (e.key === "Escape") setSels([]); };
+    window.addEventListener("keydown", h); return () => window.removeEventListener("keydown", h);
+  }, []);
   const include = (key: string) => { onPatch({ layers: { [key]: { role: "feature" } } }); setSel(key); };
   const autoMap = async () => {
     setBusy(true);
@@ -109,7 +133,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
     if (!a || !b) return null;
     const dx = Math.max(60, (b.x - a.x) * 0.5);
     return { key: g.key, d: `M${a.x} ${a.y} C${a.x + dx} ${a.y} ${b.x - dx} ${b.y} ${b.x} ${b.y}`,
-      mid: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }, warn: review(m), active: sel === g.key || hoverWire === g.key };
+      mid: { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }, warn: review(m), active: sels.includes(g.key) || hoverWire === g.key };
   }).filter(Boolean) as { key: string; d: string; mid: { x: number; y: number }; warn: boolean; active: boolean }[];
 
   return (
@@ -169,16 +193,30 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
 
         {/* left: CAD layers */}
         <Box>
-          <Typography sx={{ fontSize: 12.5, color: C.muted, display: "block", mb: 1.5 }}>In the drawing</Typography>
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5, minHeight: 32 }}>
+            <Typography sx={{ fontSize: 12.5, color: C.muted, flex: 1 }}>In the drawing</Typography>
+            <TextField size="small" placeholder="Filter layers" value={q} onChange={(e) => setQ(e.target.value)} inputProps={{ "aria-label": "Filter layers" }}
+              sx={{ width: 200, "& input": { py: 0.6, fontSize: 13 } }} />
+          </Stack>
+          {sels.length > 0 && (
+            <Stack direction="row" alignItems="center" spacing={1} sx={{ position: "sticky", top: 8, zIndex: 4, mb: 1, px: 1.5, py: 0.75, borderRadius: 1.5, bgcolor: C.ink, color: "#fff" }}>
+              <Typography sx={{ fontSize: 13, flex: 1 }}>{sels.length} selected — click a feature class to connect {sels.length > 1 ? "them" : "it"}</Typography>
+              <Button size="small" onClick={asideSel} sx={{ color: "#fff", minWidth: 0 }}>Set aside</Button>
+              <Button size="small" onClick={() => setSels([])} sx={{ color: "#C9C6BF", minWidth: 0 }}>Clear</Button>
+            </Stack>
+          )}
+          {!sortedRows.length && <Typography variant="body2" sx={{ color: C.muted, py: 2 }}>No layer matches “{q}”</Typography>}
           <Stack spacing={1}>
             {sortedRows.map(({ g, m }) => {
               const off = !m || m.role === "ignore";
-              const on = sel === g.key;
+              const on = sels.includes(g.key);
               const blocks = g.blocks?.slice(0, 2).map((b) => b.name).join(" · ");
               return (
-                <Box key={g.key} onClick={() => (off ? include(g.key) : setSel(on ? null : g.key))}
+                <Box key={g.key} role="button" tabIndex={0} aria-pressed={on}
+                  onClick={(e) => (off ? include(g.key) : pickLayer(g.key, e))}
+                  onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); off ? include(g.key) : pickLayer(g.key, e); } }}
                   sx={{ position: "relative", display: "flex", alignItems: "center", gap: 1, px: 1.5, py: 1, pr: 3.5, borderRadius: 1.5, cursor: "pointer",
-                        bgcolor: "#fff", opacity: off ? 0.5 : 1,
+                        bgcolor: on ? "#F2FAFB" : "#fff", opacity: off ? 0.5 : 1, userSelect: "none", "&:focus-visible": { outline: `2px solid ${C.cyan}`, outlineOffset: 2 },
                         border: `1px solid ${on ? C.cyan : off ? C.line : "#8A9099"}`, boxShadow: on ? `0 0 0 3px ${C.cyanSoft}` : "none" }}>
                   <Box sx={{ flex: 1, minWidth: 0 }}>
                     <Typography sx={{ fontWeight: 600, fontSize: 13.5 }} noWrap>{g.layer}{g.style ? <Box component="span" sx={{ color: C.muted, fontWeight: 400 }}> · {g.style}</Box> : null}</Typography>
@@ -230,9 +268,11 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
                         const sug = suggested.has(l.name);
                         const warn = feeders.some((g) => review(mapping.layers[g.key]));
                         return (
-                          <Box key={l.name} onClick={() => sel && connect(sel, l.name)}
+                          <Box key={l.name} role="button" tabIndex={0}
+                            onClick={() => (sel ? connect(sel, l.name) : setSels(feeders.map((g) => g.key)))}
+                            onKeyDown={(e) => { if (e.key === "Enter") (sel ? connect(sel, l.name) : setSels(feeders.map((g) => g.key))); }}
                             sx={{ position: "relative", display: "flex", alignItems: "center", gap: 1, px: 1.5, py: 0.85, pl: 2.5, borderRadius: 1.5,
-                                  bgcolor: "#fff", cursor: sel ? "pointer" : "default",
+                                  bgcolor: "#fff", cursor: "pointer", "&:focus-visible": { outline: `2px solid ${C.cyan}`, outlineOffset: 2 },
                                   border: sug ? `1px dashed ${C.cyan}` : warn ? "1px dashed #D97706" : "1px solid #8A9099",
                                   "&:hover": sel ? { boxShadow: `0 0 0 3px ${C.cyanSoft}` } : {} }}>
                             <Box ref={(el: HTMLElement | null) => { ports.current[`R:${l.name}`] = el; }}
@@ -264,7 +304,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
         {toReview > 0 && <Chip size="small" label={`${toReview} to review`} sx={{ bgcolor: "#FEF3C7", color: "#92400E" }} />}
         {pending > 0 && <Chip size="small" label={`${pending} not connected`} sx={{ bgcolor: C.redSoft, color: C.red }} />}
         <Typography variant="caption" sx={{ flex: 1 }}>{aside} set aside · {tree.length} geodatabase{tree.length === 1 ? "" : "s"}</Typography>
-        <Typography variant="caption" sx={{ color: C.muted }}>Click a layer, then a feature class. Click a wire to remove it.</Typography>
+        <Typography variant="caption" sx={{ color: C.muted }}>Click a layer, then a feature class · Shift or Ctrl+click picks several · click a feature class to pick its layers · Esc clears</Typography>
       </Stack>
     </Box>
   );
