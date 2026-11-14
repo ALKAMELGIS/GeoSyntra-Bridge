@@ -446,6 +446,11 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   }, [errs, rows, ov, failure, noLevel]);
   function fieldLabel(cls: string, f: string) { const x = ov?.classes[cls]?.fields.find((y) => y.name === f); return x ? nice(x) : f; }
   const shown = items.filter((i) => !focus || i.cls === focus);
+  const firstTab = useRef(true);             // first view: the work list, not an empty attributes pane
+  useEffect(() => { if (firstTab.current && items.length && !selFids.length) { firstTab.current = false; setTab("issues"); } }, [items.length]);
+  const nRed = items.filter((i) => i.tone === RED).length, nAmber = items.length - nRed;
+  const nTotal = Object.keys(rows).length;
+  const nClean = Math.max(0, nTotal - new Set(items.map((i) => i.fid).filter((f) => f != null)).size);
   const workFids = shown.filter((i) => i.fid != null && !i.err).map((i) => i.fid!) ;
 
   const goItem = (it: Item) => {
@@ -674,13 +679,23 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
               <Typography sx={{ fontSize: 12, flex: 1 }}>Only <b>{ov?.classes[focus]?.alias}</b></Typography>
               <IconButton size="small" onClick={() => setFocus(null)}><CloseOutlined sx={{ fontSize: 16 }} /></IconButton></Stack>}
 
+            {/* where the check stands, in three numbers */}
+            <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", borderBottom: `1px solid ${C.line}`, textAlign: "center" }}>
+              {([["Errors", nRed, nRed ? RED : C.muted], ["To fill", nAmber, nAmber ? AMBER : C.muted], ["Clean", nClean, C.green]] as [string, number, string][]).map(([k, v, c], i) => (
+                <Box key={k} sx={{ py: 1.25, borderLeft: i ? `1px solid ${C.line}` : undefined }}>
+                  <Typography sx={{ fontSize: 20, fontWeight: 500, lineHeight: 1.2, color: c, fontVariantNumeric: "tabular-nums" }}>{v.toLocaleString()}</Typography>
+                  <Typography sx={{ fontSize: 12, color: C.muted }}>{k}</Typography>
+                </Box>
+              ))}
+            </Box>
+
             {/* Auto-Fix: one button, with what the last run did */}
             <Box sx={{ m: 1.5, p: 1.5, borderRadius: 2, border: `1px solid ${C.line}`, bgcolor: "#FAFBFC" }}>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <AutoFixHighOutlined sx={{ fontSize: 20, color: C.cyan }} />
                 <Tooltip title="Fix → check → undo what got worse"><Typography sx={{ fontSize: 13.5, fontWeight: 700, flex: 1 }}>Auto-Fix</Typography></Tooltip>
                 <Button size="small" variant="contained" disabled={busy || !nFixable} onClick={() => runAutofix()}
-                  startIcon={busy && running ? <CircularProgress size={14} color="inherit" /> : undefined}>{nFixable ? `Fix ${nFixable}` : "—"}</Button>
+                  startIcon={busy && running ? <CircularProgress size={14} color="inherit" /> : undefined}>{nFixable ? `Fix ${nFixable}` : "None"}</Button>
               </Stack>
               {report && report.at && (
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.25, pt: 1, borderTop: `1px dashed ${C.line}` }}>

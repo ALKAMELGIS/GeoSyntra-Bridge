@@ -92,7 +92,7 @@ export function GenerateStep({ job, schema, results, onGenerate, mapping, onPatc
               <Button variant="contained" size="large" startIcon={<FileDownloadOutlined />} href={api.downloadUrl(job.job_id, "package")}>Download package</Button>
             </>
           : <Button variant="contained" size="large" startIcon={<StorageOutlined />} disabled={busy || !results || blocked || cantPay} onClick={onGenerate}>
-              {done ? "Generate again" : "Generate"}</Button>}
+              {done ? "Generate again" : blocked ? `Fix ${blockers.length} first` : quote?.enforced && quote.cost && !quote.already_paid ? `Generate · ${quote.cost} credits` : "Generate"}</Button>}
       </Stack>
       {busy && <Box><LinearProgress variant="determinate" value={job.progress * 100} sx={{ height: 4, borderRadius: 2 }} /><Typography variant="caption">{job.message}</Typography></Box>}
       {job.status === "failed" && job.stage === "generate" && <Alert severity="error">{job.message}</Alert>}

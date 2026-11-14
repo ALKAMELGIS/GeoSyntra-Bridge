@@ -217,13 +217,14 @@ export function AttributesPane(p: PaneProps) {
     return (
       <Stack alignItems="center" justifyContent="center" spacing={1.25} sx={{ flex: 1, p: 4, color: C.muted, textAlign: "center" }}>
         <NearMeOutlined sx={{ fontSize: 30 }} />
-        <Typography sx={{ fontSize: 13.5 }}>Select on the map</Typography>
+        <Typography sx={{ fontSize: 14, fontWeight: 500, color: C.ink }}>Pick a feature on the map</Typography>
+        <Typography sx={{ fontSize: 12.5, maxWidth: 240 }}>Its attributes open here. Select several to fill them together.</Typography>
         {p.focus && all.length > 0 && (
           <Button size="small" variant="outlined" startIcon={<SelectAllOutlined />} onClick={() => p.setSelection(all)}>
             Select all {ov?.classes[p.focus]?.alias} ({all.length.toLocaleString()})
           </Button>
         )}
-        <Button size="small" onClick={() => p.onNext(null)}>Next to fill</Button>
+        <Button size="small" variant="contained" onClick={() => p.onNext(null)}>Go to the next one to fill</Button>
       </Stack>
     );
   }
