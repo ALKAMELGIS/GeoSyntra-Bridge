@@ -139,7 +139,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
   return (
     <Box sx={{ minHeight: "calc(100vh - 118px)", display: "flex", flexDirection: "column" }}>
       {/* header */}
-      <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: { xs: 2, md: 3 }, minHeight: 64, bgcolor: "#FBFAF8", borderBottom: `1px solid ${C.line}` }}>
+      <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: { xs: 2, md: 3 }, minHeight: 64, bgcolor: "#FAFBFC", borderBottom: `1px solid ${C.line}` }}>
         <Box sx={{ width: 36, height: 36, borderRadius: 1.5, bgcolor: C.bg, display: "grid", placeItems: "center", fontSize: 10.5, fontWeight: 500, color: C.muted, fontFamily: "ui-monospace, Menlo, monospace" }}>
           {(job.file.format || "dwg").toUpperCase()}</Box>
         <Box sx={{ flex: 1, minWidth: 0 }}>
@@ -154,7 +154,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
             return (
               <Tooltip key={k} title={n ? `${conn.toLocaleString()} of ${n.toLocaleString()} ${GEO[k]} objects connected` : `The drawing has no ${GEO[k]} objects on asset layers`}>
                 <Stack direction="row" spacing={0.75} alignItems="center" sx={{ fontSize: 13, color: C.muted, whiteSpace: "nowrap" }}>
-                  <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: !n ? "#C9C6BF" : conn === n ? C.green : C.amber }} />
+                  <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: !n ? "#C5CBD3" : conn === n ? C.green : C.amber }} />
                   <span>{GEO[k][0].toUpperCase() + GEO[k].slice(1)}s</span>
                   <Box component="span" sx={{ color: C.ink, fontVariantNumeric: "tabular-nums" }}>{conn.toLocaleString()} / {n.toLocaleString()}</Box>
                 </Stack>
@@ -202,7 +202,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
             <Stack direction="row" alignItems="center" spacing={1} sx={{ position: "sticky", top: 8, zIndex: 4, mb: 1, px: 1.5, py: 0.75, borderRadius: 1.5, bgcolor: C.ink, color: "#fff" }}>
               <Typography sx={{ fontSize: 13, flex: 1 }}>{sels.length} selected — click a feature class to connect {sels.length > 1 ? "them" : "it"}</Typography>
               <Button size="small" onClick={asideSel} sx={{ color: "#fff", minWidth: 0 }}>Set aside</Button>
-              <Button size="small" onClick={() => setSels([])} sx={{ color: "#C9C6BF", minWidth: 0 }}>Clear</Button>
+              <Button size="small" onClick={() => setSels([])} sx={{ color: "#C5CBD3", minWidth: 0 }}>Clear</Button>
             </Stack>
           )}
           {!sortedRows.length && <Typography variant="body2" sx={{ color: C.muted, py: 2 }}>No layer matches “{q}”</Typography>}
@@ -298,7 +298,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
       </Box>
 
       {/* footer */}
-      <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: { xs: 2, md: 3 }, minHeight: 48, bgcolor: "#FBFAF8", borderTop: `1px solid ${C.line}`,
+      <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: { xs: 2, md: 3 }, minHeight: 48, bgcolor: "#FAFBFC", borderTop: `1px solid ${C.line}`,
                                                                   flexWrap: "wrap", position: "sticky", bottom: 0, zIndex: 3 }}>
         <Typography variant="body2"><b>{connected.length} of {groups.length - aside}</b> connected</Typography>
         {toReview > 0 && <Chip size="small" label={`${toReview} to review`} sx={{ bgcolor: "#FEF3C7", color: "#92400E" }} />}

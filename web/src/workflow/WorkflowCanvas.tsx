@@ -111,7 +111,7 @@ export function WorkflowCanvas({ model }: { model: WorkflowModel }) {
 
   return (
     <Box>
-      <Stack direction="row" alignItems="center" spacing={1} sx={{ px: { xs: 2, md: 3 }, minHeight: 48, bgcolor: "#FBFAF8", borderBottom: `1px solid ${C.line}`, flexWrap: "wrap" }}>
+      <Stack direction="row" alignItems="center" spacing={1} sx={{ px: { xs: 2, md: 3 }, minHeight: 48, bgcolor: "#FAFBFC", borderBottom: `1px solid ${C.line}`, flexWrap: "wrap" }}>
         <Typography sx={{ fontSize: 13.5, fontWeight: 500, minWidth: 0 }} noWrap>
           {model.layers.length} CAD layers → {model.templates.length} geodatabase writer{model.templates.length === 1 ? "" : "s"}
           {moved > 0 && <Box component="span" sx={{ ml: 1, color: C.muted, fontWeight: 400 }}>· {moved} box{moved > 1 ? "es" : ""} moved</Box>}

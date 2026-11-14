@@ -134,7 +134,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
                 {([["all", "All"], ["attention", "Needs you"], ["open", "In progress"], ["done", "Delivered"]] as [Filter, string][]).map(([k, label]) => (
                   <ButtonBase key={k} onClick={() => setFilter(k)} aria-pressed={filter === k}
                     sx={{ height: 30, px: 1.5, gap: 0.75, borderRadius: 2, fontSize: 13, border: `1px solid ${filter === k ? C.ink : C.line}`,
-                          bgcolor: filter === k ? C.ink : "#fff", color: filter === k ? "#F3F1ED" : C.ink }}>
+                          bgcolor: filter === k ? C.ink : "#fff", color: filter === k ? "#F5F6F8" : C.ink }}>
                     {label}<Box component="span" sx={{ fontFamily: MONO, fontSize: 12, opacity: 0.7 }}>{groups[k].length}</Box>
                   </ButtonBase>
                 ))}
@@ -148,7 +148,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
                   : <Typography sx={{ fontSize: 12, color: C.muted }}>Files are deleted after 72 hours</Typography>}
               </Stack>
               <Box sx={{ overflowX: "auto" }}>
-                <Table sx={{ minWidth: 760, "& td, & th": { borderColor: "#EFEDE9" } }}>
+                <Table sx={{ minWidth: 760, "& td, & th": { borderColor: "#EDEFF2" } }}>
                   <TableHead><TableRow sx={{ "& th": { bgcolor: "#fff", fontWeight: 500, fontSize: 12 } }}>
                     <TableCell padding="checkbox" sx={{ pl: 1 }}><Checkbox size="small" inputProps={{ "aria-label": "Select all drawings" }}
                       checked={list.length > 0 && list.every((j) => sel[j.job_id || ""])}
@@ -168,7 +168,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
                           </TableCell>
                           <TableCell sx={{ pl: 0.5 }}>
                             <Stack direction="row" spacing={1.25} alignItems="center">
-                              <Box sx={{ width: 32, height: 32, flex: "none", borderRadius: 2, bgcolor: "#F1EFEB", display: "grid", placeItems: "center", fontFamily: MONO, fontSize: 10, color: C.muted }}>{ext(j.file?.name)}</Box>
+                              <Box sx={{ width: 32, height: 32, flex: "none", borderRadius: 2, bgcolor: "#EEF0F3", display: "grid", placeItems: "center", fontFamily: MONO, fontSize: 10, color: C.muted }}>{ext(j.file?.name)}</Box>
                               <Box sx={{ minWidth: 0 }}>
                                 <Typography sx={{ fontWeight: 500, fontSize: 13.5 }} noWrap>{j.file?.name}{j.extra_files?.length ? <Box component="span" sx={{ color: C.muted, fontWeight: 400 }}> + {j.extra_files.length} sheet{j.extra_files.length === 1 ? "" : "s"}</Box> : null}</Typography>
                                 <Typography variant="caption" noWrap component="div" sx={{ maxWidth: 380 }}>{(j.schema_name || "").split(" — ")[0]}</Typography>
@@ -211,7 +211,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
               {groups.attention.slice(0, 6).map((j) => {
                 const n = counts(j.message);
                 return (
-                  <ButtonBase key={j.job_id} onClick={() => open(j.job_id)} sx={{ justifyContent: "flex-start", textAlign: "left", gap: 1.25, alignItems: "flex-start", borderRadius: 2, p: 0.75, mx: -0.75, "&:hover": { bgcolor: "#F7F6F3" } }}>
+                  <ButtonBase key={j.job_id} onClick={() => open(j.job_id)} sx={{ justifyContent: "flex-start", textAlign: "left", gap: 1.25, alignItems: "flex-start", borderRadius: 2, p: 0.75, mx: -0.75, "&:hover": { bgcolor: "#F5F6F8" } }}>
                     <Box sx={{ width: 6, height: 6, mt: 0.9, flex: "none", borderRadius: "50%", bgcolor: j.status === "failed" ? C.red : C.amber }} />
                     <Box sx={{ minWidth: 0 }}>
                       <Typography sx={{ fontSize: 13.5, fontWeight: 500 }} noWrap>{j.file?.name}</Typography>

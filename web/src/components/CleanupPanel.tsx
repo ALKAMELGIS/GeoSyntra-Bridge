@@ -133,15 +133,15 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
               const on = cur?.id === p.id, d = dec[p.id];
               return (
                 <Stack key={p.id} id={`cl-${p.id}`} direction="row" spacing={1} alignItems="center" onClick={() => setSel(p.id)}
-                  sx={{ pl: 0.5, pr: 1.5, height: 52, borderBottom: `1px solid #F1EFEB`, cursor: "pointer",
-                        bgcolor: on ? "#F1EFEB" : "transparent", boxShadow: on ? `inset 3px 0 0 ${C.ink}` : "none", "&:hover": { bgcolor: on ? "#F1EFEB" : "#F7F6F3" } }}>
+                  sx={{ pl: 0.5, pr: 1.5, height: 52, borderBottom: `1px solid #EEF0F3`, cursor: "pointer",
+                        bgcolor: on ? "#EEF0F3" : "transparent", boxShadow: on ? `inset 3px 0 0 ${C.ink}` : "none", "&:hover": { bgcolor: on ? "#EEF0F3" : "#F5F6F8" } }}>
                   <Checkbox size="small" disabled={p.action === "review"} checked={d === "approved"} inputProps={{ "aria-label": `Approve ${ACTION[p.action]} on ${p.layer}` }}
                     onClick={(e) => e.stopPropagation()} onChange={(e) => setDec({ ...dec, [p.id]: e.target.checked ? "approved" : "rejected" })} />
                   <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography sx={{ fontSize: 13, fontWeight: 500 }} noWrap>{ACTION[p.action]} · {p.layer}</Typography>
                     <Typography sx={{ fontSize: 12, color: C.muted }} noWrap>{p.detail}</Typography>
                   </Box>
-                  <Typography sx={{ fontSize: 11, color: d === "approved" ? C.green : d === "rejected" ? C.muted : "#A3A19B", fontFamily: '"Geist Mono", monospace', flex: "none" }}>
+                  <Typography sx={{ fontSize: 11, color: d === "approved" ? C.green : d === "rejected" ? C.muted : "#A0A7B3", fontFamily: '"Geist Mono", monospace', flex: "none" }}>
                     {d === "approved" ? "approve" : d === "rejected" ? "keep" : `#${i + 1}`}
                   </Typography>
                 </Stack>
@@ -165,9 +165,9 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
 
         {/* the map is the decision surface */}
         <Box sx={{ position: "relative", minHeight: 360, bgcolor: C.ink }}>
-          {cur ? <Preview p={cur} /> : <Typography sx={{ color: "#A3A19B", p: 3 }}>Nothing in this list</Typography>}
+          {cur ? <Preview p={cur} /> : <Typography sx={{ color: "#A0A7B3", p: 3 }}>Nothing in this list</Typography>}
           {cur && (
-            <Box sx={{ position: "absolute", left: 16, right: 16, bottom: 16, bgcolor: "#fff", borderRadius: 2.5, boxShadow: "0 8px 28px rgba(22,23,26,.22)",
+            <Box sx={{ position: "absolute", left: 16, right: 16, bottom: 16, bgcolor: "#fff", borderRadius: 2.5, boxShadow: "0 8px 28px rgba(20,24,31,.22)",
                        p: 2, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 2 }}>
               <Box sx={{ flex: "1 1 280px", minWidth: 0 }}>
                 <Typography sx={{ fontSize: 12, color: C.muted, fontVariantNumeric: "tabular-nums" }}>{(idx + 1).toLocaleString()} of {list.length.toLocaleString()} · {cur.layers.join(", ")}</Typography>
@@ -238,7 +238,7 @@ function Preview({ p }: { p: Proposal }) {
   return (
     <Box sx={{ position: "absolute", inset: 0 }}>
       {showSat ? <GeoPreview shapes={shapes} height="100%" fitKey={p.id} /> : (
-        <Box sx={{ position: "absolute", inset: 0, bgcolor: "#F7F6F3", backgroundImage: "linear-gradient(#ECEAE5 1px, transparent 1px), linear-gradient(90deg, #ECEAE5 1px, transparent 1px)", backgroundSize: "32px 32px" }}>
+        <Box sx={{ position: "absolute", inset: 0, bgcolor: "#F5F6F8", backgroundImage: "linear-gradient(#ECEAE5 1px, transparent 1px), linear-gradient(90deg, #ECEAE5 1px, transparent 1px)", backgroundSize: "32px 32px" }}>
           <svg viewBox={`0 0 ${v.W} ${v.H}`} width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Geometry preview">
             {[...p.geom].sort((a, b) => (a.role === "keep" ? 0 : 1) - (b.role === "keep" ? 0 : 1)).map((g, i) => (
               g.k === "point" || g.c.length === 1
@@ -258,14 +258,14 @@ function Preview({ p }: { p: Proposal }) {
       {/* view switch + legend, on the map */}
       <Stack direction="row" spacing={1} alignItems="center" sx={{ position: "absolute", top: 16, left: 16, zIndex: 2 }}>
         {geo && (
-          <Stack direction="row" sx={{ bgcolor: "#fff", borderRadius: 2, p: 0.5, boxShadow: "0 2px 10px rgba(22,23,26,.18)" }}>
+          <Stack direction="row" sx={{ bgcolor: "#fff", borderRadius: 2, p: 0.5, boxShadow: "0 2px 10px rgba(20,24,31,.18)" }}>
             {[["Satellite", true], ["Drawing", false]].map(([l, on]) => (
               <ButtonBase key={String(l)} onClick={() => setSat(on as boolean)} aria-pressed={sat === on}
                 sx={{ height: 28, px: 1.5, borderRadius: 1.5, fontSize: 12.5, color: sat === on ? "#fff" : C.ink, bgcolor: sat === on ? C.ink : "transparent" }}>{l as string}</ButtonBase>
             ))}
           </Stack>
         )}
-        <Stack direction="row" spacing={1.5} alignItems="center" sx={{ bgcolor: "rgba(255,255,255,.94)", borderRadius: 2, px: 1.5, height: 36, fontSize: 12, boxShadow: "0 2px 10px rgba(22,23,26,.18)" }}>
+        <Stack direction="row" spacing={1.5} alignItems="center" sx={{ bgcolor: "rgba(255,255,255,.94)", borderRadius: 2, px: 1.5, height: 36, fontSize: 12, boxShadow: "0 2px 10px rgba(20,24,31,.18)" }}>
           <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 3, bgcolor: "#DC2626", borderRadius: 1 }} /><span>would change</span></Stack>
           {p.keep && <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 5, bgcolor: "#60A5FA", borderRadius: 1 }} /><span>kept</span></Stack>}
           <Box component="span" sx={{ color: C.muted, fontFamily: '"Geist Mono", monospace' }}>≈ {span < 1 ? `${Math.round(span * 1000)} mm` : `${span.toFixed(1)} m`}</Box>

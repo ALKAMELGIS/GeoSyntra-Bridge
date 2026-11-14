@@ -79,7 +79,7 @@ export function SubmissionPanel({ job, mapping, onPatch, compact, showBoundary, 
           {st.name ? `${st.name}.gdb` : "File name builds as you fill the form"}
         </Box>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ ml: "auto" }}>
-          <Box sx={{ width: 120, height: 4, borderRadius: 2, bgcolor: "#E4E2DD", overflow: "hidden" }}>
+          <Box sx={{ width: 120, height: 4, borderRadius: 2, bgcolor: "#E3E6EA", overflow: "hidden" }}>
             <Box sx={{ height: "100%", width: `${req.length ? (filled / req.length) * 100 : 100}%`, bgcolor: nMissing ? C.amber : C.green, transition: "width .3s" }} />
           </Box>
           <Typography sx={{ fontSize: 12.5, color: nMissing ? C.amber : C.green, whiteSpace: "nowrap", fontVariantNumeric: "tabular-nums" }}>
@@ -92,14 +92,14 @@ export function SubmissionPanel({ job, mapping, onPatch, compact, showBoundary, 
       {show && <>
 
       {/* three parts of the standard, one at a time */}
-      <Stack direction="row" role="tablist" aria-label="Submission" sx={{ mt: 1.5, p: 0.5, gap: 0.5, borderRadius: 2, bgcolor: "#EEEDE9", width: "fit-content", maxWidth: "100%", overflowX: "auto" }}>
+      <Stack direction="row" role="tablist" aria-label="Submission" sx={{ mt: 1.5, p: 0.5, gap: 0.5, borderRadius: 2, bgcolor: "#F3F4F6", width: "fit-content", maxWidth: "100%", overflowX: "auto" }}>
         {GROUPS.map(([g, label]) => {
           const m = missingIn(g), on = tab === g;
           return (
             <Box key={g} component="button" role="tab" aria-selected={on} onClick={() => setOpen(g)}
               sx={{ display: "flex", alignItems: "center", gap: 1, height: 34, px: 1.5, border: 0, borderRadius: 1.5, cursor: "pointer", font: "inherit",
                     fontSize: 13.5, fontWeight: on ? 500 : 400, whiteSpace: "nowrap", color: on ? C.ink : C.muted,
-                    bgcolor: on ? "#fff" : "transparent", boxShadow: on ? "0 1px 2px rgba(22,23,26,.08)" : "none" }}>
+                    bgcolor: on ? "#fff" : "transparent", boxShadow: on ? "0 1px 2px rgba(20,24,31,.08)" : "none" }}>
               {label}
               {m > 0 ? <Box component="span" sx={{ fontSize: 11.5, color: C.amber, fontVariantNumeric: "tabular-nums" }}>{m} to fill</Box>
                 : <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: C.green }} />}

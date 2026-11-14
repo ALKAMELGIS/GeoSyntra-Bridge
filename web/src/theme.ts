@@ -1,12 +1,12 @@
 import { createTheme } from "@mui/material/styles";
 
 export const C = {
-  navy: "#16171A",      // graphite ink (brand) — primary actions, active states
+  navy: "#14181F",      // graphite ink (brand) — primary actions, active states
   navy2: "#3A414C",
-  ink: "#16171A",
-  muted: "#5F5D58",
-  line: "#E4E2DD",
-  bg: "#EEEDE9",
+  ink: "#14181F",
+  muted: "#5D6573",
+  line: "#E3E6EA",
+  bg: "#F3F4F6",
   cyan: "#0B6B7D",      // drafting cyan, darkened for contrast on white — progress, current step
   cyanSoft: "#E3F3F6",
   graphite: "#1B1E23",

@@ -12,14 +12,14 @@ export function AppHeader({ me, mode, go, onLogout, active, right }: Props) {
   if (mode === "accounts") links.push(["Account & billing", "/account", "account"]);
   if (staff && mode === "accounts") links.push(["Owner console", "/owner", "owner"]);   // nothing to administer in local use
   return (
-    <AppBar position="sticky" sx={{ bgcolor: "#FBFAF8", color: "#16171A", borderBottom: "1px solid #E4E2DD", top: 0, left: 0, right: 0 }}>
+    <AppBar position="sticky" sx={{ bgcolor: "#FAFBFC", color: "#14181F", borderBottom: "1px solid #E3E6EA", top: 0, left: 0, right: 0 }}>
       <Toolbar sx={{ gap: 3, minHeight: "58px !important" }}>
         <Brand go={go} />
         <Box component="nav" sx={{ display: { xs: "none", md: "flex" }, gap: 0.5, alignSelf: "stretch" }}>
           {links.map(([label, to, key]) => (
             <ButtonBase key={key} onClick={() => go(to)} aria-current={active === key ? "page" : undefined}
-              sx={{ px: 1.5, fontSize: 14, fontWeight: active === key ? 500 : 400, color: active === key ? "#16171A" : "#5F5D58",
-                    borderBottom: `2px solid ${active === key ? "#16171A" : "transparent"}`, "&:hover": { color: "#16171A" } }}>
+              sx={{ px: 1.5, fontSize: 14, fontWeight: active === key ? 500 : 400, color: active === key ? "#14181F" : "#5D6573",
+                    borderBottom: `2px solid ${active === key ? "#14181F" : "transparent"}`, "&:hover": { color: "#14181F" } }}>
               {label.replace("&", "and")}
             </ButtonBase>
           ))}

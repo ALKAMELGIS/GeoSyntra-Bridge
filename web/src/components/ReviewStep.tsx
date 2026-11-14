@@ -708,8 +708,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       {/* ================= map: edit ribbon · map · status bar */}
       <Box sx={{ display: "flex", flexDirection: "column", minWidth: 0, minHeight: 0 }}>
         {/* ribbon: tabs, then the groups of the active tab */}
-        <Box sx={{ flex: "none", borderBottom: `1px solid ${C.line}`, bgcolor: "#FAFAF8" }}>
-          <Stack direction="row" role="tablist" aria-label="Map tools" sx={{ px: 1, gap: 0.5, borderBottom: `1px solid ${C.line}`, bgcolor: "#F4F3F0" }}>
+        <Box sx={{ flex: "none", borderBottom: `1px solid ${C.line}`, bgcolor: "#FAFBFC" }}>
+          <Stack direction="row" role="tablist" aria-label="Map tools" sx={{ px: 1, gap: 0.5, borderBottom: `1px solid ${C.line}`, bgcolor: "#F7F8FA" }}>
             {(["map", "edit"] as const).map((k) => (
               <ButtonBase key={k} role="tab" aria-selected={rtab === k} onClick={() => setRtabP(k)}
                 sx={{ px: 1.5, height: 30, fontSize: 13, fontWeight: rtab === k ? 600 : 400, color: rtab === k ? C.ink : C.muted,
@@ -849,7 +849,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
 
         {pick && (
           <Box sx={{ position: "absolute", left: Math.min(pick.x + 12, (el.current?.clientWidth || 600) - 260), top: Math.min(pick.y + 12, (el.current?.clientHeight || 400) - 40 - pick.fids.length * 32),
-                     width: 248, bgcolor: "#fff", borderRadius: 2, boxShadow: "0 8px 24px rgba(22,23,26,.2)", zIndex: 4, py: 0.5 }}>
+                     width: 248, bgcolor: "#fff", borderRadius: 2, boxShadow: "0 8px 24px rgba(20,24,31,.2)", zIndex: 4, py: 0.5 }}>
             <Stack direction="row" alignItems="center" sx={{ px: 1.5, py: 0.5 }}>
               <Typography sx={{ fontSize: 12, color: C.muted, flex: 1 }}>{pick.fids.length} features here</Typography>
               <ButtonBase onClick={() => { setSelection(pick.fids); setPick(null); }} sx={{ fontSize: 12, color: C.cyan, px: 0.5 }}>Select all</ButtonBase>
@@ -859,7 +859,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
               return (
                 <ButtonBase key={fid} onClick={() => { setSelection([fid]); setPick(null); }}
                   onMouseEnter={() => setSelection([fid])}
-                  sx={{ width: "100%", justifyContent: "flex-start", gap: 1, px: 1.5, height: 32, fontSize: 13, bgcolor: on ? "#F1EFEB" : undefined, "&:hover": { bgcolor: "#F7F6F3" } }}>
+                  sx={{ width: "100%", justifyContent: "flex-start", gap: 1, px: 1.5, height: 32, fontSize: 13, bgcolor: on ? "#EEF0F3" : undefined, "&:hover": { bgcolor: "#F5F6F8" } }}>
                   <Box sx={{ width: 8, height: 8, borderRadius: 0.5, flex: "none", bgcolor: colorOf(r?.target || "") }} />
                   <Box component="span" sx={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "left" }}>{ov?.classes[r?.target || ""]?.alias || r?.target}</Box>
                   <Box component="span" sx={{ color: C.muted, fontFamily: '"Geist Mono", monospace', fontSize: 11 }}>#{r?.objectid ?? fid}</Box>
@@ -881,7 +881,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       </Box>
 
         {/* status bar */}
-        <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: "none", height: 28, px: 1.5, borderTop: `1px solid ${C.line}`, bgcolor: "#FAFAF8",
+        <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: "none", height: 28, px: 1.5, borderTop: `1px solid ${C.line}`, bgcolor: "#FAFBFC",
                    fontSize: 12, color: C.muted, fontFamily: '"Geist Mono", ui-monospace, monospace', whiteSpace: "nowrap", overflow: "hidden" }}>
           <span ref={scaleEl}>1:—</span>
           <span ref={xyEl} style={{ minWidth: 230 }}>—</span>
@@ -1068,9 +1068,9 @@ function Tip({ t, tip, k }: { t: string; tip?: string; k?: string }) {
   return <>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>;
 }
 const tone = (on?: boolean, accent?: boolean, disabled?: boolean) => ({
-  color: disabled ? "#B5B3AE" : on ? (accent ? C.cyan : "#fff") : C.ink,
+  color: disabled ? "#B3B9C3" : on ? (accent ? C.cyan : "#fff") : C.ink,
   bgcolor: on ? (accent ? C.cyanSoft : C.ink) : "transparent",
-  "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#EAE8E3" },
+  "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#E8EBEF" },
 });
 /** Large ribbon button: icon over label. */
 function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean; big?: boolean }) {

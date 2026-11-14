@@ -37,8 +37,8 @@ function Seg<T extends string>({ value, options, onChange }: { value: T; options
         <Box key={k} role="tab" aria-selected={value === k} tabIndex={0} onClick={() => onChange(k)}
           onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onChange(k)}
           sx={{ px: 1.5, height: 30, display: "flex", alignItems: "center", borderRadius: 1.5, cursor: "pointer", fontSize: 13, whiteSpace: "nowrap",
-            fontWeight: value === k ? 500 : 400, color: value === k ? C.ink : C.muted, bgcolor: value === k ? "#FBFAF8" : "transparent",
-            boxShadow: value === k ? "0 1px 2px rgba(22,23,26,.08)" : "none", transition: "background-color .15s, color .15s",
+            fontWeight: value === k ? 500 : 400, color: value === k ? C.ink : C.muted, bgcolor: value === k ? "#FAFBFC" : "transparent",
+            boxShadow: value === k ? "0 1px 2px rgba(20,24,31,.08)" : "none", transition: "background-color .15s, color .15s",
             "&:focus-visible": { outline: `2px solid ${C.ink}`, outlineOffset: 1 } }}>{l}</Box>
       ))}
     </Box>
@@ -82,8 +82,8 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
     if (!picking || localLines.length) return;
     api.cadLocal(job.job_id).then((g) => setLocalLines(g.features.flatMap((f: any): GeoShape[] => {
       const t = f.geometry?.type, c = f.geometry?.coordinates;
-      if (t === "LineString") return [{ c, k: "line", color: "#5F5D58", width: 1, halo: false }];
-      if (t === "Polygon") return [{ c: c[0], k: "line", color: "#5F5D58", width: 1, halo: false }];
+      if (t === "LineString") return [{ c, k: "line", color: "#5D6573", width: 1, halo: false }];
+      if (t === "Polygon") return [{ c: c[0], k: "line", color: "#5D6573", width: 1, halo: false }];
       return [];
     }))).catch(() => setLocalLines([]));
   }, [picking]);
@@ -209,18 +209,18 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
           <Box sx={{ minWidth: 0 }}>
             <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1, minHeight: 28 }}>
               <Box sx={{ width: 22, height: 22, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 12, fontWeight: 600,
-                bgcolor: pend ? "#E4E2DD" : C.ink, color: pend ? C.muted : "#FBFAF8" }}>1</Box>
+                bgcolor: pend ? "#E3E6EA" : C.ink, color: pend ? C.muted : "#FAFBFC" }}>1</Box>
               <Typography sx={{ fontSize: 13, color: pend ? C.muted : C.ink }}>Click a point in the drawing</Typography>
               <Box sx={{ width: 22, height: 22, borderRadius: "50%", display: "grid", placeItems: "center", fontSize: 12, fontWeight: 600,
-                bgcolor: pend ? C.ink : "#E4E2DD", color: pend ? "#FBFAF8" : C.muted }}>2</Box>
+                bgcolor: pend ? C.ink : "#E3E6EA", color: pend ? "#FAFBFC" : C.muted }}>2</Box>
               <Typography sx={{ fontSize: 13, color: pend ? C.ink : C.muted }}>Click the same place on the satellite image</Typography>
             </Stack>
             <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" }, gap: 1.5 }}>
               <Box>
-                <GeoPreview local bg="#FBFAF8" picking={!pend} height={440} fitKey={`local:${localLines.length}`} fit={localFit}
+                <GeoPreview local bg="#FAFBFC" picking={!pend} height={440} fitKey={`local:${localLines.length}`} fit={localFit}
                   shapes={[...localLines,
                     ...pts.filter((q) => isFinite(q.x)).map((q, i): GeoShape => ({ c: [[q.x, q.y]], k: "point", color: "#F97316", width: 2, fill: "#F97316", label: String(i + 1) })),
-                    ...(pend ? [{ c: [pend], k: "point", color: "#16171A", width: 2, fill: "#FDE047", label: String(pts.length + 1) } as GeoShape] : [])]}
+                    ...(pend ? [{ c: [pend], k: "point", color: "#14181F", width: 2, fill: "#FDE047", label: String(pts.length + 1) } as GeoShape] : [])]}
                   onPick={(c) => setPend(c)} />
                 <Typography sx={{ mt: 0.75, fontSize: 12.5, color: C.muted }}>Drawing — snaps to the nearest vertex</Typography>
               </Box>
@@ -237,7 +237,7 @@ export function CoordinatePanel({ job, mapping: m, schema, onPatch }: Props) {
         ) : (
         <Box sx={{ minWidth: 0 }}>
           {viewEpsg ? <GeoPreview shapes={shapes} height={440} minSpan={120} fit={fitArea} fitKey={`${viewEpsg}:${preview?.scale}:${lines.length}:${JSON.stringify(m.georef?.offset || null)}`} />
-            : <Box sx={{ height: 440, borderRadius: 1.5, bgcolor: "#F4F3F0", display: "grid", placeItems: "center", color: C.muted, fontSize: 13, px: 4, textAlign: "center" }}>
+            : <Box sx={{ height: 440, borderRadius: 1.5, bgcolor: "#F7F8FA", display: "grid", placeItems: "center", color: C.muted, fontSize: 13, px: 4, textAlign: "center" }}>
                 The drawing appears on the satellite image once its projection is defined</Box>}
           {viewEpsg && <Stack direction="row" spacing={2} sx={{ mt: 0.75, fontSize: 12.5, color: C.muted }}>
             <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 2, bgcolor: "#CA8A04" }} /><span>Drawing</span></Stack>
@@ -268,9 +268,9 @@ function Detected({ cands, m, sug, busy, onDetect, onHover, onPick }: {
           <Box key={c.epsg} role="radio" aria-checked={on} tabIndex={0} onMouseEnter={() => onHover(c.epsg)} onFocus={() => onHover(c.epsg)}
             onClick={() => onPick(c)} onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onPick(c)}
             sx={{ display: "grid", gridTemplateColumns: "18px 1fr", gap: 1.25, px: 1.5, py: 1.25, mb: 0.5, borderRadius: 1.5, cursor: "pointer",
-              border: `1px solid ${on ? C.ink : "transparent"}`, bgcolor: on ? "#FBFAF8" : "transparent", transition: "background-color .15s",
-              "&:hover": { bgcolor: on ? "#FBFAF8" : "#F2F1EE" }, "&:focus-visible": { outline: `2px solid ${C.ink}`, outlineOffset: 2 } }}>
-            <Box sx={{ mt: "3px", width: 14, height: 14, borderRadius: "50%", border: `1.5px solid ${on ? C.ink : "#A3A19B"}`, display: "grid", placeItems: "center" }}>
+              border: `1px solid ${on ? C.ink : "transparent"}`, bgcolor: on ? "#FAFBFC" : "transparent", transition: "background-color .15s",
+              "&:hover": { bgcolor: on ? "#FAFBFC" : "#F2F1EE" }, "&:focus-visible": { outline: `2px solid ${C.ink}`, outlineOffset: 2 } }}>
+            <Box sx={{ mt: "3px", width: 14, height: 14, borderRadius: "50%", border: `1.5px solid ${on ? C.ink : "#A0A7B3"}`, display: "grid", placeItems: "center" }}>
               {on && <Box sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: C.ink }} />}
             </Box>
             <Box sx={{ minWidth: 0 }}>
@@ -307,7 +307,7 @@ function SearchDefine({ m, onPatch }: { m: Mapping; onPatch: (p: unknown) => Pro
         <Stack direction="row" spacing={0.5} sx={{ pb: 0.25 }}>
           {[["m", 1], ["mm", 0.001], ["cm", 0.01], ["ft", 0.3048]].map(([l, v]) => (
             <Button key={l as string} size="small" disabled={!!m.georef} onClick={() => onPatch({ unit_scale: v })}
-              sx={{ minWidth: 40, height: 32, color: m.unit_scale === v ? C.ink : C.muted, bgcolor: m.unit_scale === v ? "#E4E2DD" : "transparent" }}>{l as string}</Button>
+              sx={{ minWidth: 40, height: 32, color: m.unit_scale === v ? C.ink : C.muted, bgcolor: m.unit_scale === v ? "#E3E6EA" : "transparent" }}>{l as string}</Button>
           ))}
         </Stack>
       </Stack>
@@ -461,7 +461,7 @@ function TransformPart({ job, m, tgt, onPatch }: { job: JobState; m: Mapping; tg
                 sx={{ display: "grid", gridTemplateColumns: "18px 1fr auto", gap: 1.25, px: 1.5, py: 1, mb: 0.5, borderRadius: 1.5,
                   cursor: o.available ? "pointer" : "default", opacity: o.available ? 1 : 0.55,
                   border: `1px solid ${on ? C.ink : "transparent"}`, "&:hover": { bgcolor: o.available && !on ? "#F2F1EE" : undefined } }}>
-                <Box sx={{ mt: "3px", width: 14, height: 14, borderRadius: "50%", border: `1.5px solid ${on ? C.ink : "#A3A19B"}`, display: "grid", placeItems: "center" }}>
+                <Box sx={{ mt: "3px", width: 14, height: 14, borderRadius: "50%", border: `1.5px solid ${on ? C.ink : "#A0A7B3"}`, display: "grid", placeItems: "center" }}>
                   {on && <Box sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: C.ink }} />}
                 </Box>
                 <Typography sx={{ fontSize: 13, minWidth: 0 }}>{o.name}{o.best && <Box component="span" sx={{ color: C.green, ml: 1, fontSize: 12 }}>Recommended</Box>}

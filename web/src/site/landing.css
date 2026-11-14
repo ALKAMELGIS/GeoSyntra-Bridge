@@ -1,15 +1,15 @@
 /* Landing — editorial: warm paper, one sans (Geist) for everything, accents by colour,
    particles as the only image. Scoped to .lx so the sign-in pages keep site.css. */
 .lx {
-  --paper: #ebe9e5; --paper-2: #e2dfda; --ink: #16171a; --soft: #5f5d58; --faint: rgba(22, 23, 26, .1);
-  --mark: rgba(22, 23, 26, .055); --bronze: #7d6249; --pill: #16171a; --pill-ink: #f3f1ed;
+  --paper: #F3F4F6; --paper-2: #E8EBEF; --ink: #14181F; --soft: #5D6573; --faint: rgba(20, 24, 31, .1);
+  --mark: rgba(20, 24, 31, .055); --bronze: #7d6249; --pill: #14181F; --pill-ink: #F5F6F8;
   --sans: "Geist", "Helvetica Neue", Arial, sans-serif; --serif: var(--sans);
   background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; line-height: 1.55;
   min-height: 100vh; -webkit-font-smoothing: antialiased; overflow-x: clip; transition: background .4s, color .4s;
 }
 .lx[data-theme="dark"] {
-  --paper: #121314; --paper-2: #1b1c1e; --ink: #ecebe7; --soft: #a3a19b; --faint: rgba(236, 235, 231, .12);
-  --mark: rgba(236, 235, 231, .045); --bronze: #c6a684; --pill: #ecebe7; --pill-ink: #121314;
+  --paper: #111317; --paper-2: #1A1D21; --ink: #ECEEF1; --soft: #A0A7B3; --faint: rgba(236, 238, 241, .12);
+  --mark: rgba(236, 238, 241, .045); --bronze: #c6a684; --pill: #ECEEF1; --pill-ink: #111317;
 }
 .lx[dir="rtl"] { --sans: "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif; --serif: "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif; }
 .lx[dir="rtl"] em { font-weight: 600; }
@@ -497,7 +497,7 @@ circle.hd-f.in { transform: scale(1); }
 
 .hs { animation: lx-up 1s .15s both; }
 .hs-win { border-radius: 16px; overflow: hidden; background: #0f1012; border: 1px solid var(--faint);
-  box-shadow: 0 24px 60px -24px rgba(22, 23, 26, .35); }
+  box-shadow: 0 24px 60px -24px rgba(20, 24, 31, .35); }
 .hs-bar { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #1c1e22; color: #a7abb2; font: 500 12px/1 "Geist Mono", ui-monospace, monospace; }
 .hs-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3d43; }
 .hs-bar i:nth-child(3) { margin-inline-end: 10px; }
@@ -509,14 +509,14 @@ circle.hd-f.in { transform: scale(1); }
 .hs-cadtxt text { font: 500 13px "Geist Mono", ui-monospace, monospace; }
 .hs-tag { position: absolute; top: 12px; padding: 4px 10px; border-radius: 8px; font: 500 12px/1.4 "Geist Mono", ui-monospace, monospace; }
 .hs-tag-l { left: 12px; background: rgba(23, 25, 29, .86); color: #d8dbe0; border: 1px solid rgba(255, 255, 255, .1); }
-.hs-tag-r { right: 12px; background: rgba(255, 255, 255, .9); color: #16171a; }
+.hs-tag-r { right: 12px; background: rgba(255, 255, 255, .9); color: #14181F; }
 .hs-pop { position: absolute; left: 64%; top: 60%; display: grid; grid-template-columns: auto auto; gap: 2px 14px; padding: 10px 12px; border-radius: 10px;
-  background: #fff; color: #16171a; font-size: 12px; box-shadow: 0 8px 24px -10px rgba(22, 23, 26, .45); transition: opacity .25s ease; pointer-events: none; }
+  background: #fff; color: #14181F; font-size: 12px; box-shadow: 0 8px 24px -10px rgba(20, 24, 31, .45); transition: opacity .25s ease; pointer-events: none; }
 .hs-pop b { grid-column: 1 / -1; font: 600 12px "Geist Mono", ui-monospace, monospace; color: #2F7F8C; margin-bottom: 2px; }
-.hs-pop span { color: #6b6a65; } .hs-pop em { font-style: normal; color: #16171a; font-variant-numeric: tabular-nums; }
-.hs-seam { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(22, 23, 26, .2); }
+.hs-pop span { color: #6b6a65; } .hs-pop em { font-style: normal; color: #14181F; font-variant-numeric: tabular-nums; }
+.hs-seam { position: absolute; top: 0; bottom: 0; left: var(--x); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(20, 24, 31, .2); }
 .hs-knob { position: absolute; top: 50%; left: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; border: 0;
-  background: #fff; color: #16171a; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(22, 23, 26, .3); transition: transform .15s ease; }
+  background: #fff; color: #14181F; display: grid; place-items: center; box-shadow: 0 4px 14px rgba(20, 24, 31, .3); transition: transform .15s ease; }
 .hs-knob:active { transform: scale(.94); }
 .hs-chips { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .hs-chips li { display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 99px; border: 1px solid var(--faint);

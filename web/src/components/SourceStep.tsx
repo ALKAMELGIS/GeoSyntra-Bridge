@@ -57,7 +57,7 @@ export function SourceStep(p: Props) {
   return (
     <Stack spacing={full ? 0 : 2}>
       {p.discovery?.schema_ranking && p.job && p.job.schema_id !== "adm_all" && <Box sx={full ? { px: { xs: 2, md: 3 }, pt: 2 } : undefined}><SchemaFit {...p} /></Box>}
-      <Paper sx={full ? { overflow: "hidden", borderRadius: 0, border: 0, boxShadow: "none", bgcolor: "#FBFAF8", minHeight: p.job?.schema_id === "adm_all" ? "calc(100vh - 118px)" : undefined } : { overflow: "hidden" }}>
+      <Paper sx={full ? { overflow: "hidden", borderRadius: 0, border: 0, boxShadow: "none", bgcolor: "#FAFBFC", minHeight: p.job?.schema_id === "adm_all" ? "calc(100vh - 118px)" : undefined } : { overflow: "hidden" }}>
         <FileCard {...p} />
         {p.discovery && p.mapping && p.job && (
           <Box>

@@ -22,17 +22,17 @@ export function UserMenu({ user, mode, go, onLogout }: Props) {
         <Tooltip title="Credits — a geodatabase costs credits, everything else is free">
           <Box component="button" onClick={() => go("/account")}
             sx={{ display: "flex", alignItems: "center", gap: 0.75, border: 0, bgcolor: "transparent", cursor: "pointer", font: "inherit", fontSize: 13,
-                  color: "#5F5D58", px: 1, height: 32, borderRadius: 1, "&:hover": { bgcolor: "#EEEDE9" } }}>
+                  color: "#5D6573", px: 1, height: 32, borderRadius: 1, "&:hover": { bgcolor: "#F3F4F6" } }}>
             <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: !staff && user.credits < 15 ? "#9A5B0F" : "#2F7D55" }} />
             {staff ? "Unlimited" : `${user.credits} credits`}
           </Box>
         </Tooltip>
       )}
       <Box component="button" onClick={(e: React.MouseEvent<HTMLElement>) => setEl(e.currentTarget)}
-        sx={{ display: "flex", alignItems: "center", gap: 1, bgcolor: "#FBFAF8", border: "1px solid #E4E2DD", color: "#16171A", cursor: "pointer",
-              py: 0.4, pl: 0.4, pr: 1.25, borderRadius: 2, font: "inherit", "&:hover": { borderColor: "#C9C6BF" } }}
+        sx={{ display: "flex", alignItems: "center", gap: 1, bgcolor: "#FAFBFC", border: "1px solid #E3E6EA", color: "#14181F", cursor: "pointer",
+              py: 0.4, pl: 0.4, pr: 1.25, borderRadius: 2, font: "inherit", "&:hover": { borderColor: "#C5CBD3" } }}
         aria-label="Account menu">
-        <Avatar src={user.avatar_url || undefined} sx={{ width: 28, height: 28, fontSize: 11.5, fontWeight: 500, bgcolor: "#16171A", color: "#FBFAF8" }}>
+        <Avatar src={user.avatar_url || undefined} sx={{ width: 28, height: 28, fontSize: 11.5, fontWeight: 500, bgcolor: "#14181F", color: "#FAFBFC" }}>
           {(user.name || user.email || "?").split(/\s+/).map((w) => w[0]).slice(0, 2).join("").toUpperCase()}
         </Avatar>
         <Typography noWrap sx={{ fontSize: 13.5, maxWidth: 200, display: { xs: "none", md: "block" } }}>{user.name || user.email}</Typography>
@@ -58,10 +58,10 @@ export function UserMenu({ user, mode, go, onLogout }: Props) {
 export function Brand({ go, subtitle }: { go: (r: string) => void; subtitle?: string }) {
   return (
     <Box component="a" href="#/" onClick={(e: React.MouseEvent) => { e.preventDefault(); go("/"); }}
-      sx={{ display: "flex", alignItems: "center", gap: 1, color: "#16171A", textDecoration: "none", whiteSpace: "nowrap" }}>
+      sx={{ display: "flex", alignItems: "center", gap: 1, color: "#14181F", textDecoration: "none", whiteSpace: "nowrap" }}>
       <LogoMark size={28} />
       <Typography sx={{ fontWeight: 600, fontSize: 16, letterSpacing: "-0.02em" }}>GeoSyntra</Typography>
-      <Typography sx={{ fontSize: 16, color: "#5F5D58", letterSpacing: "-0.01em" }}>Bridge</Typography>
+      <Typography sx={{ fontSize: 16, color: "#5D6573", letterSpacing: "-0.01em" }}>Bridge</Typography>
       {subtitle && <Typography sx={{ fontSize: 13.5, opacity: 0.7, display: { xs: "none", sm: "block" } }}>{subtitle}</Typography>}
     </Box>
   );
