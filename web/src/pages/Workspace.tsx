@@ -55,7 +55,8 @@ const sameMonth = (iso: string | undefined, d: Date) => !!iso && new Date(iso).g
 
 /** Home of the signed-in area: what was delivered, what waits on you, and every drawing in progress. */
 export function Workspace({ me, mode, go, onLogout }: Props) {
-  const [jobs, setJobs] = useState<Job[] | null>(null);
+  // the last list shows at once while the fresh one loads
+  const [jobs, setJobs] = useState<Job[] | null>(() => { try { return JSON.parse(localStorage.getItem("gsb_jobs_cache") || "null"); } catch { return null; } });
   const [q, setQ] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
   const [sel, setSel] = useState<Record<string, boolean>>({});
@@ -64,7 +65,11 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
   const [deleting, setDeleting] = useState(false);
   const nameOf = (id: string) => (jobs || []).find((j) => j.job_id === id)?.file?.name || "drawing";
   const selected = Object.keys(sel).filter((k) => sel[k]);
-  const open = (id?: string) => { window.location.hash = `job=${id}`; };
+  const open = (id?: string) => {
+    const j = (jobs || []).find((x) => x.job_id === id);
+    try { if (j) sessionStorage.setItem("gsb_open_job", JSON.stringify(j)); } catch { /* ignore */ }
+    window.location.hash = `job=${id}`;
+  };
   const doDelete = async () => {
     if (!confirm) return;
     setDeleting(true);
@@ -74,7 +79,15 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
     setSel((x) => { const n = { ...x }; done.forEach((id) => delete n[id]); return n; });
     setDeleting(false); setConfirm(null);
   };
-  useEffect(() => { api.jobs().then(setJobs).catch(() => setJobs([])); }, []);
+  useEffect(() => {
+    let t = 0;
+    const load = () => api.jobs().then((js) => {
+      setJobs(js); try { localStorage.setItem("gsb_jobs_cache", JSON.stringify(js.slice(0, 30))); } catch { /* ignore */ }
+      if (js.some((j) => j.status === "queued" || j.status === "running")) t = window.setTimeout(load, 4000);   // live while something works
+    }).catch(() => setJobs((x) => x || []));
+    load();
+    return () => clearTimeout(t);
+  }, []);
   const [openErr, setOpenErr] = useState<string | null>(() => { try { const m = sessionStorage.getItem("gsb_open_error"); sessionStorage.removeItem("gsb_open_error"); return m; } catch { return null; } });
 
   const all = jobs || [];
@@ -200,7 +213,11 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
                         </TableRow>
                       );
                     })}
-                    {jobs === null && <TableRow><TableCell colSpan={7} sx={{ pl: 2.5, color: C.muted }}>{tr("Loading…")}</TableCell></TableRow>}
+                    {jobs === null && [0, 1, 2].map((i) => (
+                      <TableRow key={i}><TableCell colSpan={7} sx={{ py: 2.25 }}>
+                        <Box sx={{ height: 12, width: `${60 - i * 12}%`, borderRadius: 1, bgcolor: "#EEF0F3" }} />
+                      </TableCell></TableRow>
+                    ))}
                     {jobs && jobs.length > 0 && !list.length && <TableRow><TableCell colSpan={7} sx={{ pl: 2.5, color: C.muted }}>{q ? tr("No drawing matches “{q}”", { q }) : tr("Nothing here")}</TableCell></TableRow>}
                   </TableBody>
                 </Table>

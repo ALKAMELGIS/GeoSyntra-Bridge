@@ -110,6 +110,7 @@ const AR: Record<string, string> = {
   "Upload several releases": "رفع عدة إصدارات", "{n} files read": "قُرئ {n} ملف", "unknown template": "قالب غير معروف", "Drop .zip here": "أفلت ملف ‎.zip هنا",
   "identical — nothing to apply": "مطابق — لا شيء للتطبيق", "ready for review": "جاهز للمراجعة", "Reading and comparing the releases…": "جارٍ قراءة الإصدارات ومقارنتها…",
   "Upload a new release of {t}": "رفع إصدار جديد لقالب {t}", "Apply or reject the release waiting below first": "طبّق الإصدار المنتظر في الأسفل أو ارفضه أولًا",
+  "Opening…": "جارٍ الفتح…",
   // upload
   "Click to upload or drop files": "انقر للرفع أو أفلت الملفات", "Browse files": "تصفح الملفات", "Automatic": "تلقائي",
   "Clean-up": "التنظيف", "Projection": "الإسقاط", "Submission": "التسليم", "Change": "تغيير", "Fill in": "تعبئة", "Add sheet": "إضافة لوحة",

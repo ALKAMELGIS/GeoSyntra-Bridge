@@ -11,6 +11,10 @@ import re
 import shutil
 from contextlib import asynccontextmanager
 import tempfile
+import sys
+
+# reading a large drawing keeps a worker thread busy; switching threads more often keeps the API (list, steps) responsive meanwhile
+sys.setswitchinterval(0.002)
 from typing import Any, Dict, Optional
 
 from fastapi import APIRouter, Body, Depends, FastAPI, File, Form, HTTPException, Request, UploadFile

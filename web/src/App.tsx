@@ -41,7 +41,12 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
   const [schemas, setSchemas] = useState<SchemaSummary[]>([]);
   const [schemaId, setSchemaId] = useState("");
   const [schema, setSchema] = useState<SchemaDetail | null>(null);
-  const [job, setJob] = useState<JobState | null>(null);
+  // an existing conversion opened from the list shows at once (the list hands over what it knows), never the upload page
+  const openId = useRef(jobFromHash());
+  const [job, setJob] = useState<JobState | null>(() => {
+    try { const j = JSON.parse(sessionStorage.getItem("gsb_open_job") || "null"); return j && j.job_id === openId.current ? j : null; } catch { return null; }
+  });
+  const placed = useRef(false);   // the opening step is chosen once, from the job's state
   const [discovery, setDiscovery] = useState<Discovery | null>(null);
   const [mapping, setMapping] = useState<Mapping | null>(null);
   const [results, setResults] = useState<Results | null>(null);
@@ -50,6 +55,12 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
   // a step shows as done only once the user has been there (no ticks on steps nobody opened)
   const [visited, setVisited] = useState<Record<number, boolean>>({});
   const setStep = (n: number) => { setStepState(n); setVisited((v) => (v[n] ? v : { ...v, [n]: true })); };
+  useEffect(() => {
+    if (placed.current || !job || !openId.current) return;
+    placed.current = true;
+    const at = job.status === "completed" ? 3 : job.status === "validated" ? 2 : ["ready", "failed"].includes(job.status) && job.stage !== "discovery" && job.stage !== "upload" ? 1 : 0;
+    if (at) { setStepState(at); setVisited(Object.fromEntries(Array.from({ length: at + 1 }, (_, i) => [i, true]))); }
+  }, [job?.job_id, job?.status]);
   type View = "board" | "workflow" | "steps" | "map";
   const [view, setViewState] = useState<View>(() => { try { const v = localStorage.getItem("gsb_view2") as View; return v || "board"; } catch { return "board"; } });
   const setView = (v: View) => { setViewState(v); try { localStorage.setItem("gsb_view2", v); } catch { /* ignore */ } };
@@ -70,7 +81,7 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
     }).catch((e) => err(e.message));
     const jid = jobFromHash();
     // a conversion that cannot be opened says why and goes back to the list, never to an empty upload page
-    if (jid) api.job(jid).then((j) => { setJob(j); setSchemaId(j.schema_id); })
+    if (jid) api.job(jid).then((j) => { setJob(j); setSchemaId(j.schema_id); try { sessionStorage.removeItem("gsb_open_job"); } catch { /* ignore */ } })
       .catch((e: any) => {
         try { sessionStorage.setItem("gsb_open_error", `Could not open this conversion: ${e?.message || "not found"}`); } catch { /* ignore */ }
         window.location.hash = "/app";
@@ -245,7 +256,7 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
           {/* ---- one line: the drawing, where it stands, the next action */}
           <Stack direction="row" alignItems="center" spacing={1.25} sx={{ px: { xs: 2, md: 3 }, height: 60, bgcolor: "#fff", borderBottom: `1px solid ${C.line}`, position: "sticky", top: 0, zIndex: 6 }}>
             <Tooltip title="All conversions"><IconButton size="small" onClick={() => go("/app")} sx={{ color: C.muted }}><ArrowBackOutlined fontSize="small" /></IconButton></Tooltip>
-            <Typography sx={{ fontWeight: 700, fontSize: 15, minWidth: 0, maxWidth: 260, display: { xs: "none", lg: "block" } }} noWrap>{job ? job.file.name : tr("New conversion")}</Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: 15, minWidth: 0, maxWidth: 260, display: { xs: "none", lg: "block" } }} noWrap>{job ? job.file.name : openId.current ? "" : tr("New conversion")}</Typography>
             {/* ---- the four steps, numbered, in one line */}
             <Stack component="nav" aria-label="Steps" direction="row" alignItems="center" sx={{ flex: 1, justifyContent: "center", minWidth: 0 }}>
               {STEPS.map((t, i) => {
@@ -316,7 +327,10 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
             {showWorkflow && workflowModel && <WorkflowCanvas model={workflowModel} />}
             {showBoard && job && schema && discovery && mapping &&
               <MappingBoard job={job} schema={schema} discovery={discovery} mapping={mapping} onPatch={onPatch} onMapping={setMapping} onError={err} />}
-            {step === 0 && <SourceStep caps={caps} schemas={schemas} schemaId={schemaId} onSchema={onSchema} schema={schema} job={job}
+            {!job && openId.current && (
+              <Stack alignItems="center" spacing={1.5} sx={{ py: 12, color: C.muted }}><CircularProgress size={28} /><Typography sx={{ fontSize: 13.5 }}>{tr("Opening…")}</Typography></Stack>
+            )}
+            {step === 0 && !(!job && openId.current) && <SourceStep caps={caps} schemas={schemas} schemaId={schemaId} onSchema={onSchema} schema={schema} job={job}
                 onSchemaUpdated={async () => { setSchemas(await api.schemas()); setSchema(await api.schema(schemaId)); if (job) { setJob(await api.job(job.job_id)); setMapping(await api.mapping(job.job_id)); } note("Template updated"); }}
               discovery={discovery} mapping={mapping} onUploaded={onUploaded} onPatch={onPatch} onNext={() => setStep(1)} onError={err}
               onValidate={() => { setAuto("validating"); run("validate"); }} onGoElevation={() => { if (results) { setStep(2); setDetails("attributes"); } }} onAddSheets={addSheets} />}
