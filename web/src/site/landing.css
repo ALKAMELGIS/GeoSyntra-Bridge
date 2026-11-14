@@ -48,6 +48,7 @@
 .lx-out:hover { border-color: var(--ink); }
 .lx-link { display: inline-flex; gap: 8px; align-items: center; font-size: 14.5px; font-weight: 500; padding: 6px 0; border-bottom: 1px solid var(--faint); transition: border-color .2s; }
 .lx-link:hover { border-color: var(--ink); }
+button.lx-link { background: none; border-width: 0 0 1px; color: inherit; font-family: inherit; cursor: pointer; }
 .lx .ar { transition: transform .25s; display: inline-block; }
 .lx-pill:hover .ar, .lx-link:hover .ar { transform: translateX(3px); }
 .lx[dir="rtl"] .lx-pill:hover .ar, .lx[dir="rtl"] .lx-link:hover .ar { transform: translateX(-3px); }

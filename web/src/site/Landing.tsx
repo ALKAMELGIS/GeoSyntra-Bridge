@@ -93,7 +93,6 @@ export function Landing({ cfg, user, go }: Props) {
     return () => io.disconnect();
   }, [plans.length, lang]);
 
-  const trial = cfg?.trial_credits ?? 50;
   const main = plans.filter((p) => p.kind !== "pack");
   const packs = plans.filter((p) => p.kind === "pack");
   const choose = (p: Plan) => {
@@ -132,8 +131,8 @@ export function Landing({ cfg, user, go }: Props) {
           <h1>{t.l_h1a}<br /><em>{t.l_h1b}</em></h1>
           <p className="lx-lead">{t.l_lead}</p>
           <div className="lx-ctas">
-            <button className="lx-pill lg" onClick={start}>{user ? t.open_app : t.cta_trial(trial)} <Arrow /></button>
-            <a className="lx-link" href="#platform" onClick={to("platform")}>{t.l_more} <Arrow /></a>
+            <button className="lx-pill lg" onClick={start}>{t.start} <Arrow /></button>
+            <button className="lx-link" onClick={() => go(user ? "/app" : "/login")}>{t.signin} <Arrow /></button>
           </div>
         </div>
         <HeroSeam lang={lang} labels={t.l_seam} layers={TEMPLATES.map((x) => ({ id: x.id, name: ar ? x.ar : x.en, color: x.color }))} />
