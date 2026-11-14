@@ -3,6 +3,7 @@ import { AppBar, Box, ButtonBase, Toolbar } from "@mui/material";
 import { isAr, setLang, tr } from "../i18n";
 import type { AuthUser } from "../types";
 import { Brand, UserMenu } from "./UserMenu";
+import { Notifications } from "./Notifications";
 
 interface Props { me: AuthUser | null; mode: string; go: (r: string) => void; onLogout: () => void; active: "app" | "account" | "owner" | "templates"; right?: ReactNode }
 
@@ -28,6 +29,7 @@ export function AppHeader({ me, mode, go, onLogout, active, right }: Props) {
         </Box>
         <Box sx={{ flex: 1 }} />
         {right}
+        <Notifications admin={!!staff || mode !== "accounts"} />
         <ButtonBase onClick={() => setLang(isAr() ? "en" : "ar")} aria-label={tr("Language")}
           sx={{ px: 1.25, height: 32, borderRadius: 2, fontSize: 13, color: "#5D6573", "&:hover": { color: "#14181F", bgcolor: "#EEF0F3" } }}>
           {isAr() ? "English" : "العربية"}

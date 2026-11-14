@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Alert, Box, Button, ButtonBase, Chip, CircularProgress, IconButton, LinearProgress, ListItemText, Menu, MenuItem, Snackbar, Stack, ToggleButton, ToggleButtonGroup, Tooltip, Typography,
+  Alert, Box, Button, ButtonBase, CircularProgress, IconButton, LinearProgress, ListItemText, Menu, MenuItem, Snackbar, Stack, ToggleButton, ToggleButtonGroup, Tooltip, Typography,
 } from "@mui/material";
 import AccountTreeOutlined from "@mui/icons-material/AccountTreeOutlined";
 import ViewAgendaOutlined from "@mui/icons-material/ViewAgendaOutlined";
@@ -246,7 +246,6 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <AppHeader me={me} mode={mode} go={go} onLogout={onLogout} active="app" right={<>
-          {caps && !caps.filegdb && <Chip size="small" label="File GDB unavailable" sx={{ bgcolor: C.redSoft, color: C.red }} />}
           {job && <Tooltip title="Processing log"><IconButton size="small" sx={{ color: "#9AA1AC" }} href={`./api/jobs/${job.job_id}/log`} target="_blank"><ArticleOutlined fontSize="small" /></IconButton></Tooltip>}
           {!me && caps && <Typography sx={{ fontSize: 12, opacity: 0.7 }}>{caps.user}</Typography>}
         </>} />
@@ -316,13 +315,6 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
           </Stack>
 
           <Box sx={(showWorkflow || showBoard || (step === 0 && !!discovery && !!mapping)) ? { p: 0 } : { px: { xs: 1.5, md: step === 2 ? 1.5 : 3 }, pt: step === 2 ? 1.5 : 3, pb: 4, maxWidth: step === 2 ? "none" : 1600, mx: "auto" }}>
-            {caps && caps.update_pending !== false && (
-              <Alert severity="warning" sx={{ mb: 2 }}>
-                <b>The update is installed but the server is still running the previous version.</b> Close the server window and run
-                start_windows.bat again — needed once; later updates restart by themselves.
-                <Box dir="rtl" sx={{ mt: 0.5 }}>تم تثبيت التحديث لكن الخادم ما زال يعمل بالنسخة السابقة: أغلق نافذة الخادم وشغّل start_windows.bat مرة واحدة — التحديثات التالية تُطبَّق تلقائياً.</Box>
-              </Alert>
-            )}
             {auto && step === 0 && <LinearProgress sx={{ mb: 2, height: 3, borderRadius: 2 }} />}
             {showWorkflow && workflowModel && <WorkflowCanvas model={workflowModel} />}
             {showBoard && job && schema && discovery && mapping &&

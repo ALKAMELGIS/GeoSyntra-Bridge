@@ -111,6 +111,10 @@ const AR: Record<string, string> = {
   "identical — nothing to apply": "مطابق — لا شيء للتطبيق", "ready for review": "جاهز للمراجعة", "Reading and comparing the releases…": "جارٍ قراءة الإصدارات ومقارنتها…",
   "Upload a new release of {t}": "رفع إصدار جديد لقالب {t}", "Apply or reject the release waiting below first": "طبّق الإصدار المنتظر في الأسفل أو ارفضه أولًا",
   "Opening…": "جارٍ الفتح…",
+  "Notifications": "الإشعارات", "Nothing new": "لا جديد", "Conversion": "تحويل", "New template release waiting": "إصدار قالب جديد بانتظار المراجعة",
+  "Restart the server to finish the update": "أعد تشغيل الخادم لإكمال التحديث",
+  "Close the server window and run start_windows.bat once. Later updates restart by themselves.": "أغلق نافذة الخادم وشغّل start_windows.bat مرة واحدة. التحديثات التالية تُطبَّق تلقائيًا.",
+  "File geodatabase writer unavailable": "كاتب قواعد البيانات غير متاح", "Deliveries cannot be generated until it is installed.": "لا يمكن توليد التسليمات حتى يُثبَّت.",
   // upload
   "Click to upload or drop files": "انقر للرفع أو أفلت الملفات", "Browse files": "تصفح الملفات", "Automatic": "تلقائي",
   "Clean-up": "التنظيف", "Projection": "الإسقاط", "Submission": "التسليم", "Change": "تغيير", "Fill in": "تعبئة", "Add sheet": "إضافة لوحة",
