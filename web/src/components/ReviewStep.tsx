@@ -1067,10 +1067,13 @@ function Grp({ label, children, last }: { label: string; children: React.ReactNo
 function Tip({ t, tip, k }: { t: string; tip?: string; k?: string }) {
   return <>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>;
 }
+// state ladder: rest = muted glyph · hover = surface step · armed tool = soft accent · toggle on = accent glyph only · focus = 1px accent outline
 const tone = (on?: boolean, accent?: boolean, disabled?: boolean) => ({
-  color: disabled ? "#B3B9C3" : on ? (accent ? C.cyan : "#fff") : C.ink,
-  bgcolor: on ? (accent ? C.cyanSoft : C.ink) : "transparent",
-  "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#E8EBEF" },
+  color: disabled ? "#B3B9C3" : on ? C.cyan : "#3A414C",
+  bgcolor: on && !accent ? C.cyanSoft : "transparent",
+  transition: "background-color 120ms, color 120ms",
+  "&:hover": { bgcolor: on && !accent ? "#D4EDF2" : "#E8EBEF", color: on ? C.cyan : C.ink },
+  "&.Mui-focusVisible": { outline: `1px solid ${C.cyan}`, outlineOffset: -1 },
 });
 /** Large ribbon button: icon over label. */
 function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean; big?: boolean }) {
