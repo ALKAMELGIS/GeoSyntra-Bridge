@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Alert, Box, Button, ButtonBase, Chip, IconButton, LinearProgress, ListItemText, Menu, MenuItem, Snackbar, Stack, ToggleButton, ToggleButtonGroup, Tooltip, Typography,
+  Alert, Box, Button, ButtonBase, Chip, CircularProgress, IconButton, LinearProgress, ListItemText, Menu, MenuItem, Snackbar, Stack, ToggleButton, ToggleButtonGroup, Tooltip, Typography,
 } from "@mui/material";
 import AccountTreeOutlined from "@mui/icons-material/AccountTreeOutlined";
 import ViewAgendaOutlined from "@mui/icons-material/ViewAgendaOutlined";
@@ -104,6 +104,7 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
 
   // automatic conversion: upload -> route every layer -> validate -> (values the drawing lacks?) -> geodatabases
   const [auto, setAuto] = useState<null | "mapping" | "validating" | "generating">(null);
+  const goAfterCheck = useRef<number | null>(null);   // Next pressed before the checks ran: open this step when they finish
   const pendingSheets = useRef<File[]>([]);
   const jobRef = useRef<JobState | null>(null);
   jobRef.current = job;
@@ -143,15 +144,19 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
         } else if (auto === "validating" && job.status === "validated") {
           // checks done in the background — the user goes through the steps with Next, one by one
           setAuto(null);
+          if (goAfterCheck.current != null) { setStep(goAfterCheck.current); goAfterCheck.current = null; }
           const comp = await api.completeness(job.job_id).catch(() => null);
           if (comp && !comp.complete && comp.open_groups.length) note("Checked · layers to review");
           else note("Checked");
         } else if (auto === "generating" && ["completed"].includes(job.status)) {
           setAuto(null); refreshMe();
         }
-      } catch (e: any) { setAuto(null); err(e.message); }
+      } catch (e: any) { setAuto(null); goAfterCheck.current = null; err(e.message); }
     })();
   }, [auto, job?.status, job?.job_id]);
+  useEffect(() => {
+    if (auto === "validating" && job?.status === "failed") { setAuto(null); goAfterCheck.current = null; err(`The check stopped: ${job.error?.message || job.message || "unknown error"}`); }
+  }, [auto, job?.status]);
 
   const onSchema = async (id: string) => {
     setSchemaId(id);
@@ -268,9 +273,27 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
               </ToggleButtonGroup>
             )}
             {step < 3 && (
-              <Button variant="contained" endIcon={<ArrowForwardOutlined />} disabled={!enabled[step + 1] || !!busy} onClick={() => setStep(step + 1)}>
-                Next
-              </Button>
+              (() => {
+                // Layers → Review needs the checks; if they have not run yet, Next runs them and then opens Review
+                const needsCheck = step === 1 && ready && !results;
+                const checking = auto === "validating" || (!!busy && needsCheck);
+                return (
+                  <Tooltip title={checking ? "Checking the data against the template — Review opens when it is done"
+                    : !enabled[step + 1] && !needsCheck ? (step === 0 ? "Upload a drawing first" : "Connect the layers first") : ""}>
+                    <span>
+                      <Button variant="contained" disabled={checking || !!busy || (!enabled[step + 1] && !needsCheck)}
+                        endIcon={checking ? <CircularProgress size={14} color="inherit" /> : <ArrowForwardOutlined />}
+                        onClick={async () => {
+                          if (!needsCheck || !job) { setStep(step + 1); return; }
+                          try { goAfterCheck.current = step + 1; setAuto("validating"); setJob(await api.validate(job.job_id)); }
+                          catch (e: any) { setAuto(null); goAfterCheck.current = null; err(e.message); }
+                        }}>
+                        {checking ? "Checking…" : "Next"}
+                      </Button>
+                    </span>
+                  </Tooltip>
+                );
+              })()
             )}
             {step === 3 && job?.status === "completed" && <Button variant="outlined" onClick={reset}>New conversion</Button>}
           </Stack>
