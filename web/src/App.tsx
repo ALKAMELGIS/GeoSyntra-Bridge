@@ -319,6 +319,9 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
             {showWorkflow && workflowModel && <WorkflowCanvas model={workflowModel} />}
             {showBoard && job && schema && discovery && mapping &&
               <MappingBoard job={job} schema={schema} discovery={discovery} mapping={mapping} onPatch={onPatch} onMapping={setMapping} onError={err} />}
+            {job && step === 1 && (!discovery || !mapping || !schema || (view === "workflow" && !workflowModel)) && (
+              <Stack alignItems="center" spacing={1.5} sx={{ py: 12, color: C.muted }}><CircularProgress size={28} /><Typography sx={{ fontSize: 13.5 }}>{busy ? (job.message || tr("working…")) : tr("Loading layers…")}</Typography></Stack>
+            )}
             {!job && openId.current && (
               <Stack alignItems="center" spacing={1.5} sx={{ py: 12, color: C.muted }}><CircularProgress size={28} /><Typography sx={{ fontSize: 13.5 }}>{tr("Opening…")}</Typography></Stack>
             )}

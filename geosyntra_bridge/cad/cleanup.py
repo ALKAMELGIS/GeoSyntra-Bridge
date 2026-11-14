@@ -17,7 +17,7 @@ from __future__ import annotations
 import hashlib
 import math
 from collections import defaultdict
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 
 from ..geometry.spatial import GridIndex
 from .cleaning import _kill, geom_key
@@ -82,8 +82,10 @@ def analyse(cad: CadDocument, settings: Optional[Dict] = None, role_of=None) -> 
 
     # ---- same geometry on different layers (keep the copy on an asset layer)
     by_geom: Dict = defaultdict(list)
+    gk: Dict[int, Any] = {}                       # geometry key per entity, computed once (the checks below reuse it)
     for e in ents:
-        by_geom[(e.kind, e.block_name, geom_key(e, tol))].append(e)
+        gk[id(e)] = k = geom_key(e, tol)
+        by_geom[(e.kind, e.block_name, k)].append(e)
     for group in by_geom.values():
         layers = {e.layer for e in group}
         if len(layers) < 2:
@@ -111,7 +113,7 @@ def analyse(cad: CadDocument, settings: Optional[Dict] = None, role_of=None) -> 
         for o in idx.query(p0[0], p0[1], rtol):
             if o is e or id(o) in done or o.layer != e.layer or o.kind != e.kind or o.block_name != e.block_name:
                 continue
-            if geom_key(o, tol) == geom_key(e, tol):
+            if gk[id(o)] == gk[id(e)]:
                 continue
             if e.kind == POINT:
                 d = math.hypot(o.coords[0][0] - e.coords[0][0], o.coords[0][1] - e.coords[0][1])
@@ -131,6 +133,8 @@ def analyse(cad: CadDocument, settings: Optional[Dict] = None, role_of=None) -> 
                 out.append(_prop("near_duplicate", "remove", [o], f"{d * 1000:.0f} mm from an identical {e.dxftype.lower()} on the same layer", e))
                 if len(out) > MAX_PROPOSALS:
                     break
+        if len(out) > MAX_PROPOSALS:
+            break
 
     # ---- overlapping lines (one completely on another, same layer)
     lines = [e for e in ents if e.kind == LINE and 2 <= len(e.coords) <= 500 and e.length() < 2000]
@@ -144,7 +148,7 @@ def analyse(cad: CadDocument, settings: Optional[Dict] = None, role_of=None) -> 
             for o in lidx.query((b[0] + b[2]) / 2, (b[1] + b[3]) / 2, max(b[2] - b[0], b[3] - b[1]) / 2 + tol):
                 if o is e or o.layer != e.layer or id(o) in covered or id(e) in covered:
                     continue
-                if geom_key(o, tol) == geom_key(e, tol):
+                if gk.get(id(o)) == gk.get(id(e)):
                     continue
                 ob = o.bbox()
                 if ob[0] - tol > b[0] or ob[1] - tol > b[1] or ob[2] + tol < b[2] or ob[3] + tol < b[3]:
@@ -157,35 +161,60 @@ def analyse(cad: CadDocument, settings: Optional[Dict] = None, role_of=None) -> 
                     break
 
     # ---- open gaps between line ends, and almost-closed polylines
-    ends = []
+    # ends are bucketed per layer in cells of the gap tolerance; only the 3x3 cells around an end are looked at,
+    # and a junction where many ends meet is skipped (it is connected, not an open gap) — keeps this linear in time
+    cell = max(gtol, 1e-6)
+    buckets: Dict = defaultdict(list)
     for e in lines:
-        ends.append((e, 0, e.coords[0]))
-        ends.append((e, -1, e.coords[-1]))
-    eidx = GridIndex(max(gtol * 2, 0.5))
-    for t in ends:
-        eidx.insert((t[2][0], t[2][1], t[2][0], t[2][1]), t)
+        for i in (0, -1):
+            p = e.coords[i]
+            buckets[(e.layer, int(math.floor(p[0] / cell)), int(math.floor(p[1] / cell)))].append((e, i, p))
     seen_pairs = set()
-    for e, i, p in ends:
-        if e.kind == LINE and len(e.coords) >= 4 and i == 0:
+    for e in lines:
+        if len(e.coords) >= 4:
             gap = math.hypot(e.coords[0][0] - e.coords[-1][0], e.coords[0][1] - e.coords[-1][1])
             if tol < gap <= gtol:
                 out.append(_prop("near_closed", "close", [e], f"Ends {gap:.3f} m apart — close it as an area?"))
                 continue
-        near = [t for t in eidx.query(p[0], p[1], gtol) if t[0] is not e and t[0].layer == e.layer]
-        touching = [t for t in near if math.hypot(t[2][0] - p[0], t[2][1] - p[1]) <= tol]
-        if touching:
-            continue
-        cand = [(math.hypot(t[2][0] - p[0], t[2][1] - p[1]), t) for t in near]
-        cand = [c for c in cand if tol < c[0] <= gtol]
-        if not cand:
-            continue
-        d, t = min(cand, key=lambda c: c[0])
-        pair = tuple(sorted([(e.handle, i), (t[0].handle, t[1])]))
-        if pair in seen_pairs:
-            continue
-        seen_pairs.add(pair)
-        out.append(_prop("open_gap", "snap", [e], f"Line end {d:.3f} m short of another {e.layer} line end", t[0],
-                         end=i, to=[t[2][0], t[2][1]]))
+        for i in (0, -1):
+            p = e.coords[i]
+            cx, cy = int(math.floor(p[0] / cell)), int(math.floor(p[1] / cell))
+            near = []
+            crowded = False
+            for dx in (-1, 0, 1):
+                for dy in (-1, 0, 1):
+                    b_ = buckets.get((e.layer, cx + dx, cy + dy))
+                    if b_:
+                        near.extend(b_)
+                        if len(near) > 64:
+                            crowded = True
+                            break
+                if crowded:
+                    break
+            if crowded:
+                continue
+            best = None
+            touching = False
+            for t in near:
+                if t[0] is e:
+                    continue
+                d = math.hypot(t[2][0] - p[0], t[2][1] - p[1])
+                if d <= tol:
+                    touching = True
+                    break
+                if d <= gtol and (best is None or d < best[0]):
+                    best = (d, t)
+            if touching or best is None:
+                continue
+            d, t = best
+            pair = tuple(sorted([(e.handle, i), (t[0].handle, t[1])]))
+            if pair in seen_pairs:
+                continue
+            seen_pairs.add(pair)
+            out.append(_prop("open_gap", "snap", [e], f"Line end {d:.3f} m short of another {e.layer} line end", t[0],
+                             end=i, to=[t[2][0], t[2][1]]))
+        if len(out) > MAX_PROPOSALS:
+            break
 
     # ---- self-intersections
     try:

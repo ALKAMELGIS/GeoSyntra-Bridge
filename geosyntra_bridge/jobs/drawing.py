@@ -563,12 +563,39 @@ class DrawingOps:
         except Exception:  # noqa: BLE001
             return None
 
+    def _robust_extent(self, job_id: str):
+        """Where the drawing's assets really are: the extent of the objects on connected layers with the stray far-off
+        ones left out (a title block at 0,0 or a point placed by mistake 1,000 km away would otherwise blow the extent up)."""
+        try:
+            from ..cad.discovery import group_key
+            doc = self.load_doc(job_id)
+            m = self._read(job_id, "mapping.json") or {}
+            layers = {k for k, v in (m.get("layers") or {}).items() if v.get("role") != "ignore" and v.get("target")}
+            xs, ys = [], []
+            for e in doc.entities:
+                if layers and (e.group or group_key(e.layer, e.kind)) not in layers:
+                    continue
+                for c in (e.coords or ([e.center] if e.center else []))[:50]:
+                    xs.append(c[0]); ys.append(c[1])
+            if len(xs) < 2:
+                return None
+            xs.sort(); ys.sort()
+            k = max(0, int(len(xs) * 0.005))           # drop 0.5 % at each end
+            x0, x1, y0, y1 = xs[k], xs[-1 - k], ys[k], ys[-1 - k]
+            reach = max(x1 - x0, y1 - y0, 1.0) * 2     # objects near the core still count; only the far strays go
+            x0 = min(v for v in xs if v >= x0 - reach); x1 = max(v for v in xs if v <= x1 + reach)
+            y0 = min(v for v in ys if v >= y0 - reach); y1 = max(v for v in ys if v <= y1 + reach)
+            pad = max(x1 - x0, y1 - y0) * 0.02 or 1.0
+            return [x0 - pad, y0 - pad, x1 + pad, y1 + pad]
+        except Exception:  # noqa: BLE001 - fall back to the discovery extent
+            return None
+
     # ------------------------------------------------------------ DEM elevation
     def drawing_bbox_ll(self, job_id: str):
         """Drawing extent (lon/lat) from the discovery extent, drawing units / georeferencing and the source CRS."""
         from ..geometry.convert import pipeline_for
         disc = self._read(job_id, "discovery.json") or {}
-        ext = disc.get("extent")
+        ext = self._robust_extent(job_id) or disc.get("extent")
         if not ext:
             raise JobError("the drawing has no extent")
         m = dict(self.get_mapping(job_id))

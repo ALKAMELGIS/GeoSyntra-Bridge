@@ -110,7 +110,7 @@ const AR: Record<string, string> = {
   "Upload several releases": "رفع عدة إصدارات", "{n} files read": "قُرئ {n} ملف", "unknown template": "قالب غير معروف", "Drop .zip here": "أفلت ملف ‎.zip هنا",
   "identical — nothing to apply": "مطابق — لا شيء للتطبيق", "ready for review": "جاهز للمراجعة", "Reading and comparing the releases…": "جارٍ قراءة الإصدارات ومقارنتها…",
   "Upload a new release of {t}": "رفع إصدار جديد لقالب {t}", "Apply or reject the release waiting below first": "طبّق الإصدار المنتظر في الأسفل أو ارفضه أولًا",
-  "Opening…": "جارٍ الفتح…",
+  "Opening…": "جارٍ الفتح…", "Loading layers…": "جارٍ تحميل الطبقات…",
   "Notifications": "الإشعارات", "Nothing new": "لا جديد", "Conversion": "تحويل", "New template release waiting": "إصدار قالب جديد بانتظار المراجعة",
   "Restart the server to finish the update": "أعد تشغيل الخادم لإكمال التحديث",
   "Close the server window and run start_windows.bat once. Later updates restart by themselves.": "أغلق نافذة الخادم وشغّل start_windows.bat مرة واحدة. التحديثات التالية تُطبَّق تلقائيًا.",
