@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { theme } from "./theme";
 import Root from "./Root";
+import { useLang } from "./i18n";
+
+function LangRoot() { const l = useLang(); return <Root key={l} />; }
 
 /** A failing screen shows what happened and a way back, never a blank page. */
 class Boundary extends React.Component<{ children: React.ReactNode }, { err: Error | null }> {
@@ -26,7 +29,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Boundary><Root /></Boundary>
+      {/* direction arrows point the reading way in Arabic */}
+      <GlobalStyles styles={{ 'html[dir="rtl"] [data-testid^="ArrowForward"], html[dir="rtl"] [data-testid^="ArrowBack"], html[dir="rtl"] [data-testid^="East"], html[dir="rtl"] [data-testid^="ChevronRight"], html[dir="rtl"] [data-testid^="ChevronLeft"]': { transform: "scaleX(-1)" } }} />
+      <Boundary><LangRoot /></Boundary>
     </ThemeProvider>
   </React.StrictMode>,
 );

@@ -21,6 +21,7 @@ import { api } from "../api";
 import { CoordinatePanel } from "./CoordinatePanel";
 import type { Capabilities, Discovery, JobState, Mapping, SchemaDetail, SchemaSummary } from "../types";
 import { C } from "../theme";
+import { tr } from "../i18n";
 import { fmtBytes, GeomIcon, KV, SectionTitle } from "./ui";
 
 interface Props {
@@ -89,7 +90,7 @@ function ExplodeButton({ job, onDone, onError }: { job: JobState; onDone: (j: Jo
           setBusy(true);
           try { onDone(await api.setCleanup(job.job_id, { decisions: {}, settings: { explode_blocks: true }, apply: true })); }
           catch (e: any) { onError(e.message); } finally { setBusy(false); }
-        }}>{busy ? "Exploding…" : "Explode blocks"}</Button></span>
+        }}>{busy ? tr("Exploding…") : tr("Explode blocks")}</Button></span>
     </Tooltip>
   );
 }
@@ -100,7 +101,7 @@ function Row({ icon, title, children, tone, action }: { icon: React.ReactElement
                px: { xs: 2, md: 3 }, py: 1.5, minHeight: 56, borderTop: `1px solid ${C.line}`, bgcolor: tone ? "#FFF7F7" : undefined }}>
       <Stack direction="row" spacing={1.25} alignItems="center" sx={{ minHeight: 32 }}>
         <Box sx={{ display: "grid", color: tone || "#8A919C", "& svg": { fontSize: 19 } }}>{icon}</Box>
-        <Typography sx={{ fontSize: 13.5, fontWeight: 600, color: tone || C.ink }}>{title}</Typography>
+        <Typography sx={{ fontSize: 13.5, fontWeight: 600, color: tone || C.ink }}>{tr(title)}</Typography>
         {action && <Box sx={{ ml: "auto !important", display: { md: "none" } }}>{action}</Box>}
       </Stack>
       {action && <Box sx={{ display: { xs: "none", md: "block" }, gridColumn: 1, gridRow: 2, mt: -0.5 }}>{action}</Box>}
@@ -149,11 +150,11 @@ function DropZone({ caps, schemaId, job, onUploaded, onError, onAddSheets }: Pro
       <FileStack active={drag} />
       {up == null ? (
         <>
-          <Typography sx={{ fontWeight: 650, fontSize: 16, mt: 2.5 }}>Click to upload or drop files</Typography>
+          <Typography sx={{ fontWeight: 650, fontSize: 16, mt: 2.5 }}>{tr("Click to upload or drop files")}</Typography>
           <Typography sx={{ color: C.muted, mt: 0.5, fontSize: 13.5 }}>DWG, DXF, DGN or ZIP</Typography>
           <Button variant="outlined" size="small" startIcon={<FileUploadOutlined />} onClick={(e) => { e.stopPropagation(); input.current?.click(); }}
             sx={{ mt: 2.5, borderRadius: 99, px: 2, color: C.ink, borderColor: "#D3D7DD", fontWeight: 500, "&:hover": { borderColor: "#9AA1AB", bgcolor: "#F7F8FA" } }}>
-            Browse files
+            {tr("Browse files")}
           </Button>
         </>
       ) : (
@@ -201,7 +202,7 @@ function TemplatePicker({ schemas, schemaId, onSchema, job }: Props) {
   };
   return (
     <Stack direction="row" alignItems="center" justifyContent="center" sx={{ gap: 0.75, flexWrap: "wrap", maxWidth: 760 }}>
-      {all && chip(all.schema_id, "Automatic", "All 7 ADM templates — each layer goes to its own geodatabase")}
+      {all && chip(all.schema_id, tr("Automatic"), "All 7 ADM templates — each layer goes to its own geodatabase")}
       {adm.map((s) => chip(s.schema_id, ASSET_CODE(s.schema_id), ASSET_NAME(s.display_name)))}
       {other.length > 0 && (
         <Select size="small" displayEmpty value={other.some((o) => o.schema_id === schemaId) ? schemaId : ""} onChange={(e) => onSchema(String(e.target.value))}
@@ -262,7 +263,7 @@ function FileCard({ job, discovery, onAddSheets }: Props) {
         )}
         {!busy && onAddSheets && (
           <>
-            <Button size="small" variant="text" onClick={() => add.current?.click()} sx={{ color: C.muted, whiteSpace: "nowrap" }}>+ Add sheet</Button>
+            <Button size="small" variant="text" onClick={() => add.current?.click()} sx={{ color: C.muted, whiteSpace: "nowrap" }}>+ {tr("Add sheet")}</Button>
             <input ref={add} type="file" hidden multiple accept=".dxf,.dwg,.dgn"
               onChange={(e) => { const fs = Array.from(e.target.files || []); e.target.value = ""; if (fs.length) onAddSheets(fs); }} />
           </>

@@ -15,6 +15,7 @@ import { DeliveryTable } from "./RequiredValues";
 import type { Completeness, JobState, Mapping, Results, SchemaDetail } from "../types";
 import { SubmissionPanel } from "./SubmissionPanel";
 import { C } from "../theme";
+import { tr } from "../i18n";
 import { fmtBytes } from "./ui";
 
 interface Props {
@@ -50,10 +51,10 @@ export function GenerateStep({ job, schema, results, onGenerate, mapping, onPatc
   const blocked = !!comp && !comp.complete;
   const cantPay = !!quote?.enforced && quote.enough === false;
   const status = done && job.status === "failed" ? { t: "Written — check verification", c: C.red, bg: C.redSoft }
-    : done ? { t: "Delivered", c: C.green, bg: C.greenSoft }
-    : !results ? { t: "Validate first", c: C.muted, bg: "#F3F4F6" }
+    : done ? { t: tr("Delivered"), c: C.green, bg: C.greenSoft }
+    : !results ? { t: tr("Validate first"), c: C.muted, bg: "#F3F4F6" }
     : blocked ? { t: `${blockers.length} thing${blockers.length === 1 ? "" : "s"} to fix`, c: "#92400E", bg: "#FEF3C7" }
-    : { t: "Ready to generate", c: C.green, bg: C.greenSoft };
+    : { t: tr("Ready to generate"), c: C.green, bg: C.greenSoft };
 
   // what goes where: one geodatabase per template, the feature classes and counts in each
   const byClass = (s?.features_by_class || {}) as Record<string, number>;
@@ -88,11 +89,11 @@ export function GenerateStep({ job, schema, results, onGenerate, mapping, onPatc
         <Box sx={{ flex: 1 }} />
         {done && job.outputs?.package
           ? <>
-              <Button disabled={busy || blocked || cantPay} onClick={onGenerate} startIcon={<RefreshOutlined />} sx={{ color: C.muted }}>Generate again</Button>
-              <Button variant="contained" size="large" startIcon={<FileDownloadOutlined />} href={api.downloadUrl(job.job_id, "package")}>Download package</Button>
+              <Button disabled={busy || blocked || cantPay} onClick={onGenerate} startIcon={<RefreshOutlined />} sx={{ color: C.muted }}>{tr("Generate again")}</Button>
+              <Button variant="contained" size="large" startIcon={<FileDownloadOutlined />} href={api.downloadUrl(job.job_id, "package")}>{tr("Download package")}</Button>
             </>
           : <Button variant="contained" size="large" startIcon={<StorageOutlined />} disabled={busy || !results || blocked || cantPay} onClick={onGenerate}>
-              {done ? "Generate again" : blocked ? `Fix ${blockers.length} first` : quote?.enforced && quote.cost && !quote.already_paid ? `Generate · ${quote.cost} credits` : "Generate"}</Button>}
+              {done ? tr("Generate again") : blocked ? tr("Fix {n} first", { n: blockers.length }) : quote?.enforced && quote.cost && !quote.already_paid ? tr("Generate · {n} credits", { n: quote.cost }) : tr("Generate")}</Button>}
       </Stack>
       {busy && <Box><LinearProgress variant="determinate" value={job.progress * 100} sx={{ height: 4, borderRadius: 2 }} /><Typography variant="caption">{job.message}</Typography></Box>}
       {job.status === "failed" && job.stage === "generate" && <Alert severity="error">{job.message}</Alert>}

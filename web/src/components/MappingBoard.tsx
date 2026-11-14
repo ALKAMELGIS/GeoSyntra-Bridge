@@ -7,6 +7,7 @@ import CloseRounded from "@mui/icons-material/CloseRounded";
 import { api } from "../api";
 import type { Discovery, JobState, LayerMap, Mapping, SchemaDetail, SchemaLayer } from "../types";
 import { C } from "../theme";
+import { tr } from "../i18n";
 
 /**
  * Connection board: CAD layers on the left, the original geodatabases on the right
@@ -144,7 +145,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
           {(job.file.format || "dwg").toUpperCase()}</Box>
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography sx={{ fontWeight: 500, fontSize: 15 }} noWrap>{job.file.name}</Typography>
-          <Typography variant="caption">{groups.length} layers · {discovery.feature_entity_count.toLocaleString()} objects</Typography>
+          <Typography variant="caption">{tr("{a} layers · {b} objects", { a: groups.length, b: discovery.feature_entity_count })}</Typography>
         </Box>
         <Stack direction="row" spacing={2.5} sx={{ display: { xs: "none", md: "flex" }, pr: 1 }}>
           {(["point", "line", "polygon"] as const).map((k) => {
@@ -155,7 +156,7 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
               <Tooltip key={k} title={n ? `${conn.toLocaleString()} of ${n.toLocaleString()} ${GEO[k]} objects connected` : `The drawing has no ${GEO[k]} objects on asset layers`}>
                 <Stack direction="row" spacing={0.75} alignItems="center" sx={{ fontSize: 13, color: C.muted, whiteSpace: "nowrap" }}>
                   <Box component="span" sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: !n ? "#C5CBD3" : conn === n ? C.green : C.amber }} />
-                  <span>{GEO[k][0].toUpperCase() + GEO[k].slice(1)}s</span>
+                  <span>{tr(GEO[k][0].toUpperCase() + GEO[k].slice(1) + "s")}</span>
                   <Box component="span" sx={{ color: C.ink, fontVariantNumeric: "tabular-nums" }}>{conn.toLocaleString()} / {n.toLocaleString()}</Box>
                 </Stack>
               </Tooltip>
@@ -163,13 +164,13 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
           })}
         </Stack>
         <Button size="small" onClick={() => setShowAside(!showAside)} sx={{ color: C.muted }}>
-          {showAside ? "Hide" : "Show"} set-aside ({aside})</Button>
+          {showAside ? tr("Hide set-aside") : tr("Show set-aside")} ({aside})</Button>
         <Button variant="outlined" startIcon={<LinkOutlined />} disabled={busy || !suggestible} onClick={autoMap}
-          sx={{ height: 36 }}>Apply matches {suggestible || ""}</Button>
+          sx={{ height: 36 }}>{tr("Apply matches")} {suggestible || ""}</Button>
       </Stack>
 
       {/* board */}
-      <Box ref={box} sx={{ position: "relative", display: "grid", gridTemplateColumns: "minmax(260px, 1fr) minmax(90px, 200px) minmax(280px, 1.1fr)",
+      <Box ref={box} dir="ltr" sx={{ position: "relative", display: "grid", gridTemplateColumns: "minmax(260px, 1fr) minmax(90px, 200px) minmax(280px, 1.1fr)",
                           px: { xs: 2, md: 3 }, py: 3, gap: 0, flex: 1 }} onClick={(e) => { if (e.target === e.currentTarget) setSel(null); }}>
         <svg width={geo.w} height={geo.h} style={{ position: "absolute", inset: 0, pointerEvents: "none", overflow: "visible" }}>
           {wires.map((w) => (
@@ -194,15 +195,15 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
         {/* left: CAD layers */}
         <Box>
           <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1.5, minHeight: 32 }}>
-            <Typography sx={{ fontSize: 12.5, color: C.muted, flex: 1 }}>In the drawing</Typography>
-            <TextField size="small" placeholder="Filter layers" value={q} onChange={(e) => setQ(e.target.value)} inputProps={{ "aria-label": "Filter layers" }}
+            <Typography sx={{ fontSize: 12.5, color: C.muted, flex: 1 }}>{tr("In the drawing")}</Typography>
+            <TextField size="small" placeholder={tr("Filter layers")} value={q} onChange={(e) => setQ(e.target.value)} inputProps={{ "aria-label": tr("Filter layers") }}
               sx={{ width: 200, "& input": { py: 0.6, fontSize: 13 } }} />
           </Stack>
           {sels.length > 0 && (
             <Stack direction="row" alignItems="center" spacing={1} sx={{ position: "sticky", top: 8, zIndex: 4, mb: 1, px: 1.5, py: 0.75, borderRadius: 1.5, bgcolor: C.ink, color: "#fff" }}>
               <Typography sx={{ fontSize: 13, flex: 1 }}>{sels.length} selected — click a feature class to connect {sels.length > 1 ? "them" : "it"}</Typography>
-              <Button size="small" onClick={asideSel} sx={{ color: "#fff", minWidth: 0 }}>Set aside</Button>
-              <Button size="small" onClick={() => setSels([])} sx={{ color: "#C5CBD3", minWidth: 0 }}>Clear</Button>
+              <Button size="small" onClick={asideSel} sx={{ color: "#fff", minWidth: 0 }}>{tr("Set aside")}</Button>
+              <Button size="small" onClick={() => setSels([])} sx={{ color: "#C5CBD3", minWidth: 0 }}>{tr("Clear")}</Button>
             </Stack>
           )}
           {!sortedRows.length && <Typography variant="body2" sx={{ color: C.muted, py: 2 }}>No layer matches “{q}”</Typography>}
@@ -239,15 +240,15 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
         {/* right: geodatabase → dataset → feature class */}
         <Box>
           <Stack direction="row" alignItems="center" sx={{ mb: 1 }}>
-            <Typography sx={{ fontSize: 12.5, color: C.muted, flex: 1 }}>In the geodatabases</Typography>
+            <Typography sx={{ fontSize: 12.5, color: C.muted, flex: 1 }}>{tr("In the geodatabases")}</Typography>
             {sel && (
               <Autocomplete size="small" sx={{ width: 260 }} options={allFc} groupBy={(o) => `${o.g.name} — ${o.g.label}`}
                 getOptionLabel={(o) => `${o.l.name} (${GEO[o.l.geometry_type]})`}
                 onChange={(_, v) => v && connect(sel, v.l.name)}
-                renderInput={(p) => <TextField {...p} placeholder="Connect to any feature class…" />} />
+                renderInput={(p) => <TextField {...p} placeholder={tr("Connect to any feature class…")} />} />
             )}
           </Stack>
-          {!tree.length && <Typography variant="body2" sx={{ color: C.muted, py: 4 }}>Select a layer on the left to connect it.</Typography>}
+          {!tree.length && <Typography variant="body2" sx={{ color: C.muted, py: 4 }}>{tr("Select a layer on the left to connect it.")}</Typography>}
           <Stack spacing={1.5}>
             {tree.map((gdb) => (
               <Box key={gdb.name} sx={{ border: `1px solid ${C.line}`, borderRadius: 2, p: 1.25, bgcolor: "#FBFBFC" }}>
@@ -300,11 +301,11 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
       {/* footer */}
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: { xs: 2, md: 3 }, minHeight: 48, bgcolor: "#FAFBFC", borderTop: `1px solid ${C.line}`,
                                                                   flexWrap: "wrap", position: "sticky", bottom: 0, zIndex: 3 }}>
-        <Typography variant="body2"><b>{connected.length} of {groups.length - aside}</b> connected</Typography>
+        <Typography variant="body2"><b>{connected.length} / {groups.length - aside}</b> {tr("connected")}</Typography>
         {toReview > 0 && <Chip size="small" label={`${toReview} to review`} sx={{ bgcolor: "#FEF3C7", color: "#92400E" }} />}
         {pending > 0 && <Chip size="small" label={`${pending} not connected`} sx={{ bgcolor: C.redSoft, color: C.red }} />}
-        <Typography variant="caption" sx={{ flex: 1 }}>{aside} set aside · {tree.length} geodatabase{tree.length === 1 ? "" : "s"}</Typography>
-        <Typography variant="caption" sx={{ color: C.muted }}>Click a layer, then a feature class · Shift or Ctrl+click picks several · click a feature class to pick its layers · Esc clears</Typography>
+        <Typography variant="caption" sx={{ flex: 1 }}>{tr("{a} set aside · {b} geodatabases", { a: aside, b: tree.length })}</Typography>
+        <Typography variant="caption" sx={{ color: C.muted }}>{tr("Click a layer, then a feature class · Shift or Ctrl+click picks several · click a feature class to pick its layers · Esc clears")}</Typography>
       </Stack>
     </Box>
   );

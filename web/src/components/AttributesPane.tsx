@@ -30,6 +30,7 @@ import { api } from "../api";
 import type { AssignDetail, AssignField, AssignOverview, AssignRow, AssignState } from "../types";
 import { nice } from "./FeatureEditor";
 import { C } from "../theme";
+import { tr } from "../i18n";
 
 const RED = "#DC2626", BLUE = "#3B82F6", GREEN = "#16A34A", GREY = "#C4C9D0";
 const PLACEHOLDER = new Set(["N/A", "1900-01-01"]);
@@ -217,14 +218,14 @@ export function AttributesPane(p: PaneProps) {
     return (
       <Stack alignItems="center" justifyContent="center" spacing={1.25} sx={{ flex: 1, p: 4, color: C.muted, textAlign: "center" }}>
         <NearMeOutlined sx={{ fontSize: 30 }} />
-        <Typography sx={{ fontSize: 14, fontWeight: 500, color: C.ink }}>Pick a feature on the map</Typography>
-        <Typography sx={{ fontSize: 12.5, maxWidth: 240 }}>Its attributes open here. Select several to fill them together.</Typography>
+        <Typography sx={{ fontSize: 14, fontWeight: 500, color: C.ink }}>{tr("Pick a feature on the map")}</Typography>
+        <Typography sx={{ fontSize: 12.5, maxWidth: 240 }}>{tr("Its attributes open here. Select several to fill them together.")}</Typography>
         {p.focus && all.length > 0 && (
           <Button size="small" variant="outlined" startIcon={<SelectAllOutlined />} onClick={() => p.setSelection(all)}>
             Select all {ov?.classes[p.focus]?.alias} ({all.length.toLocaleString()})
           </Button>
         )}
-        <Button size="small" variant="contained" onClick={() => p.onNext(null)}>Go to the next one to fill</Button>
+        <Button size="small" variant="contained" onClick={() => p.onNext(null)}>{tr("Go to the next one to fill")}</Button>
       </Stack>
     );
   }

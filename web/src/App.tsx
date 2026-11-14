@@ -23,6 +23,7 @@ import CheckRounded from "@mui/icons-material/CheckRounded";
 import { AppHeader } from "./components/AppHeader";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
 import type { AuthUser } from "./types";
+import { tr } from "./i18n";
 
 const STEPS = ["Upload", "Layers", "Review", "Deliver"];
 // old 7-step numbers (still used by a few panels) → the 4 steps
@@ -244,7 +245,7 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
           {/* ---- one line: the drawing, where it stands, the next action */}
           <Stack direction="row" alignItems="center" spacing={1.25} sx={{ px: { xs: 2, md: 3 }, height: 60, bgcolor: "#fff", borderBottom: `1px solid ${C.line}`, position: "sticky", top: 0, zIndex: 6 }}>
             <Tooltip title="All conversions"><IconButton size="small" onClick={() => go("/app")} sx={{ color: C.muted }}><ArrowBackOutlined fontSize="small" /></IconButton></Tooltip>
-            <Typography sx={{ fontWeight: 700, fontSize: 15, minWidth: 0, maxWidth: 260, display: { xs: "none", lg: "block" } }} noWrap>{job ? job.file.name : "New conversion"}</Typography>
+            <Typography sx={{ fontWeight: 700, fontSize: 15, minWidth: 0, maxWidth: 260, display: { xs: "none", lg: "block" } }} noWrap>{job ? job.file.name : tr("New conversion")}</Typography>
             {/* ---- the four steps, numbered, in one line */}
             <Stack component="nav" aria-label="Steps" direction="row" alignItems="center" sx={{ flex: 1, justifyContent: "center", minWidth: 0 }}>
               {STEPS.map((t, i) => {
@@ -262,19 +263,19 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
                                  border: on || done ? "none" : `1.5px solid ${enabled[i] ? C.ink : C.line}` }}>
                         {done && !on ? <CheckRounded sx={{ fontSize: 14 }} /> : i + 1}
                       </Box>
-                      <Typography sx={{ fontSize: 13.5, fontWeight: on ? 700 : 600, display: { xs: on ? "block" : "none", sm: "block" } }}>{t}</Typography>
+                      <Typography sx={{ fontSize: 13.5, fontWeight: on ? 700 : 600, display: { xs: on ? "block" : "none", sm: "block" } }}>{tr(t)}</Typography>
                       {warn > 0 && <Box sx={{ fontSize: 11, fontWeight: 700, px: 0.75, borderRadius: 99, bgcolor: "#FEF3C7", color: "#92400E" }}>{warn}</Box>}
                     </ButtonBase>
                   </Stack>
                 );
               })}
             </Stack>
-            {(busy || auto) && <Typography sx={{ fontSize: 12, color: C.muted, maxWidth: 200 }} noWrap>{job?.message || "working…"}</Typography>}
+            {(busy || auto) && <Typography sx={{ fontSize: 12, color: C.muted, maxWidth: 200 }} noWrap>{job?.message || tr("working…")}</Typography>}
             {step === 1 && workflowModel && (
               <ToggleButtonGroup size="small" exclusive value={view === "workflow" ? "workflow" : view === "board" ? "board" : "steps"} onChange={(_, v) => v && setView(v)} aria-label="View">
-                <Tooltip title="Connections"><ToggleButton value="board" aria-label="Connections"><CableOutlined fontSize="small" /></ToggleButton></Tooltip>
-                <Tooltip title="Workspace"><ToggleButton value="workflow" aria-label="Workspace"><AccountTreeOutlined fontSize="small" /></ToggleButton></Tooltip>
-                <Tooltip title="List"><ToggleButton value="steps" aria-label="List"><ViewAgendaOutlined fontSize="small" /></ToggleButton></Tooltip>
+                <Tooltip title={tr("Connections")}><ToggleButton value="board" aria-label="Connections"><CableOutlined fontSize="small" /></ToggleButton></Tooltip>
+                <Tooltip title={tr("Workspace")}><ToggleButton value="workflow" aria-label="Workspace"><AccountTreeOutlined fontSize="small" /></ToggleButton></Tooltip>
+                <Tooltip title={tr("List")}><ToggleButton value="steps" aria-label="List"><ViewAgendaOutlined fontSize="small" /></ToggleButton></Tooltip>
               </ToggleButtonGroup>
             )}
             {step < 3 && (
@@ -283,8 +284,8 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
                 const needsCheck = step === 1 && ready && !results;
                 const checking = auto === "validating" || (!!busy && needsCheck);
                 return (
-                  <Tooltip title={checking ? "Checking the data against the template — Review opens when it is done"
-                    : !enabled[step + 1] && !needsCheck ? (step === 0 ? "Upload a drawing first" : "Connect the layers first") : ""}>
+                  <Tooltip title={checking ? tr("Checking the data against the template — Review opens when it is done")
+                    : !enabled[step + 1] && !needsCheck ? (step === 0 ? tr("Upload a drawing first") : tr("Connect the layers first")) : ""}>
                     <span>
                       <Button variant="contained" disabled={checking || !!busy || (!enabled[step + 1] && !needsCheck)}
                         endIcon={checking ? <CircularProgress size={14} color="inherit" /> : <ArrowForwardOutlined />}
@@ -293,14 +294,14 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
                           try { goAfterCheck.current = step + 1; setAuto("validating"); setJob(await api.validate(job.job_id)); }
                           catch (e: any) { setAuto(null); goAfterCheck.current = null; err(e.message); }
                         }}>
-                        {checking ? "Checking…" : "Next"}
+                        {checking ? tr("Checking…") : tr("Next")}
                       </Button>
                     </span>
                   </Tooltip>
                 );
               })()
             )}
-            {step === 3 && job?.status === "completed" && <Button variant="outlined" onClick={reset}>New conversion</Button>}
+            {step === 3 && job?.status === "completed" && <Button variant="outlined" onClick={reset}>{tr("New conversion")}</Button>}
           </Stack>
 
           <Box sx={(showWorkflow || showBoard || (step === 0 && !!discovery && !!mapping)) ? { p: 0 } : { px: { xs: 1.5, md: step === 2 ? 1.5 : 3 }, pt: step === 2 ? 1.5 : 3, pb: 4, maxWidth: step === 2 ? "none" : 1600, mx: "auto" }}>
@@ -354,7 +355,7 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
 
       <Snackbar open={!!toast} autoHideDuration={toast?.sev === "error" ? 8000 : 4000} onClose={() => setToast(null)}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}>
-        {toast ? <Alert severity={toast.sev} variant="filled" onClose={() => setToast(null)} sx={{ fontSize: 12.5 }}>{toast.msg}</Alert> : undefined}
+        {toast ? <Alert severity={toast.sev} variant="filled" onClose={() => setToast(null)} sx={{ fontSize: 12.5 }}>{tr(toast.msg)}</Alert> : undefined}
       </Snackbar>
     </Box>
   );

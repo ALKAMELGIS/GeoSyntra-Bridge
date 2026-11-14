@@ -6,6 +6,7 @@ import CheckCircle from "@mui/icons-material/CheckCircle";
 import { api } from "../api";
 import type { JobState } from "../types";
 import { C } from "../theme";
+import { tr } from "../i18n";
 import GeoPreview, { type GeoShape } from "./GeoPreview";
 
 interface Proposal {
@@ -112,8 +113,8 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
       {/* header */}
       <Stack direction="row" alignItems="flex-end" spacing={3} sx={{ px: 3, pt: 2.5, borderBottom: `1px solid ${C.line}`, flex: "none" }}>
         <Box sx={{ pb: 1.5 }}>
-          <Typography sx={{ fontSize: 18, fontWeight: 500 }}>Advanced clean-up</Typography>
-          <Typography sx={{ fontSize: 13, color: C.muted }}>Nothing changes in the drawing until you apply</Typography>
+          <Typography sx={{ fontSize: 18, fontWeight: 500 }}>{tr("Advanced clean-up")}</Typography>
+          <Typography sx={{ fontSize: 13, color: C.muted }}>{tr("Nothing changes in the drawing until you apply")}</Typography>
         </Box>
         <Tabs value={tab} onChange={(_, v) => { setTab(v); setSel(null); }} variant="scrollable" sx={{ minHeight: 40, "& .MuiTab-root": { minHeight: 40, textTransform: "none", fontSize: 13.5 } }}>
           {kinds.map((k) => <Tab key={k} value={k} label={<span>{cl.summary[k].label} <Box component="span" sx={{ color: C.muted, fontVariantNumeric: "tabular-nums" }}>{cl.summary[k].total.toLocaleString()}</Box></span>} />)}
@@ -125,8 +126,8 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
         <Box sx={{ display: "flex", flexDirection: "column", minHeight: 0, borderRight: `1px solid ${C.line}` }}>
           <Stack direction="row" alignItems="center" spacing={0.5} sx={{ px: 1.5, py: 1, borderBottom: `1px solid ${C.line}`, flex: "none" }}>
             <Typography sx={{ fontSize: 12, color: C.muted, flex: 1, fontVariantNumeric: "tabular-nums" }}>{doneN.toLocaleString()} of {list.length.toLocaleString()} decided</Typography>
-            <Button size="small" onClick={() => setAll("approved")}>Approve all</Button>
-            <Button size="small" sx={{ color: C.muted }} onClick={() => setAll("rejected")}>Keep all</Button>
+            <Button size="small" onClick={() => setAll("approved")}>{tr("Approve all")}</Button>
+            <Button size="small" sx={{ color: C.muted }} onClick={() => setAll("rejected")}>{tr("Keep all")}</Button>
           </Stack>
           <Box sx={{ flex: 1, overflow: "auto" }}>
             {list.map((p, i) => {
@@ -178,8 +179,8 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
                 <Button size="small" sx={{ color: C.muted, minWidth: 0 }} aria-label="Previous" onClick={() => go(idx - 1)} disabled={idx === 0}>↑</Button>
                 <Button size="small" sx={{ color: C.muted, minWidth: 0 }} aria-label="Next" onClick={() => go(idx + 1)} disabled={idx >= list.length - 1}>↓</Button>
                 {cur.action !== "review" ? (<>
-                  <Button variant="outlined" onClick={() => decide("rejected")} sx={{ height: 40 }}>Keep as drawn <Kbd>K</Kbd></Button>
-                  <Button variant="contained" onClick={() => decide("approved")} sx={{ height: 40 }}>{ACTION[cur.action]} <Kbd dark>A</Kbd></Button>
+                  <Button variant="outlined" onClick={() => decide("rejected")} sx={{ height: 40 }}>{tr("Keep as drawn")} <Kbd>K</Kbd></Button>
+                  <Button variant="contained" onClick={() => decide("approved")} sx={{ height: 40 }}>{tr(ACTION[cur.action])} <Kbd dark>A</Kbd></Button>
                 </>) : <Typography sx={{ fontSize: 13, color: C.muted }}>Check only — nothing to apply</Typography>}
               </Stack>
             </Box>
@@ -190,8 +191,8 @@ function ReviewDialog({ job, cl, onClose, onApplied }: { job: JobState; cl: Clea
       {/* footer */}
       <Stack direction="row" alignItems="center" spacing={1.5} sx={{ px: 3, py: 1.5, borderTop: `1px solid ${C.line}`, flex: "none" }}>
         <Typography sx={{ fontSize: 13, flex: 1 }}><b style={{ fontWeight: 500 }}>{approvedN.toLocaleString()}</b> <span style={{ color: C.muted }}>approved · automatic clean-up uses {cl.settings.tolerance} m</span></Typography>
-        <Button onClick={onClose} sx={{ color: C.muted }}>Close</Button>
-        <Button variant="contained" disabled={busy || !changed} onClick={apply}>Apply and re-read</Button>
+        <Button onClick={onClose} sx={{ color: C.muted }}>{tr("Close")}</Button>
+        <Button variant="contained" disabled={busy || !changed} onClick={apply}>{tr("Apply and re-read")}</Button>
       </Stack>
     </Dialog>
   );
@@ -266,8 +267,8 @@ function Preview({ p }: { p: Proposal }) {
           </Stack>
         )}
         <Stack direction="row" spacing={1.5} alignItems="center" sx={{ bgcolor: "rgba(255,255,255,.94)", borderRadius: 2, px: 1.5, height: 36, fontSize: 12, boxShadow: "0 2px 10px rgba(20,24,31,.18)" }}>
-          <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 3, bgcolor: "#DC2626", borderRadius: 1 }} /><span>would change</span></Stack>
-          {p.keep && <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 5, bgcolor: "#60A5FA", borderRadius: 1 }} /><span>kept</span></Stack>}
+          <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 3, bgcolor: "#DC2626", borderRadius: 1 }} /><span>{tr("would change")}</span></Stack>
+          {p.keep && <Stack direction="row" spacing={0.75} alignItems="center"><Box sx={{ width: 14, height: 5, bgcolor: "#60A5FA", borderRadius: 1 }} /><span>{tr("kept")}</span></Stack>}
           <Box component="span" sx={{ color: C.muted, fontFamily: '"Geist Mono", monospace' }}>≈ {span < 1 ? `${Math.round(span * 1000)} mm` : `${span.toFixed(1)} m`}</Box>
         </Stack>
       </Stack>

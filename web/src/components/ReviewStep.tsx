@@ -75,6 +75,7 @@ import { nice } from "./FeatureEditor";
 import { AttributesPane } from "./AttributesPane";
 import { CadCompare } from "./CadCompare";
 import { C } from "../theme";
+import { tr } from "../i18n";
 
 type Tool = "select" | "box" | "modify" | "move" | "draw" | "split" | "distance" | "area";
 type TabK = "attributes" | "issues";
@@ -714,7 +715,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
               <ButtonBase key={k} role="tab" aria-selected={rtab === k} onClick={() => setRtabP(k)}
                 sx={{ px: 1.5, height: 30, fontSize: 13, fontWeight: rtab === k ? 600 : 400, color: rtab === k ? C.ink : C.muted,
                       boxShadow: rtab === k ? `inset 0 -2px 0 ${C.ink}` : "none", "&:hover": { color: C.ink } }}>
-                {k === "map" ? "Map" : "Edit"}
+                {k === "map" ? tr("Map") : tr("Edit")}
                 {k === "edit" && nPending > 0 && <Box component="span" sx={{ ml: 0.75, px: 0.6, borderRadius: 99, bgcolor: C.amberSoft, color: C.amber, fontSize: 11, fontWeight: 600 }}>{nPending}</Box>}
               </ButtonBase>
             ))}
@@ -814,7 +815,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         {/* layers */}
         <Box sx={{ position: "absolute", top: 12, left: 12, width: 210, maxHeight: "calc(100% - 24px)", overflow: "auto", bgcolor: "#fff", borderRadius: 2.5,
                    boxShadow: "0 4px 18px rgba(16,24,40,.12)", p: 0.75, zIndex: 2 }}>
-          <LayerItem label="All layers" active={!focus} n={items.length + noLevel.size} onClick={() => { setFocus(null); fitAll(); }} />
+          <LayerItem label={tr("All layers")} active={!focus} n={items.length + noLevel.size} onClick={() => { setFocus(null); fitAll(); }} />
           {classes.map(([k, c]) => (
             <LayerItem key={k} label={c.alias} color={colorOf(k)} active={focus === k} hidden={!!hidden[k]} n={byClass[k].open}
               onEye={() => setHidden((h) => ({ ...h, [k]: !h[k] }))}
@@ -837,9 +838,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
           ))}
         </Menu>
         <Menu anchorEl={snapMenu} open={!!snapMenu} onClose={() => setSnapMenu(null)}>
-          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, vertex: !o.vertex }))}><Checkbox size="small" checked={snapOpt.vertex} sx={{ p: 0, mr: 1 }} />Vertices and ends</MenuItem>
-          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, edge: !o.edge }))}><Checkbox size="small" checked={snapOpt.edge} sx={{ p: 0, mr: 1 }} />Edges</MenuItem>
-          <MenuItem disabled dense sx={{ fontSize: 12, opacity: "1 !important", color: C.muted, mt: 0.5 }}>Tolerance</MenuItem>
+          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, vertex: !o.vertex }))}><Checkbox size="small" checked={snapOpt.vertex} sx={{ p: 0, mr: 1 }} />{tr("Vertices and ends")}</MenuItem>
+          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, edge: !o.edge }))}><Checkbox size="small" checked={snapOpt.edge} sx={{ p: 0, mr: 1 }} />{tr("Edges")}</MenuItem>
+          <MenuItem disabled dense sx={{ fontSize: 12, opacity: "1 !important", color: C.muted, mt: 0.5 }}>{tr("Tolerance")}</MenuItem>
           {[5, 10, 15, 25].map((t) => <MenuItem key={t} dense selected={snapOpt.tol === t} onClick={() => setSnapOpt((o) => ({ ...o, tol: t }))}>{t} px</MenuItem>)}
         </Menu>
         <Menu anchorEl={baseMenu} open={!!baseMenu} onClose={() => setBaseMenu(null)}>
@@ -851,8 +852,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
           <Box sx={{ position: "absolute", left: Math.min(pick.x + 12, (el.current?.clientWidth || 600) - 260), top: Math.min(pick.y + 12, (el.current?.clientHeight || 400) - 40 - pick.fids.length * 32),
                      width: 248, bgcolor: "#fff", borderRadius: 2, boxShadow: "0 8px 24px rgba(20,24,31,.2)", zIndex: 4, py: 0.5 }}>
             <Stack direction="row" alignItems="center" sx={{ px: 1.5, py: 0.5 }}>
-              <Typography sx={{ fontSize: 12, color: C.muted, flex: 1 }}>{pick.fids.length} features here</Typography>
-              <ButtonBase onClick={() => { setSelection(pick.fids); setPick(null); }} sx={{ fontSize: 12, color: C.cyan, px: 0.5 }}>Select all</ButtonBase>
+              <Typography sx={{ fontSize: 12, color: C.muted, flex: 1 }}>{pick.fids.length} {tr("features here")}</Typography>
+              <ButtonBase onClick={() => { setSelection(pick.fids); setPick(null); }} sx={{ fontSize: 12, color: C.cyan, px: 0.5 }}>{tr("Select all")}</ButtonBase>
             </Stack>
             {pick.fids.map((fid) => {
               const r = rows[fid]; const on = selFids.length === 1 && selFids[0] === fid;
@@ -882,14 +883,14 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
 
         {/* status bar */}
         <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: "none", height: 28, px: 1.5, borderTop: `1px solid ${C.line}`, bgcolor: "#FAFBFC",
-                   fontSize: 12, color: C.muted, fontFamily: '"Geist Mono", ui-monospace, monospace', whiteSpace: "nowrap", overflow: "hidden" }}>
-          <span ref={scaleEl}>1:—</span>
-          <span ref={xyEl} style={{ minWidth: 230 }}>—</span>
-          <span>{geo ? "WGS 84 / Web Mercator" : "Drawing units (m)"}</span>
+                   fontSize: 12, color: C.muted, whiteSpace: "nowrap", overflow: "hidden", "& .mono": { fontFamily: '"Geist Mono", ui-monospace, monospace', direction: "ltr", unicodeBidi: "isolate" } }}>
+          <span ref={scaleEl} className="mono">1:—</span>
+          <span ref={xyEl} className="mono" style={{ minWidth: 230 }}>—</span>
+          <span className="mono">{geo ? "WGS 84 / Web Mercator" : "Drawing units (m)"}</span>
           <Box sx={{ flex: 1 }} />
-          {nSel > 0 && <span style={{ color: SEL_UI }}>{nSel.toLocaleString()} selected</span>}
-          {nPending > 0 && <span style={{ color: C.amber }}>{nPending} unsaved</span>}
-          <span>Snap {snapOn ? "on" : "off"}</span>
+          {nSel > 0 && <span style={{ color: SEL_UI }}>{nSel.toLocaleString()} {tr("selected")}</span>}
+          {nPending > 0 && <span style={{ color: C.amber }}>{nPending} {tr("unsaved")}</span>}
+          <span>{snapOn ? tr("Snap on") : tr("Snap off")}</span>
         </Stack>
       </Box>
 
@@ -910,9 +911,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         )}
         <Stack direction="row" alignItems="center" sx={{ borderBottom: `1px solid ${C.line}`, pr: 0.5 }}>
           <Tabs value={tab} onChange={(_, v) => setTab(v)} variant="fullWidth" sx={{ flex: 1, minHeight: 44, "& .MuiTab-root": { minHeight: 44, textTransform: "none", fontWeight: 650, fontSize: 13.5 } }}>
-            <Tab value="attributes" label={<Stack direction="row" spacing={0.75} alignItems="center"><span>Attributes</span>
+            <Tab value="attributes" label={<Stack direction="row" spacing={0.75} alignItems="center"><span>{tr("Attributes")}</span>
               {selFids.length > 0 && <Box component="span" sx={{ px: 0.75, borderRadius: 99, bgcolor: "#E6F1FB", color: "#1E4E8C", fontSize: 11, fontWeight: 700 }}>{selFids.length.toLocaleString()}</Box>}</Stack>} />
-            <Tab value="issues" label={<Stack direction="row" spacing={0.75} alignItems="center"><span>Issues</span>
+            <Tab value="issues" label={<Stack direction="row" spacing={0.75} alignItems="center"><span>{tr("Issues")}</span>
               {items.length > 0 && <Box component="span" sx={{ px: 0.75, borderRadius: 99, bgcolor: openErrs.length ? "#FEE2E2" : "#FEF3C7", color: openErrs.length ? RED : "#92400E", fontSize: 11, fontWeight: 700 }}>{items.length}</Box>}</Stack>} />
           </Tabs>
         </Stack>
@@ -936,7 +937,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
 
             {/* where the check stands, in three numbers */}
             <Box sx={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", borderBottom: `1px solid ${C.line}`, textAlign: "center" }}>
-              {([["Errors", nRed, nRed ? RED : C.muted], ["To fill", nAmber, nAmber ? AMBER : C.muted], ["Clean", nClean, C.green]] as [string, number, string][]).map(([k, v, c], i) => (
+              {([[tr("Errors"), nRed, nRed ? RED : C.muted], [tr("To fill"), nAmber, nAmber ? AMBER : C.muted], [tr("Clean"), nClean, C.green]] as [string, number, string][]).map(([k, v, c], i) => (
                 <Box key={k} sx={{ py: 1.25, borderLeft: i ? `1px solid ${C.line}` : undefined }}>
                   <Typography sx={{ fontSize: 20, fontWeight: 500, lineHeight: 1.2, color: c, fontVariantNumeric: "tabular-nums" }}>{v.toLocaleString()}</Typography>
                   <Typography sx={{ fontSize: 12, color: C.muted }}>{k}</Typography>
@@ -948,9 +949,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
             <Box sx={{ m: 1.5, p: 1.5, borderRadius: 2, border: `1px solid ${C.line}`, bgcolor: "#FAFBFC" }}>
               <Stack direction="row" alignItems="center" spacing={1}>
                 <BuildOutlined sx={{ fontSize: 20, color: C.cyan }} />
-                <Tooltip title="Fix → check → undo what got worse"><Typography sx={{ fontSize: 13.5, fontWeight: 700, flex: 1 }}>Fix all</Typography></Tooltip>
+                <Tooltip title="Fix → check → undo what got worse"><Typography sx={{ fontSize: 13.5, fontWeight: 700, flex: 1 }}>{tr("Fix all")}</Typography></Tooltip>
                 <Button size="small" variant="contained" disabled={busy || !nFixable} onClick={() => runAutofix()}
-                  startIcon={busy && running ? <CircularProgress size={14} color="inherit" /> : undefined}>{nFixable ? `Fix ${nFixable}` : "None"}</Button>
+                  startIcon={busy && running ? <CircularProgress size={14} color="inherit" /> : undefined}>{nFixable ? `${tr("Fix all")} ${nFixable}` : tr("None")}</Button>
               </Stack>
               {report && report.at && (
                 <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1.25, pt: 1, borderTop: `1px dashed ${C.line}` }}>
@@ -1060,12 +1061,12 @@ function Grp({ label, children, last }: { label: string; children: React.ReactNo
   return (
     <Stack sx={{ flex: "none", px: 0.75, borderRight: last ? undefined : `1px solid ${C.line}` }}>
       <Stack direction="row" spacing={0.25} alignItems="center" sx={{ flex: 1 }}>{children}</Stack>
-      <Typography sx={{ fontSize: 10.5, color: C.muted, textAlign: "center", lineHeight: 1.4 }}>{label}</Typography>
+      <Typography sx={{ fontSize: 10.5, color: C.muted, textAlign: "center", lineHeight: 1.4 }}>{tr(label)}</Typography>
     </Stack>
   );
 }
 function Tip({ t, tip, k }: { t: string; tip?: string; k?: string }) {
-  return <>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>;
+  return <>{tip ? tr(tip) : tr(t)}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>;
 }
 // state ladder: rest = muted glyph · hover = surface step · armed tool = soft accent · toggle on = accent glyph only · focus = 1px accent outline
 const tone = (on?: boolean, accent?: boolean, disabled?: boolean) => ({
@@ -1083,7 +1084,7 @@ function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string;
         <ButtonBase onClick={(e) => onClick(e)} disabled={disabled} aria-label={tip ? `${t} — ${tip}` : t} aria-pressed={on}
           sx={{ flexDirection: "column", justifyContent: "center", gap: 0.4, minWidth: 56, height: 64, px: 0.75, borderRadius: 1.5, fontSize: 11.5, lineHeight: 1.1,
                 ...tone(on, accent, disabled), "& svg": { fontSize: 26 } }}>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>{children}</Box><span>{t}</span>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>{children}</Box><span>{tr(t)}</span>
         </ButtonBase>
       </span>
     </Tooltip>
@@ -1097,7 +1098,7 @@ function RS({ t, k, tip, on, onClick, disabled, children, iconOnly }: { t: strin
         <ButtonBase onClick={(e) => onClick(e)} disabled={disabled} aria-label={tip ? `${t} — ${tip}` : t} aria-pressed={on}
           sx={{ justifyContent: "flex-start", gap: 0.75, height: 30, px: 0.75, borderRadius: 1.25, fontSize: 12, whiteSpace: "nowrap",
                 ...tone(on, false, disabled), "& svg": { fontSize: 18 } }}>
-          {children}{!iconOnly && <span>{t}</span>}
+          {children}{!iconOnly && <span>{tr(t)}</span>}
         </ButtonBase>
       </span>
     </Tooltip>
