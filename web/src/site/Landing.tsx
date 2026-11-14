@@ -134,9 +134,14 @@ export function Landing({ cfg, user, go }: Props) {
             <button className="lx-pill lg" onClick={start}>{t.start} <Arrow /></button>
             <button className="lx-link" onClick={() => go(user ? "/app" : "/login")}>{t.signin} <Arrow /></button>
           </div>
+          <p className="lx-note">{t.l_note(cfg?.trial_credits ?? 50)}</p>
         </div>
         <HeroSeam lang={lang} labels={t.l_seam} layers={TEMPLATES.map((x) => ({ id: x.id, name: ar ? x.ar : x.en, color: x.color }))} />
       </header>
+
+      <section className="lx-facts" aria-label={t.l_facts_label}>
+        <ul>{t.l_facts.map(([v, k]) => <li key={k}><b>{v}</b><span>{k}</span></li>)}</ul>
+      </section>
 
       <section className="lx-sec lx-bridge lx-page" id="platform">
         <p className="lx-eye rv">{t.l_bridge_e}</p>

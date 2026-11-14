@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import { Box, Button, Checkbox, Chip, Container, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, ListItemIcon, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Box, Button, ButtonBase, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, InputBase, ListItemIcon, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import MoreHorizRounded from "@mui/icons-material/MoreHorizRounded";
 import DeleteOutlineRounded from "@mui/icons-material/DeleteOutlineRounded";
 import OpenInNewRounded from "@mui/icons-material/EastRounded";
 import AddRounded from "@mui/icons-material/AddRounded";
-import InsertDriveFileOutlined from "@mui/icons-material/InsertDriveFileOutlined";
+import SearchRounded from "@mui/icons-material/SearchRounded";
 import { api } from "../api";
 import type { AuthUser, JobState } from "../types";
 import { C } from "../theme";
@@ -12,35 +12,58 @@ import { AppHeader } from "../components/AppHeader";
 import { LogoMark } from "../components/Logo";
 
 interface Props { me: AuthUser | null; mode: string; go: (r: string) => void; onLogout: () => void }
+type Job = Partial<JobState>;
+type Filter = "all" | "open" | "attention" | "done";
 
-const STATUS: Record<string, { label: string; fg: string; bg: string }> = {
-  completed: { label: "Delivered", fg: C.green, bg: C.greenSoft },
-  validated: { label: "Validated", fg: C.cyan, bg: C.cyanSoft },
-  ready: { label: "Mapping", fg: C.ink, bg: "#ECEEF1" },
-  running: { label: "Working", fg: C.cyan, bg: C.cyanSoft },
-  queued: { label: "Queued", fg: C.muted, bg: "#ECEEF1" },
-  failed: { label: "Needs attention", fg: C.red, bg: C.redSoft },
+const STEPS = ["Upload", "Layers", "Review", "Deliver"];
+const MONO = '"Geist Mono", ui-monospace, monospace';
+
+/** Where a job stands: index of the current step (4 = delivered). */
+const stepOf = (j: Job) => {
+  if (j.status === "completed") return 4;
+  if (j.status === "validated") return 3;
+  if (j.status === "ready") return 1;
+  if (j.status === "failed") return j.stage === "generate" ? 3 : j.stage === "validate" ? 2 : j.stage === "discovery" ? 0 : 1;
+  return j.stage === "discovery" || !j.stage ? 0 : 1;
 };
-
+const counts = (msg = "") => {
+  const m = /(\d[\d,]*) features ready, (\d[\d,]*) failed/.exec(msg) || /(\d[\d,]*) features, verification/.exec(msg);
+  if (!m) return null;
+  return { ok: Number(m[1].replace(/,/g, "")), bad: Number((m[2] || "0").replace(/,/g, "")) };
+};
+const needsYou = (j: Job) => j.status === "failed" || (j.status === "validated" && (counts(j.message)?.bad || 0) > 0);
+const STATUS = (j: Job) => {
+  if (j.status === "completed") return { label: "Delivered", c: C.green };
+  if (j.status === "failed") return { label: "Needs attention", c: C.red };
+  if (needsYou(j)) return { label: `${counts(j.message)?.bad.toLocaleString()} to fix`, c: C.amber };
+  if (j.status === "validated") return { label: "Ready to deliver", c: C.cyan };
+  if (j.status === "queued" || j.status === "running") return { label: "Working", c: C.cyan };
+  return { label: "Mapping layers", c: C.muted };
+};
+const ext = (name = "") => (name.split(".").pop() || "").toUpperCase().slice(0, 4);
 const ago = (iso?: string) => {
   if (!iso) return "";
   const m = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
   if (m < 1) return "just now";
   if (m < 60) return `${m} min ago`;
   if (m < 60 * 24) return `${Math.round(m / 60)} h ago`;
-  return new Date(iso).toLocaleDateString();
+  if (m < 60 * 48) return "Yesterday";
+  return new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short" });
 };
+const sameMonth = (iso: string | undefined, d: Date) => !!iso && new Date(iso).getMonth() === d.getMonth() && new Date(iso).getFullYear() === d.getFullYear();
 
-/** Home of the signed-in area: start a conversion, or pick up one in progress. */
+/** Home of the signed-in area: what was delivered, what waits on you, and every drawing in progress. */
 export function Workspace({ me, mode, go, onLogout }: Props) {
-  const [jobs, setJobs] = useState<Partial<JobState>[] | null>(null);
+  const [jobs, setJobs] = useState<Job[] | null>(null);
   const [q, setQ] = useState("");
+  const [filter, setFilter] = useState<Filter>("all");
   const [sel, setSel] = useState<Record<string, boolean>>({});
   const [menu, setMenu] = useState<{ el: HTMLElement; id: string } | null>(null);
   const [confirm, setConfirm] = useState<string[] | null>(null);
   const [deleting, setDeleting] = useState(false);
   const nameOf = (id: string) => (jobs || []).find((j) => j.job_id === id)?.file?.name || "drawing";
   const selected = Object.keys(sel).filter((k) => sel[k]);
+  const open = (id?: string) => { window.location.hash = `job=${id}`; };
   const doDelete = async () => {
     if (!confirm) return;
     setDeleting(true);
@@ -51,144 +74,184 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
     setDeleting(false); setConfirm(null);
   };
   useEffect(() => { api.jobs().then(setJobs).catch(() => setJobs([])); }, []);
-  const list = useMemo(() => (jobs || []).filter((j) => !q || `${j.file?.name} ${j.schema_name}`.toLowerCase().includes(q.toLowerCase())), [jobs, q]);
-  const delivered = (jobs || []).filter((j) => j.status === "completed").length;
-  const open = (jobs || []).filter((j) => j.status !== "completed").length;
+
+  const all = jobs || [];
+  const groups: Record<Filter, Job[]> = useMemo(() => ({
+    all,
+    open: all.filter((j) => j.status !== "completed" && !needsYou(j)),
+    attention: all.filter(needsYou),
+    done: all.filter((j) => j.status === "completed"),
+  }), [jobs]);
+  const list = useMemo(() => groups[filter].filter((j) => !q || `${j.file?.name} ${j.schema_name}`.toLowerCase().includes(q.toLowerCase())), [groups, filter, q]);
+
+  const now = new Date(), prev = new Date(now.getFullYear(), now.getMonth() - 1, 15);
+  const dThis = groups.done.filter((j) => sameMonth(j.updated_at, now)).length;
+  const dPrev = groups.done.filter((j) => sameMonth(j.updated_at, prev)).length;
+  const feats = groups.done.reduce((s, j) => s + (counts(j.message)?.ok || 0), 0);
+  const staff = me && (me.role === "owner" || me.role === "admin");
+  const month = now.toLocaleDateString(undefined, { month: "long", year: "numeric" });
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <AppHeader me={me} mode={mode} go={go} onLogout={onLogout} active="app" />
-      <Box sx={{ bgcolor: "#fff", borderBottom: `1px solid ${C.line}` }}>
-        <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4.5 }, display: "flex", flexWrap: "wrap", alignItems: "flex-end", gap: 3 }}>
-          <Box sx={{ flex: 1, minWidth: 280 }}>
-            <Typography variant="h4">Conversions</Typography>
-            <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mt: 1.25, color: C.muted, fontSize: 14 }} flexWrap="wrap" useFlexGap>
-              {["Upload", "Layers", "Review", "Deliver"].map((t, i) => (
-                <Stack key={t} direction="row" spacing={0.75} alignItems="center">
-                  {i > 0 && <Box sx={{ width: 16, height: 1.5, bgcolor: C.line, mr: 0.5 }} />}
-                  <Box sx={{ width: 20, height: 20, borderRadius: "50%", border: `1.5px solid ${C.line}`, display: "grid", placeItems: "center", fontSize: 11, fontWeight: 700 }}>{i + 1}</Box>
-                  <span>{t}</span>
-                </Stack>
-              ))}
-            </Stack>
-          </Box>
-          <Stack direction="row" spacing={4} sx={{ mr: 2 }}>
-            {mode === "accounts" && me?.credits != null && (me.role === "owner" || me.role === "admin"
-              ? <Figure label="owner account" value="Unlimited" onClick={() => go("/account")} />
-              : <Figure label="credits" value={me.credits} onClick={() => go("/account")} />)}
-            <Figure label="delivered" value={delivered} />
-            <Figure label="in progress" value={open} />
-          </Stack>
-          <Button variant="contained" size="large" startIcon={<AddRounded />} onClick={() => go("/app/new")}>New conversion</Button>
-        </Container>
-      </Box>
+      <Box sx={{ maxWidth: 1520, mx: "auto", px: { xs: 2, md: 4 }, py: 3, display: "flex", flexDirection: "column", gap: 3 }}>
 
-      <Container maxWidth="lg" sx={{ py: 3 }}>
+        {/* title, search, primary action */}
+        <Stack direction="row" alignItems="center" flexWrap="wrap" useFlexGap gap={1.5}>
+          <Typography component="h1" sx={{ fontSize: 22, fontWeight: 500, letterSpacing: "-0.01em" }}>Conversions</Typography>
+          <Typography sx={{ fontSize: 13, color: C.muted }}>{month}</Typography>
+          <Box sx={{ flex: 1 }} />
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ height: 36, px: 1.25, width: 280, maxWidth: "100%", border: `1px solid ${C.line}`, borderRadius: 2, bgcolor: "#fff", color: C.muted }}>
+            <SearchRounded sx={{ fontSize: 18 }} />
+            <InputBase value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search drawings" inputProps={{ "aria-label": "Search drawings" }} sx={{ flex: 1, fontSize: 13 }} />
+          </Stack>
+          <Button variant="contained" startIcon={<AddRounded />} onClick={() => go("/app/new")} sx={{ height: 36, borderRadius: 2, fontWeight: 500, fontSize: 14 }}>New conversion</Button>
+        </Stack>
+
+        {/* figures */}
+        {!!jobs?.length && <Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(2, minmax(0,1fr))", md: "repeat(4, minmax(0,1fr))" }, gap: 1.5 }}>
+          <Stat label="Delivered this month" value={dThis}
+            note={dPrev || dThis ? `${dThis - dPrev >= 0 ? "+" : ""}${dThis - dPrev} vs last month` : "No deliveries yet"} good={dThis >= dPrev && dThis > 0} />
+          <Stat label="Waiting on you" value={groups.attention.length} note={groups.attention.length ? "Open the list on the right" : "Nothing to fix"} warn={groups.attention.length > 0} />
+          <Stat label="Features delivered" value={feats.toLocaleString()} note={`in ${groups.done.length} geodatabase${groups.done.length === 1 ? "" : "s"}`} />
+          {mode === "accounts" && me?.credits != null
+            ? <Stat label="Credits" value={staff ? "Unlimited" : me.credits.toLocaleString()} note="Top up or change plan" onClick={() => go("/account")} />
+            : <Stat label="In progress" value={groups.open.length} note="Mapping or working" />}
+        </Box>}
+
         {jobs && jobs.length === 0 ? (
-          <Paper sx={{ p: { xs: 3, md: 6 }, textAlign: "center" }}>
+          <Paper sx={{ p: { xs: 3, md: 6 }, textAlign: "center", borderRadius: 3 }}>
             <Box sx={{ color: C.ink, display: "flex", justifyContent: "center", mb: 2 }}><LogoMark size={64} hangers /></Box>
             <Typography variant="h5">Your first conversion takes a few minutes</Typography>
-            <Typography sx={{ color: C.muted, mt: 1, mb: 3, maxWidth: 520, mx: "auto" }}>
-              Choose the asset type, drop the DWG or DXF exactly as the draughtsman delivered it, and follow the steps to a verified geodatabase.
-            </Typography>
+            <Typography sx={{ color: C.muted, mt: 1, mb: 3, maxWidth: 480, mx: "auto" }}>Drop a DWG or DXF, confirm the layers, fix what the check flags, download the geodatabase.</Typography>
             <Button variant="contained" size="large" startIcon={<AddRounded />} onClick={() => go("/app/new")}>Start a conversion</Button>
           </Paper>
         ) : (
-          <Paper sx={{ overflow: "hidden" }}>
-            <Stack direction="row" alignItems="center" sx={{ px: 2.5, py: 1.75, borderBottom: `1px solid ${C.line}` }}>
-              <Typography variant="h5" sx={{ flex: 1 }}>Recent conversions</Typography>
-              {selected.length > 0 && <Stack direction="row" spacing={1} alignItems="center" sx={{ mr: 2 }}>
-                <Typography sx={{ fontSize: 13, color: C.muted }}>{selected.length} selected</Typography>
-                <Button size="small" onClick={() => setSel({})}>Clear</Button>
-                <Button size="small" color="error" variant="outlined" startIcon={<DeleteOutlineRounded />} onClick={() => setConfirm(selected)}>Delete</Button>
-              </Stack>}
-              <TextField placeholder="Find a drawing" value={q} onChange={(e) => setQ(e.target.value)} sx={{ width: 240 }} />
-            </Stack>
-            <Table>
-              <TableHead><TableRow>
-                <TableCell padding="checkbox" sx={{ pl: 1 }}><Checkbox size="small" inputProps={{ "aria-label": "Select all drawings" }}
-                  checked={list.length > 0 && list.every((j) => sel[j.job_id || ""])}
-                  indeterminate={selected.length > 0 && !list.every((j) => sel[j.job_id || ""])}
-                  onChange={(e) => { const n = { ...sel }; list.forEach((j) => { n[j.job_id || ""] = e.target.checked; }); setSel(n); }} /></TableCell>
-                <TableCell sx={{ pl: 0.5 }}>Drawing</TableCell><TableCell>Ready</TableCell><TableCell>Status</TableCell>
-                <TableCell>Last change</TableCell><TableCell />
-              </TableRow></TableHead>
-              <TableBody>
-                {list.map((j) => {
-                  const s = STATUS[j.status || ""] || STATUS.ready;
-                  return (
-                    <TableRow key={j.job_id} hover sx={{ cursor: "pointer", "& td": { py: 1.4 } }} onClick={() => { window.location.hash = `job=${j.job_id}`; }}>
-                      <TableCell padding="checkbox" sx={{ pl: 1 }} onClick={(e) => e.stopPropagation()}>
-                        <Checkbox size="small" checked={!!sel[j.job_id || ""]} inputProps={{ "aria-label": `Select ${j.file?.name}` }}
-                          onChange={(e) => setSel({ ...sel, [j.job_id || ""]: e.target.checked })} />
-                      </TableCell>
-                      <TableCell sx={{ pl: 0.5 }}>
-                        <Stack direction="row" spacing={1.25} alignItems="center">
-                          <InsertDriveFileOutlined sx={{ color: C.muted, fontSize: 20 }} />
-                          <Box sx={{ minWidth: 0 }}>
-                            <Typography sx={{ fontWeight: 600, fontSize: 13.5 }} noWrap>{j.file?.name}{j.extra_files?.length ? <Box component="span" sx={{ color: C.muted, fontWeight: 400 }}> + {j.extra_files.length} sheet{j.extra_files.length === 1 ? "" : "s"}</Box> : null}</Typography>
-                            <Typography variant="caption" noWrap component="div" sx={{ maxWidth: 420 }}>{(j.schema_name || "").split(" — ")[0]}</Typography>
-                          </Box>
-                        </Stack>
-                      </TableCell>
-                      <TableCell sx={{ minWidth: 170 }}><Readiness msg={j.message || ""} status={j.status || ""} /></TableCell>
-                      <TableCell><Chip size="small" label={s.label} sx={{ color: s.fg, bgcolor: s.bg }} /></TableCell>
-                      <TableCell sx={{ color: C.muted, whiteSpace: "nowrap" }}>{ago(j.updated_at || j.created_at)}</TableCell>
-                      <TableCell align="right" sx={{ whiteSpace: "nowrap" }}>
-                        <Button size="small">{j.status === "completed" ? "Open" : "Continue"}</Button>
-                        <IconButton aria-label={`Actions for ${j.file?.name}`} sx={{ ml: 0.5 }}
-                          onClick={(e) => { e.stopPropagation(); setMenu({ el: e.currentTarget, id: j.job_id || "" }); }}><MoreHorizRounded /></IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-                {jobs === null && <TableRow><TableCell colSpan={6} sx={{ pl: 2.5, color: C.muted }}>Loading…</TableCell></TableRow>}
-                {jobs && jobs.length > 0 && !list.length && <TableRow><TableCell colSpan={6} sx={{ pl: 2.5, color: C.muted }}>No drawing matches “{q}”.</TableCell></TableRow>}
-              </TableBody>
-            </Table>
-            <Menu anchorEl={menu?.el} open={!!menu} onClose={() => setMenu(null)} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} transformOrigin={{ vertical: "top", horizontal: "right" }}>
-              <MenuItem onClick={() => { const id = menu?.id; setMenu(null); window.location.hash = `job=${id}`; }}>
-                <ListItemIcon><OpenInNewRounded fontSize="small" /></ListItemIcon>Open</MenuItem>
-              <MenuItem onClick={() => { const id = menu?.id || ""; setMenu(null); setConfirm([id]); }} sx={{ color: C.red }}>
-                <ListItemIcon sx={{ color: C.red }}><DeleteOutlineRounded fontSize="small" /></ListItemIcon>Delete</MenuItem>
-            </Menu>
-            <Dialog open={!!confirm} onClose={() => !deleting && setConfirm(null)} maxWidth="xs" fullWidth>
-              <DialogTitle sx={{ fontSize: 18 }}>{confirm && confirm.length === 1 ? `Delete ${nameOf(confirm[0])}` : `Delete ${confirm?.length} drawings`}</DialogTitle>
-              <DialogContent><Typography sx={{ color: C.muted, fontSize: 14 }}>The drawing, its review edits and its packages are removed for good. This cannot be undone.</Typography></DialogContent>
-              <DialogActions sx={{ px: 3, pb: 2.5 }}>
-                <Button onClick={() => setConfirm(null)} disabled={deleting}>Keep</Button>
-                <Button variant="contained" color="error" onClick={doDelete} disabled={deleting}>{deleting ? "Deleting…" : "Delete"}</Button>
-              </DialogActions>
-            </Dialog>
-            <Typography variant="caption" component="div" sx={{ px: 2.5, py: 1.25, borderTop: `1px solid ${C.line}` }}>
-              Files are deleted after 72 hours
-            </Typography>
-          </Paper>
-        )}
-      </Container>
-    </Box>
-  );
-}
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 3, alignItems: "flex-start" }}>
+            {/* table */}
+            <Paper sx={{ flex: "999 1 640px", minWidth: 0, overflow: "hidden", borderRadius: 3 }}>
+              <Stack direction="row" alignItems="center" flexWrap="wrap" useFlexGap gap={1} sx={{ px: 2, py: 1.5, borderBottom: `1px solid ${C.line}` }}>
+                {([["all", "All"], ["attention", "Needs you"], ["open", "In progress"], ["done", "Delivered"]] as [Filter, string][]).map(([k, label]) => (
+                  <ButtonBase key={k} onClick={() => setFilter(k)} aria-pressed={filter === k}
+                    sx={{ height: 30, px: 1.5, gap: 0.75, borderRadius: 2, fontSize: 13, border: `1px solid ${filter === k ? C.ink : C.line}`,
+                          bgcolor: filter === k ? C.ink : "#fff", color: filter === k ? "#F3F1ED" : C.ink }}>
+                    {label}<Box component="span" sx={{ fontFamily: MONO, fontSize: 12, opacity: 0.7 }}>{groups[k].length}</Box>
+                  </ButtonBase>
+                ))}
+                <Box sx={{ flex: 1 }} />
+                {selected.length > 0
+                  ? <Stack direction="row" spacing={1} alignItems="center">
+                      <Typography sx={{ fontSize: 13, color: C.muted }}>{selected.length} selected</Typography>
+                      <Button size="small" onClick={() => setSel({})}>Clear</Button>
+                      <Button size="small" color="error" variant="outlined" startIcon={<DeleteOutlineRounded />} onClick={() => setConfirm(selected)}>Delete</Button>
+                    </Stack>
+                  : <Typography sx={{ fontSize: 12, color: C.muted }}>Files are deleted after 72 hours</Typography>}
+              </Stack>
+              <Box sx={{ overflowX: "auto" }}>
+                <Table sx={{ minWidth: 760, "& td, & th": { borderColor: "#EFEDE9" } }}>
+                  <TableHead><TableRow sx={{ "& th": { bgcolor: "#fff", fontWeight: 500, fontSize: 12 } }}>
+                    <TableCell padding="checkbox" sx={{ pl: 1 }}><Checkbox size="small" inputProps={{ "aria-label": "Select all drawings" }}
+                      checked={list.length > 0 && list.every((j) => sel[j.job_id || ""])}
+                      indeterminate={selected.length > 0 && !list.every((j) => sel[j.job_id || ""])}
+                      onChange={(e) => { const n = { ...sel }; list.forEach((j) => { n[j.job_id || ""] = e.target.checked; }); setSel(n); }} /></TableCell>
+                    <TableCell sx={{ pl: 0.5 }}>Drawing</TableCell><TableCell>Progress</TableCell><TableCell>Status</TableCell>
+                    <TableCell align="right">Features</TableCell><TableCell align="right">Updated</TableCell><TableCell />
+                  </TableRow></TableHead>
+                  <TableBody>
+                    {list.map((j) => {
+                      const s = STATUS(j), at = stepOf(j), n = counts(j.message);
+                      return (
+                        <TableRow key={j.job_id} hover sx={{ cursor: "pointer", "& td": { py: 1.4 } }} onClick={() => open(j.job_id)}>
+                          <TableCell padding="checkbox" sx={{ pl: 1 }} onClick={(e) => e.stopPropagation()}>
+                            <Checkbox size="small" checked={!!sel[j.job_id || ""]} inputProps={{ "aria-label": `Select ${j.file?.name}` }}
+                              onChange={(e) => setSel({ ...sel, [j.job_id || ""]: e.target.checked })} />
+                          </TableCell>
+                          <TableCell sx={{ pl: 0.5 }}>
+                            <Stack direction="row" spacing={1.25} alignItems="center">
+                              <Box sx={{ width: 32, height: 32, flex: "none", borderRadius: 2, bgcolor: "#F1EFEB", display: "grid", placeItems: "center", fontFamily: MONO, fontSize: 10, color: C.muted }}>{ext(j.file?.name)}</Box>
+                              <Box sx={{ minWidth: 0 }}>
+                                <Typography sx={{ fontWeight: 500, fontSize: 13.5 }} noWrap>{j.file?.name}{j.extra_files?.length ? <Box component="span" sx={{ color: C.muted, fontWeight: 400 }}> + {j.extra_files.length} sheet{j.extra_files.length === 1 ? "" : "s"}</Box> : null}</Typography>
+                                <Typography variant="caption" noWrap component="div" sx={{ maxWidth: 380 }}>{(j.schema_name || "").split(" — ")[0]}</Typography>
+                              </Box>
+                            </Stack>
+                          </TableCell>
+                          <TableCell>
+                            <Stack direction="row" spacing={1} alignItems="center">
+                              <Stack direction="row" spacing={0.4}>
+                                {STEPS.map((t, i) => <Box key={t} title={t} sx={{ width: 18, height: 4, borderRadius: 2, bgcolor: i < at ? C.ink : i === at ? C.cyan : C.line }} />)}
+                              </Stack>
+                              <Typography sx={{ fontSize: 12, color: C.muted }}>{at >= 4 ? "Delivered" : STEPS[at]}</Typography>
+                            </Stack>
+                          </TableCell>
+                          <TableCell>
+                            <Stack direction="row" spacing={0.75} alignItems="center" sx={{ color: s.c, fontSize: 12.5 }}>
+                              <Box sx={{ width: 6, height: 6, borderRadius: "50%", bgcolor: s.c }} /><span>{s.label}</span>
+                            </Stack>
+                          </TableCell>
+                          <TableCell align="right" sx={{ fontFamily: MONO, fontSize: 12 }}>{n ? (n.ok + n.bad).toLocaleString() : "—"}</TableCell>
+                          <TableCell align="right" sx={{ color: C.muted, fontSize: 12, whiteSpace: "nowrap" }}>{ago(j.updated_at || j.created_at)}</TableCell>
+                          <TableCell align="right" sx={{ whiteSpace: "nowrap", pr: 1 }}>
+                            <IconButton aria-label={`Actions for ${j.file?.name}`}
+                              onClick={(e) => { e.stopPropagation(); setMenu({ el: e.currentTarget, id: j.job_id || "" }); }}><MoreHorizRounded /></IconButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                    {jobs === null && <TableRow><TableCell colSpan={7} sx={{ pl: 2.5, color: C.muted }}>Loading…</TableCell></TableRow>}
+                    {jobs && jobs.length > 0 && !list.length && <TableRow><TableCell colSpan={7} sx={{ pl: 2.5, color: C.muted }}>{q ? `No drawing matches “${q}”` : "Nothing here"}</TableCell></TableRow>}
+                  </TableBody>
+                </Table>
+              </Box>
+            </Paper>
 
-function Readiness({ msg, status }: { msg: string; status: string }) {
-  const m = /(\d[\d,]*) features ready, (\d[\d,]*) failed/.exec(msg) || /(\d[\d,]*) features, verification/.exec(msg);
-  if (!m) return <Typography variant="caption" sx={{ color: C.muted }}>{status === "completed" ? "delivered" : "—"}</Typography>;
-  const ok = Number(m[1].replace(/,/g, "")), bad = Number((m[2] || "0").replace(/,/g, "")), tot = ok + bad || 1;
-  return (
-    <Box>
-      <Typography variant="caption" sx={{ fontWeight: 600, color: C.ink }}>{ok.toLocaleString()} / {(ok + bad).toLocaleString()}</Typography>
-      <Box sx={{ mt: 0.4, height: 5, borderRadius: 3, bgcolor: "#ECEEF1", overflow: "hidden", width: 140 }}>
-        <Box sx={{ width: `${(ok / tot) * 100}%`, height: 5, bgcolor: bad ? C.amber : C.green }} />
+            {/* waiting on you */}
+            <Paper sx={{ flex: "1 1 280px", borderRadius: 3, p: 2.5, display: "flex", flexDirection: "column", gap: 1.5 }}>
+              <Typography component="h2" sx={{ fontSize: 14, fontWeight: 500 }}>Needs you</Typography>
+              {groups.attention.length === 0 && <Typography sx={{ fontSize: 13, color: C.muted }}>Nothing waiting. Every open drawing is moving.</Typography>}
+              {groups.attention.slice(0, 6).map((j) => {
+                const n = counts(j.message);
+                return (
+                  <ButtonBase key={j.job_id} onClick={() => open(j.job_id)} sx={{ justifyContent: "flex-start", textAlign: "left", gap: 1.25, alignItems: "flex-start", borderRadius: 2, p: 0.75, mx: -0.75, "&:hover": { bgcolor: "#F7F6F3" } }}>
+                    <Box sx={{ width: 6, height: 6, mt: 0.9, flex: "none", borderRadius: "50%", bgcolor: j.status === "failed" ? C.red : C.amber }} />
+                    <Box sx={{ minWidth: 0 }}>
+                      <Typography sx={{ fontSize: 13.5, fontWeight: 500 }} noWrap>{j.file?.name}</Typography>
+                      <Typography sx={{ fontSize: 12, color: C.muted }}>
+                        {j.status === "failed" ? (j.error?.message || j.message || "Stopped — open to see why").slice(0, 80) : `${n?.bad.toLocaleString()} features fail the check`}
+                      </Typography>
+                    </Box>
+                  </ButtonBase>
+                );
+              })}
+            </Paper>
+          </Box>
+        )}
+
+        <Menu anchorEl={menu?.el} open={!!menu} onClose={() => setMenu(null)} anchorOrigin={{ vertical: "bottom", horizontal: "right" }} transformOrigin={{ vertical: "top", horizontal: "right" }}>
+          <MenuItem onClick={() => { const id = menu?.id; setMenu(null); open(id); }}>
+            <ListItemIcon><OpenInNewRounded fontSize="small" /></ListItemIcon>Open</MenuItem>
+          <MenuItem onClick={() => { const id = menu?.id || ""; setMenu(null); setConfirm([id]); }} sx={{ color: C.red }}>
+            <ListItemIcon sx={{ color: C.red }}><DeleteOutlineRounded fontSize="small" /></ListItemIcon>Delete</MenuItem>
+        </Menu>
+        <Dialog open={!!confirm} onClose={() => !deleting && setConfirm(null)} maxWidth="xs" fullWidth>
+          <DialogTitle sx={{ fontSize: 18 }}>{confirm && confirm.length === 1 ? `Delete ${nameOf(confirm[0])}` : `Delete ${confirm?.length} drawings`}</DialogTitle>
+          <DialogContent><Typography sx={{ color: C.muted, fontSize: 14 }}>The drawing, its review edits and its packages are removed for good. This cannot be undone.</Typography></DialogContent>
+          <DialogActions sx={{ px: 3, pb: 2.5 }}>
+            <Button onClick={() => setConfirm(null)} disabled={deleting}>Keep</Button>
+            <Button variant="contained" color="error" onClick={doDelete} disabled={deleting}>{deleting ? "Deleting…" : "Delete"}</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </Box>
   );
 }
 
-function Figure({ label, value, onClick }: { label: string; value: number | string; onClick?: () => void }) {
+function Stat({ label, value, note, good, warn, onClick }: { label: string; value: number | string; note: string; good?: boolean; warn?: boolean; onClick?: () => void }) {
   return (
-    <Box onClick={onClick} sx={{ cursor: onClick ? "pointer" : "default", textAlign: "right" }}>
-      <Typography sx={{ fontSize: 28, fontWeight: 600, lineHeight: 1, color: C.ink }}>{value}</Typography>
-      <Typography variant="caption">{label}</Typography>
-    </Box>
+    <Paper component={onClick ? ButtonBase : "div"} onClick={onClick}
+      sx={{ px: 2.5, py: 2, borderRadius: 3, display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 0.5, textAlign: "left", "&:hover": onClick ? { borderColor: C.ink } : undefined }}>
+      <Typography sx={{ fontSize: 13, color: C.muted }}>{label}</Typography>
+      <Typography sx={{ fontSize: 28, fontWeight: 500, lineHeight: 1.15, fontVariantNumeric: "tabular-nums", color: warn ? C.amber : C.ink }}>{value}</Typography>
+      <Typography sx={{ fontSize: 12, color: good ? C.green : C.muted }}>{note}</Typography>
+    </Paper>
   );
 }

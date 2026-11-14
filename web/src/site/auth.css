@@ -85,7 +85,7 @@
   transition: background-color .15s var(--ease), border-color .15s var(--ease), transform .1s var(--ease); }
 .ax-btn:hover { border-color: var(--ink); }
 .ax-btn:active { transform: scale(.99); }
-.ax-btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); margin-top: 4px; }
+.ax-btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); margin-top: 4px; height: 48px; border-radius: 999px; }
 .ax-btn.primary:hover { background: color-mix(in srgb, var(--ink) 88%, var(--paper)); }
 .ax-btn:disabled { opacity: .6; cursor: default; }
 .ax-or { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; margin: 4px 0; }

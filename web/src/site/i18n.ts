@@ -47,6 +47,8 @@ const T = {
     ],
     // landing v2 (editorial)
     l_eyebrow: "For ADM as-built submissions", l_h1a: "From CAD drawing", l_h1b: "to ADM geodatabase", l_tag: "",
+    l_note: (n: number) => `${n} free credits · no card · files deleted after 72 hours`, l_facts_label: "Key facts",
+    l_facts: [["7", "ADM templates, kept current"], ["2000 → 2018+", "AutoCAD versions read natively"], ["Free", "upload, mapping and checks"], ["72 h", "then your files are deleted"]] as [string, string][],
     l_lead: "Upload a DWG or DXF. Its layers are matched to the seven ADM templates, checked, and delivered as the submission package.",
     l_seam: { cad: "Hardscape-01.dwg", gis: "ADM geodatabase", drag: "Drag to compare the drawing and the geodatabase" },
     l_hint: "Drag to explore",
@@ -114,6 +116,8 @@ const T = {
       ["هل تحصل إدارتنا على فاتورة أو عقد؟", "نعم — خطط المؤسسات تُفوتر ويمكن تشغيلها على خوادمكم. راسلنا من رابط التواصل أدناه."],
     ],
     l_eyebrow: "لتسليمات As-built إلى ADM", l_h1a: "من مخطط CAD", l_h1b: "إلى قاعدة بيانات ADM", l_tag: "",
+    l_note: (n: number) => `${n.toLocaleString("ar")} نقطة مجانية · بدون بطاقة · تُحذف الملفات بعد 72 ساعة`, l_facts_label: "حقائق",
+    l_facts: [["7", "قوالب ADM محدّثة"], ["2000 → 2018+", "إصدارات AutoCAD تُقرأ مباشرة"], ["مجانًا", "الرفع والمطابقة والفحص"], ["72 ساعة", "ثم تُحذف ملفاتك"]] as [string, string][],
     l_lead: "ارفع ملف DWG أو DXF، فتُطابَق طبقاته مع قوالب ADM السبعة، وتُفحص، وتُسلَّم كحزمة جاهزة.",
     l_seam: { cad: "Hardscape-01.dwg", gis: "ADM geodatabase", drag: "اسحب للمقارنة بين المخطط وقاعدة البيانات" },
     l_hint: "اسحب لتستكشف",
