@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Autocomplete, Box, Button, Chip, Stack, TextField, Tooltip, Typography } from "@mui/material";
-import AutoFixHighOutlined from "@mui/icons-material/AutoFixHighOutlined";
+import LinkOutlined from "@mui/icons-material/LinkOutlined";
 import FolderOutlined from "@mui/icons-material/FolderOutlined";
 import StorageOutlined from "@mui/icons-material/StorageOutlined";
 import CloseRounded from "@mui/icons-material/CloseRounded";
@@ -164,8 +164,8 @@ export function MappingBoard({ job, schema, discovery, mapping, onPatch, onMappi
         </Stack>
         <Button size="small" onClick={() => setShowAside(!showAside)} sx={{ color: C.muted }}>
           {showAside ? "Hide" : "Show"} set-aside ({aside})</Button>
-        <Button variant="outlined" startIcon={<AutoFixHighOutlined />} disabled={busy || !suggestible} onClick={autoMap}
-          sx={{ height: 36 }}>Auto-map {suggestible || ""}</Button>
+        <Button variant="outlined" startIcon={<LinkOutlined />} disabled={busy || !suggestible} onClick={autoMap}
+          sx={{ height: 36 }}>Apply matches {suggestible || ""}</Button>
       </Stack>
 
       {/* board */}

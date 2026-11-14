@@ -51,7 +51,7 @@ import CheckRounded from "@mui/icons-material/CheckRounded";
 import DoNotDisturbOnOutlined from "@mui/icons-material/DoNotDisturbOnOutlined";
 import TableRowsOutlined from "@mui/icons-material/TableRowsOutlined";
 import CloseOutlined from "@mui/icons-material/CloseOutlined";
-import AutoFixHighOutlined from "@mui/icons-material/AutoFixHighOutlined";
+import BuildOutlined from "@mui/icons-material/BuildOutlined";
 import ExpandMoreRounded from "@mui/icons-material/ExpandMoreRounded";
 import ChevronRightRounded from "@mui/icons-material/ChevronRightRounded";
 import CallMergeOutlined from "@mui/icons-material/CallMergeOutlined";
@@ -627,7 +627,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   const [running, setRunning] = useState(false);
   useEffect(() => { api.autofixReport(job.job_id).then(setReport).catch(() => setReport(null)); if (!busy) setRunning(false); }, [results?.generated_at, job.job_id]);
   const runAutofix = async (codes?: string[]) => {
-    try { setRunning(true); onJob(await api.autofixRun(job.job_id, codes)); onNotice("Auto-Fix…"); }
+    try { setRunning(true); onJob(await api.autofixRun(job.job_id, codes)); onNotice("Fixing…"); }
     catch (e: any) { setRunning(false); onError(String(e.message || e)); }
   };
   const undoAutofix = async () => {
@@ -947,8 +947,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
             {/* Auto-Fix: one button, with what the last run did */}
             <Box sx={{ m: 1.5, p: 1.5, borderRadius: 2, border: `1px solid ${C.line}`, bgcolor: "#FAFBFC" }}>
               <Stack direction="row" alignItems="center" spacing={1}>
-                <AutoFixHighOutlined sx={{ fontSize: 20, color: C.cyan }} />
-                <Tooltip title="Fix → check → undo what got worse"><Typography sx={{ fontSize: 13.5, fontWeight: 700, flex: 1 }}>Auto-Fix</Typography></Tooltip>
+                <BuildOutlined sx={{ fontSize: 20, color: C.cyan }} />
+                <Tooltip title="Fix → check → undo what got worse"><Typography sx={{ fontSize: 13.5, fontWeight: 700, flex: 1 }}>Fix all</Typography></Tooltip>
                 <Button size="small" variant="contained" disabled={busy || !nFixable} onClick={() => runAutofix()}
                   startIcon={busy && running ? <CircularProgress size={14} color="inherit" /> : undefined}>{nFixable ? `Fix ${nFixable}` : "None"}</Button>
               </Stack>

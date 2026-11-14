@@ -337,7 +337,7 @@ function SaveProfile({ open, onClose, job, onNotice, onError }: { open: boolean;
       <DialogContent>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5 }}>
           Saves layer, subtype and field mappings for {job.schema_name}. Confirmed layer mappings also become approved rules
-          that the auto-mapper uses for future drawings.
+          that is reused for future drawings.
         </Typography>
         <TextField autoFocus fullWidth label="Profile name" placeholder="e.g. Consultant A — sewer drawings" value={name} onChange={(e) => setName(e.target.value)} />
       </DialogContent>

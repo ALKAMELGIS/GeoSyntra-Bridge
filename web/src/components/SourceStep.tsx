@@ -14,7 +14,7 @@ import SearchOutlined from "@mui/icons-material/SearchOutlined";
 import WarningAmberOutlined from "@mui/icons-material/WarningAmberOutlined";
 import ExpandMoreOutlined from "@mui/icons-material/ExpandMoreOutlined";
 import ErrorOutlineRounded from "@mui/icons-material/ErrorOutlineRounded";
-import AutoFixHighOutlined from "@mui/icons-material/AutoFixHighOutlined";
+import CleaningServicesOutlined from "@mui/icons-material/CleaningServicesOutlined";
 import PublicOutlined from "@mui/icons-material/PublicOutlined";
 import BadgeOutlined from "@mui/icons-material/BadgeOutlined";
 import { api } from "../api";
@@ -66,7 +66,7 @@ export function SourceStep(p: Props) {
                 wrap={(body) => <Row icon={<ErrorOutlineRounded />} tone={C.red} title="Blocked"
                   action={<ExplodeButton job={p.job!} onDone={p.onUploaded} onError={p.onError} />}>{body}</Row>} />
             )}
-            <Row icon={<AutoFixHighOutlined />} title="Clean-up"><CleanupPanel job={p.job} onApplied={(j) => p.onUploaded(j)} inline /></Row>
+            <Row icon={<CleaningServicesOutlined />} title="Clean-up"><CleanupPanel job={p.job} onApplied={(j) => p.onUploaded(j)} inline /></Row>
             <Row icon={<PublicOutlined />} title="Projection"><CoordinatePanel job={p.job} mapping={p.mapping} schema={p.schema} onPatch={p.onPatch} /></Row>
             <Row icon={<BadgeOutlined />} title="Submission"><SubmissionPanel job={p.job} mapping={p.mapping} onPatch={p.onPatch} compact embedded /></Row>
           </Box>

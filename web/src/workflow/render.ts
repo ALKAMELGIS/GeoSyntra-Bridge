@@ -241,7 +241,7 @@ function layout(m: WorkflowModel) {
   edges.push({ from: ["qc", "f"], to: ["report", "i"], reject: true });
 
   const all = laneIds.flat();
-  marks.push({ title: "4 · Intelligent Feature Class & Attribute Mapping", ids: all.filter((id) => /fc$|attr$/.test(id)), tint: "#EAF1F8" });
+  marks.push({ title: "4 · Feature Class & Attribute Mapping", ids: all.filter((id) => /fc$|attr$/.test(id)), tint: "#EAF1F8" });
   marks.push({ title: "5 · Domain Validation & Geometry Transfer", ids: [...all.filter((id) => /dom$|geo$/.test(id)), "rejected"], tint: "#FBEFE6" });
   marks.unshift({ title: "6 · Dynamic Fanout → One Writer per Original Template (feature classes with geometry & attributes)", ids: all.filter((id) => /fan$|wr$|fc_/.test(id)), tint: "#FDF3E4", pad: 34 });
   marks.push({ title: "7 · Quality Control", ids: ["qc", "report"], tint: "#EFEAF9" });
