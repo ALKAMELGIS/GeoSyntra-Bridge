@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Box, Button, ButtonBase, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, InputBase, ListItemIcon, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Alert, Box, Button, ButtonBase, Checkbox, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, InputBase, ListItemIcon, Menu, MenuItem, Paper, Stack, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import MoreHorizRounded from "@mui/icons-material/MoreHorizRounded";
 import DeleteOutlineRounded from "@mui/icons-material/DeleteOutlineRounded";
 import OpenInNewRounded from "@mui/icons-material/EastRounded";
@@ -74,6 +74,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
     setDeleting(false); setConfirm(null);
   };
   useEffect(() => { api.jobs().then(setJobs).catch(() => setJobs([])); }, []);
+  const [openErr, setOpenErr] = useState<string | null>(() => { try { const m = sessionStorage.getItem("gsb_open_error"); sessionStorage.removeItem("gsb_open_error"); return m; } catch { return null; } });
 
   const all = jobs || [];
   const groups: Record<Filter, Job[]> = useMemo(() => ({
@@ -96,6 +97,7 @@ export function Workspace({ me, mode, go, onLogout }: Props) {
       <AppHeader me={me} mode={mode} go={go} onLogout={onLogout} active="app" />
       <Box sx={{ maxWidth: 1520, mx: "auto", px: { xs: 2, md: 4 }, py: 3, display: "flex", flexDirection: "column", gap: 3 }}>
 
+        {openErr && <Alert severity="error" onClose={() => setOpenErr(null)}>{openErr}</Alert>}
         {/* title, search, primary action */}
         <Stack direction="row" alignItems="center" flexWrap="wrap" useFlexGap gap={1.5}>
           <Typography component="h1" sx={{ fontSize: 22, fontWeight: 500, letterSpacing: "-0.01em" }}>Conversions</Typography>

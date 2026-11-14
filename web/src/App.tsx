@@ -68,7 +68,12 @@ export default function App({ me = null, mode = "none", go = () => undefined, on
       if (!jobFromHash() && s.length) setSchemaId((s.find((x) => x.schema_id === "adm_all") || s[0]).schema_id);
     }).catch((e) => err(e.message));
     const jid = jobFromHash();
-    if (jid) api.job(jid).then((j) => { setJob(j); setSchemaId(j.schema_id); }).catch(() => (window.location.hash = ""));
+    // a conversion that cannot be opened says why and goes back to the list, never to an empty upload page
+    if (jid) api.job(jid).then((j) => { setJob(j); setSchemaId(j.schema_id); })
+      .catch((e: any) => {
+        try { sessionStorage.setItem("gsb_open_error", `Could not open this conversion: ${e?.message || "not found"}`); } catch { /* ignore */ }
+        window.location.hash = "/app";
+      });
     return () => clearInterval(t);
   }, []);
 
