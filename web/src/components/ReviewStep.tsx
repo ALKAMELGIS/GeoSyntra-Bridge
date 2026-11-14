@@ -33,7 +33,7 @@ import Translate from "ol/interaction/Translate";
 import Snap from "ol/interaction/Snap";
 import Draw from "ol/interaction/Draw";
 import DragBox from "ol/interaction/DragBox";
-import { click, shiftKeyOnly, always } from "ol/events/condition";
+import { never, always } from "ol/events/condition";
 import type { FeatureLike } from "ol/Feature";
 import NearMeOutlined from "@mui/icons-material/NearMeOutlined";
 import HighlightAltOutlined from "@mui/icons-material/HighlightAltOutlined";
@@ -161,6 +161,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   const [nSel, setNSel] = useState(0);
   const [curErr, setCurErr] = useState<number | null>(null);
   const [hover, setHover] = useState<{ fid: number } | null>(null);
+  const clickRef = useRef<((e: any) => void) | null>(null);
+  const [pick, setPick] = useState<{ x: number; y: number; fids: number[] } | null>(null);   // overlapping features under one click
   const tipEl = useRef<HTMLDivElement>(null);
   const xyEl = useRef<HTMLSpanElement>(null);
   const scaleEl = useRef<HTMLSpanElement>(null);
@@ -246,7 +248,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     const m = new OlMap({ target: el.current, layers: [...tl, fl, el_, pl, ml], view: new View({ center: [0, 0], zoom: 2 }),
       controls: defaultControls({ attribution: true, rotate: false, zoom: false }).extend([new ScaleLine()]) });
     const sel = new Select({
-      layers: [fl], condition: click, toggleCondition: shiftKeyOnly, hitTolerance: 6,
+      layers: [fl], condition: never, hitTolerance: 6,   // clicks are handled below (overlaps, modifiers, issue markers)
       style: (f: FeatureLike) => [
         new Style({ stroke: new Stroke({ color: "rgba(0,0,0,.55)", width: 7 }), image: new CircleStyle({ radius: 10, fill: new Fill({ color: "rgba(0,0,0,.55)" }) }) }),
         new Style({ stroke: new Stroke({ color: SEL, width: 3 }), fill: new Fill({ color: SEL + "30" }),
@@ -277,6 +279,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     m.getView().on("change:resolution", writeScale);
     m.on("moveend", writeScale);
     map.current = m;
+    m.on("click", (e) => clickRef.current?.(e));
     return () => { cancelAnimationFrame(raf); m.setTarget(undefined); };
   }, []);
 
@@ -287,6 +290,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     const m = map.current;
     if (!m || !preview) return;
     if (m.getView().getProjection().getCode() !== (geo ? "EPSG:3857" : LOCAL.getCode())) m.setView(new View({ projection: proj, center: [0, 0], zoom: 2 }));
+    const keep = ((select.current?.getFeatures().getArray() || []) as Feature[]).map((f) => f.get("fid") as number);
     fsrc.current.clear();
     select.current?.getFeatures().clear();
     const data = { ...preview, features: preview.features.filter((f: any) => f.properties?.fid != null && f.properties.status !== "skipped") };
@@ -295,6 +299,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     feats.forEach((f) => { f.setId(f.get("fid")); original.current[f.get("fid")] = JSON.stringify((f.getGeometry() as any)?.getCoordinates?.()); });
     fsrc.current.addFeatures(feats);
     undo.current = []; setUndoN(0); setPending({});
+    const back = keep.map((id) => fsrc.current.getFeatureById(id)).filter(Boolean) as Feature[];
+    if (back.length) select.current?.getFeatures().extend(back);
   };
   const fitExt = (ext: number[], pad = 60) => { if (ext && isFinite(ext[0])) map.current?.getView().fit(ext, { padding: [pad, pad, pad, pad], maxZoom: 20.5, duration: 300 }); };
   const fitAll = () => fitExt(fsrc.current.getExtent(), 50);
@@ -344,9 +350,16 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     }
     if (tool === "box") {
       const box = new DragBox({ condition: always });
-      box.on("boxend", () => {
-        const fs = sel.getFeatures(); fs.clear();
-        fsrc.current.forEachFeatureIntersectingExtent(box.getGeometry().getExtent(), (f) => { if (!st.current.hidden[String(f.get("target"))]) fs.push(f); });
+      box.on("boxend", (e: any) => {
+        const ev = e.mapBrowserEvent?.originalEvent as MouseEvent | undefined;
+        const add = !!ev?.shiftKey, remove = !!(ev?.ctrlKey || ev?.metaKey);
+        const fs = sel.getFeatures(); if (!add && !remove) fs.clear();
+        const ext = box.getGeometry().getExtent();
+        const have = new Set(fs.getArray());
+        fsrc.current.forEachFeatureIntersectingExtent(ext, (f) => {
+          if (st.current.hidden[String(f.get("target"))] || !f.getGeometry()?.intersectsExtent(ext)) return;   // the shape itself, not just its bounding box
+          if (remove) { if (have.has(f)) fs.remove(f); } else if (!have.has(f)) fs.push(f);
+        });
       });
       m.addInteraction(box); inter.current.box = box;
     }
@@ -384,6 +397,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       const sn = new Snap({ source: fsrc.current, pixelTolerance: snapOpt.tol, vertex: snapOpt.vertex, edge: snapOpt.edge });
       m.addInteraction(sn); inter.current.snap = sn;
     }
+    setPick(null);
   }, [tool, snapOn, drawCls, snapOpt]);
 
   const del = () => {
@@ -567,6 +581,32 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       setTab("issues");
     } else if (it.fid != null) openFeature(it.fid, true);
   };
+  /** Map click while selecting: Shift adds, Ctrl removes, an issue marker opens its issue, overlapping features offer a choice. */
+  clickRef.current = (e: any) => {
+    const m = map.current, sel = select.current;
+    if (!m || !sel || !sel.getActive() || e.dragging) return;
+    setPick(null);
+    const ev = e.originalEvent as MouseEvent;
+    const add = ev.shiftKey, remove = ev.ctrlKey || ev.metaKey;
+    const hits: Feature[] = [];
+    m.forEachFeatureAtPixel(e.pixel, (f) => { if (!hits.includes(f as Feature)) hits.push(f as Feature); }, { hitTolerance: 6, layerFilter: (l) => l === flayer.current });
+    // an issue marker is drawn on top: clicking it opens the issue (and selects the features involved)
+    if (!add && !remove) {
+      const errHit = m.forEachFeatureAtPixel(e.pixel, (f) => f, { hitTolerance: 4, layerFilter: (l) => l === elayer.current }) as Feature | undefined;
+      const te = errHit?.get("err") as TopologyError | undefined;
+      const it = te && items.find((i) => i.err?.id === te.id);
+      if (it) { goItem(it); return; }
+    }
+    if (!hits.length) { if (!add && !remove) sel.getFeatures().clear(); return; }
+    // points and lines win over the area they sit on, then the smaller shape
+    const rank = (f: Feature) => { const k = kindOf(f.getGeometry()?.getType()); const x = f.getGeometry()!.getExtent(); return (k === "point" ? 0 : k === "line" ? 1e12 : 2e12) + (x[2] - x[0]) * (x[3] - x[1]); };
+    hits.sort((a, b) => rank(a) - rank(b));
+    const fs = sel.getFeatures(), top = hits[0], on = fs.getArray().includes(top);
+    if (remove) { if (on) fs.remove(top); return; }
+    if (add) { if (on) fs.remove(top); else fs.push(top); return; }
+    fs.clear(); fs.push(top);
+    if (hits.length > 1) setPick({ x: e.pixel[0], y: e.pixel[1], fids: hits.slice(0, 12).map((f) => f.get("fid") as number) });
+  };
   const [fixing, setFixing] = useState<string | null>(null);
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [groupLimit, setGroupLimit] = useState<Record<string, number>>({});
@@ -648,6 +688,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         const k = e.key.toLowerCase();
         if (k === "v") setTool("select"); if (k === "b") setTool("box"); if (k === "e") setTool("modify"); if (k === "m") setTool("move");
         if (k === "d" && drawCls) setTool("draw");
+        if (k === "escape" && tool === "select") { setPick(null); select.current?.getFeatures().clear(); }
         if (k === "escape") { if (inter.current.draw && (tool === "distance" || tool === "area" || tool === "draw" || tool === "split")) inter.current.draw.abortDrawing(); setTool("select"); }
         if (k === "f" && nSel) flipSel();
       }
@@ -681,7 +722,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
           <Stack direction="row" alignItems="stretch" sx={{ px: 1, py: 0.5, gap: 0.5, overflowX: "auto", scrollbarWidth: "thin" }}>
             {rtab === "map" ? (<>
               <Grp label="Navigate">
-                <RB big t="Explore" k="V" tip="Pan, zoom and pick features" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
+                <RB big t="Explore" k="V" tip="Pan, zoom and pick features · Shift+click adds · Ctrl+click removes" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
                 <Stack>
                   <RS t="Zoom in" onClick={() => zoomBy(1)}><ZoomInOutlined /></RS>
                   <RS t="Zoom out" onClick={() => zoomBy(-1)}><ZoomOutOutlined /></RS>
@@ -696,7 +737,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
                   onClick={(e) => setBaseMenu(e!.currentTarget as HTMLElement)}><MapOutlined /><ArrowDropDownRounded sx={{ mt: -1 }} /></RB>
               </Grp>
               <Grp label="Selection">
-                <RB big t="Select by box" k="B" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RB>
+                <RB big t="Select by box" k="B" tip="Drag a box · Shift adds · Ctrl removes" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RB>
                 <Stack>
                   <RS t="Clear" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RS>
                 </Stack>
@@ -728,9 +769,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
                 </Stack>
               </Grp>
               <Grp label="Selection">
-                <RB big t="Select" k="V" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
+                <RB big t="Select" k="V" tip="Click a feature · Shift+click adds · Ctrl+click removes · Esc clears" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
                 <Stack>
-                  <RS t="Select by box" k="B" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RS>
+                  <RS t="Select by box" k="B" tip="Drag a box · Shift adds · Ctrl removes" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RS>
                   <RS t="Clear" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RS>
                 </Stack>
               </Grp>
@@ -806,6 +847,27 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
             onClick={() => { setBasemap(k); try { localStorage.setItem("gsb_basemap", k); } catch { /* ignore */ } setBaseMenu(null); }}>{b.label}</MenuItem>)}
         </Menu>
 
+        {pick && (
+          <Box sx={{ position: "absolute", left: Math.min(pick.x + 12, (el.current?.clientWidth || 600) - 260), top: Math.min(pick.y + 12, (el.current?.clientHeight || 400) - 40 - pick.fids.length * 32),
+                     width: 248, bgcolor: "#fff", borderRadius: 2, boxShadow: "0 8px 24px rgba(22,23,26,.2)", zIndex: 4, py: 0.5 }}>
+            <Stack direction="row" alignItems="center" sx={{ px: 1.5, py: 0.5 }}>
+              <Typography sx={{ fontSize: 12, color: C.muted, flex: 1 }}>{pick.fids.length} features here</Typography>
+              <ButtonBase onClick={() => { setSelection(pick.fids); setPick(null); }} sx={{ fontSize: 12, color: C.cyan, px: 0.5 }}>Select all</ButtonBase>
+            </Stack>
+            {pick.fids.map((fid) => {
+              const r = rows[fid]; const on = selFids.length === 1 && selFids[0] === fid;
+              return (
+                <ButtonBase key={fid} onClick={() => { setSelection([fid]); setPick(null); }}
+                  onMouseEnter={() => setSelection([fid])}
+                  sx={{ width: "100%", justifyContent: "flex-start", gap: 1, px: 1.5, height: 32, fontSize: 13, bgcolor: on ? "#F1EFEB" : undefined, "&:hover": { bgcolor: "#F7F6F3" } }}>
+                  <Box sx={{ width: 8, height: 8, borderRadius: 0.5, flex: "none", bgcolor: colorOf(r?.target || "") }} />
+                  <Box component="span" sx={{ flex: 1, minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", textAlign: "left" }}>{ov?.classes[r?.target || ""]?.alias || r?.target}</Box>
+                  <Box component="span" sx={{ color: C.muted, fontFamily: '"Geist Mono", monospace', fontSize: 11 }}>#{r?.objectid ?? fid}</Box>
+                </ButtonBase>
+              );
+            })}
+          </Box>
+        )}
         <Box ref={tipEl} sx={{ position: "absolute", left: 0, top: 0, pointerEvents: "none", zIndex: 3, display: hover && hoverRow ? "block" : "none" }}>
           {hover && hoverRow && (
             <Box sx={{ bgcolor: C.graphite, color: "#fff", px: 1.1, py: 0.5, borderRadius: 1.5, fontSize: 12, fontWeight: 500, whiteSpace: "nowrap" }}>
