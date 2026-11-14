@@ -304,8 +304,34 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     if (back.length) select.current?.getFeatures().extend(back);
   };
   const fitExt = (ext: number[], pad = 60) => { if (ext && isFinite(ext[0])) map.current?.getView().fit(ext, { padding: [pad, pad, pad, pad], maxZoom: 20.5, duration: 300 }); };
-  const fitAll = () => fitExt(fsrc.current.getExtent(), 50);
-  useEffect(() => { loadFeatures(); setTimeout(fitAll, 0); }, [preview]);
+  /** Where the drawing really is: the extent of its features with far-off strays (a title block at 0,0, a symbol
+   *  thousands of km away) left out, so the view opens framed on the site at the drawing's own scale. */
+  const siteOf = (fs: Feature[]) => {
+    const c = fs.map((f) => { const e = f.getGeometry()!.getExtent(); return { f, x: (e[0] + e[2]) / 2, y: (e[1] + e[3]) / 2, e }; });
+    if (c.length < 3) return { ext: fs.length ? c.reduce((a, q) => [Math.min(a[0], q.e[0]), Math.min(a[1], q.e[1]), Math.max(a[2], q.e[2]), Math.max(a[3], q.e[3])], [Infinity, Infinity, -Infinity, -Infinity]) : null, strays: [] as Feature[] };
+    const xs = c.map((q) => q.x).sort((a, b) => a - b), ys = c.map((q) => q.y).sort((a, b) => a - b);
+    const k = Math.floor(c.length * 0.1);                     // the core: 10th–90th percentile of feature centres
+    const x0 = xs[k], x1 = xs[c.length - 1 - k], y0 = ys[k], y1 = ys[c.length - 1 - k];
+    const reach = Math.max(x1 - x0, y1 - y0, 50) * 3;          // close neighbours of the core still belong to the site
+    const inSite = (q: { x: number; y: number }) => q.x >= x0 - reach && q.x <= x1 + reach && q.y >= y0 - reach && q.y <= y1 + reach;
+    const keep = c.filter(inSite), strays = c.filter((q) => !inSite(q)).map((q) => q.f);
+    const ext = keep.reduce((a, q) => [Math.min(a[0], q.e[0]), Math.min(a[1], q.e[1]), Math.max(a[2], q.e[2]), Math.max(a[3], q.e[3])], [Infinity, Infinity, -Infinity, -Infinity]);
+    return { ext, strays };
+  };
+  const [strays, setStrays] = useState<number[]>([]);
+  const fitAll = () => {
+    const { ext, strays: far } = siteOf(fsrc.current.getFeatures() as Feature[]);
+    setStrays(far.map((f) => f.get("fid") as number).filter((x) => x >= 0));
+    if (ext) fitExt(ext, 50);
+  };
+  // frame the site once per drawing; a save or a re-check keeps the view where the user left it
+  const framed = useRef<string>("");
+  useEffect(() => {
+    loadFeatures();
+    const key = job.job_id;
+    if (framed.current !== key) { if (fsrc.current.getFeatures().length) { framed.current = key; setTimeout(fitAll, 0); } }
+    else setTimeout(() => setStrays(siteOf(fsrc.current.getFeatures() as Feature[]).strays.map((f) => f.get("fid") as number).filter((x) => x >= 0)), 0);
+  }, [preview]);
   useEffect(() => { tiles.current.forEach((x) => x.setVisible(geo && x.get("basemap") === basemap)); }, [basemap, preview]);
   useEffect(() => { flayer.current?.changed(); elayer.current?.changed(); }, [rows, hidden, focus, curErr]);
   useEffect(() => {
@@ -804,6 +830,21 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         <Box ref={el} sx={{ position: "absolute", inset: 0, bgcolor: "#EEF0F2", cursor: tool === "box" || tool === "distance" || tool === "area" ? "crosshair" : undefined,
                              "& .ol-attribution button": { width: 26, height: 26 } }} />
         {(!preview || busy) && <LinearProgress sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, zIndex: 3 }} />}
+        {strays.length > 0 && !measure && (
+          <Stack direction="row" alignItems="center" spacing={1.25} sx={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", zIndex: 3,
+                     bgcolor: "#fff", borderRadius: 2.5, pl: 1.75, pr: 0.75, py: 0.75, boxShadow: "0 4px 18px rgba(20,24,31,.14)", fontSize: 13, whiteSpace: "nowrap" }}>
+            <Box sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: AMBER }} />
+            <span><b style={{ fontWeight: 600 }}>{strays.length.toLocaleString()}</b> {tr("far from the site")}</span>
+            <Button size="small" variant="outlined" onClick={() => { setSelection(strays); zoomTo(strays); }}>{tr("Show them")}</Button>
+            <Button size="small" variant="contained" disabled={lock} onClick={() => { setSelection(strays); setTimeout(() => { del(); setStrays([]); onNotice(tr("Set aside — save to apply")); }, 0); }}>{tr("Set aside")}</Button>
+            <IconButton size="small" aria-label={tr("Close")} onClick={() => setStrays([])}><CloseOutlined sx={{ fontSize: 16 }} /></IconButton>
+          </Stack>
+        )}
+        <Tooltip title={tr("Zoom to the site")} placement="left">
+          <IconButton aria-label={tr("Zoom to the site")} onClick={fitAll}
+            sx={{ position: "absolute", right: 12, bottom: 44, zIndex: 2, width: 40, height: 40, borderRadius: 2.5, bgcolor: "#fff", color: C.ink,
+                  boxShadow: "0 2px 8px rgba(20,24,31,.16)", "&:hover": { bgcolor: "#fff" } }}><ZoomOutMapOutlined sx={{ fontSize: 20 }} /></IconButton>
+        </Tooltip>
         {measure && (
           <Stack direction="row" alignItems="center" spacing={1} sx={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", zIndex: 3,
                      bgcolor: C.graphite, color: "#fff", borderRadius: 2, pl: 1.5, pr: 0.5, py: 0.5, fontSize: 13, fontVariantNumeric: "tabular-nums" }}>
@@ -821,9 +862,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
               onEye={() => setHidden((h) => ({ ...h, [k]: !h[k] }))}
               onClick={() => {
                 setFocus(focus === k ? null : k); setHidden((h) => ({ ...h, [k]: false }));
-                const ext = fsrc.current.getFeatures().filter((f) => f.get("target") === k).reduce((a: number[], f) => {
-                  const e = f.getGeometry()!.getExtent(); return [Math.min(a[0], e[0]), Math.min(a[1], e[1]), Math.max(a[2], e[2]), Math.max(a[3], e[3])]; }, [Infinity, Infinity, -Infinity, -Infinity]);
-                if (focus !== k) fitExt(ext);
+                const { ext } = siteOf((fsrc.current.getFeatures() as Feature[]).filter((f) => f.get("target") === k));
+                if (focus !== k && ext) fitExt(ext);
               }} />
           ))}
         </Box>
