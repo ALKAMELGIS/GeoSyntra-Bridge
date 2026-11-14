@@ -5,7 +5,7 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Badge, Box, Button, CircularProgress, Drawer, IconButton, LinearProgress, Menu, MenuItem, Stack, Tab, Tabs,
+  Badge, ButtonBase, Box, Button, Checkbox, CircularProgress, Drawer, IconButton, LinearProgress, Menu, MenuItem, Stack, Tab, Tabs,
   Tooltip, Typography,
 } from "@mui/material";
 import "ol/ol.css";
@@ -13,6 +13,11 @@ import OlMap from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
 import VectorLayer from "ol/layer/Vector";
+import VectorImageLayer from "ol/layer/VectorImage";
+import { getLength, getArea } from "ol/sphere";
+import { toLonLat, getPointResolution } from "ol/proj";
+import LineString from "ol/geom/LineString";
+import MultiLineString from "ol/geom/MultiLineString";
 import VectorSource from "ol/source/Vector";
 import XYZ from "ol/source/XYZ";
 import GeoJSONFormat from "ol/format/GeoJSON";
@@ -53,6 +58,14 @@ import CallMergeOutlined from "@mui/icons-material/CallMergeOutlined";
 import CallSplitOutlined from "@mui/icons-material/CallSplitOutlined";
 import DrawOutlined from "@mui/icons-material/DrawOutlined";
 import ContentCutOutlined from "@mui/icons-material/ContentCutOutlined";
+import RedoOutlined from "@mui/icons-material/RedoOutlined";
+import ClearAllOutlined from "@mui/icons-material/BackspaceOutlined";
+import SwapHorizOutlined from "@mui/icons-material/SwapHorizOutlined";
+import StraightenOutlined from "@mui/icons-material/StraightenOutlined";
+import SquareFootOutlined from "@mui/icons-material/SquareFootOutlined";
+import CenterFocusStrongOutlined from "@mui/icons-material/CenterFocusStrongOutlined";
+import DeselectOutlined from "@mui/icons-material/DeselectOutlined";
+import ArrowDropDownRounded from "@mui/icons-material/ArrowDropDownRounded";
 import { api } from "../api";
 import type { AutofixReport, AssignOverview, AssignRow, GeoJSON, JobState, Results, TopologyError } from "../types";
 import { BASEMAPS, basemapLayers } from "./MapView";
@@ -61,11 +74,13 @@ import { AttributesPane } from "./AttributesPane";
 import { CadCompare } from "./CadCompare";
 import { C } from "../theme";
 
-type Tool = "select" | "box" | "modify" | "move" | "draw" | "split";
+type Tool = "select" | "box" | "modify" | "move" | "draw" | "split" | "distance" | "area";
 type TabK = "attributes" | "issues";
 const LOCAL = new Projection({ code: "LOCAL-CAD", units: "m", extent: [-1e9, -1e9, 1e9, 1e9] });
-const PAL = ["#7C3AED", "#0D9488", "#B45309", "#2563EB", "#DB2777", "#4B5563", "#059669", "#9333EA", "#0891B2", "#65A30D"];
-const RED = "#DC2626", AMBER = "#D97706", SEL = "#1F8FA5", PEND = "#EA580C";
+// layer colours: strong enough on imagery, calm on light gray; one hue per feature class
+const PAL = ["#2FA3B5", "#E0952F", "#6F8FE0", "#8DBB55", "#D06DB0", "#E46A4C", "#46B88C", "#A98BE6", "#D8C24B", "#5FA8E8"];
+const RED = "#E5484D", AMBER = "#E8A33D", SEL = "#00D8FF", PEND = "#FF7A1A";   // map-only: brighter than the UI tokens so they read on imagery
+const SEL_UI = C.cyan;
 const kindOf = (t?: string) => (!t ? "point" : t.includes("Polygon") ? "polygon" : t.includes("Line") ? "line" : "point");
 const colorOf = (cls: string) => PAL[Math.abs([...cls].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 0)) % PAL.length];
 
@@ -124,7 +139,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   const fsrc = useRef(new VectorSource());
   const psrc = useRef(new VectorSource());          // the shape a fix would give (preview)
   const esrc = useRef(new VectorSource());
-  const flayer = useRef<VectorLayer<any> | null>(null);
+  const msrc = useRef(new VectorSource());          // measurements
+  const flayer = useRef<any>(null);
   const elayer = useRef<VectorLayer<any> | null>(null);
   const tiles = useRef<TileLayer<XYZ>[]>([]);
   const select = useRef<Select | null>(null);
@@ -142,7 +158,27 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   const [saving, setSaving] = useState(false);
   const [nSel, setNSel] = useState(0);
   const [curErr, setCurErr] = useState<number | null>(null);
-  const [hover, setHover] = useState<{ x: number; y: number; fid: number } | null>(null);
+  const [hover, setHover] = useState<{ fid: number } | null>(null);
+  const tipEl = useRef<HTMLDivElement>(null);
+  const xyEl = useRef<HTMLSpanElement>(null);
+  const scaleEl = useRef<HTMLSpanElement>(null);
+  const geoRef = useRef(false);
+  const writeXY = (c: number[]) => {
+    if (!xyEl.current || !c) return;
+    if (geoRef.current) { const [lo, la] = toLonLat(c); xyEl.current.textContent = `${la.toFixed(6)}° N  ${lo.toFixed(6)}° E`; }
+    else xyEl.current.textContent = `X ${c[0].toFixed(2)}  Y ${c[1].toFixed(2)} m`;
+  };
+  const writeScale = () => {
+    const v = map.current?.getView(); if (!v || !scaleEl.current) return;
+    const r = v.getResolution() || 0, c = v.getCenter() || [0, 0];
+    const mpp = geoRef.current ? getPointResolution(v.getProjection(), r, c, "m") : r;
+    scaleEl.current.textContent = `1:${Math.round(mpp * 96 / 0.0254).toLocaleString()}`;
+  };
+  const [snapOpt, setSnapOpt] = useState({ vertex: true, edge: true, tol: 10 });
+  const [snapMenu, setSnapMenu] = useState<HTMLElement | null>(null);
+  const [measure, setMeasure] = useState<string | null>(null);
+  const redo = useRef<{ kind: "geom" | "add" | "delete"; fid: number; geom?: any; feature?: Feature }[][]>([]);
+  const [redoN, setRedoN] = useState(0);
   const [baseMenu, setBaseMenu] = useState<HTMLElement | null>(null);
   const [basemap, setBasemap] = useState<string>(() => { try { return localStorage.getItem("gsb_basemap") || "satellite"; } catch { return "satellite"; } });
   const st = useRef({ rows, hidden, focus, curErr });
@@ -151,8 +187,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   useEffect(() => {
     if (!el.current) return;
     const cache: Record<string, Style[]> = {};
-    const fl = new VectorLayer({
-      source: fsrc.current,
+    const ecache: Record<string, Style> = {};
+    const fl = new VectorImageLayer({
+      source: fsrc.current, imageRatio: 1.5,
       style: (f: FeatureLike) => {
         const s = st.current;
         const cls = String(f.get("target"));
@@ -182,7 +219,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         if (e.exception) return undefined;
         const on = st.current.curErr === e.id;
         const c = on ? "#FACC15" : RED;
-        return new Style({
+        const ek = `${on}|${kindOf(f.getGeometry()?.getType())}`;
+        if (ecache[ek]) return ecache[ek];
+        return ecache[ek] = new Style({
           stroke: new Stroke({ color: c, width: on ? 5 : 3 }), fill: new Fill({ color: c + "44" }),
           image: kindOf(f.getGeometry()?.getType()) === "point" ? new RegularShape({ points: 4, radius: on ? 10 : 7, angle: Math.PI / 4,
             fill: new Fill({ color: c }), stroke: new Stroke({ color: "#fff", width: 1.5 }) }) : undefined,
@@ -196,13 +235,16 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       new Style({ stroke: new Stroke({ color: "#fff", width: 6 }) }),
       new Style({ stroke: new Stroke({ color: "#16A34A", width: 3, lineDash: [8, 6] }), fill: new Fill({ color: "#16A34A22" }),
         image: new CircleStyle({ radius: 8, stroke: new Stroke({ color: "#16A34A", width: 3 }), fill: new Fill({ color: "#fff" }) }) })] });
-    const m = new OlMap({ target: el.current, layers: [...tl, fl, el_, pl], view: new View({ center: [0, 0], zoom: 2 }),
+    const ml = new VectorLayer({ source: msrc.current, style: [
+      new Style({ stroke: new Stroke({ color: "rgba(0,0,0,.5)", width: 5 }) }),
+      new Style({ stroke: new Stroke({ color: "#FFE14D", width: 2.5, lineDash: [10, 6] }), fill: new Fill({ color: "rgba(255,225,77,.18)" }) })] });
+    const m = new OlMap({ target: el.current, layers: [...tl, fl, el_, pl, ml], view: new View({ center: [0, 0], zoom: 2 }),
       controls: defaultControls({ attribution: true, rotate: false, zoom: false }).extend([new ScaleLine()]) });
     const sel = new Select({
       layers: [fl], condition: click, toggleCondition: shiftKeyOnly, hitTolerance: 6,
       style: (f: FeatureLike) => [
-        new Style({ stroke: new Stroke({ color: "#fff", width: 8 }), image: new CircleStyle({ radius: 11, fill: new Fill({ color: "#fff" }) }) }),
-        new Style({ stroke: new Stroke({ color: SEL, width: 4 }), fill: new Fill({ color: SEL + "33" }),
+        new Style({ stroke: new Stroke({ color: "rgba(0,0,0,.55)", width: 7 }), image: new CircleStyle({ radius: 10, fill: new Fill({ color: "rgba(0,0,0,.55)" }) }) }),
+        new Style({ stroke: new Stroke({ color: SEL, width: 3 }), fill: new Fill({ color: SEL + "30" }),
           image: new CircleStyle({ radius: 7, fill: new Fill({ color: SEL }), stroke: new Stroke({ color: "#fff", width: 2 }) }), geometry: f.getGeometry() as any }),
       ],
     });
@@ -215,20 +257,26 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     m.addInteraction(sel);
     select.current = sel;
     let raf = 0;
+    let lastFid: number | null = null;
     m.on("pointermove", (e) => {
       if (e.dragging) return;
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
+        writeXY(e.coordinate);
         const f = m.forEachFeatureAtPixel(e.pixel, (x) => x, { hitTolerance: 6, layerFilter: (l) => l === fl });
         const fid = f ? (f.get("fid") as number) : null;
-        setHover(fid != null ? { x: e.pixel[0], y: e.pixel[1], fid } : null);
+        if (tipEl.current) tipEl.current.style.transform = `translate(${e.pixel[0] + 14}px, ${e.pixel[1] - 34}px)`;
+        if (fid !== lastFid) { lastFid = fid; setHover(fid != null ? { fid } : null); }
       });
     });
+    m.getView().on("change:resolution", writeScale);
+    m.on("moveend", writeScale);
     map.current = m;
     return () => { cancelAnimationFrame(raf); m.setTarget(undefined); };
   }, []);
 
   const geo = !!preview?.crs_is_geographic;
+  geoRef.current = geo;
   const proj = geo ? "EPSG:3857" : LOCAL;
   const loadFeatures = () => {
     const m = map.current;
@@ -265,8 +313,8 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     const I = inter.current;
     [I.modify, I.translate, I.box, I.snap, I.draw].forEach((x) => x && m.removeInteraction(x));
     inter.current = {};
-    sel.setActive(tool !== "box" && tool !== "draw" && tool !== "split");
-    const snapshot = (fs: Feature[]) => { undo.current.push(fs.map((f) => ({ fid: f.get("fid"), geom: f.getGeometry()!.clone() }))); setUndoN(undo.current.length); };
+    sel.setActive(tool !== "box" && tool !== "draw" && tool !== "split" && tool !== "distance" && tool !== "area");
+    const snapshot = (fs: Feature[]) => { undo.current.push(fs.map((f) => ({ fid: f.get("fid"), geom: f.getGeometry()!.clone() }))); setUndoN(undo.current.length); clearRedo(); };
     const mark = (fs: Feature[]) => setPending((p) => {
       const n = { ...p };
       fs.forEach((f) => {
@@ -304,7 +352,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
         const f = e.feature as Feature;
         const fid = tempId.current--;
         f.setId(fid); f.set("fid", fid); f.set("target", drawCls); f.set("pending", true);
-        undo.current.push([{ fid, feature: f, added: true }]); setUndoN(undo.current.length);
+        undo.current.push([{ fid, feature: f, added: true }]); setUndoN(undo.current.length); clearRedo();
         setPending((p) => ({ ...p, [fid]: "add" }));
       });
       m.addInteraction(dr); inter.current.draw = dr;
@@ -314,38 +362,87 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
       dr.on("drawend", (e) => { splitWith(e.feature as Feature); });
       m.addInteraction(dr); inter.current.draw = dr;
     }
-    if (snapOn && (tool === "modify" || tool === "move" || tool === "draw" || tool === "split")) {
-      const sn = new Snap({ source: fsrc.current, pixelTolerance: 10 });
+    if (tool === "distance" || tool === "area") {
+      const dr = new Draw({ source: msrc.current, type: tool === "area" ? "Polygon" : "LineString" });
+      const fmtLen = (m: number) => m >= 1000 ? `${(m / 1000).toFixed(3)} km` : `${m.toFixed(2)} m`;
+      const fmtArea = (a: number) => a >= 10000 ? `${(a / 10000).toFixed(3)} ha  ·  ${Math.round(a).toLocaleString()} m²` : `${a.toFixed(2)} m²`;
+      const read = (g: any) => {
+        if (tool === "area") { const a = geoRef.current ? getArea(g) : g.getArea(); const ring = new LineString(g.getLinearRing(0).getCoordinates());
+          return `Area ${fmtArea(a)}  ·  perimeter ${fmtLen(geoRef.current ? getLength(ring) : ring.getLength())}`; }
+        return `Distance ${fmtLen(geoRef.current ? getLength(g) : g.getLength())}`;
+      };
+      dr.on("drawstart", (e) => { msrc.current.clear(); e.feature.getGeometry()!.on("change", (ev: any) => setMeasure(read(ev.target))); });
+      dr.on("drawend", (e) => setMeasure(read(e.feature.getGeometry())));
+      m.addInteraction(dr); inter.current.draw = dr;
+    } else { msrc.current.clear(); setMeasure(null); }
+    if (snapOn && (tool === "modify" || tool === "move" || tool === "draw" || tool === "split" || tool === "distance" || tool === "area")) {
+      const sn = new Snap({ source: fsrc.current, pixelTolerance: snapOpt.tol, vertex: snapOpt.vertex, edge: snapOpt.edge });
       m.addInteraction(sn); inter.current.snap = sn;
     }
-  }, [tool, snapOn, drawCls]);
+  }, [tool, snapOn, drawCls, snapOpt]);
 
   const del = () => {
     const fs = (select.current?.getFeatures().getArray().slice() || []) as Feature[];
     if (!fs.length) return;
-    undo.current.push(fs.map((f) => ({ fid: f.get("fid"), feature: f, deleted: true }))); setUndoN(undo.current.length);
+    undo.current.push(fs.map((f) => ({ fid: f.get("fid"), feature: f, deleted: true }))); setUndoN(undo.current.length); clearRedo();
     fs.forEach((f) => fsrc.current.removeFeature(f));
     select.current?.getFeatures().clear();
     setPending((p) => { const n = { ...p }; fs.forEach((f) => { const id = f.get("fid") as number; if (id < 0) delete n[id]; else n[id] = "delete"; }); return n; });
   };
+  const clearRedo = () => { redo.current = []; setRedoN(0); };
+  /** pending state of each fid, read from the map itself (present? moved? new?) */
+  const recalc = (fids: number[]) => setPending((p) => {
+    const n = { ...p };
+    fids.forEach((fid) => {
+      const f = fsrc.current.getFeatureById(fid) as Feature | null;
+      if (fid < 0) { if (f) n[fid] = "add"; else delete n[fid]; return; }
+      if (!f) { n[fid] = "delete"; return; }
+      if (JSON.stringify((f.getGeometry() as any)?.getCoordinates?.()) === original.current[fid]) { delete n[fid]; f.unset("pending"); }
+      else { n[fid] = "geometry"; f.set("pending", true); }
+    });
+    return n;
+  });
   const doUndo = () => {
     const last = undo.current.pop(); setUndoN(undo.current.length);
     if (!last) return;
-    setPending((p) => {
-      const n = { ...p };
-      last.forEach((u) => {
-        if (u.added && u.feature) { if (fsrc.current.hasFeature(u.feature)) fsrc.current.removeFeature(u.feature); delete n[u.fid]; return; }
-        if (u.fid < 0 && u.deleted && u.feature) { fsrc.current.addFeature(u.feature); n[u.fid] = "add"; return; }
-        if (u.fid < 0 && u.feature == null) { n[u.fid] = "add"; const f = fsrc.current.getFeatureById(u.fid) as Feature | null; if (f && u.geom) f.setGeometry(u.geom); return; }
-        if (u.deleted && u.feature) fsrc.current.addFeature(u.feature);
-        else { const f = fsrc.current.getFeatureById(u.fid) as Feature | null; if (f && u.geom) f.setGeometry(u.geom); }
-        const f = fsrc.current.getFeatureById(u.fid) as Feature | null;
-        if (f && JSON.stringify((f.getGeometry() as any)?.getCoordinates?.()) === original.current[u.fid]) { delete n[u.fid]; f.unset("pending"); }
-        else { n[u.fid] = "geometry"; f?.set("pending", true); }
-      });
-      return n;
+    const back: { kind: "geom" | "add" | "delete"; fid: number; geom?: any; feature?: Feature }[] = [];
+    last.forEach((u) => {
+      if (u.added && u.feature) { if (fsrc.current.hasFeature(u.feature)) fsrc.current.removeFeature(u.feature); back.push({ kind: "add", fid: u.fid, feature: u.feature }); return; }
+      if (u.deleted && u.feature) { if (!fsrc.current.hasFeature(u.feature)) fsrc.current.addFeature(u.feature); back.push({ kind: "delete", fid: u.fid, feature: u.feature }); return; }
+      const f = fsrc.current.getFeatureById(u.fid) as Feature | null;
+      if (f && u.geom) { back.push({ kind: "geom", fid: u.fid, geom: f.getGeometry()!.clone() }); f.setGeometry(u.geom); }
     });
+    redo.current.push(back); setRedoN(redo.current.length);
+    recalc(last.map((u) => u.fid));
   };
+  const doRedo = () => {
+    const next = redo.current.pop(); setRedoN(redo.current.length);
+    if (!next) return;
+    const fwd: { fid: number; geom?: any; feature?: Feature; deleted?: boolean; added?: boolean }[] = [];
+    next.forEach((r) => {
+      if (r.kind === "add" && r.feature) { fsrc.current.addFeature(r.feature); fwd.push({ fid: r.fid, feature: r.feature, added: true }); return; }
+      if (r.kind === "delete" && r.feature) { if (fsrc.current.hasFeature(r.feature)) fsrc.current.removeFeature(r.feature); fwd.push({ fid: r.fid, feature: r.feature, deleted: true }); return; }
+      const f = fsrc.current.getFeatureById(r.fid) as Feature | null;
+      if (f && r.geom) { fwd.push({ fid: r.fid, geom: f.getGeometry()!.clone() }); f.setGeometry(r.geom); }
+    });
+    undo.current.push(fwd); setUndoN(undo.current.length);
+    recalc(next.map((r) => r.fid));
+  };
+  const discardAll = () => { while (undo.current.length) doUndo(); clearRedo(); select.current?.getFeatures().clear(); };
+  /** reverse the digitising direction of the selected lines (flow direction for pipes) */
+  const flipSel = () => {
+    const fs = ((select.current?.getFeatures().getArray() || []) as Feature[]).filter((f) => kindOf(f.getGeometry()?.getType()) === "line");
+    if (!fs.length) { onError("Select one or more lines to flip."); return; }
+    undo.current.push(fs.map((f) => ({ fid: f.get("fid"), geom: f.getGeometry()!.clone() }))); setUndoN(undo.current.length); clearRedo();
+    fs.forEach((f) => {
+      const g = f.getGeometry() as any;
+      if (g instanceof LineString) f.setGeometry(new LineString(g.getCoordinates().slice().reverse()));
+      else if (g instanceof MultiLineString) f.setGeometry(new MultiLineString(g.getCoordinates().map((c: any[]) => c.slice().reverse()).reverse()));
+    });
+    recalc(fs.map((f) => f.get("fid") as number));
+    onNotice(`Flipped · ${fs.length}`);
+  };
+  const zoomSel = () => zoomTo(((select.current?.getFeatures().getArray() || []) as Feature[]).map((f) => f.get("fid") as number));
   const nPending = Object.keys(pending).length;
   const saveGeometry = async () => {
     const ids = Object.keys(pending).map(Number);
@@ -361,7 +458,7 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
     try {
       await api.saveGeometry(job.job_id, edits);
       onNotice("Saved");
-      setPending({}); undo.current = []; setUndoN(0);
+      setPending({}); undo.current = []; setUndoN(0); clearRedo();
       onValidate();
     } catch (e: any) { onError(String(e.message || e)); }
     finally { setSaving(false); }
@@ -537,13 +634,17 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   useEffect(() => {
     const h = (e: KeyboardEvent) => {
       const typing = /INPUT|TEXTAREA/.test((e.target as HTMLElement)?.tagName || "");
-      if (!typing && (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); doUndo(); }
+      const k0 = e.key.toLowerCase();
+      if (!typing && (e.ctrlKey || e.metaKey) && (k0 === "y" || (k0 === "z" && e.shiftKey))) { e.preventDefault(); doRedo(); }
+      else if (!typing && (e.ctrlKey || e.metaKey) && k0 === "z") { e.preventDefault(); doUndo(); }
+      else if (!typing && (e.ctrlKey || e.metaKey) && k0 === "s") { e.preventDefault(); saveGeometry(); }
       else if (!typing && e.key === "Delete") del();
       else if (!typing && !e.ctrlKey && !e.metaKey) {
         const k = e.key.toLowerCase();
         if (k === "v") setTool("select"); if (k === "b") setTool("box"); if (k === "e") setTool("modify"); if (k === "m") setTool("move");
         if (k === "d" && drawCls) setTool("draw");
-        if (k === "escape") setTool("select");
+        if (k === "escape") { if (inter.current.draw && (tool === "distance" || tool === "area" || tool === "draw" || tool === "split")) inter.current.draw.abortDrawing(); setTool("select"); }
+        if (k === "f" && nSel) flipSel();
       }
     };
     window.addEventListener("keydown", h);
@@ -558,37 +659,63 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   return (
     <Box sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", md: "minmax(0,1fr) 360px" }, height: "calc(100vh - 150px)", minHeight: 560,
                border: `1px solid ${C.line}`, borderRadius: 2, overflow: "hidden", bgcolor: "#fff" }}>
-      {/* ================= map */}
-      <Box sx={{ position: "relative", minWidth: 0 }}>
-        <Box ref={el} sx={{ position: "absolute", inset: 0, bgcolor: "#F4F5F7", cursor: tool === "box" ? "crosshair" : undefined,
+      {/* ================= map: edit ribbon · map · status bar */}
+      <Box sx={{ display: "flex", flexDirection: "column", minWidth: 0, minHeight: 0 }}>
+        <Stack direction="row" alignItems="stretch" sx={{ flex: "none", px: 1, py: 0.5, gap: 0.5, borderBottom: `1px solid ${C.line}`, bgcolor: "#FAFAF8",
+                                                         overflowX: "auto", scrollbarWidth: "thin" }}>
+          <Grp label="Selection">
+            <RB t="Select" k="V" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
+            <RB t="Box" k="B" tip="Drag a box to select" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RB>
+            <RB t="Zoom to" tip="Zoom to the selection" disabled={!nSel} onClick={zoomSel}><CenterFocusStrongOutlined /></RB>
+            <RB t="Clear" tip="Clear the selection" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RB>
+          </Grp>
+          <Grp label="Modify">
+            <RB t="Vertices" k="E" tip="Drag a vertex · click an edge to add one · Alt+click to remove one" on={tool === "modify"} disabled={lock} onClick={() => setTool("modify")}><PolylineOutlined /></RB>
+            <RB t="Move" k="M" on={tool === "move"} disabled={lock} onClick={() => setTool("move")}><OpenWithOutlined /></RB>
+            <RB t="Split" tip={nSel === 1 ? "Draw a line across the selected feature" : "Select one line or polygon first"} on={tool === "split"} disabled={lock || nSel !== 1}
+              onClick={() => setTool(tool === "split" ? "select" : "split")}><ContentCutOutlined /></RB>
+            <RB t="Merge" tip={nSel >= 2 ? `Merge the ${nSel} selected features (one layer)` : "Select two or more features of one layer"} disabled={lock || nSel < 2} onClick={mergeSel}><CallMergeOutlined /></RB>
+            <RB t="Explode" tip="One feature per part of a multipart feature" disabled={lock || nSel !== 1} onClick={explodeSel}><CallSplitOutlined /></RB>
+            <RB t="Flip" k="F" tip="Reverse line direction (flow)" disabled={lock || !nSel} onClick={flipSel}><SwapHorizOutlined /></RB>
+            <RB t="Delete" k="Del" disabled={lock || !nSel} onClick={del}><DeleteOutline /></RB>
+          </Grp>
+          <Grp label="Create">
+            <RB t={drawCls && tool === "draw" ? (ov?.classes[drawCls]?.alias || "Feature").slice(0, 10) : "Feature"} k="D"
+              tip={drawCls && tool === "draw" ? "Click to place · double-click to finish" : "Draw a new feature in a layer"} on={tool === "draw"} disabled={lock}
+              onClick={(e) => setDrawMenu(e!.currentTarget as HTMLElement)}><DrawOutlined /></RB>
+          </Grp>
+          <Grp label="Snapping">
+            <RB t={snapOn ? "On" : "Off"} tip={`Snapping to ${[snapOpt.vertex && "vertices", snapOpt.edge && "edges"].filter(Boolean).join(" and ") || "nothing"} · ${snapOpt.tol} px`}
+              on={snapOn} accent onClick={() => setSnapOn(!snapOn)}><CenterFocusWeakOutlined /></RB>
+            <RB t="Options" tip="What to snap to" onClick={(e) => setSnapMenu(e!.currentTarget as HTMLElement)}><ArrowDropDownRounded /></RB>
+          </Grp>
+          <Grp label="Measure">
+            <RB t="Distance" on={tool === "distance"} onClick={() => setTool(tool === "distance" ? "select" : "distance")}><StraightenOutlined /></RB>
+            <RB t="Area" on={tool === "area"} onClick={() => setTool(tool === "area" ? "select" : "area")}><SquareFootOutlined /></RB>
+          </Grp>
+          <Grp label="Edits" last>
+            <RB t="Undo" k="Ctrl+Z" disabled={!undoN || lock} onClick={doUndo}><UndoOutlined /></RB>
+            <RB t="Redo" k="Ctrl+Y" disabled={!redoN || lock} onClick={doRedo}><RedoOutlined /></RB>
+            <RB t="Discard" tip="Throw away every unsaved geometry edit" disabled={!nPending || lock} onClick={discardAll}><ClearAllOutlined /></RB>
+            <RB t="Save" k="Ctrl+S" tip={nPending ? `Save ${nPending} edit${nPending > 1 ? "s" : ""} — checks run again` : "No geometry edits"} disabled={!nPending || lock} onClick={saveGeometry}>
+              <Badge badgeContent={nPending} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 10, height: 16, minWidth: 16 } }}>
+                {saving ? <CircularProgress size={18} /> : <SaveOutlined />}
+              </Badge>
+            </RB>
+          </Grp>
+        </Stack>
+
+      <Box sx={{ position: "relative", minWidth: 0, flex: 1, minHeight: 0 }}>
+        <Box ref={el} sx={{ position: "absolute", inset: 0, bgcolor: "#EEF0F2", cursor: tool === "box" || tool === "distance" || tool === "area" ? "crosshair" : undefined,
                              "& .ol-attribution button": { width: 26, height: 26 } }} />
         {(!preview || busy) && <LinearProgress sx={{ position: "absolute", top: 0, left: 0, right: 0, height: 3, zIndex: 3 }} />}
-
-        {/* toolbar */}
-        <Stack direction="row" sx={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", bgcolor: "#fff", borderRadius: 2.5, p: 0.5, gap: 0.25,
-                                      boxShadow: "0 4px 18px rgba(16,24,40,.14)", zIndex: 2 }}>
-          <TI t="Select  (V)" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></TI>
-          <TI t="Select by box  (B)" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></TI>
-          <Sep />
-          <TI t="Edit vertices  (E) — drag a vertex · click an edge to add one · Alt+click to remove" on={tool === "modify"} disabled={lock} onClick={() => setTool("modify")}><PolylineOutlined /></TI>
-          <TI t="Move  (M)" on={tool === "move"} disabled={lock} onClick={() => setTool("move")}><OpenWithOutlined /></TI>
-          <TI t={drawCls && tool === "draw" ? `Drawing ${ov?.classes[drawCls]?.alias} — click to place, double-click to finish` : "Draw a new feature  (D)"} on={tool === "draw"} disabled={lock}
-            onClick={(e) => setDrawMenu(e!.currentTarget as HTMLElement)}><DrawOutlined /></TI>
-          <TI t={nSel === 1 ? "Split — draw a line across the selected feature" : "Split — select one line or polygon first"} on={tool === "split"} disabled={lock || nSel !== 1}
-            onClick={() => setTool(tool === "split" ? "select" : "split")}><ContentCutOutlined /></TI>
-          <TI t={nSel >= 2 ? `Merge the ${nSel} selected features (one layer)` : "Merge — select two or more features of one layer"} disabled={lock || nSel < 2} onClick={mergeSel}><CallMergeOutlined /></TI>
-          <TI t="Explode — one feature per part of a multipart feature" disabled={lock || nSel !== 1} onClick={explodeSel}><CallSplitOutlined /></TI>
-          <TI t="Delete  (Del)" disabled={lock || !nSel} onClick={del}><DeleteOutline /></TI>
-          <Sep />
-          <TI t={snapOn ? "Snapping on" : "Snapping off"} on={snapOn} accent onClick={() => setSnapOn(!snapOn)}><CenterFocusWeakOutlined /></TI>
-          <Sep />
-          <TI t="Undo  (Ctrl+Z)" disabled={!undoN || lock} onClick={doUndo}><UndoOutlined /></TI>
-          <TI t={nPending ? `Save ${nPending} edit${nPending > 1 ? "s" : ""} — checks run again` : "No geometry edits"} disabled={!nPending || lock} onClick={saveGeometry}>
-            <Badge badgeContent={nPending} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 10, height: 16, minWidth: 16 } }}>
-              {saving ? <CircularProgress size={18} /> : <SaveOutlined />}
-            </Badge>
-          </TI>
-        </Stack>
+        {measure && (
+          <Stack direction="row" alignItems="center" spacing={1} sx={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", zIndex: 3,
+                     bgcolor: C.graphite, color: "#fff", borderRadius: 2, pl: 1.5, pr: 0.5, py: 0.5, fontSize: 13, fontVariantNumeric: "tabular-nums" }}>
+            <span>{measure}</span>
+            <IconButton size="small" aria-label="Clear measurement" onClick={() => { msrc.current.clear(); setMeasure(null); }} sx={{ color: "#fff" }}><CloseOutlined sx={{ fontSize: 16 }} /></IconButton>
+          </Stack>
+        )}
 
         {/* layers */}
         <Box sx={{ position: "absolute", top: 12, left: 12, width: 210, maxHeight: "calc(100% - 24px)", overflow: "auto", bgcolor: "#fff", borderRadius: 2.5,
@@ -622,20 +749,40 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
             </MenuItem>
           ))}
         </Menu>
+        <Menu anchorEl={snapMenu} open={!!snapMenu} onClose={() => setSnapMenu(null)}>
+          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, vertex: !o.vertex }))}><Checkbox size="small" checked={snapOpt.vertex} sx={{ p: 0, mr: 1 }} />Vertices and ends</MenuItem>
+          <MenuItem dense onClick={() => setSnapOpt((o) => ({ ...o, edge: !o.edge }))}><Checkbox size="small" checked={snapOpt.edge} sx={{ p: 0, mr: 1 }} />Edges</MenuItem>
+          <MenuItem disabled dense sx={{ fontSize: 12, opacity: "1 !important", color: C.muted, mt: 0.5 }}>Tolerance</MenuItem>
+          {[5, 10, 15, 25].map((t) => <MenuItem key={t} dense selected={snapOpt.tol === t} onClick={() => setSnapOpt((o) => ({ ...o, tol: t }))}>{t} px</MenuItem>)}
+        </Menu>
         <Menu anchorEl={baseMenu} open={!!baseMenu} onClose={() => setBaseMenu(null)}>
           {Object.entries(BASEMAPS).map(([k, b]) => <MenuItem key={k} dense selected={k === basemap}
             onClick={() => { setBasemap(k); try { localStorage.setItem("gsb_basemap", k); } catch { /* ignore */ } setBaseMenu(null); }}>{b.label}</MenuItem>)}
         </Menu>
 
-        {hover && hoverRow && (
-          <Box sx={{ position: "absolute", left: hover.x + 14, top: hover.y - 34, pointerEvents: "none", bgcolor: C.graphite, color: "#fff", px: 1.1, py: 0.5,
-                     borderRadius: 1.5, fontSize: 12, fontWeight: 600, whiteSpace: "nowrap", zIndex: 3 }}>
-            {ov?.classes[hoverRow.target]?.alias} #{hoverRow.objectid ?? hoverRow.fid}
-            <Box component="span" sx={{ ml: 0.75, color: hoverRow.state === "completed" ? "#86EFAC" : hoverRow.state === "error" ? "#FCA5A5" : "#FCD34D" }}>
-              · {hoverRow.state === "completed" ? "complete" : hoverRow.state === "error" ? "error" : `${hoverRow.missing.length} to fill`}
+        <Box ref={tipEl} sx={{ position: "absolute", left: 0, top: 0, pointerEvents: "none", zIndex: 3, display: hover && hoverRow ? "block" : "none" }}>
+          {hover && hoverRow && (
+            <Box sx={{ bgcolor: C.graphite, color: "#fff", px: 1.1, py: 0.5, borderRadius: 1.5, fontSize: 12, fontWeight: 500, whiteSpace: "nowrap" }}>
+              {ov?.classes[hoverRow.target]?.alias} #{hoverRow.objectid ?? hoverRow.fid}
+              <Box component="span" sx={{ ml: 0.75, color: hoverRow.state === "completed" ? "#86EFAC" : hoverRow.state === "error" ? "#FCA5A5" : "#FCD34D" }}>
+                · {hoverRow.state === "completed" ? "complete" : hoverRow.state === "error" ? "error" : `${hoverRow.missing.length} to fill`}
+              </Box>
             </Box>
-          </Box>
-        )}
+          )}
+        </Box>
+      </Box>
+
+        {/* status bar */}
+        <Stack direction="row" alignItems="center" spacing={2} sx={{ flex: "none", height: 28, px: 1.5, borderTop: `1px solid ${C.line}`, bgcolor: "#FAFAF8",
+                   fontSize: 12, color: C.muted, fontFamily: '"Geist Mono", ui-monospace, monospace', whiteSpace: "nowrap", overflow: "hidden" }}>
+          <span ref={scaleEl}>1:—</span>
+          <span ref={xyEl} style={{ minWidth: 230 }}>—</span>
+          <span>{geo ? "WGS 84 / Web Mercator" : "Drawing units (m)"}</span>
+          <Box sx={{ flex: 1 }} />
+          {nSel > 0 && <span style={{ color: SEL_UI }}>{nSel.toLocaleString()} selected</span>}
+          {nPending > 0 && <span style={{ color: C.amber }}>{nPending} unsaved</span>}
+          <span>Snap {snapOn ? "on" : "off"}</span>
+        </Stack>
       </Box>
 
       {/* ================= side panel */}
@@ -800,20 +947,30 @@ export function DetailsDrawer({ open, title, onClose, children }: { open: boolea
   );
 }
 
-function TI({ t, on, onClick, disabled, children, accent }: { t: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean }) {
+/** A ribbon group: buttons over a caption, the way the Edit tab groups its tools. */
+function Grp({ label, children, last }: { label: string; children: React.ReactNode; last?: boolean }) {
   return (
-    <Tooltip title={t}>
+    <Stack sx={{ flex: "none", px: 0.5, borderRight: last ? undefined : `1px solid ${C.line}` }}>
+      <Stack direction="row" spacing={0.25} sx={{ flex: 1 }}>{children}</Stack>
+      <Typography sx={{ fontSize: 10.5, color: C.muted, textAlign: "center", lineHeight: 1.4 }}>{label}</Typography>
+    </Stack>
+  );
+}
+function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean }) {
+  return (
+    <Tooltip title={<>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>}>
       <span>
-        <IconButton onClick={(e) => onClick(e)} disabled={disabled} aria-label={t}
-          sx={{ width: 38, height: 38, borderRadius: 1.75, color: on ? (accent ? SEL : "#fff") : C.ink, bgcolor: on ? (accent ? "#E3F3F6" : C.ink) : "transparent",
-                "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#F1F2F4" }, "& svg": { fontSize: 20 } }}>
-          {children}
-        </IconButton>
+        <ButtonBase onClick={(e) => onClick(e)} disabled={disabled} aria-label={tip ? `${t} — ${tip}` : t} aria-pressed={on}
+          sx={{ flexDirection: "column", gap: 0.25, minWidth: 50, height: 46, px: 0.5, borderRadius: 1.5, fontSize: 11, lineHeight: 1.1,
+                color: disabled ? "#B5B3AE" : on ? (accent ? C.cyan : "#fff") : C.ink,
+                bgcolor: on ? (accent ? C.cyanSoft : C.ink) : "transparent",
+                "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#EFEEEA" }, "& svg": { fontSize: 20 } }}>
+          {children}<span>{t}</span>
+        </ButtonBase>
       </span>
     </Tooltip>
   );
 }
-const Sep = () => <Box sx={{ width: "1px", bgcolor: C.line, my: 0.75, mx: 0.25 }} />;
 
 function MB({ t, onClick, children }: { t: string; onClick: (e: React.MouseEvent<HTMLElement>) => void; children: React.ReactNode }) {
   return (

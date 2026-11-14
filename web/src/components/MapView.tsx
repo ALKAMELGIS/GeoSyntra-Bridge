@@ -42,8 +42,12 @@ export const BASEMAPS: Record<string, { label: string; layers: BaseLayer[] }> = 
 /** Tile layers of every basemap (hidden; show the chosen key with `layer.get("basemap") === key`). */
 export function basemapLayers(only?: string): TileLayer<XYZ>[] {
   return Object.entries(BASEMAPS).filter(([k]) => !only || k === only).flatMap(([key, bm]) => bm.layers.map((l) => {
-    const t = new TileLayer({ source: new XYZ({ url: l.url, attributions: l.attributions, maxZoom: l.maxZoom, crossOrigin: "anonymous" }),
-      visible: !!only, minZoom: l.minZoom });
+    // speed: the always-present base level preloads coarser tiles (no blank map while zooming), short fade,
+    // a larger tile cache so panning back is instant; detail levels load only where they exist.
+    const base = !l.minZoom;
+    const t = new TileLayer({ source: new XYZ({ url: l.url, attributions: l.attributions, maxZoom: l.maxZoom, crossOrigin: "anonymous",
+        transition: 120, cacheSize: 1024, zDirection: base ? -1 : 0 }),
+      visible: !!only, minZoom: l.minZoom, preload: base ? Infinity : 0, useInterimTilesOnError: true });
     t.set("basemap", key);
     return t;
   }));
