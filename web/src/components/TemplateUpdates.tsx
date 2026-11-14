@@ -8,12 +8,12 @@ import { api } from "../api";
 import type { Capabilities, SchemaDetail, TemplateUpdate, TemplateVersion } from "../types";
 import { C } from "../theme";
 
-const SEV: Record<string, { bg: string; fg: string; label: string }> = {
+export const SEV: Record<string, { bg: string; fg: string; label: string }> = {
   breaking: { bg: C.redSoft, fg: C.red, label: "breaking" },
   warning: { bg: C.amberSoft, fg: C.amber, label: "check" },
   info: { bg: C.blueSoft, fg: C.blue, label: "info" },
 };
-const KIND: Record<string, string> = {
+export const KIND: Record<string, string> = {
   class_added: "Class added", class_removed: "Class removed", geometry_changed: "Geometry changed", z_changed: "Z changed",
   dataset_changed: "Dataset changed", field_added: "Field added", field_removed: "Field removed",
   field_type_changed: "Field type", field_length_changed: "Text length", field_nullable_changed: "Nullability",
@@ -77,7 +77,7 @@ export function TemplateUpdates({ schema, caps, onUpdated, onError }: Props) {
         <Typography variant="caption" color="text.secondary" sx={{ flex: 1, fontFamily: "monospace" }}>
           {schema.source_template || "no template"} · v{schema.version}
         </Typography>
-        <Button size="small" startIcon={<UpdateOutlined />} onClick={() => setOpen(true)}>Template versions</Button>
+        <Button size="small" startIcon={<UpdateOutlined />} href={`#/templates?schema=${schema.schema_id}`}>Template versions</Button>
       </Stack>
       <Dialog open={open} onClose={() => { setOpen(false); setSel(null); }} maxWidth="lg" fullWidth>
         <DialogTitle>Template updates — {schema.display_name}</DialogTitle>
@@ -239,7 +239,7 @@ export function TemplateUpdates({ schema, caps, onUpdated, onError }: Props) {
   );
 }
 
-function SummaryChips({ s }: { s: Record<string, any> }) {
+export function SummaryChips({ s }: { s: Record<string, any> }) {
   const items: [string, number, string][] = [
     ["classes +", s.classes_added, C.green], ["classes −", s.classes_removed, C.red], ["fields +", s.fields_added, C.green],
     ["fields −", s.fields_removed, C.red], ["fields changed", s.fields_changed, C.amber], ["values +", s.domain_values_added, C.green],

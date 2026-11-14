@@ -108,6 +108,9 @@ export const api = {
   applyTemplate: (id: string, uid: string, renames: unknown) =>
     req<TemplateUpdate>(`/schemas/${encodeURIComponent(id)}/template-updates/${uid}/apply`, { method: "POST", body: JSON.stringify({ renames }) }),
   rejectTemplate: (id: string, uid: string) => req<TemplateUpdate>(`/schemas/${encodeURIComponent(id)}/template-updates/${uid}/reject`, { method: "POST" }),
+  templateZipUrl: (id: string) => `${BASE}/schemas/${encodeURIComponent(id)}/template.zip`,
+  archivedZipUrl: (id: string, folder: string) => `${BASE}/schemas/${encodeURIComponent(id)}/versions/${encodeURIComponent(folder)}/template.zip`,
+  uploadedZipUrl: (id: string, uid: string) => `${BASE}/schemas/${encodeURIComponent(id)}/template-updates/${uid}/template.zip`,
   restoreTemplate: (id: string, folder: string) => req<{ restored: string }>(`/schemas/${encodeURIComponent(id)}/versions/${encodeURIComponent(folder)}/restore`, { method: "POST" }),
   crs: (q: string) => req<CrsInfo[]>(`/crs?q=${encodeURIComponent(q)}`),
   jobs: () => req<Partial<JobState>[]>("/jobs"),

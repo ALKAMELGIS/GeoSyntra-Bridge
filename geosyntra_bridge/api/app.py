@@ -280,6 +280,40 @@ def create_app(s: Optional[Settings] = None) -> FastAPI:
         except KeyError:
             raise HTTPException(404, "archived version not found")
 
+    @r.get("/schemas/{schema_id}/template.zip")
+    def download_template(schema_id: str, p: Principal = Depends(auth)):
+        """The template geodatabase currently in use (the .gdb zipped), for anyone signed in."""
+        try:
+            sc = reg.get(schema_id)
+        except KeyError:
+            raise HTTPException(404, "schema not found")
+        path = sc.template_path()
+        if not path or not os.path.isfile(path):
+            raise HTTPException(404, "no template file stored for this schema")
+        return FileResponse(path, media_type="application/zip", filename=f"{sc.source_template or schema_id}_v{sc.version}.zip")
+
+    @r.get("/schemas/{schema_id}/versions/{folder}/template.zip")
+    def download_archived_template(schema_id: str, folder: str, p: Principal = Depends(auth)):
+        if not p.admin:
+            raise HTTPException(403, "only administrators can download archived templates")
+        _sid(schema_id)
+        src = os.path.join(tupd._versions_dir(schema_id), os.path.basename(folder))
+        zips = [f for f in (os.listdir(src) if os.path.isdir(src) else []) if f.lower().endswith(".zip")]
+        if not zips:
+            raise HTTPException(404, "no template file in this archived version")
+        return FileResponse(os.path.join(src, zips[0]), media_type="application/zip", filename=f"{os.path.splitext(zips[0])[0]}_{os.path.basename(folder)}.zip")
+
+    @r.get("/schemas/{schema_id}/template-updates/{uid}/template.zip")
+    def download_uploaded_template(schema_id: str, uid: str, p: Principal = Depends(auth)):
+        if not p.admin:
+            raise HTTPException(403, "only administrators can download uploaded templates")
+        _sid(schema_id)
+        d = tupd._dir(schema_id, os.path.basename(uid))
+        zips = [f for f in (os.listdir(d) if os.path.isdir(d) else []) if f.lower().endswith(".zip")]
+        if not zips:
+            raise HTTPException(404, "upload not found")
+        return FileResponse(os.path.join(d, zips[0]), media_type="application/zip", filename=zips[0])
+
     @r.get("/schemas/{schema_id}/profiles")
     def profiles(schema_id: str, p: Principal = Depends(auth)):
         return jobs.profiles.list(schema_id)

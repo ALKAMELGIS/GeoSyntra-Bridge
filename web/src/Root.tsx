@@ -8,6 +8,7 @@ import { Auth } from "./site/Auth";
 import { Account } from "./pages/Account";
 import { Owner } from "./pages/Owner";
 import { Workspace } from "./pages/Workspace";
+import { Templates } from "./pages/Templates";
 
 /** Hash routes: #/ website · #/login #/signup #/forgot #/reset · #/app (and #job=…) converter · #/account · #/owner */
 function parse(): { path: string; params: URLSearchParams } {
@@ -56,6 +57,7 @@ export default function Root() {
   if (accounts && !signedIn) { setTimeout(() => go("/login")); return null; }
   if (path === "/account" && me) return <Account me={me} mode={mode} go={go} onLogout={logout} refreshMe={refreshMe} params={params} />;
   if (path === "/owner" && me && (me.role === "owner" || me.role === "admin")) return <Owner me={me} mode={mode} go={go} onLogout={logout} />;
+  if (path === "/templates") return <Templates me={me} mode={mode} go={go} onLogout={logout} params={params} />;
   if (path === "/app" || path === "/app/") return <Workspace me={me} mode={mode} go={go} onLogout={logout} />;
   return <App me={me} mode={mode} go={go} onLogout={logout} refreshMe={refreshMe} />;
 }

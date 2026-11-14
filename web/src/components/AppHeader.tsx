@@ -4,12 +4,13 @@ import { isAr, setLang, tr } from "../i18n";
 import type { AuthUser } from "../types";
 import { Brand, UserMenu } from "./UserMenu";
 
-interface Props { me: AuthUser | null; mode: string; go: (r: string) => void; onLogout: () => void; active: "app" | "account" | "owner"; right?: ReactNode }
+interface Props { me: AuthUser | null; mode: string; go: (r: string) => void; onLogout: () => void; active: "app" | "account" | "owner" | "templates"; right?: ReactNode }
 
 /** Quiet paper bar shared by every signed-in page: brand, the three areas, credits and the account menu. */
 export function AppHeader({ me, mode, go, onLogout, active, right }: Props) {
   const staff = me && (me.role === "owner" || me.role === "admin");
   const links: [string, string, Props["active"]][] = [["Conversions", "/app", "app"]];
+  links.push(["ADM templates", "/templates", "templates"]);
   if (mode === "accounts") links.push(["Account & billing", "/account", "account"]);
   if (staff && mode === "accounts") links.push(["Owner console", "/owner", "owner"]);   // nothing to administer in local use
   return (
