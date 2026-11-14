@@ -66,6 +66,8 @@ import SquareFootOutlined from "@mui/icons-material/SquareFootOutlined";
 import CenterFocusStrongOutlined from "@mui/icons-material/CenterFocusStrongOutlined";
 import DeselectOutlined from "@mui/icons-material/DeselectOutlined";
 import ArrowDropDownRounded from "@mui/icons-material/ArrowDropDownRounded";
+import ZoomInOutlined from "@mui/icons-material/ZoomInOutlined";
+import ZoomOutOutlined from "@mui/icons-material/ZoomOutOutlined";
 import { api } from "../api";
 import type { AutofixReport, AssignOverview, AssignRow, GeoJSON, JobState, Results, TopologyError } from "../types";
 import { BASEMAPS, basemapLayers } from "./MapView";
@@ -177,6 +179,9 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
   const [snapOpt, setSnapOpt] = useState({ vertex: true, edge: true, tol: 10 });
   const [snapMenu, setSnapMenu] = useState<HTMLElement | null>(null);
   const [measure, setMeasure] = useState<string | null>(null);
+  const [rtab, setRtab] = useState<"map" | "edit">(() => { try { return localStorage.getItem("gsb_ribbon") === "map" ? "map" : "edit"; } catch { return "edit"; } });
+  const setRtabP = (k: "map" | "edit") => { setRtab(k); try { localStorage.setItem("gsb_ribbon", k); } catch { /* ignore */ } };
+  const zoomBy = (d: number) => { const v = map.current?.getView(); if (v) v.animate({ zoom: (v.getZoom() || 0) + d, duration: 200 }); };
   const redo = useRef<{ kind: "geom" | "add" | "delete"; fid: number; geom?: any; feature?: Feature }[][]>([]);
   const [redoN, setRedoN] = useState(0);
   const [baseMenu, setBaseMenu] = useState<HTMLElement | null>(null);
@@ -661,49 +666,97 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
                border: `1px solid ${C.line}`, borderRadius: 2, overflow: "hidden", bgcolor: "#fff" }}>
       {/* ================= map: edit ribbon · map · status bar */}
       <Box sx={{ display: "flex", flexDirection: "column", minWidth: 0, minHeight: 0 }}>
-        <Stack direction="row" alignItems="stretch" sx={{ flex: "none", px: 1, py: 0.5, gap: 0.5, borderBottom: `1px solid ${C.line}`, bgcolor: "#FAFAF8",
-                                                         overflowX: "auto", scrollbarWidth: "thin" }}>
-          <Grp label="Selection">
-            <RB t="Select" k="V" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
-            <RB t="Box" k="B" tip="Drag a box to select" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RB>
-            <RB t="Zoom to" tip="Zoom to the selection" disabled={!nSel} onClick={zoomSel}><CenterFocusStrongOutlined /></RB>
-            <RB t="Clear" tip="Clear the selection" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RB>
-          </Grp>
-          <Grp label="Modify">
-            <RB t="Vertices" k="E" tip="Drag a vertex · click an edge to add one · Alt+click to remove one" on={tool === "modify"} disabled={lock} onClick={() => setTool("modify")}><PolylineOutlined /></RB>
-            <RB t="Move" k="M" on={tool === "move"} disabled={lock} onClick={() => setTool("move")}><OpenWithOutlined /></RB>
-            <RB t="Split" tip={nSel === 1 ? "Draw a line across the selected feature" : "Select one line or polygon first"} on={tool === "split"} disabled={lock || nSel !== 1}
-              onClick={() => setTool(tool === "split" ? "select" : "split")}><ContentCutOutlined /></RB>
-            <RB t="Merge" tip={nSel >= 2 ? `Merge the ${nSel} selected features (one layer)` : "Select two or more features of one layer"} disabled={lock || nSel < 2} onClick={mergeSel}><CallMergeOutlined /></RB>
-            <RB t="Explode" tip="One feature per part of a multipart feature" disabled={lock || nSel !== 1} onClick={explodeSel}><CallSplitOutlined /></RB>
-            <RB t="Flip" k="F" tip="Reverse line direction (flow)" disabled={lock || !nSel} onClick={flipSel}><SwapHorizOutlined /></RB>
-            <RB t="Delete" k="Del" disabled={lock || !nSel} onClick={del}><DeleteOutline /></RB>
-          </Grp>
-          <Grp label="Create">
-            <RB t={drawCls && tool === "draw" ? (ov?.classes[drawCls]?.alias || "Feature").slice(0, 10) : "Feature"} k="D"
-              tip={drawCls && tool === "draw" ? "Click to place · double-click to finish" : "Draw a new feature in a layer"} on={tool === "draw"} disabled={lock}
-              onClick={(e) => setDrawMenu(e!.currentTarget as HTMLElement)}><DrawOutlined /></RB>
-          </Grp>
-          <Grp label="Snapping">
-            <RB t={snapOn ? "On" : "Off"} tip={`Snapping to ${[snapOpt.vertex && "vertices", snapOpt.edge && "edges"].filter(Boolean).join(" and ") || "nothing"} · ${snapOpt.tol} px`}
-              on={snapOn} accent onClick={() => setSnapOn(!snapOn)}><CenterFocusWeakOutlined /></RB>
-            <RB t="Options" tip="What to snap to" onClick={(e) => setSnapMenu(e!.currentTarget as HTMLElement)}><ArrowDropDownRounded /></RB>
-          </Grp>
-          <Grp label="Measure">
-            <RB t="Distance" on={tool === "distance"} onClick={() => setTool(tool === "distance" ? "select" : "distance")}><StraightenOutlined /></RB>
-            <RB t="Area" on={tool === "area"} onClick={() => setTool(tool === "area" ? "select" : "area")}><SquareFootOutlined /></RB>
-          </Grp>
-          <Grp label="Edits" last>
-            <RB t="Undo" k="Ctrl+Z" disabled={!undoN || lock} onClick={doUndo}><UndoOutlined /></RB>
-            <RB t="Redo" k="Ctrl+Y" disabled={!redoN || lock} onClick={doRedo}><RedoOutlined /></RB>
-            <RB t="Discard" tip="Throw away every unsaved geometry edit" disabled={!nPending || lock} onClick={discardAll}><ClearAllOutlined /></RB>
-            <RB t="Save" k="Ctrl+S" tip={nPending ? `Save ${nPending} edit${nPending > 1 ? "s" : ""} — checks run again` : "No geometry edits"} disabled={!nPending || lock} onClick={saveGeometry}>
-              <Badge badgeContent={nPending} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 10, height: 16, minWidth: 16 } }}>
-                {saving ? <CircularProgress size={18} /> : <SaveOutlined />}
-              </Badge>
-            </RB>
-          </Grp>
-        </Stack>
+        {/* ribbon: tabs, then the groups of the active tab */}
+        <Box sx={{ flex: "none", borderBottom: `1px solid ${C.line}`, bgcolor: "#FAFAF8" }}>
+          <Stack direction="row" role="tablist" aria-label="Map tools" sx={{ px: 1, gap: 0.5, borderBottom: `1px solid ${C.line}`, bgcolor: "#F4F3F0" }}>
+            {(["map", "edit"] as const).map((k) => (
+              <ButtonBase key={k} role="tab" aria-selected={rtab === k} onClick={() => setRtabP(k)}
+                sx={{ px: 1.5, height: 30, fontSize: 13, fontWeight: rtab === k ? 600 : 400, color: rtab === k ? C.ink : C.muted,
+                      boxShadow: rtab === k ? `inset 0 -2px 0 ${C.ink}` : "none", "&:hover": { color: C.ink } }}>
+                {k === "map" ? "Map" : "Edit"}
+                {k === "edit" && nPending > 0 && <Box component="span" sx={{ ml: 0.75, px: 0.6, borderRadius: 99, bgcolor: C.amberSoft, color: C.amber, fontSize: 11, fontWeight: 600 }}>{nPending}</Box>}
+              </ButtonBase>
+            ))}
+          </Stack>
+          <Stack direction="row" alignItems="stretch" sx={{ px: 1, py: 0.5, gap: 0.5, overflowX: "auto", scrollbarWidth: "thin" }}>
+            {rtab === "map" ? (<>
+              <Grp label="Navigate">
+                <RB big t="Explore" k="V" tip="Pan, zoom and pick features" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
+                <Stack>
+                  <RS t="Zoom in" onClick={() => zoomBy(1)}><ZoomInOutlined /></RS>
+                  <RS t="Zoom out" onClick={() => zoomBy(-1)}><ZoomOutOutlined /></RS>
+                </Stack>
+                <Stack>
+                  <RS t="Full extent" onClick={fitAll}><ZoomOutMapOutlined /></RS>
+                  <RS t="Zoom to selection" disabled={!nSel} onClick={zoomSel}><CenterFocusStrongOutlined /></RS>
+                </Stack>
+              </Grp>
+              <Grp label="Layer">
+                <RB big t="Basemap" tip={geo ? "Change the basemap" : "The drawing has no real-world coordinates"} disabled={!geo}
+                  onClick={(e) => setBaseMenu(e!.currentTarget as HTMLElement)}><MapOutlined /><ArrowDropDownRounded sx={{ mt: -1 }} /></RB>
+              </Grp>
+              <Grp label="Selection">
+                <RB big t="Select by box" k="B" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RB>
+                <Stack>
+                  <RS t="Clear" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RS>
+                </Stack>
+              </Grp>
+              <Grp label="Inquiry" last>
+                <RB big t="Distance" on={tool === "distance"} onClick={() => setTool(tool === "distance" ? "select" : "distance")}><StraightenOutlined /></RB>
+                <RB big t="Area" on={tool === "area"} onClick={() => setTool(tool === "area" ? "select" : "area")}><SquareFootOutlined /></RB>
+              </Grp>
+            </>) : (<>
+              <Grp label="Manage edits">
+                <RB big t="Save" k="Ctrl+S" tip={nPending ? `Save ${nPending} edit${nPending > 1 ? "s" : ""} — checks run again` : "No geometry edits"} disabled={!nPending || lock} onClick={saveGeometry}>
+                  <Badge badgeContent={nPending} color="warning" sx={{ "& .MuiBadge-badge": { fontSize: 10, height: 16, minWidth: 16 } }}>
+                    {saving ? <CircularProgress size={20} /> : <SaveOutlined />}
+                  </Badge>
+                </RB>
+                <Stack>
+                  <RS t="Discard" tip="Throw away every unsaved geometry edit" disabled={!nPending || lock} onClick={discardAll}><ClearAllOutlined /></RS>
+                  <Stack direction="row">
+                    <RS t="Undo" k="Ctrl+Z" iconOnly disabled={!undoN || lock} onClick={doUndo}><UndoOutlined /></RS>
+                    <RS t="Redo" k="Ctrl+Y" iconOnly disabled={!redoN || lock} onClick={doRedo}><RedoOutlined /></RS>
+                  </Stack>
+                </Stack>
+              </Grp>
+              <Grp label="Snapping">
+                <RB big t={snapOn ? "Snapping" : "Snap off"} tip={`Snapping to ${[snapOpt.vertex && "vertices", snapOpt.edge && "edges"].filter(Boolean).join(" and ") || "nothing"} · ${snapOpt.tol} px`}
+                  on={snapOn} accent onClick={() => setSnapOn(!snapOn)}><CenterFocusWeakOutlined /></RB>
+                <Stack>
+                  <RS t="Snap options" onClick={(e) => setSnapMenu(e!.currentTarget as HTMLElement)}><ArrowDropDownRounded /></RS>
+                </Stack>
+              </Grp>
+              <Grp label="Selection">
+                <RB big t="Select" k="V" on={tool === "select"} onClick={() => setTool("select")}><NearMeOutlined /></RB>
+                <Stack>
+                  <RS t="Select by box" k="B" on={tool === "box"} onClick={() => setTool("box")}><HighlightAltOutlined /></RS>
+                  <RS t="Clear" disabled={!nSel} onClick={() => select.current?.getFeatures().clear()}><DeselectOutlined /></RS>
+                </Stack>
+              </Grp>
+              <Grp label="Features">
+                <RB big t="Create" k="D" tip={drawCls && tool === "draw" ? `Drawing ${ov?.classes[drawCls]?.alias} — click to place, double-click to finish` : "Draw a new feature in a layer"}
+                  on={tool === "draw"} disabled={lock} onClick={(e) => setDrawMenu(e!.currentTarget as HTMLElement)}><DrawOutlined /></RB>
+                <RB big t="Modify" k="E" tip="Edit vertices — drag a vertex · click an edge to add one · Alt+click to remove one" on={tool === "modify"} disabled={lock} onClick={() => setTool("modify")}><PolylineOutlined /></RB>
+                <RB big t="Delete" k="Del" disabled={lock || !nSel} onClick={del}><DeleteOutline /></RB>
+              </Grp>
+              <Grp label="Tools" last>
+                <Stack>
+                  <RS t="Move" k="M" on={tool === "move"} disabled={lock} onClick={() => setTool("move")}><OpenWithOutlined /></RS>
+                  <RS t="Split" tip={nSel === 1 ? "Draw a line across the selected feature" : "Select one line or polygon first"} on={tool === "split"} disabled={lock || nSel !== 1}
+                    onClick={() => setTool(tool === "split" ? "select" : "split")}><ContentCutOutlined /></RS>
+                </Stack>
+                <Stack>
+                  <RS t="Merge" tip={nSel >= 2 ? `Merge the ${nSel} selected features (one layer)` : "Select two or more features of one layer"} disabled={lock || nSel < 2} onClick={mergeSel}><CallMergeOutlined /></RS>
+                  <RS t="Explode" tip="One feature per part of a multipart feature" disabled={lock || nSel !== 1} onClick={explodeSel}><CallSplitOutlined /></RS>
+                </Stack>
+                <Stack>
+                  <RS t="Flip" k="F" tip="Reverse line direction (flow)" disabled={lock || !nSel} onClick={flipSel}><SwapHorizOutlined /></RS>
+                </Stack>
+              </Grp>
+            </>)}
+          </Stack>
+        </Box>
 
       <Box sx={{ position: "relative", minWidth: 0, flex: 1, minHeight: 0 }}>
         <Box ref={el} sx={{ position: "absolute", inset: 0, bgcolor: "#EEF0F2", cursor: tool === "box" || tool === "distance" || tool === "area" ? "crosshair" : undefined,
@@ -733,13 +786,6 @@ export function ReviewStep({ job, preview, results, busy, onValidate, onError, o
           ))}
         </Box>
 
-        {/* view */}
-        <Stack spacing={0.75} sx={{ position: "absolute", right: 12, bottom: 28, zIndex: 2 }}>
-          <MB t="Zoom in" onClick={() => { const v = map.current!.getView(); v.animate({ zoom: (v.getZoom() || 0) + 1, duration: 200 }); }}>+</MB>
-          <MB t="Zoom out" onClick={() => { const v = map.current!.getView(); v.animate({ zoom: (v.getZoom() || 0) - 1, duration: 200 }); }}>−</MB>
-          <MB t="Whole drawing" onClick={fitAll}><ZoomOutMapOutlined sx={{ fontSize: 18 }} /></MB>
-          {geo && <MB t="Basemap" onClick={(e) => setBaseMenu(e.currentTarget)}><MapOutlined sx={{ fontSize: 18 }} /></MB>}
-        </Stack>
         <Menu anchorEl={drawMenu} open={!!drawMenu} onClose={() => setDrawMenu(null)} anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
           <MenuItem disabled dense sx={{ fontSize: 12, opacity: "1 !important", color: C.muted }}>New feature in…</MenuItem>
           {classes.map(([k, c]) => (
@@ -950,37 +996,48 @@ export function DetailsDrawer({ open, title, onClose, children }: { open: boolea
 /** A ribbon group: buttons over a caption, the way the Edit tab groups its tools. */
 function Grp({ label, children, last }: { label: string; children: React.ReactNode; last?: boolean }) {
   return (
-    <Stack sx={{ flex: "none", px: 0.5, borderRight: last ? undefined : `1px solid ${C.line}` }}>
-      <Stack direction="row" spacing={0.25} sx={{ flex: 1 }}>{children}</Stack>
+    <Stack sx={{ flex: "none", px: 0.75, borderRight: last ? undefined : `1px solid ${C.line}` }}>
+      <Stack direction="row" spacing={0.25} alignItems="center" sx={{ flex: 1 }}>{children}</Stack>
       <Typography sx={{ fontSize: 10.5, color: C.muted, textAlign: "center", lineHeight: 1.4 }}>{label}</Typography>
     </Stack>
   );
 }
-function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean }) {
+function Tip({ t, tip, k }: { t: string; tip?: string; k?: string }) {
+  return <>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>;
+}
+const tone = (on?: boolean, accent?: boolean, disabled?: boolean) => ({
+  color: disabled ? "#B5B3AE" : on ? (accent ? C.cyan : "#fff") : C.ink,
+  bgcolor: on ? (accent ? C.cyanSoft : C.ink) : "transparent",
+  "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#EAE8E3" },
+});
+/** Large ribbon button: icon over label. */
+function RB({ t, k, tip, on, onClick, disabled, children, accent }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; accent?: boolean; big?: boolean }) {
   return (
-    <Tooltip title={<>{tip || t}{k ? <Box component="span" sx={{ ml: 1, px: 0.6, borderRadius: 0.75, bgcolor: "rgba(255,255,255,.16)", fontFamily: "monospace" }}>{k}</Box> : null}</>}>
-      <span>
+    <Tooltip title={<Tip t={t} tip={tip} k={k} />}>
+      <span style={{ display: "flex" }}>
         <ButtonBase onClick={(e) => onClick(e)} disabled={disabled} aria-label={tip ? `${t} — ${tip}` : t} aria-pressed={on}
-          sx={{ flexDirection: "column", gap: 0.25, minWidth: 50, height: 46, px: 0.5, borderRadius: 1.5, fontSize: 11, lineHeight: 1.1,
-                color: disabled ? "#B5B3AE" : on ? (accent ? C.cyan : "#fff") : C.ink,
-                bgcolor: on ? (accent ? C.cyanSoft : C.ink) : "transparent",
-                "&:hover": { bgcolor: on ? (accent ? "#D4EDF2" : C.ink) : "#EFEEEA" }, "& svg": { fontSize: 20 } }}>
-          {children}<span>{t}</span>
+          sx={{ flexDirection: "column", justifyContent: "center", gap: 0.4, minWidth: 56, height: 64, px: 0.75, borderRadius: 1.5, fontSize: 11.5, lineHeight: 1.1,
+                ...tone(on, accent, disabled), "& svg": { fontSize: 26 } }}>
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>{children}</Box><span>{t}</span>
         </ButtonBase>
       </span>
     </Tooltip>
   );
 }
-
-function MB({ t, onClick, children }: { t: string; onClick: (e: React.MouseEvent<HTMLElement>) => void; children: React.ReactNode }) {
+/** Small ribbon button: icon beside label, stacked two per column. */
+function RS({ t, k, tip, on, onClick, disabled, children, iconOnly }: { t: string; k?: string; tip?: string; on?: boolean; onClick: (e?: React.MouseEvent<HTMLElement>) => void; disabled?: boolean; children: React.ReactNode; iconOnly?: boolean }) {
   return (
-    <Tooltip title={t} placement="left">
-      <IconButton onClick={onClick} aria-label={t} sx={{ width: 36, height: 36, borderRadius: 1.75, bgcolor: "#fff", color: C.ink, fontSize: 18, fontWeight: 500,
-        boxShadow: "0 2px 8px rgba(16,24,40,.14)", "&:hover": { bgcolor: "#fff" } }}>{children}</IconButton>
+    <Tooltip title={<Tip t={t} tip={tip} k={k} />} placement="bottom-start">
+      <span style={{ display: "flex" }}>
+        <ButtonBase onClick={(e) => onClick(e)} disabled={disabled} aria-label={tip ? `${t} — ${tip}` : t} aria-pressed={on}
+          sx={{ justifyContent: "flex-start", gap: 0.75, height: 30, px: 0.75, borderRadius: 1.25, fontSize: 12, whiteSpace: "nowrap",
+                ...tone(on, false, disabled), "& svg": { fontSize: 18 } }}>
+          {children}{!iconOnly && <span>{t}</span>}
+        </ButtonBase>
+      </span>
     </Tooltip>
   );
 }
-
 function LayerItem({ label, color, active, hidden, n, onClick, onEye }: { label: string; color?: string; active: boolean; hidden?: boolean; n: number; onClick: () => void; onEye?: () => void }) {
   return (
     <Stack direction="row" alignItems="center" spacing={1} onClick={onClick}
