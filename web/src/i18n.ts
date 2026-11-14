@@ -107,6 +107,9 @@ const AR: Record<string, string> = {
   "Possible renames": "إعادة تسمية محتملة", "Impact": "الأثر", "Show": "عرض", "All changes": "كل التغييرات", "Breaking only": "الجوهرية فقط", "To check": "للتحقق",
   "Object": "العنصر", "Detail": "التفاصيل", "No changes": "لا تغييرات", "None detected": "لم يُكتشف شيء",
   "Saved mapping profiles": "ملفات المطابقة المحفوظة", "Learned layer rules": "قواعد الطبقات المتعلَّمة", "Open conversions": "التحويلات المفتوحة", "none affected": "لا شيء متأثر",
+  "Upload several releases": "رفع عدة إصدارات", "{n} files read": "قُرئ {n} ملف", "No template matches this file name": "لا قالب يطابق اسم هذا الملف",
+  "identical — nothing to apply": "مطابق — لا شيء للتطبيق", "ready for review": "جاهز للمراجعة", "Reading and comparing the releases…": "جارٍ قراءة الإصدارات ومقارنتها…",
+  "Upload a new release of {t}": "رفع إصدار جديد لقالب {t}", "Apply or reject the release waiting below first": "طبّق الإصدار المنتظر في الأسفل أو ارفضه أولًا",
   // upload
   "Click to upload or drop files": "انقر للرفع أو أفلت الملفات", "Browse files": "تصفح الملفات", "Automatic": "تلقائي",
   "Clean-up": "التنظيف", "Projection": "الإسقاط", "Submission": "التسليم", "Change": "تغيير", "Fill in": "تعبئة", "Add sheet": "إضافة لوحة",

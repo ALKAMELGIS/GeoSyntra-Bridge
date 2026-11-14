@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   Alert, Box, Button, ButtonBase, Checkbox, Chip, FormControlLabel, LinearProgress, MenuItem, Paper, Stack, Tab, Table, TableBody,
-  TableCell, TableHead, TableRow, Tabs, TextField, Typography,
+  TableCell, TableHead, TableRow, Tabs, TextField, Tooltip, IconButton, Typography,
 } from "@mui/material";
 import FileDownloadOutlined from "@mui/icons-material/FileDownloadOutlined";
 import UploadFileOutlined from "@mui/icons-material/UploadFileOutlined";
@@ -35,6 +35,10 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
   const [err, setErr] = useState<string | null>(null);
   const [ok, setOk] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const rowFile = useRef<HTMLInputElement>(null);
+  const bulkFile = useRef<HTMLInputElement>(null);
+  const rowTarget = useRef<string | null>(null);
+  const [bulk, setBulk] = useState<{ file: string; code: string; result: string; ok: boolean }[] | null>(null);
   const admin = !!(caps?.admin ?? (me && (me.role === "owner" || me.role === "admin")));
 
   const loadList = () => api.schemas().then((s) => {
@@ -56,22 +60,50 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
     setBusy(label); setErr(null); setOk(null);
     try { await fn(); if (done) setOk(done); } catch (e: any) { setErr(e.message); } finally { setBusy(null); }
   };
-  const upload = (f: File) => sid && run("Reading and comparing the release…", async () => {
+  const upload = (f: File, target = sid) => target && run("Reading and comparing the release…", async () => {
     if (!/\.zip$/i.test(f.name)) throw new Error(tr("Upload the template geodatabase as a .zip of the .gdb folder"));
-    const u = await api.stageTemplate(sid, f);
-    await loadHist(sid); setRev(await api.templateUpdate(sid, u.update_id));
+    const u = await api.stageTemplate(target, f);
+    if (target !== sid) setSid(target);
+    await loadHist(target); setRev(await api.templateUpdate(target, u.update_id));
+  });
+  /** several releases at once: each .zip goes to the template its name carries (ADM_IR_…, ADM_HL_…) */
+  const uploadMany = (files: File[]) => run("Reading and comparing the releases…", async () => {
+    const out: { file: string; code: string; result: string; ok: boolean }[] = [];
+    for (const f of files) {
+      const code = (/ADM_([A-Z]+)_/i.exec(f.name)?.[1] || "").toUpperCase();
+      const t = list?.find((s) => codeOf(s) === code);
+      if (!t) { out.push({ file: f.name, code: code || "?", result: tr("No template matches this file name"), ok: false }); continue; }
+      try {
+        const u = await api.stageTemplate(t.schema_id, f);
+        if (u.summary?.identical) await api.rejectTemplate(t.schema_id, u.update_id).catch(() => undefined);   // nothing to decide: closed at once
+        out.push({ file: f.name, code, ok: true, result: u.summary?.identical ? tr("identical — nothing to apply") : tr("ready for review") });
+      } catch (e: any) { out.push({ file: f.name, code, result: e.message, ok: false }); }
+    }
+    setBulk(out);
+    if (sid) await loadHist(sid);
   });
 
   return (
     <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
       <AppHeader me={me} mode={mode} go={go} onLogout={onLogout} active="templates" />
       <Box sx={{ maxWidth: 1520, mx: "auto", px: { xs: 2, md: 4 }, py: 3, display: "flex", flexDirection: "column", gap: 2.5 }}>
-        <Box>
+        <input ref={rowFile} type="file" accept=".zip" hidden onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f && rowTarget.current) upload(f, rowTarget.current); }} />
+        <input ref={bulkFile} type="file" accept=".zip" multiple hidden onChange={(e) => { const fs = Array.from(e.target.files || []); e.target.value = ""; if (fs.length) uploadMany(fs); }} />
+        <Stack direction="row" alignItems="flex-end" flexWrap="wrap" useFlexGap gap={2}>
+        <Box sx={{ flex: 1, minWidth: 280 }}>
           <Typography component="h1" sx={{ fontSize: 22, fontWeight: 500 }}>{tr("ADM templates")}</Typography>
           <Typography sx={{ fontSize: 13.5, color: C.muted, mt: 0.5, maxWidth: 760 }}>
             {tr("The geodatabases every delivery is built from. When the authority publishes a new release, upload it here: it is checked and compared first, and nothing changes until you apply it.")}
           </Typography>
         </Box>
+        {admin && <Button variant="outlined" startIcon={<UploadFileOutlined />} disabled={!!busy} onClick={() => bulkFile.current?.click()}>{tr("Upload several releases")}</Button>}
+        </Stack>
+        {bulk && (
+          <Alert severity={bulk.every((b) => b.ok) ? "success" : "warning"} onClose={() => setBulk(null)}>
+            <b style={{ fontWeight: 500 }}>{tr("{n} files read", { n: bulk.length })}</b>
+            {bulk.map((b) => <Box key={b.file} sx={{ fontSize: 13 }}><Box component="span" sx={{ fontFamily: MONO }}>{b.code}</Box> · {b.file} — {b.result}</Box>)}
+          </Alert>
+        )}
         {err && <Alert severity="error" onClose={() => setErr(null)}>{err}</Alert>}
         {ok && <Alert severity="success" onClose={() => setOk(null)}>{ok}</Alert>}
 
@@ -82,9 +114,10 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
             {list?.map((s) => {
               const on = s.schema_id === sid;
               return (
-                <ButtonBase key={s.schema_id} onClick={() => setSid(s.schema_id)} aria-pressed={on}
-                  sx={{ width: "100%", justifyContent: "flex-start", textAlign: "start", gap: 1.5, px: 2, py: 1.5, borderBottom: `1px solid #EEF0F3`,
-                        bgcolor: on ? "#EEF0F3" : "transparent", boxShadow: on ? `inset 3px 0 0 ${C.ink}` : "none", "&:hover": { bgcolor: on ? "#EEF0F3" : "#F5F6F8" } }}>
+                <Stack key={s.schema_id} direction="row" alignItems="center" sx={{ borderBottom: `1px solid #EEF0F3`, bgcolor: on ? "#EEF0F3" : "transparent", "&:hover .row-up": { opacity: 1 } }}>
+                <ButtonBase onClick={() => setSid(s.schema_id)} aria-pressed={on}
+                  sx={{ flex: 1, minWidth: 0, justifyContent: "flex-start", textAlign: "start", gap: 1.5, px: 2, py: 1.5,
+                        boxShadow: on ? `inset 3px 0 0 ${C.ink}` : "none", "&:hover": { bgcolor: on ? "#EEF0F3" : "#F5F6F8" } }}>
                   <Box sx={{ width: 40, height: 40, flex: "none", borderRadius: 2, bgcolor: "#fff", border: `1px solid ${C.line}`, display: "grid", placeItems: "center",
                              fontFamily: MONO, fontSize: 12, fontWeight: 500 }}>{codeOf(s)}</Box>
                   <Box sx={{ minWidth: 0, flex: 1 }}>
@@ -92,6 +125,14 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
                     <Typography sx={{ fontSize: 12, color: C.muted, fontFamily: MONO }} noWrap>v{s.version.split(" ")[0]} · {s.feature_class_count} {tr("classes")}</Typography>
                   </Box>
                 </ButtonBase>
+                {admin && (
+                  <Tooltip title={tr("Upload a new release of {t}", { t: codeOf(s) })}>
+                    <span><IconButton className="row-up" size="small" disabled={!!busy} aria-label={tr("Upload a new release of {t}", { t: codeOf(s) })}
+                      onClick={() => { rowTarget.current = s.schema_id; rowFile.current?.click(); }}
+                      sx={{ mx: 1, opacity: on ? 1 : 0.55, color: C.muted, "&:hover": { color: C.ink } }}><UploadFileOutlined fontSize="small" /></IconButton></span>
+                  </Tooltip>
+                )}
+                </Stack>
               );
             })}
           </Paper>
@@ -107,7 +148,8 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
                     <Typography sx={{ fontSize: 12.5, color: C.muted, fontFamily: MONO, mt: 0.25 }}>{(cur.source_template || "—").replace(/(\.gdb)?$/i, ".gdb")}</Typography>
                   </Box>
                   <Button variant="outlined" startIcon={<FileDownloadOutlined />} href={api.templateZipUrl(cur.schema_id)} disabled={!cur.source_template}>{tr("Download .zip")}</Button>
-                  {admin && <Button variant="contained" startIcon={<UploadFileOutlined />} disabled={!!busy || !!rev} onClick={() => fileRef.current?.click()}>{tr("Upload new release")}</Button>}
+                  {admin && <Tooltip title={rev && rev.status === "pending" ? tr("Apply or reject the release waiting below first") : ""}><span>
+                    <Button variant="contained" startIcon={<UploadFileOutlined />} disabled={!!busy || rev?.status === "pending"} onClick={() => fileRef.current?.click()}>{tr("Upload new release")}</Button></span></Tooltip>}
                   <input ref={fileRef} type="file" accept=".zip" hidden onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) upload(f); }} />
                 </Stack>
                 <Box sx={{ display: "grid", gridTemplateColumns: { xs: "repeat(2, minmax(0,1fr))", md: "repeat(5, minmax(0,1fr))" }, gap: 2, mt: 2.5, pt: 2, borderTop: `1px solid ${C.line}` }}>
@@ -117,7 +159,7 @@ export function Templates({ me, mode, go, onLogout, params }: Props) {
                   <Fig k={tr("Coordinate system")} v={cur.spatial_reference.epsg ? `EPSG:${cur.spatial_reference.epsg}` : "—"} />
                   <Fig k={tr("Applied")} v={hist?.current?.applied_at ? `${when(hist.current.applied_at)}` : tr("as shipped")} sub={hist?.current?.applied_by} />
                 </Box>
-                {admin && !rev && (
+                {admin && rev?.status !== "pending" && (
                   <Box onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files?.[0]; if (f) upload(f); }}
                     sx={{ mt: 2, p: 2, borderRadius: 2, border: `1px dashed ${C.line}`, color: C.muted, fontSize: 13, textAlign: "center" }}>
                     {tr("Drop the new release here — the .gdb folder zipped, as published by the authority")}
